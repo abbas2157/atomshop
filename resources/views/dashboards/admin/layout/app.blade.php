@@ -17,13 +17,7 @@
         <!-- at-header start-->
         @include('dashboards/admin/layout/header')
         <!-- at-header end-->
-        <div class="az-content az-content-dashboard">
-            <div class="container">
-                <div class="az-content-body">
-                    @yield('content')
-                </div>
-            </div>
-        </div>
+        @yield('content')
          <!-- at-footer start-->
          @include('dashboards/admin/layout/footer')
          <!-- at-footer end-->

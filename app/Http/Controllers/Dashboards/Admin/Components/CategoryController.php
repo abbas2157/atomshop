@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Dashboards\Admin;
+namespace App\Http\Controllers\Dashboards\Admin\Components;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\{Auth, Mail, Hash};
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\Category;
 
 class CategoryController extends Controller
 {
@@ -14,7 +13,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::orderBy('id','desc')->paginate(20);
+        return view('dashboards.admin.components.categories.index',compact('categories'));
     }
 
     /**
@@ -22,7 +22,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboards.admin.components.categories.create');
     }
 
     /**
@@ -30,7 +30,16 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|unique:categories'
+        ]);
+
+        $category = new Category;
+        $category->title = $request->title;
+        $category->save();
+
+        $validator['success'] = 'Category created successfully';
+        return back()->withErrors($validator);
     }
 
     /**

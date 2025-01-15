@@ -10,17 +10,18 @@
                 <a href="" class="close">&times;</a>
             </div>
             <ul class="nav">
-                <li class="nav-item active show">
+                <li class="nav-item {{ (request()->segment(1) == 'admin' && (request()->segment(2) == '')) ? 'active show' : '' }}">
                     <a href="{{ route('admin') }}" class="nav-link"><i class="typcn typcn-chart-area-outline"></i> Dashboard</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {{ (request()->segment(1) == 'admin' && (request()->segment(2) == 'categories')) ? 'active show' : '' }}">
                     <a href="" class="nav-link with-sub"><i class="typcn typcn-book"></i> Components</a>
                     <div class="az-menu-sub">
                         <div class="container">
                             <div>
                                 <nav class="nav">
-                                    <a href="elem-buttons.html" class="nav-link">Categories</a>
-                                    <a href="elem-dropdown.html" class="nav-link">Brands</a>
+                                    <a href="" class="nav-link">Products</a>
+                                    <a href="{{ route('admin.categories.index') }}" class="nav-link">Categories</a>
+                                    <a href="" class="nav-link">Brands</a>
                                 </nav>
                             </div>
                         </div>
@@ -60,11 +61,10 @@
                         <div class="az-img-user">
                             <img src="{!! asset('assets/img/faces/face1.jpg') !!}" alt="">
                         </div>
-                        <h6>Aziana Pechon</h6>
-                        <span>Premium Member</span>
+                        <h6>{{ Auth::user()->name ?? '' }}</h6>
+                        <span>{{ Auth::user()->role ?? '' }}</span>
                     </div>
-                    <a href="" class="dropdown-item"><i class="typcn typcn-user-outline"></i> My Profile</a>
-                    <a href="" class="dropdown-item"><i class="typcn typcn-edit"></i> Edit Profile</a>
+                    <a href="{{ route('admin.profile') }}" class="dropdown-item"><i class="typcn typcn-user-outline"></i> My Profile</a>
                     <a href="" class="dropdown-item"><i class="typcn typcn-time"></i> Activity Logs</a>
                     <a href="" class="dropdown-item"><i class="typcn typcn-cog-outline"></i> Account Settings</a>
                     <a href="{!! route('logout') !!}" class="dropdown-item"><i class="typcn typcn-power-outline"></i> Sign Out</a>
