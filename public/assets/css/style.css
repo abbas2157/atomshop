@@ -11563,8 +11563,8 @@ body {
   @media (min-width: 480px) {
     .az-card-signin {
       border: 1px solid #cdd4e0;
-      width: 360px;
-      padding: 30px 35px; } }
+      width: 460px;
+      padding: 30px 25px; } }
 
 .az-signin-header h2 {
   font-weight: 500;

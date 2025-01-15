@@ -13,6 +13,19 @@
                 <li class="nav-item active show">
                     <a href="{{ route('admin') }}" class="nav-link"><i class="typcn typcn-chart-area-outline"></i> Dashboard</a>
                 </li>
+                <li class="nav-item">
+                    <a href="" class="nav-link with-sub"><i class="typcn typcn-book"></i> Components</a>
+                    <div class="az-menu-sub">
+                        <div class="container">
+                            <div>
+                                <nav class="nav">
+                                    <a href="elem-buttons.html" class="nav-link">Categories</a>
+                                    <a href="elem-dropdown.html" class="nav-link">Brands</a>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </li>
             </ul>
         </div>
         <div class="az-header-right">
@@ -54,7 +67,7 @@
                     <a href="" class="dropdown-item"><i class="typcn typcn-edit"></i> Edit Profile</a>
                     <a href="" class="dropdown-item"><i class="typcn typcn-time"></i> Activity Logs</a>
                     <a href="" class="dropdown-item"><i class="typcn typcn-cog-outline"></i> Account Settings</a>
-                    <a href="" class="dropdown-item"><i class="typcn typcn-power-outline"></i> Sign Out</a>
+                    <a href="{!! route('logout') !!}" class="dropdown-item"><i class="typcn typcn-power-outline"></i> Sign Out</a>
                 </div>
             </div>
         </div>
