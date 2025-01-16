@@ -20,7 +20,19 @@
                             <div>
                                 <nav class="nav">
                                     <a href="{{ route('admin.categories.index') }}" class="nav-link">Categories</a>
-                                    <a href="" class="nav-link">Brands</a>
+                                    <a href="{{ route('admin.brands.index') }}" class="nav-link">Brands</a>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item {{ (request()->segment(1) == 'admin' && (request()->segment(2) == 'categories')) ? 'active show' : '' }}">
+                    <a href="" class="nav-link with-sub"><i class="typcn typcn-book"></i> Categories</a>
+                    <div class="az-menu-sub">
+                        <div class="container">
+                            <div>
+                                <nav class="nav">
+                                    <a href="" class="nav-link">Categories</a>
                                 </nav>
                             </div>
                         </div>

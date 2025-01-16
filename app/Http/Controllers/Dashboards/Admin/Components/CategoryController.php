@@ -15,8 +15,11 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::orderBy('id','desc');
-        if(request()->has('q')) {
+        if(request()->has('q') && !empty(request()->q)) {
             $categories->where('title', 'LIKE',  '%' . request()->q . '%');
+        }
+        if(request()->has('status') && !empty(request()->status)) {
+            $categories->where('status', request()->status);
         }
         $categories = $categories->paginate(10);
         return view('dashboards.admin.components.categories.index',compact('categories'));
@@ -36,18 +39,20 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|unique:categories'
+            'title' => 'required|unique:categories',
+            'slug' => 'required|unique:categories'
         ]);
 
         $category = new Category;
         $category->title = $request->title;
+        $category->slug = $request->slug;
         if($request->hasFile('picture')) {
             $file = $request->file('picture');
             $fileName  = pathinfo($file->getClientOriginalName(),PATHINFO_FILENAME);
             $extension = pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
             $filename  = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', strtolower($request->title))).'.'.$extension;
             $file->move(public_path('images/categories'),$filename);
-            $category->picture = $filename;
+            $category->picture = 'images/categories/'.$filename;
         }
         $category->status = $request->status;
         $category->save();
@@ -79,11 +84,13 @@ class CategoryController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'title' => 'required|unique:categories,id,'.$id
+            'title' => 'required|unique:categories,id,'.$id,
+            'slug' => 'required|unique:categories,id,'.$id
         ]);
         $category = Category::findOrFail($id);
 
         $category->title = $request->title;
+        $category->slug = $request->slug;
         if($request->hasFile('picture')) {
             $file = $request->file('picture');
             $fileName  = pathinfo($file->getClientOriginalName(),PATHINFO_FILENAME);

@@ -7,8 +7,8 @@
         </nav>
         <label>Brands</label>
         <nav class="nav flex-column">
-            <a href="" class="nav-link">View & Edit</a>
-            <a href="" class="nav-link">Create new</a>
+            <a href="{{ route('admin.brands.index') }}" class="nav-link {{ (request()->segment(2) == 'brands' && (request()->segment(3) !== 'create')) ? 'active' : '' }}">View & Edit</a>
+            <a href="{{ route('admin.brands.create') }}" class="nav-link {{ (request()->segment(2) == 'brands' && (request()->segment(3) == 'create')) ? 'active' : '' }}">Create new</a>
         </nav>
     </div>
 </div>

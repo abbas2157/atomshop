@@ -14,6 +14,7 @@ Route::group(['middleware' => ['auth']], function() {
                 Route::post('picture/update', [App\Http\Controllers\Dashboards\Admin\ProfileController::class, 'picture_update'])->name('change-profile.picture');
             });
             Route::resource('categories', App\Http\Controllers\Dashboards\Admin\Components\CategoryController::class,['as' => 'admin']);
+            Route::resource('brands', App\Http\Controllers\Dashboards\Admin\Components\BrandController::class,['as' => 'admin']);
         });
     });
 });

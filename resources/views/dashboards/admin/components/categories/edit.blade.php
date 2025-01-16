@@ -28,6 +28,15 @@
                         @endif
                     </div>
                     <div class="col-lg">
+                        <label>Slug <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="slug" value="{{ $category->slug ?? '' }}" placeholder="Enter category slug" value="{{ old('slug') }}" required>
+                        @if ($errors->has('slug'))
+                            <span class="text-danger text-left">{{ $errors->first('slug') }}</span>
+                        @endif
+                    </div>
+                </div>
+                <div class="row row-sm mt-2">
+                    <div class="col-lg">
                         <label>Picture </label>
                         <div class="custom-file">
                             <input type="file" accept="images/jpg,jpeg,png" class="custom-file-input" name="picture" id="customFile" >
@@ -38,10 +47,10 @@
                         @endif
                     </div>
                     <div class="col-lg">
-                        <label>Select <span class="text-danger">*</span></label>
+                        <label>Select status <span class="text-danger">*</span></label>
                         <select class="form-control" name="status">
-                            <option value="inactive" {{ ($category->status == 'inactive') ? 'selected' : '' }}>Inactive</option>
                             <option value="active" {{ ($category->status == 'active') ? 'selected' : '' }}>Active</option>
+                            <option value="inactive" {{ ($category->status == 'inactive') ? 'selected' : '' }}>Inactive</option>
                         </select>
                     </div>
                 </div>
