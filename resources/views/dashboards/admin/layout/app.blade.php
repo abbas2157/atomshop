@@ -26,6 +26,6 @@
         <script src="{!! asset('assets/lib/ionicons/ionicons.js') !!}"></script>
 
         <script src="{!! asset('assets/js/scripts.js') !!}"></script>
-        @yield('css')
+        @yield('js')
     </body>
 </html>

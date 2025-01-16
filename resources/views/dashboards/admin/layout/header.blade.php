@@ -19,7 +19,6 @@
                         <div class="container">
                             <div>
                                 <nav class="nav">
-                                    <a href="" class="nav-link">Products</a>
                                     <a href="{{ route('admin.categories.index') }}" class="nav-link">Categories</a>
                                     <a href="" class="nav-link">Brands</a>
                                 </nav>

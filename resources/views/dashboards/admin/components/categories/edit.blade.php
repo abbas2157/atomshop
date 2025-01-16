@@ -10,25 +10,27 @@
             <div class="az-content-breadcrumb">
                 <span>Components</span>
                 <span>Categories</span>
-                <span>Create</span>
+                <span>{{ $category->title ?? '' }}</span>
+                <span>Edit</span>
             </div>
             <h2 class="az-content-title">Categories</h2>
-            <div class="az-content-label mg-b-5">Create new</div>
-            <p class="mg-b-20">Using this form you can add new category</p>
-            <form method="POST" action="{{ route('admin.categories.store') }}" enctype="multipart/form-data">
+            <div class="az-content-label mg-b-5">Edit</div>
+            <p class="mg-b-20">Using this form you can edit this category</p>
+            <form method="POST" action="{{ route('admin.categories.update', $category->id) }}" enctype="multipart/form-data">
                 @csrf
+                @method('PUT')
                 <div class="row row-sm">
                     <div class="col-lg">
                         <label>Title <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" name="title" placeholder="Enter Category Title" value="{{ old('title') }}" required>
+                        <input type="text" class="form-control" name="title" value="{{ $category->title ?? '' }}" placeholder="Enter Category Title" value="{{ old('title') }}" required>
                         @if ($errors->has('title'))
                             <span class="text-danger text-left">{{ $errors->first('title') }}</span>
                         @endif
                     </div>
                     <div class="col-lg">
-                        <label>Picture <span class="text-danger">*</span></label>
+                        <label>Picture </label>
                         <div class="custom-file">
-                            <input type="file" accept="images/jpg,jpeg,png" class="custom-file-input" name="picture" id="customFile" required>
+                            <input type="file" accept="images/jpg,jpeg,png" class="custom-file-input" name="picture" id="customFile" >
                             <label class="custom-file-label" for="customFile">Choose picture</label>
                         </div>
                         @if ($errors->has('picture'))
@@ -38,12 +40,12 @@
                     <div class="col-lg">
                         <label>Select <span class="text-danger">*</span></label>
                         <select class="form-control" name="status">
-                            <option value="inactive">Inactive</option>
-                            <option value="active">Active</option>
+                            <option value="inactive" {{ ($category->status == 'inactive') ? 'selected' : '' }}>Inactive</option>
+                            <option value="active" {{ ($category->status == 'active') ? 'selected' : '' }}>Active</option>
                         </select>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-success mt-3">Create category</button>
+                <button type="submit" class="btn btn-success mt-3">Update category</button>
             </form>
             <hr class="mg-y-40">
             <hr class="mg-y-40">

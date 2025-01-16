@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboards\Admin\Components;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use App\Models\Category;
 
 class CategoryController extends Controller
@@ -13,7 +14,11 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::orderBy('id','desc')->paginate(20);
+        $categories = Category::orderBy('id','desc');
+        if(request()->has('q')) {
+            $categories->where('title', 'LIKE',  '%' . request()->q . '%');
+        }
+        $categories = $categories->paginate(10);
         return view('dashboards.admin.components.categories.index',compact('categories'));
     }
 
@@ -36,6 +41,15 @@ class CategoryController extends Controller
 
         $category = new Category;
         $category->title = $request->title;
+        if($request->hasFile('picture')) {
+            $file = $request->file('picture');
+            $fileName  = pathinfo($file->getClientOriginalName(),PATHINFO_FILENAME);
+            $extension = pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
+            $filename  = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', strtolower($request->title))).'.'.$extension;
+            $file->move(public_path('images/categories'),$filename);
+            $category->picture = $filename;
+        }
+        $category->status = $request->status;
         $category->save();
 
         $validator['success'] = 'Category created successfully';
@@ -55,7 +69,8 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $category = Category::findOrFail($id);
+        return view('dashboards.admin.components.categories.edit',compact('category'));
     }
 
     /**
@@ -63,7 +78,26 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'title' => 'required|unique:categories,id,'.$id
+        ]);
+        $category = Category::findOrFail($id);
+
+        $category->title = $request->title;
+        if($request->hasFile('picture')) {
+            $file = $request->file('picture');
+            $fileName  = pathinfo($file->getClientOriginalName(),PATHINFO_FILENAME);
+            $extension = pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
+            $filename  = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', strtolower($request->title))).'.'.$extension;
+            $file->move(public_path('images/categories'),$filename);
+            $category->picture = $filename;
+        }
+        $category->status = $request->status;
+        $category->save();
+
+        $validator['success'] = 'Category created successfully';
+        return back()->withErrors($validator);
+
     }
 
     /**
@@ -71,6 +105,15 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $category = Category::findOrFail($id);
+
+        $picture = public_path('images/categories/' . $category->picture);
+        if (File::exists($picture)) {
+            File::delete($picture);
+        }
+        $category->delete();
+
+        $validator['success'] = 'Category deleted successfully';
+        return back()->withErrors($validator);
     }
 }
