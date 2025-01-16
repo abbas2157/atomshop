@@ -26,18 +26,25 @@
                         </div>
                     </div>
                 </li>
-                <li class="nav-item {{ (request()->segment(1) == 'admin' && (request()->segment(2) == 'categories')) ? 'active show' : '' }}">
-                    <a href="" class="nav-link with-sub"><i class="typcn typcn-book"></i> Categories</a>
-                    <div class="az-menu-sub">
-                        <div class="container">
-                            <div>
-                                <nav class="nav">
-                                    <a href="" class="nav-link">Categories</a>
-                                </nav>
+                @php
+                    $categories = App\Models\Category::orderBy('id','desc')->where('status','active')->get();
+                @endphp
+                @if($categories->isNotEmpty())
+                    <li class="nav-item {{ (request()->segment(1) == 'admin' && (request()->segment(2) == 'categories')) ? 'active show' : '' }}">
+                        <a href="" class="nav-link with-sub"><i class="typcn typcn-document-text"></i> Categories</a>
+                        <div class="az-menu-sub">
+                            <div class="container">
+                                <div>
+                                    <nav class="nav">
+                                        @foreach($categories as $item)
+                                            <a href="" class="nav-link">{{ $item->title ?? '' }}</a>
+                                        @endforeach
+                                    </nav>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </li>
+                    </li>
+                @endif
             </ul>
         </div>
         <div class="az-header-right">

@@ -30,6 +30,12 @@
                         </div>
                         <button type="submit" class="btn btn-az-primary btn-block">Sign In</button>
                     </form>
+                    @if ($errors->has('success'))
+                        <div class="text-success text-left mt-3">{{ $errors->first('success') }}</div>
+                    @endif
+                    @if ($errors->has('error'))
+                        <div class="text-danger text-left mt-3">{{ $errors->first('error') }}</div>
+                    @endif
                 </div>
                 <div class="az-signin-footer">
                     <p><a href="{{ route('password.forgot') }}">Forgot password?</a></p>
