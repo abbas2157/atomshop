@@ -49,6 +49,7 @@
                         <select class="form-control" name="status">
                             <option value="active">Active</option>
                             <option value="inactive">Inactive</option>
+                        </select>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-success mt-3">Create category</button>

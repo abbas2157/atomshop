@@ -21,6 +21,8 @@
                                 <nav class="nav">
                                     <a href="{{ route('admin.categories.index') }}" class="nav-link">Categories</a>
                                     <a href="{{ route('admin.brands.index') }}" class="nav-link">Brands</a>
+                                    <a href="{{ route('admin.cities.index') }}" class="nav-link">Cities</a>
+                                    <a href="{{ route('admin.areas.index') }}" class="nav-link">Areas</a>
                                 </nav>
                             </div>
                         </div>

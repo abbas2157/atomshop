@@ -44,10 +44,10 @@
                                 <button class="btn btn-primary" type="submit" style="padding: 8px 20px;"><i class="fa fa-search"></i></button>
                             </span>
                             <span class="input-group-btn" title="Clear Search">
-                                <a href="{{ route('admin.categories.index') }}" class="btn btn-warning" type="submit" style="padding: 8px 20px;"><i class="far fa-arrow-alt-circle-left"></i></a>
+                                <a href="{{ route('admin.brands.index') }}" class="btn btn-warning" type="submit" style="padding: 8px 20px;"><i class="far fa-arrow-alt-circle-left"></i></a>
                             </span>
                             <span class="input-group-btn" title="Create New">
-                                <a href="{{ route('admin.categories.create') }}" class="btn btn-info" type="submit" style="padding: 8px 20px;"><i class="typcn typcn-document-add"></i></a>
+                                <a href="{{ route('admin.brands.create') }}" class="btn btn-info" type="submit" style="padding: 8px 20px;"><i class="typcn typcn-document-add"></i></a>
                             </span>
                         </div>
                     </div>
@@ -103,7 +103,7 @@
 @section('js')
 <script>
     $(document).on('click', '#delete-btn', function () {
-        if (confirm('Are you sure you want to delete this category?')) {
+        if (confirm('Are you sure you want to delete this Brand?')) {
             $('#delete-form').submit();
         }
     });
