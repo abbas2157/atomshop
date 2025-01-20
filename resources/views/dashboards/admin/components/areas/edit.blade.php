@@ -5,12 +5,13 @@
 @section('content')
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
-            @include('dashboards/admin/components/partials/sidebar')
+            @include('dashboards/admin/components/partials/area-management-sidebar')
             <div class="az-content-body pd-lg-l-40 d-flex flex-column">
                 <div class="az-content-breadcrumb">
-                    <span>Components</span>
+                    <span>Zone Management</span>
                     <span>Area</span>
-                    <span>Create</span>
+                    <span>{{ $areas->title ?? '' }}</span>
+                    <span>Edit</span>
                 </div>
                 <h2 class="az-content-title">Area</h2>
                 <div class="az-content-label mg-b-5">Create new</div>
@@ -19,29 +20,8 @@
                     @csrf
                     @method('PUT')
                     <div class="row row-sm">
-                        <div class="col-lg-6 mt-2">
-                            <label>Title<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="title" value="{{ $areas->title ?? '' }}" placeholder="Enter areas Title" value="{{ old('title') }}" required>
-                            @if ($errors->has('title'))
-                                <span class="text-danger text-left">{{ $errors->first('title') }}</span>
-                            @endif
-                        </div>
-                        <div class="col-lg-6 mt-2">
-                            <label>Lat<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="lat" value="{{ $areas->lat ?? '' }}" placeholder="Enter areas lat" value="{{ old('lat') }}" required>
-                            @if ($errors->has('lat'))
-                                <span class="text-danger text-left">{{ $errors->first('lat') }}</span>
-                            @endif
-                        </div>
-                        <div class="col-lg-6 mt-2">
-                            <label>Lng<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="lng" value="{{ $areas->lng ?? '' }}" placeholder="Enter areas lng" value="{{ old('lng') }}" required>
-                            @if ($errors->has('lng'))
-                                <span class="text-danger text-left">{{ $errors->first('lng') }}</span>
-                            @endif
-                        </div>
                         <div class="col-lg mt-2">
-                            <label>Select City<span class="text-danger">*</span></label>
+                            <label>Select City <span class="text-danger">*</span></label>
                             <select class="form-control" name="city_id" required>
                                 <option selected disabled>Select City</option>
                                 @if($cities->isNotEmpty())
@@ -54,6 +34,28 @@
                                 <span class="text-danger text-left">{{ $errors->first('city_id') }}</span>
                             @endif
                         </div>
+                        <div class="col-lg-6 mt-2">
+                            <label>Title <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="title" value="{{ $areas->title ?? '' }}" placeholder="Enter areas Title" value="{{ old('title') }}" required>
+                            @if ($errors->has('title'))
+                                <span class="text-danger text-left">{{ $errors->first('title') }}</span>
+                            @endif
+                        </div>
+                        <div class="col-lg-6 mt-2">
+                            <label>Latitude <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="lat" value="{{ $areas->lat ?? '' }}" placeholder="Enter Latitude" value="{{ old('lat') }}" required>
+                            @if ($errors->has('lat'))
+                                <span class="text-danger text-left">{{ $errors->first('lat') }}</span>
+                            @endif
+                        </div>
+                        <div class="col-lg-6 mt-2">
+                            <label>Longitude <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="lng" value="{{ $areas->lng ?? '' }}" placeholder="Enter Longitude" value="{{ old('lng') }}" required>
+                            @if ($errors->has('lng'))
+                                <span class="text-danger text-left">{{ $errors->first('lng') }}</span>
+                            @endif
+                        </div>
+                        
                         <div class="col-lg-6 mt-2">
                             <label>Select status <span class="text-danger">*</span></label>
                             <select class="form-control" name="status">

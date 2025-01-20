@@ -5,10 +5,10 @@
 @section('content')
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
-            @include('dashboards/admin/components/partials/sidebar')
+            @include('dashboards/admin/components/partials/area-management-sidebar')
             <div class="az-content-body pd-lg-l-40 d-flex flex-column">
                 <div class="az-content-breadcrumb">
-                    <span>Components</span>
+                    <span>Zone Management</span>
                     <span>Cities</span>
                     <span>Create</span>
                 </div>
@@ -19,15 +19,23 @@
                     @csrf
                     <div class="row row-sm">
                         <div class="col-lg">
-                            <label>Title<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="title" placeholder="Enter cities Title" value="{{ old('title') }}" required>
-                            @if ($errors->has('title'))
-                                <span class="text-danger text-left">{{ $errors->first('title') }}</span>
+                            <label>Country <span class="text-danger">*</span></label>
+                            <select class="form-control" name="country" required>
+                                <option value="Pakistan">Pakistan</option>
+                            </select>
+                            @if ($errors->has('country'))
+                                <span class="text-danger text-left">{{ $errors->first('country') }}</span>
                             @endif
                         </div>
                         <div class="col-lg">
-                            <label>Provice<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="provice" placeholder="Provice" value="{{ old('provice') }}" required>
+                            <label>Provice <span class="text-danger">*</span></label>
+                            <select class="form-control" name="provice" required>
+                                <option value="Punjab">Punjab</option>
+                                <option value="Sindh">Sindh</option>
+                                <option value="Balochistan">Balochistan</option>
+                                <option value="Khyber Pakhtunkhwa">Khyber Pakhtunkhwa</option>
+                                <option value="Gilgit-Baltistan">Gilgit-Baltistan</option>
+                            </select>
                             @if ($errors->has('provice'))
                                 <span class="text-danger text-left">{{ $errors->first('provice') }}</span>
                             @endif
@@ -35,12 +43,11 @@
                     </div>
                     <div class="row row-sm mt-2">
                         <div class="col-lg">
-                            <label>Country<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="country" placeholder="Country" value="{{ old('country') }}" required>
-                            @if ($errors->has('country'))
-                                <span class="text-danger text-left">{{ $errors->first('country') }}</span>
+                            <label>Title <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="title" placeholder="Enter cities Title" value="{{ old('title') }}" required>
+                            @if ($errors->has('title'))
+                                <span class="text-danger text-left">{{ $errors->first('title') }}</span>
                             @endif
-                        
                         </div>
                         <div class="col-lg">
                             <label>Select status <span class="text-danger">*</span></label>

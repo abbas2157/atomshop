@@ -5,10 +5,10 @@
 @section('content')
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
         <div class="container">
-            @include('dashboards/admin/components/partials/sidebar')
+            @include('dashboards/admin/components/partials/area-management-sidebar')
             <div class="az-content-body pd-lg-l-40 d-flex flex-column">
                 <div class="az-content-breadcrumb">
-                    <span>Components</span>
+                    <span>Zone Management</span>
                     <span>Areas</span>
                 </div>
                 <h2 class="az-content-title">Areas</h2>

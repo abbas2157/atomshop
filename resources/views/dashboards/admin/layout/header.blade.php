@@ -21,6 +21,17 @@
                                 <nav class="nav">
                                     <a href="{{ route('admin.categories.index') }}" class="nav-link">Categories</a>
                                     <a href="{{ route('admin.brands.index') }}" class="nav-link">Brands</a>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item {{ (request()->segment(1) == 'admin' && (request()->segment(2) == 'categories')) ? 'active show' : '' }}">
+                    <a href="" class="nav-link with-sub"><i class="typcn typcn-location-outline"></i> Zone Management</a>
+                    <div class="az-menu-sub">
+                        <div class="container">
+                            <div>
+                                <nav class="nav">
                                     <a href="{{ route('admin.cities.index') }}" class="nav-link">Cities</a>
                                     <a href="{{ route('admin.areas.index') }}" class="nav-link">Areas</a>
                                 </nav>
@@ -28,25 +39,6 @@
                         </div>
                     </div>
                 </li>
-                @php
-                    $categories = App\Models\Category::orderBy('id','desc')->where('status','active')->get();
-                @endphp
-                @if($categories->isNotEmpty())
-                    <li class="nav-item {{ (request()->segment(1) == 'admin' && (request()->segment(2) == 'categories')) ? 'active show' : '' }}">
-                        <a href="" class="nav-link with-sub"><i class="typcn typcn-document-text"></i> Categories</a>
-                        <div class="az-menu-sub">
-                            <div class="container">
-                                <div>
-                                    <nav class="nav">
-                                        @foreach($categories as $item)
-                                            <a href="" class="nav-link">{{ $item->title ?? '' }}</a>
-                                        @endforeach
-                                    </nav>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                @endif
             </ul>
         </div>
         <div class="az-header-right">
