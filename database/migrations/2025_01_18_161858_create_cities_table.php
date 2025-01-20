@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('cities', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('slug')->nullable();
             $table->string('provice')->nullable();
             $table->string('country')->nullable();
             $table->enum('status',['active','inactive'])->default('active');

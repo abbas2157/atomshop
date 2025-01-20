@@ -8,7 +8,7 @@
         @include('dashboards/admin/components/partials/sidebar')
         <div class="az-content-body pd-lg-l-40 d-flex flex-column">
             <div class="az-content-breadcrumb">
-                <span>Components</span>
+                <span>Product Management</span>
                 <span>Brands</span>
             </div>
             <h2 class="az-content-title">Brands</h2>

@@ -55,6 +55,7 @@ class AreaController extends Controller
         ]);
         $areas = new Area;
         $areas->title = $request->title;
+        $cities->slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->title)));
         $areas->lat = $request->lat;
         $areas->lng = $request->lng;
         $areas->city_id = $request->city_id;
@@ -93,6 +94,7 @@ class AreaController extends Controller
         ]);
         $areas = Area::findOrFail($id);
         $areas->title = $request->title;
+        $cities->slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->title)));
         $areas->lat = $request->lat;
         $areas->lng = $request->lng;
         $areas->city_id = $request->city_id;

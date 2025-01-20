@@ -13,8 +13,12 @@ Route::group(['middleware' => ['auth']], function() {
                 Route::post('change/password', [App\Http\Controllers\Dashboards\Admin\ProfileController::class, 'show'])->name('admin.profile.change.password');
                 Route::post('picture/update', [App\Http\Controllers\Dashboards\Admin\ProfileController::class, 'picture_update'])->name('change-profile.picture');
             });
+            //Product Management
+            Route::resource('products', App\Http\Controllers\Dashboards\Admin\Components\ProductController::class,['as' => 'admin']);
             Route::resource('categories', App\Http\Controllers\Dashboards\Admin\Components\CategoryController::class,['as' => 'admin']);
             Route::resource('brands', App\Http\Controllers\Dashboards\Admin\Components\BrandController::class,['as' => 'admin']);
+
+            //Zone Management
             Route::resource('cities', App\Http\Controllers\Dashboards\Admin\Components\CitiesController::class,['as' => 'admin']);
             Route::resource('areas', App\Http\Controllers\Dashboards\Admin\Components\AreaController::class,['as' => 'admin']);
         });

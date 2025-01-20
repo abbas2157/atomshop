@@ -559,6 +559,9 @@ pre {
     max-width: 720px; } }
 
 @media (min-width: 992px) {
+  .az-header-menu .nav-item.show::befo {
+      display: block;
+  }
   .container, .container-sm, .container-md, .container-lg {
     max-width: 960px; } }
 
@@ -9385,8 +9388,8 @@ body {
       font-weight: 700;
       color: #1c273c;
       letter-spacing: .5px;
-      margin-bottom: 15px;
-      margin-top: 30px; }
+      margin-bottom: 13px;
+       }
       @media (min-width: 992px) {
         .az-menu-sub-mega .nav > span {
           font-size: 12px; } }

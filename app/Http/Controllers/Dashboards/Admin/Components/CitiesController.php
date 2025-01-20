@@ -46,12 +46,15 @@ class CitiesController extends Controller
         $request->validate([
             'title' => 'required|unique:cities',
         ]);
+
         $cities = new City;
         $cities->title = $request->title;
+        $cities->slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->title)));
         $cities->provice = $request->provice;
         $cities->country = $request->country;
         $cities->status = $request->status;
         $cities->save();
+
         $validator['success'] = 'City created successfully';
         return back()->withErrors($validator);
     }
@@ -82,6 +85,7 @@ class CitiesController extends Controller
         ]);
         $cities = City::findOrFail($id);
         $cities->title = $request->title;
+        $cities->slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->title)));
         $cities->provice = $request->provice;
         $cities->country = $request->country;
         $cities->status = $request->status;

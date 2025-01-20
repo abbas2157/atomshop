@@ -13,27 +13,41 @@
                 <li class="nav-item {{ (request()->segment(1) == 'admin' && (request()->segment(2) == '')) ? 'active show' : '' }}">
                     <a href="{{ route('admin') }}" class="nav-link"><i class="typcn typcn-chart-area-outline"></i> Dashboard</a>
                 </li>
-                <li class="nav-item {{ (request()->segment(1) == 'admin' && (request()->segment(2) == 'categories')) ? 'active show' : '' }}">
-                    <a href="" class="nav-link with-sub"><i class="typcn typcn-book"></i> Components</a>
-                    <div class="az-menu-sub">
+                <li class="nav-item {{ (request()->segment(1) == 'admin' && (request()->segment(2) == 'categories' || request()->segment(2) == 'cities' || request()->segment(2) == 'areas' || request()->segment(2) == 'brands')) ? 'active show' : '' }}">
+                    <a href="" class="nav-link with-sub"><i class="typcn typcn-th-large-outline"></i> Product Management</a>
+                    <div class="az-menu-sub az-menu-sub-mega">
                         <div class="container">
                             <div>
                                 <nav class="nav">
-                                    <a href="{{ route('admin.categories.index') }}" class="nav-link">Categories</a>
-                                    <a href="{{ route('admin.brands.index') }}" class="nav-link">Brands</a>
+                                    <span>Products Management</span>
+                                    <span>Products</span>
+                                    <a href="" class="nav-link">All Products</a>
+                                    <a href="" class="nav-link"> Create Product</a>
+                                    <span class="mt-3">Categories</span>
+                                    <a href="{{ route('admin.categories.index') }}" class="nav-link"> All Categories</a>
+                                    <a href="{{ route('admin.categories.create') }}" class="nav-link">Create new</a>
+                                    <span class="mt-3">Brands</span>
+                                    <a href="{{ route('admin.brands.index') }}" class="nav-link">All Brands</a>
+                                    <a href="{{ route('admin.brands.create') }}" class="nav-link">Create new</a>
+                                </nav>
+                                <nav class="nav">
+                                    <span>Colors</span>
+                                    <a href="" class="nav-link"> All Colors</a>
+                                    <a href="" class="nav-link">Create new</a>
+                                    <span class="mt-3">Memory</span>
+                                    <a href="" class="nav-link">Memory List</a>
+                                    <a href="" class="nav-link">Create new</a>
                                 </nav>
                             </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="nav-item {{ (request()->segment(1) == 'admin' && (request()->segment(2) == 'categories')) ? 'active show' : '' }}">
-                    <a href="" class="nav-link with-sub"><i class="typcn typcn-location-outline"></i> Zone Management</a>
-                    <div class="az-menu-sub">
-                        <div class="container">
                             <div>
                                 <nav class="nav">
-                                    <a href="{{ route('admin.cities.index') }}" class="nav-link">Cities</a>
-                                    <a href="{{ route('admin.areas.index') }}" class="nav-link">Areas</a>
+                                    <span>Zone Management</span>
+                                    <span>Areas</span>
+                                    <a href="{{ route('admin.cities.index') }}" class="nav-link"> All Cities</a>
+                                    <a href="{{ route('admin.cities.create') }}" class="nav-link">Create new</a>
+                                    <span class="mt-3">Areas</span>
+                                    <a href="{{ route('admin.areas.index') }}" class="nav-link"> All Areas</a>
+                                    <a href="{{ route('admin.areas.create') }}" class="nav-link">Create new</a>
                                 </nav>
                             </div>
                         </div>
