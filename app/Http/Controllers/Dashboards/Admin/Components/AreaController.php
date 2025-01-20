@@ -4,8 +4,7 @@ namespace App\Http\Controllers\Dashboards\Admin\Components;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Area;
-use App\Models\City;
+use App\Models\{Area, City};
 
 class AreaController extends Controller
 {

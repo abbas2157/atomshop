@@ -21,8 +21,8 @@
                                 <nav class="nav">
                                     <span>Products Management</span>
                                     <span>Products</span>
-                                    <a href="" class="nav-link">All Products</a>
-                                    <a href="" class="nav-link"> Create Product</a>
+                                    <a href="{{ route('admin.products.index') }}" class="nav-link">All Products</a>
+                                    <a href="{{ route('admin.products.create') }}" class="nav-link"> Create Product</a>
                                     <span class="mt-3">Categories</span>
                                     <a href="{{ route('admin.categories.index') }}" class="nav-link"> All Categories</a>
                                     <a href="{{ route('admin.categories.create') }}" class="nav-link">Create new</a>

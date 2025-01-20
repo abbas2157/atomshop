@@ -27,6 +27,16 @@
                         </select>
                     </div>
                     <div class="col-lg">
+                        <select class="form-control" name="brand_id" required>
+                            <option selected disabled>Select Brand</option>
+                            @if($brands->isNotEmpty())
+                                @foreach($brands as $item)
+                                    <option value="{{ $item->id ?? '' }}" {{ ($item->id == request()->category_id) ? 'selected' : '' }}>{{ $item->title ?? '' }}</option>
+                                @endforeach
+                            @endif
+                        </select>
+                    </div>
+                    <div class="col-lg">
                         <select class="form-control" name="status">
                             <option selected disabled>Select Status</option>
                             <option value="inactive">Inactive</option>
@@ -57,7 +67,7 @@
                 <table class="table table-bordered mg-b-0">
                     <thead>
                         <tr>
-                            <th width="50px">PR No</th>
+                            <th width="70px">PR No</th>
                             <th>Title</th>
                             <th>Category</th>
                             <th>Brand</th>
@@ -67,8 +77,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if($brands->isNotEmpty())
-                            @foreach($brands as $item)
+                        @if($products->isNotEmpty())
+                            @foreach($products as $item)
                                 <tr>
                                     <th>{{ $item->id ?? '' }}</th>
                                     <td>{{ $item->title ?? '' }}</td>
@@ -77,10 +87,10 @@
                                     <td>{{ $item->status ?? '' }}</td>
                                     <td>{{ $item->created_at->format('M d, Y') ?? '' }}</td>
                                     <td>
-                                        <a href="{{ route('admin.brands.edit',$item->id) }}">View</a> |
-                                        <a href="{{ route('admin.brands.edit',$item->id) }}">Edit</a> | 
+                                        <a href="{{ route('admin.products.edit',$item->id) }}">View</a> |
+                                        <a href="{{ route('admin.products.edit',$item->id) }}">Edit</a> | 
                                         <a href="javascript:;" id="delete-btn">Delete</a>
-                                        <form id="delete-form" action="{{ route('admin.brands.destroy', $item->id) }}" method="POST">
+                                        <form id="delete-form" action="{{ route('admin.products.destroy', $item->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                         </form>
@@ -89,14 +99,14 @@
                             @endforeach
                         @else
                             <tr>
-                                <th colspan="6">No data found</th>
+                                <th colspan="10">No data found</th>
                             </tr>
                         @endif
                     </tbody>
                 </table>
             </div>
             <div class="mt-2">
-                {!! $brands->withQueryString()->links('pagination::bootstrap-5') !!} 
+                {!! $products->withQueryString()->links('pagination::bootstrap-5') !!} 
             </div>
         </div>
     </div>
