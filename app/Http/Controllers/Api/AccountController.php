@@ -223,7 +223,7 @@ class AccountController extends BaseController
         $user->save();
 
         $success['user'] = $user;
-        return $this->sendResponse($success, 'Profile updated successfully.');
+        return $this->sendResponse('Profile updated successfully.', $success, 200);
     }
 
     public function change_password(Request $request)
