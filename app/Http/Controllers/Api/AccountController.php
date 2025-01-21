@@ -35,6 +35,7 @@ class AccountController extends BaseController
             $uuid = Str::uuid();
             $input = $request->all();
             $input['uuid'] = $uuid;
+            $input['role'] = 'customer';
             $user = User::create($input);
 
             $success['token'] =  $user->createToken('MyTailor')->plainTextToken;
