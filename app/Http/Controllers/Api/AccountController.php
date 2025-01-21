@@ -32,19 +32,24 @@ class AccountController extends BaseController
             }
             DB::beginTransaction();
 
-            $uuid = Str::uuid();
-            $input = $request->all();
-            $input['uuid'] = $uuid;
-            $input['role'] = 'customer'; 
-            $user = User::create($input);
+            $user = new User;
+            $user->uuid = Str::uuid();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = bcrypt($request->password);
+            $user->role = 'customer';
+            $user->save();
 
-            $success['token'] =  $user->createToken('MyTailor')->plainTextToken;
-            $success['user_id'] =  $user->id;
-            $success['name'] =  $user->name;
+            $verificationCode = rand(1000, 9999);
 
+            VerifyCode::create([
+                'user_id' => $user->uuid,
+                'verify_code' => $verificationCode
+            ]);
+
+            // Mail::to($request->email)->send(new RegisterEmail($user, $verificationCode));
             DB::commit();
-
-            return $this->sendResponse($success, 'User register successfully.');
+            return $this->sendResponse(['user_id' => $user->uuid,'code' => $verificationCode], 'User registered successfully!');
 
         } catch (Exception $e) {
             DB::rollBack();
