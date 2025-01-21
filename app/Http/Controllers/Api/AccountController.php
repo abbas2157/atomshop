@@ -128,7 +128,7 @@ class AccountController extends BaseController
         $code = VerifyCode::where('user_id', $user_id)->where('verify_code', $verification_code)->first();
 
         if (is_null($code)) {
-            return $this->sendError('Invalid verification code', $request->all(), 200);
+            return $this->sendError('Code is invalid', $request->all(), 200);
         }
         if ($code->used == 1) {
             return $this->sendError('Code is expired.', [], 200);
