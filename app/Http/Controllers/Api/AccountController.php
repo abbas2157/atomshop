@@ -121,7 +121,7 @@ class AccountController extends BaseController
 
         $user = User::where('uuid', $request->input('user_id'))->first();
         if (is_null($user)) {
-            return $this->sendError('User not found.', $request->all(), 200);
+            return $this->sendError('User not found.', $request->input('user_id'), 200);
         }
         $user_id = $user->id;
         $verification_code = $request->input('code');
