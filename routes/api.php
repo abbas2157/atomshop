@@ -3,19 +3,20 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/user', function (Request $request) {
+Route::group(['prefix' => 'account'], function(){
+    Route::post('create', [App\Http\Controllers\Api\AccountController::class, 'create_account']);
+    Route::post('login', [App\Http\Controllers\Api\AccountController::class, 'login']);
+
+    Route::post('send/code', [App\Http\Controllers\Api\AccountController::class, 'send_code']);
+    Route::post('send/code/verify', [App\Http\Controllers\Api\AccountController::class, 'verify_code']);
+    Route::post('send/code/reset/password', [App\Http\Controllers\Api\AccountController::class, 'reset_password']);
+
+    Route::post('profile/upload', [App\Http\Controllers\Api\AccountController::class, 'profile_upload']);
+    Route::post('profile/update', [App\Http\Controllers\Api\AccountController::class, 'profile_update']);
+
+    Route::post('change/password', [App\Http\Controllers\Api\AccountController::class, 'change_password']);
+});
+
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
-})->middleware('auth:sanctum');
-
-Route::group(['prefix' => 'user'], function(){
-    Route::post('register', [App\Http\Controllers\Api\Auth\RegisterController::class, 'register']);
-    Route::post('email-verify', [App\Http\Controllers\Api\Auth\RegisterController::class, 'emailverify']);
-
-    Route::post('login', [App\Http\Controllers\Api\Auth\LoginController::class, 'login']);
-
-    Route::post('forgot-password', [App\Http\Controllers\Api\Auth\LoginController::class, 'forget_password']);
-    Route::post('verify-code', [App\Http\Controllers\Api\Auth\LoginController::class, 'verify_code']);
-    Route::post('reset-password', [App\Http\Controllers\Api\Auth\LoginController::class, 'reset_password']);
-    Route::post('logout', [App\Http\Controllers\Api\Auth\LoginController::class, 'logout'])->middleware('auth:sanctum');
-
 });
