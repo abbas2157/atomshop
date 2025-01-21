@@ -16,7 +16,8 @@ Route::group(['prefix' => 'password', 'middleware' => ['guest']], function(){
 
 Route::group(['middleware' => ['auth']], function() {
     Route::get('logout', [App\Http\Controllers\Auth\LoginController::class, 'destroy'])->name('logout');
+    Route::get('/', function () {
+        return view('dashboards.admin.index');
+    })->name('admin');
 });
-Route::get('/', function () {
-    return view('dashboards.admin.index');
-})->name('admin');
+
