@@ -119,15 +119,23 @@ class AccountController extends BaseController
             return $this->sendError('Validation Error.', $validator->errors(), 200);
         }
 
-        $user = User::where('id', $request->user_id)->first();
+        $user = User::where('uuid', $request->user_id)->first();
         if (is_null($user)) {
             return $this->sendError('User not found.', $request->all(), 200);
         }
-        if($user->email_verification_code != $request->code) {
-            return $this->sendError('Code not Matached.', $request->all(), 200);
+        $userId = $user->id;
+        $verifyCode = $request->input('verify_code');
+        $verifyCodeRecord = VerifyCode::where('user_id', $userId)->where('verify_code', $verifyCode)->first();
+
+        if (!$verifyCodeRecord) {
+            return $this->sendError('Invalid verification code', [], 200);
         }
+
+        $user->email_verified_at = now();
+        $user->save();
+
         $success['user'] = $user;
-        return $this->sendResponse($success, 'Code matched successfully.');
+        return $this->sendResponse($success, 'Code matched successfully.', 200);
     }
     public function reset_password(Request $request)
     {
