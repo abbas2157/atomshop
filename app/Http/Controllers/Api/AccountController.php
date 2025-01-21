@@ -100,11 +100,16 @@ class AccountController extends BaseController
         }
 
         $code = rand(1000, 9999);
-        $user->email_verification_code = $code;
-        $user->save();
+        VerifyCode::create([
+            'user_id' => $user->id,
+            'verify_code' => $code
+        ]);
+
+        // Mail::to($request->email)->send(new RegisterEmail($user, $code));
 
         $success['user'] = $user;
-        return $this->sendResponse($success, 'Code hase been sent successfully.');
+        $success['code'] = $code;
+        return $this->sendResponse('Code hase been sent successfully.', $success, 200);
     }
     /**
      * Verify Code on Email API
