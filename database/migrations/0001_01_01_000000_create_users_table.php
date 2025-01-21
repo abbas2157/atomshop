@@ -19,7 +19,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('role')->default('customer');
-            $table->enum('status',['active','support','pending','block'])->default('pending');
+            $table->enum('status',['active','support','pending','block'])->default('active');
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();

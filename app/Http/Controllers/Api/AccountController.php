@@ -142,23 +142,25 @@ class AccountController extends BaseController
             $code->used = '1';
             $code->save();
 
+            $user->status = 'active';
             $user->email_verified_at = now();
             $user->save();
         }
         $success['user'] = $user;
         return $this->sendResponse('Code matched successfully.', $request->all(), 200);
     }
+
     public function reset_password(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'user_id' => 'required',
-            'password' => 'required|min:8'
+            'password' => 'required'
         ]);
         if ($validator->fails()) {
             return $this->sendError('Validation Error.', $validator->errors(), 200);
         }
 
-        $user = User::find($request->user_id);
+        $user = User::where('uuid', $request->input('user_id'))->first();
         if (is_null($user)) {
             return $this->sendError('User not found.', $request->all(), 200);
         }
@@ -167,7 +169,7 @@ class AccountController extends BaseController
         $user->save();
 
         $success['user'] = $user;
-        return $this->sendResponse($success, 'Password has been reset successfully.');
+        return $this->sendResponse('Password has been reset successfully.', $success, 200);
     }
 
     public function profile_upload(Request $request)
@@ -181,7 +183,7 @@ class AccountController extends BaseController
             return $this->sendError('Validation Error.', $validator->errors(), 200);
         }
 
-        $user = User::find($request->user_id);
+        $user = User::where('uuid', $request->input('user_id'))->first();
         if (is_null($user)) {
             return $this->sendError('User not found.', $request->all());
         }
@@ -200,6 +202,7 @@ class AccountController extends BaseController
             return $this->sendError('Profile image not uploaded.');
         }
     }
+
     public function profile_update(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -212,7 +215,7 @@ class AccountController extends BaseController
             return $this->sendError('Validation Error.', $validator->errors(), 200);
         }
 
-        $user = User::find($request->user_id);
+        $user = User::where('uuid', $request->input('user_id'))->first();
         if (is_null($user)) {
             return $this->sendError('User not found.', $request->all(), 200);
         }
@@ -224,6 +227,7 @@ class AccountController extends BaseController
         $success['user'] = $user;
         return $this->sendResponse($success, 'Profile updated successfully.');
     }
+
     public function change_password(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -237,7 +241,7 @@ class AccountController extends BaseController
             return $this->sendError('Validation Error.', $validator->errors(), 200);
         }
 
-        $user = User::find($request->user_id);
+        $user = User::where('uuid', $request->input('user_id'))->first();
         if (is_null($user)) {
             return $this->sendError('User not found.', $request->all(), 200);
         }
