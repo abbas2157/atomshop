@@ -43,7 +43,7 @@ class AccountController extends BaseController
             $verificationCode = rand(1000, 9999);
 
             VerifyCode::create([
-                'user_id' => $user->uuid,
+                'user_id' => $user->id,
                 'verify_code' => $verificationCode
             ]);
 
