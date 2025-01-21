@@ -131,7 +131,7 @@ class AccountController extends BaseController
             return $this->sendError('Code is invalid', $request->all(), 200);
         }
         if ($code->used == 1) {
-            return $this->sendError('Code is expired.', [], 200);
+            return $this->sendError('Code is expired.', $request->all(), 200);
         }
         else {
             $code->used = 1;
@@ -141,7 +141,7 @@ class AccountController extends BaseController
             $user->save();
         }
         $success['user'] = $user;
-        return $this->sendResponse($success, 'Code matched successfully.', 200);
+        return $this->sendResponse('Code matched successfully.', $success, 200);
     }
     public function reset_password(Request $request)
     {
