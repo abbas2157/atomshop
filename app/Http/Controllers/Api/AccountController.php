@@ -130,18 +130,18 @@ class AccountController extends BaseController
         if (is_null($code)) {
             return $this->sendError('Code is invalid', $request->all(), 200);
         }
-        if ($code->used == 1) {
+        if ($code->used == '1') {
             return $this->sendError('Code is expired.', $request->all(), 200);
         }
         else {
-            $code->used = 1;
+            $code->used = '1';
             $code->save();
 
             $user->email_verified_at = now();
             $user->save();
         }
         $success['user'] = $user;
-        return $this->sendResponse('Code matched successfully.', $success, 200);
+        return $this->sendResponse('Code matched successfully.', $request->all(), 200);
     }
     public function reset_password(Request $request)
     {
