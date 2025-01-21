@@ -119,23 +119,23 @@ class AccountController extends BaseController
             return $this->sendError('Validation Error.', $validator->errors(), 200);
         }
 
-        $user = User::where('uuid', $request->user_id)->first();
+        $user = User::where('uuid', $request->input('user_id'))->first();
         if (is_null($user)) {
             return $this->sendError('User not found.', $request->all(), 200);
         }
-        $userId = $user->id;
-        $verifyCode = $request->input('code');
-        $verifyCodeRecord = VerifyCode::where('user_id', $userId)->where('verify_code', $verifyCode)->first();
+        $user_id = $user->id;
+        $verification_code = $request->input('code');
+        $code = VerifyCode::where('user_id', $user_id)->where('verify_code', $verification_code)->first();
 
-        if (is_null($verifyCodeRecord)) {
+        if (is_null($code)) {
             return $this->sendError('Invalid verification code', [], 200);
         }
-        if ($verifyCodeRecord->used == 1) {
+        if ($code->used == 1) {
             return $this->sendError('Code is expired.', [], 200);
         }
         else {
-            $verifyCodeRecord->used = 1;
-            $verifyCodeRecord->save();
+            $code->used = 1;
+            $code->save();
 
             $user->email_verified_at = now();
             $user->save();
