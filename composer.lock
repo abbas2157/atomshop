@@ -1262,10 +1262,13 @@
                 "framework",
                 "laravel"
             ],
+<<<<<<< HEAD
             "support": {
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
+=======
+>>>>>>> 30e3145bdf18e3069af77208cb4a8a9610e1622f
             "time": "2025-01-15T00:06:46+00:00"
         },
         {
@@ -1321,10 +1324,13 @@
                 "MIT"
             ],
             "description": "Add beautiful and user-friendly forms to your command-line applications.",
+<<<<<<< HEAD
             "support": {
                 "issues": "https://github.com/laravel/prompts/issues",
                 "source": "https://github.com/laravel/prompts/tree/v0.3.3"
             },
+=======
+>>>>>>> 30e3145bdf18e3069af77208cb4a8a9610e1622f
             "time": "2024-12-30T15:53:31+00:00"
         },
         {
@@ -1385,10 +1391,6 @@
                 "laravel",
                 "sanctum"
             ],
-            "support": {
-                "issues": "https://github.com/laravel/sanctum/issues",
-                "source": "https://github.com/laravel/sanctum"
-            },
             "time": "2024-12-11T16:40:21+00:00"
         },
         {
@@ -6262,10 +6264,13 @@
                 "linter",
                 "php"
             ],
+<<<<<<< HEAD
             "support": {
                 "issues": "https://github.com/laravel/pint/issues",
                 "source": "https://github.com/laravel/pint"
             },
+=======
+>>>>>>> 30e3145bdf18e3069af77208cb4a8a9610e1622f
             "time": "2025-01-14T16:20:53+00:00"
         },
         {
@@ -6325,10 +6330,13 @@
                 "docker",
                 "laravel"
             ],
+<<<<<<< HEAD
             "support": {
                 "issues": "https://github.com/laravel/sail/issues",
                 "source": "https://github.com/laravel/sail"
             },
+=======
+>>>>>>> 30e3145bdf18e3069af77208cb4a8a9610e1622f
             "time": "2025-01-13T16:57:11+00:00"
         },
         {
