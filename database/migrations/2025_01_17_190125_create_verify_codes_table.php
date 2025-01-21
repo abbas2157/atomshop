@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('user_id');
             $table->string('verify_code');
+            $table->enum('used',[0,1])->default(0);
+            $table->enum('why',['login','register', 'Reset Password', 'Forgot Password'])->default('register');
             $table->timestamps();
         });
     }
