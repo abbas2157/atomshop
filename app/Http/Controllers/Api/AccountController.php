@@ -207,8 +207,7 @@ class AccountController extends BaseController
     {
         $validator = Validator::make($request->all(), [
             'user_id' => 'required',
-            'name' => 'required',
-            'phone' => 'required'
+            'name' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -221,7 +220,6 @@ class AccountController extends BaseController
         }
 
         $user->name = $request->name;
-        $user->phone = $request->phone;
         $user->save();
 
         $success['user'] = $user;
