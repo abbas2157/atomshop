@@ -53,8 +53,6 @@
                     </div>
                     <button type="submit" class="btn btn-success mt-3">Update City</button>
                 </form>
-                <hr class="mg-y-40">
-                <hr class="mg-y-40">
             </div>
         </div>
     </div>
