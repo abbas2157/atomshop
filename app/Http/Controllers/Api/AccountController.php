@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Api\BaseController as BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{Auth, Validator, DB, Password, Hash, Mail};
-use App\Models\User;
+use App\Models\{User, VerifyCode};
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use Exception;
