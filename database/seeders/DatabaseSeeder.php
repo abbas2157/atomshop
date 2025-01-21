@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'uuid' => Str::uuid(),
             'name' => 'Test User',
-            'email' => 'test@example.com',
+            'email' => 'admin@atomshop.com',
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
             'remember_token' => Str::random(10),

@@ -18,18 +18,17 @@
             <div id="wizard2">
                 <h3>Personal Information</h3>
                 <section>
-                  <p class="mg-b-20">Try the keyboard navigation by clicking arrow left or right!</p>
-    
-                  <div class="row row-sm">
-                    <div class="col-md-5 col-lg-4">
-                      <label class="form-control-label">Firstname: <span class="tx-danger">*</span></label>
-                      <input id="firstname" class="form-control" name="firstname" placeholder="Enter firstname" type="text" required>
-                    </div><!-- col -->
-                    <div class="col-md-5 col-lg-4 mg-t-20 mg-md-t-0">
-                      <label class="form-control-label">Lastname: <span class="tx-danger">*</span></label>
-                      <input id="lastname" class="form-control" name="lastname" placeholder="Enter lastname" type="text" required>
-                    </div><!-- col -->
-                  </div><!-- row -->
+                    <p class="mg-b-20">Try the keyboard navigation by clicking arrow left or right!</p>
+                    <div class="row row-sm">
+                        <div class="col-md-5 col-lg-4">
+                            <label class="form-control-label">Firstname: <span class="tx-danger">*</span></label>
+                            <input id="firstname" class="form-control" name="firstname" placeholder="Enter firstname" type="text" required>
+                        </div>
+                        <div class="col-md-5 col-lg-4 mg-t-20 mg-md-t-0">
+                            <label class="form-control-label">Lastname: <span class="tx-danger">*</span></label>
+                            <input id="lastname" class="form-control" name="lastname" placeholder="Enter lastname" type="text" required>
+                        </div>
+                    </div>
                 </section>
                 <h3>Billing Information</h3>
                 <section>
@@ -69,11 +68,9 @@
           titleTemplate: '<span class="number">#index#</span> <span class="title">#title#</span>',
           onStepChanging: function (event, currentIndex, newIndex) {
             if(currentIndex < newIndex) {
-              // Step 1 form validation
               if(currentIndex === 0) {
                 var fname = $('#firstname').parsley();
                 var lname = $('#lastname').parsley();
-
                 if(fname.isValid() && lname.isValid()) {
                   return true;
                 } else {
@@ -81,15 +78,12 @@
                   lname.validate();
                 }
               }
-
-              // Step 2 form validation
               if(currentIndex === 1) {
                 var email = $('#email').parsley();
                 if(email.isValid()) {
                   return true;
                 } else { email.validate(); }
               }
-            // Always allow step back to the previous step even if the current step is not valid.
             } else { return true; }
           }
         });
