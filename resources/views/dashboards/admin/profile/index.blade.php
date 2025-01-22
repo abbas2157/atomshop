@@ -17,20 +17,21 @@
             <form method="POST" action="{{ route('admin.profile.perform') }}">
                 @csrf
                 <div class="row row-sm">
-                    <div class="col-lg">
+                    <div class="col-lg  mt-2">
                         <label>Your Name <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" name="name" value="{{ Auth::user()->name ?? '' }}" placeholder="Name" required>
                     </div>
-                    <div class="col-lg">
+                    <div class="col-lg  mt-2">
                         <label>Your Email <span class="text-danger">*</span></label>
                         <input type="email" class="form-control" name="email" value="{{ Auth::user()->email ?? '' }}" placeholder="Name" required>
+                    </div>
+                    <div class="col-lg mt-2">
+                        <label>Phone <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="phone" value="{{ Auth::user()->phone ?? '' }}" placeholder="Phone" required>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-success mt-3">Update Profile</button>
             </form>
-            <hr class="mg-y-40">
-            <hr class="mg-y-40">
-            <hr class="mg-y-40">
         </div>
     </div>
 </div>
