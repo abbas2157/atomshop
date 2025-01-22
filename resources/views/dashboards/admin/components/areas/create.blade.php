@@ -18,7 +18,7 @@
                 <form method="POST" action="{{ route('admin.areas.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="row row-sm">
-                        <div class="col-lg">
+                        <div class="col-lg mt-2">
                             <label>Select City<span class="text-danger">*</span></label>
                             <select class="form-control" name="city_id" required>
                                 <option selected disabled>Select City</option>
@@ -32,7 +32,7 @@
                                 <span class="text-danger text-left">{{ $errors->first('city_id') }}</span>
                             @endif
                         </div>
-                        <div class="col-lg">
+                        <div class="col-lg mt-2">
                             <label>Title <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="title" placeholder="Enter areas Title" value="{{ old('title') }}" required>
                             @if ($errors->has('title'))
@@ -40,15 +40,15 @@
                             @endif
                         </div>
                     </div>
-                    <div class="row row-sm mt-2">
-                        <div class="col-lg">
+                    <div class="row row-sm">
+                        <div class="col-lg mt-2">
                             <label>Latitude <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="lat" placeholder="Enter Latitude" value="{{ old('lat') }}" required>
                             @if ($errors->has('lat'))
                                 <span class="text-danger text-left">{{ $errors->first('lat') }}</span>
                             @endif
                         </div>
-                        <div class="col-lg">
+                        <div class="col-lg mt-2">
                             <label>Longitude <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="lng" placeholder="Enter Longitude" value="{{ old('lng') }}" required>
                             @if ($errors->has('lng'))
@@ -56,8 +56,8 @@
                             @endif   
                         </div>
                     </div>    
-                    <div class="row row-sm mt-2">
-                        <div class="col-lg">
+                    <div class="row row-sm">
+                        <div class="col-lg mt-2">
                             <label>Select status<span class="text-danger">*</span></label>
                             <select class="form-control" name="status">
                                 <option value="active">Active</option>

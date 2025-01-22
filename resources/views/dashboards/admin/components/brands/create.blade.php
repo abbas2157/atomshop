@@ -18,7 +18,7 @@
             <form method="POST" action="{{ route('admin.brands.store') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="row row-sm">
-                    <div class="col-lg">
+                    <div class="col-lg mt-2">
                         <label>Select category <span class="text-danger">*</span></label>
                         <select class="form-control" name="category_id" required>
                             <option selected disabled>Select category</option>
@@ -32,14 +32,14 @@
                             <span class="text-danger text-left">{{ $errors->first('category_id') }}</span>
                         @endif
                     </div>
-                    <div class="col-lg">
+                    <div class="col-lg mt-2">
                         <label>Title <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" name="title" placeholder="Enter brand title" value="{{ old('title') }}" required>
                         @if ($errors->has('title'))
                             <span class="text-danger text-left">{{ $errors->first('title') }}</span>
                         @endif
                     </div>
-                    <div class="col-lg">
+                    <div class="col-lg mt-2">
                         <label>Slug <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" name="slug" placeholder="Enter brand slug" value="{{ old('slug') }}" required>
                         @if ($errors->has('slug'))
@@ -47,8 +47,8 @@
                         @endif
                     </div>
                 </div>
-                <div class="row row-sm mt-2">
-                    <div class="col-lg">
+                <div class="row row-sm">
+                    <div class="col-lg mt-2">
                         <label>Picture <span class="text-danger">*</span></label>
                         <div class="custom-file">
                             <input type="file" accept="images/jpg,jpeg,png" class="custom-file-input" name="picture" id="customFile" required>
@@ -58,7 +58,7 @@
                             <span class="text-danger text-left">{{ $errors->first('picture') }}</span>
                         @endif
                     </div>
-                    <div class="col-lg">
+                    <div class="col-lg mt-2">
                         <label>Select status <span class="text-danger">*</span></label>
                         <select class="form-control" name="status" required>
                             <option value="active">Active</option>

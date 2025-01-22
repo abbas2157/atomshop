@@ -32,17 +32,17 @@
                                 </nav>
                                 <nav class="nav">
                                     <span>Colors</span>
-                                    <a href="" class="nav-link"> All Colors</a>
-                                    <a href="" class="nav-link">Create new</a>
+                                    <a href="{{ route('admin.colors.index') }}" class="nav-link"> All Colors</a>
+                                    <a href="{{ route('admin.colors.create') }}" class="nav-link">Create new</a>
                                     <span class="mt-3">Memory</span>
-                                    <a href="" class="nav-link">Memory List</a>
-                                    <a href="" class="nav-link">Create new</a>
+                                    <a href="{{ route('admin.memory.index') }}" class="nav-link">Memory List</a>
+                                    <a href="{{ route('admin.memory.create') }}" class="nav-link">Create new</a>
                                 </nav>
                             </div>
                             <div>
                                 <nav class="nav">
                                     <span>Zone Management</span>
-                                    <span>Areas</span>
+                                    <span>Cities</span>
                                     <a href="{{ route('admin.cities.index') }}" class="nav-link"> All Cities</a>
                                     <a href="{{ route('admin.cities.create') }}" class="nav-link">Create new</a>
                                     <span class="mt-3">Areas</span>
@@ -67,7 +67,7 @@
                     <p class="az-notification-text">You have 2 unread notification</p>
                     <div class="az-notification-list">
                         <div class="media new">
-                            <div class="az-img-user"><img src="{!! asset('assets/img/faces/face2.jpg') !!}" alt=""></div>
+                            <div class="az-img-user"><img src="{!! asset('assets/img/faces/face1.jpg') !!}" alt=""></div>
                             <div class="media-body">
                                 <p>Congratulate <strong>Socrates Itumay</strong> for work anniversaries</p>
                                 <span>Mar 15 12:32pm</span>
