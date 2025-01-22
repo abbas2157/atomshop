@@ -46,13 +46,14 @@
                 </div>
             </form>
             <div class="table-responsive">
-                <table class="table table-bordered mg-b-0">
+                <table class="table table-bordered mg-b-0" >
                     <thead>
                         <tr>
                             <th width="50px">ID</th>
                             <th>Name</th>
                             <th>Email</th>
                             <th>Phone</th>
+                            <th>Address</th>
                             <th width="60px">Status</th>
                             <th width="120px">Created On</th>
                             <th width="150px">Action</th>
@@ -66,6 +67,7 @@
                                     <td>{{ $item->name ?? '' }}</td>
                                     <td>{{ $item->email ?? '' }}</td>
                                     <td>{{ $item->phone ?? '' }}</td>
+                                    <td>{{ $item->customer->address ?? '' }}, {{ $item->customer->area->title ?? '' }}, {{ $item->customer->city->title ?? '' }}</td>
                                     <td>
                                         @if($item->status == 'support')
                                             <label class="badge badge-info">{{ $item->status ?? '' }}</label>

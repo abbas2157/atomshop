@@ -22,6 +22,10 @@
          <!-- at-footer start-->
          @include('dashboards/admin/layout/footer')
          <!-- at-footer end-->
+        <script type="text/javascript">
+            var APP_URL = {!! json_encode(url('/')) !!}
+            var ASSET_URL = {!! json_encode(asset('/')) !!}
+        </script>
         <script src="{!! asset('assets/lib/jquery/jquery.min.js') !!}"></script>
         <script src="{!! asset('assets/lib/bootstrap/js/bootstrap.bundle.min.js') !!}"></script>
         <script src="{!! asset('assets/lib/ionicons/ionicons.js') !!}"></script>

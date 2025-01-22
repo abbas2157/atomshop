@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('uuid')->nullable();
-            $table->string('pr_number')->nullable();
+            $table->string('pr_number')->nullable()->index();
             $table->string('title', 255);
             $table->string('slug', 255)->nullable();
             $table->string('picture')->nullable();
-            $table->integer('category_id')->nullable();
-            $table->integer('brand_id')->nullable();
+            $table->foreignId('category_id')->nullable()->index();
+            $table->foreignId('brand_id')->nullable()->index();
             $table->enum('status',['Published', 'Pending', 'Out of Stock', 'On hold', 'Closed'])->default('Pending');
             $table->timestamps();
         });

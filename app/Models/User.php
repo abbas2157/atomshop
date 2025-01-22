@@ -50,4 +50,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class,'id','user_id')->select('id','user_id','city_id','area_id','address');
+    }
 }

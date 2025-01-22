@@ -13,7 +13,7 @@
                 <span>Create</span>
             </div>
             <h2 class="az-content-title">Customers</h2>
-            <div class="az-content-label mg-b-5">Create new</div>
+            <div class="az-content-label mg-b-5">Personal Detail</div>
             <p class="mg-b-20">Using this form you can add new customers </p>
             <form method="POST" action="{{ route('admin.customers.store') }}" enctype="multipart/form-data">
                 @csrf
@@ -51,10 +51,55 @@
                         </select>
                     </div>
                 </div>
+                <div class="az-content-label mg-b-5 mg-t-30">Address Detail</div>
+                <p class="mg-b-10">Using this form you can add customer address </p>
+                <div class="row row-sm">
+                    <div class="col-lg mt-2">
+                        <label>Customer city <span class="text-danger">*</span></label>
+                        <select class="form-control" name="city_id" id="select-city">
+                            @if($cities->isNotEmpty())
+                                @foreach($cities as $item)
+                                    <option value="{{ $item->id ?? '' }}" {{ ($item->id == old('city_id')) ? 'selected' : '' }}>{{ $item->title ?? '' }}</option>
+                                @endforeach
+                            @endif
+                        </select>
+                        @if ($errors->has('city_id'))
+                            <span class="text-danger text-left">{{ $errors->first('city_id') }}</span>
+                        @endif
+                    </div>
+                    <div class="col-lg mt-2">
+                        <label>Customer area <span class="text-danger">*</span></label>
+                        <select class="form-control" name="area_id" id="area_id" id="select-area">
+                            @if($areas->isNotEmpty())
+                                @foreach($areas as $item)
+                                    <option value="{{ $item->id ?? '' }}" {{ ($item->id == old('area_id')) ? 'selected' : '' }}>{{ $item->title ?? '' }}</option>
+                                @endforeach
+                            @endif
+                        </select>
+                        @if ($errors->has('area_id'))
+                            <span class="text-danger text-left">{{ $errors->first('area_id') }}</span>
+                        @endif
+                    </div>
+                </div>
+                <div class="row row-sm">
+                    <div class="col-lg mt-2">
+                        <label>Street Address <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="address" placeholder="Enter Street Address" value="{{ old('address') }}" required>
+                        @if ($errors->has('address'))
+                            <span class="text-danger text-left">{{ $errors->first('address') }}</span>
+                        @endif
+                    </div>
+                    <div class="col-lg mt-2"></div>
+                </div>
                 <button type="submit" class="btn btn-success mt-3">Create customer</button>
             </form>
             <p class="mg-t-20"><b>Note : </b> Password will be (Atom@shop!) for every customer created by this form.</p>
         </div>
     </div>
 </div>
+@endsection
+@section('js')
+<script>
+    
+</script>
 @endsection

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('slug')->nullable();
             $table->double('lat')->nullable();
             $table->double('lng')->nullable();
-            $table->integer('city_id')->nullable();
+            $table->foreignId('city_id')->nullable()->index();
             $table->enum('status',['active','inactive'])->default('active');
             $table->timestamps();
         });

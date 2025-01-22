@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Dashboards\Admin\Accounts;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\{Auth, Hash};
+use Illuminate\Support\Facades\{Auth, Hash, DB};
 use Illuminate\Support\Str;
-use App\Models\User;
+use App\Models\{User, Customer, City, Area};
 
 class CustomerController extends Controller
 {
@@ -37,7 +37,12 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        return view('dashboards.admin.accounts.customers.create');
+        $cities = City::orderBy('id','desc')->where('status', 'active')->get();
+        $areas = [];
+        if($cities->isNotEmpty()) {
+            $areas = Area::orderBy('id','desc')->where('status', 'active')->where('city_id', $cities[0]->id)->get();
+        }
+        return view('dashboards.admin.accounts.customers.create', compact('cities', 'areas'));
     }
 
     /**
@@ -49,19 +54,36 @@ class CustomerController extends Controller
             'name' => 'required',
             'email' => 'required|email|max:250|unique:users'
         ]);
+        try {
+            DB::beginTransaction();
 
-        $user = new User;
-        $user->uuid  = Str::uuid();
-        $user->name  = $request->name;
-        $user->email = $request->email;
-        $user->phone = $request->phone;
-        $user->password = 'Atom@shop!';
-        $user->role = 'customer';
-        $user->status = $request->status;
-        $user->save();
+            $user = new User;
+            $user->uuid  = Str::uuid();
+            $user->name  = $request->name;
+            $user->email = $request->email;
+            $user->phone = $request->phone;
+            $user->password = 'Atom@shop!';
+            $user->role = 'customer';
+            $user->status = $request->status;
+            $user->save();
 
-        $validator['success'] = 'User created successfully';
-        return back()->withErrors($validator);
+            $customer = new Customer;
+            $customer->user_id  = $user->id;
+            $customer->city_id = $request->city_id;
+            $customer->area_id = $request->area_id;
+            $customer->address = $request->address;
+            $customer->save();
+
+            DB::commit();
+
+            $validator['success'] = 'User created successfully';
+            return back()->withErrors($validator);
+
+        } catch (Exception $e) {
+            DB::rollBack();
+            $validator['error'] = $e->getMessage();
+            return back()->withErrors($validator);
+        }
     }
 
     /**
@@ -77,11 +99,18 @@ class CustomerController extends Controller
      */
     public function edit(string $id)
     {
-        $customer = User::where('uuid', $id)->first();
-        if(is_null($customer)) {
+        $user = User::with('customer')->where('uuid', $id)->first();
+        if(is_null($user)) {
             return abort(404);
         }
-        return view('dashboards.admin.accounts.customers.edit',compact('customer'));
+        $cities = City::orderBy('id','desc')->where('status', 'active')->get();
+        if(is_null($user->customer)) {
+            $areas = Area::orderBy('id','desc')->where('status', 'active')->where('city_id', $cities[0]->id)->get();
+        }
+        else {
+            $areas = Area::orderBy('id','desc')->where('status', 'active')->where('city_id', $user->customer->city_id)->get();
+        }
+        return view('dashboards.admin.accounts.customers.edit',compact('user', 'cities', 'areas'));
     }
 
     /**
@@ -89,18 +118,39 @@ class CustomerController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $customer = User::where('uuid', $id)->first();
-        if(is_null($customer)) {
-            return abort(404);
-        }
-        $customer->name  = $request->name;
-        $customer->email = $request->email;
-        $customer->phone = $request->phone;
-        $customer->status = $request->status;
-        $customer->save();
+        try {
+            DB::beginTransaction();
 
-        $validator['success'] = 'User updated successfully';
-        return back()->withErrors($validator);
+            $user = User::where('uuid', $id)->first();
+            if(is_null($user)) {
+                return abort(404);
+            }
+            $user->name  = $request->name;
+            $user->email = $request->email;
+            $user->phone = $request->phone;
+            $user->status = $request->status;
+            $user->save();
+
+            $customer = Customer::where('user_id', $user->id)->first();
+            if(is_null($customer)) {
+                $customer = new Customer;
+                $customer->user_id  = $user->id;
+            }
+            
+            $customer->city_id = $request->city_id;
+            $customer->area_id = $request->area_id;
+            $customer->address = $request->address;
+            $customer->save();
+
+            DB::commit();
+
+            $validator['success'] = 'User updated successfully';
+            return back()->withErrors($validator);
+        } catch (Exception $e) {
+            DB::rollBack();
+            $validator['error'] = $e->getMessage();
+            return back()->withErrors($validator);
+        }
     }
 
     /**

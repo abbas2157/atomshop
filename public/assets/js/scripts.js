@@ -118,4 +118,7 @@ $(function(){
     $('body').removeClass('az-header-menu-show');
   })
 
+  $('#select-city').on('change', function(e){
+    console.log($(this).val());
+  })
 });
