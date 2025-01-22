@@ -49,7 +49,6 @@
                             <tr>
                                 <th width="40px">ID</th>
                                 <th>Title</th>
-                                <th>Slug</th>
                                 <th width="60px">Code</th>
                                 <th width="120px">Status</th>
                                 <th width="120px">Created On</th>
@@ -62,7 +61,6 @@
                                     <tr>
                                         <th>{{ $item->id ?? '' }}</th>
                                         <td>{{ $item->title ?? '' }}</td>
-                                        <td>{{ $item->slug ?? '' }}</td>
                                         <td>{{ $item->code ?? '' }}</td>
                                         <td>{{ $item->status ?? '' }}</td>
                                         <td>{{ $item->created_at->format('M d, Y') ?? '' }}</td>
