@@ -67,7 +67,7 @@
                     <p class="az-notification-text">You have 2 unread notification</p>
                     <div class="az-notification-list">
                         <div class="media new">
-                            <div class="az-img-user"><img src="{!! asset('assets/img/faces/face2.jpg') !!}" alt=""></div>
+                            <div class="az-img-user"><img src="{!! asset('assets/img/faces/face1.jpg') !!}" alt=""></div>
                             <div class="media-body">
                                 <p>Congratulate <strong>Socrates Itumay</strong> for work anniversaries</p>
                                 <span>Mar 15 12:32pm</span>
