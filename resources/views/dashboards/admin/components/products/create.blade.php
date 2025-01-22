@@ -16,13 +16,13 @@
             <div class="az-content-label mg-b-5">Create new</div>
             <p class="mg-b-20">Using this form you can add new product</p>
             <div id="wizard2">
-                <h3>Personal Information</h3>
+                <h3>Product Information</h3>
                 <section>
                     <p class="mg-b-20">Try the keyboard navigation by clicking arrow left or right!</p>
                     <div class="row row-sm">
-                        <div class="col-md-5 col-lg-4">
-                            <label class="form-control-label">Firstname: <span class="tx-danger">*</span></label>
-                            <input id="firstname" class="form-control" name="firstname" placeholder="Enter firstname" type="text" required>
+                        <div class="col-md">
+                            <label class="form-control-label">Title <span class="tx-danger">*</span></label>
+                            <input id="firstname" class="form-control" name="title" placeholder="Enter title" type="text" required>
                         </div>
                         <div class="col-md-5 col-lg-4 mg-t-20 mg-md-t-0">
                             <label class="form-control-label">Lastname: <span class="tx-danger">*</span></label>
