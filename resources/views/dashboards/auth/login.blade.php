@@ -3,7 +3,8 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="AtomShop - Pay in Steps">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/img/favicon.png') }}">
+        <meta name="description" content="Atomshop - Pay in Steps">
         <meta name="author" content="AtomShop">
         <title>Login - {{ env('APP_NAME') ?? 'AtomShop' }}</title>
         <link href="{!! asset('assets/lib/ionicons/css/ionicons.min.css') !!}" rel="stylesheet">
