@@ -12,6 +12,7 @@
         <link href="{!! asset('assets/lib/typicons.font/typicons.css') !!}" rel="stylesheet">
         <link href="{!! asset('assets/lib/flag-icon-css/css/flag-icon.min.css') !!}" rel="stylesheet">
         <link rel="stylesheet" href="{!! asset('assets/css/style.css') !!}">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
         @yield('css')
     </head>
     <body>

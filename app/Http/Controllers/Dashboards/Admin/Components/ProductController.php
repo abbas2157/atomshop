@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Dashboards\Admin\Components;
 
-use App\Http\Controllers\Controller;
+use App\Models\Color;
+use App\Models\Memory;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Models\{Product, Category, Brand};
 
 class ProductController extends Controller
@@ -37,10 +39,14 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = Category::orderBy('id','desc')->get();
-        $brands = Brand::orderBy('id','desc')->get();
-        return view('dashboards.admin.components.products.create', compact('categories', 'brands'));
+        $categories = Category::orderBy('id', 'desc')->get();
+        $brands = Brand::orderBy('id', 'desc')->get();
+        $colors = Color::orderBy('id', 'desc')->get();
+        $memories = Memory::orderBy('id', 'desc')->get();
+
+        return view('dashboards.admin.components.products.create', compact('categories', 'brands', 'colors', 'memories'));
     }
+
 
     /**
      * Store a newly created resource in storage.
