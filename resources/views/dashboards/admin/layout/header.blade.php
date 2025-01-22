@@ -13,7 +13,7 @@
                 <li class="nav-item {{ (request()->segment(1) == 'admin' && (request()->segment(2) == '')) ? 'active show' : '' }}">
                     <a href="{{ route('admin') }}" class="nav-link"><i class="typcn typcn-chart-area-outline"></i> Dashboard</a>
                 </li>
-                <li class="nav-item {{ (request()->segment(1) == 'admin' && (request()->segment(2) == 'categories' || request()->segment(2) == 'cities' || request()->segment(2) == 'areas' || request()->segment(2) == 'brands')) ? 'active show' : '' }}">
+                <li class="nav-item {{ (request()->segment(1) == 'admin' && (in_array(request()->segment(2), ['categories', 'brands', 'cities', 'areas', 'colors', 'memory']))) ? 'active show' : '' }}">
                     <a href="" class="nav-link with-sub"><i class="typcn typcn-th-large-outline"></i> Product Management</a>
                     <div class="az-menu-sub az-menu-sub-mega">
                         <div class="container">
@@ -53,7 +53,7 @@
                         </div>
                     </div>
                 </li>
-                <li class="nav-item {{ (request()->segment(1) == 'admin' && (request()->segment(2) == 'vendors' || request()->segment(2) == 'customers')) ? 'active show' : '' }}">
+                <li class="nav-item {{ (request()->segment(1) == 'admin' && (in_array(request()->segment(2), ['users', 'vendors', 'customers']))) ? 'active show' : '' }}">
                     <a href="" class="nav-link with-sub"><i class="typcn typcn-group-outline"></i> Account Management</a>
                     <div class="az-menu-sub">
                         <div class="container">
