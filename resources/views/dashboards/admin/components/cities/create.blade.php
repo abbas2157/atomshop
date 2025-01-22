@@ -18,7 +18,7 @@
                 <form method="POST" action="{{ route('admin.cities.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="row row-sm">
-                        <div class="col-lg">
+                        <div class="col-lg mt-2">
                             <label>Country <span class="text-danger">*</span></label>
                             <select class="form-control" name="country" required>
                                 <option value="Pakistan">Pakistan</option>
@@ -27,7 +27,7 @@
                                 <span class="text-danger text-left">{{ $errors->first('country') }}</span>
                             @endif
                         </div>
-                        <div class="col-lg">
+                        <div class="col-lg mt-2">
                             <label>Provice <span class="text-danger">*</span></label>
                             <select class="form-control" name="provice" required>
                                 <option value="Punjab">Punjab</option>
@@ -42,14 +42,14 @@
                         </div>
                     </div>
                     <div class="row row-sm mt-2">
-                        <div class="col-lg">
+                        <div class="col-lg mt-2">
                             <label>Title <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="title" placeholder="Enter cities Title" value="{{ old('title') }}" required>
                             @if ($errors->has('title'))
                                 <span class="text-danger text-left">{{ $errors->first('title') }}</span>
                             @endif
                         </div>
-                        <div class="col-lg">
+                        <div class="col-lg mt-2">
                             <label>Select status <span class="text-danger">*</span></label>
                             <select class="form-control" name="status">
                                 <option value="active">Active</option>

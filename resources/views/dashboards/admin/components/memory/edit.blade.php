@@ -20,14 +20,14 @@
                     @csrf
                     @method('PUT')
                     <div class="row row-sm">
-                        <div class="col-lg">
+                        <div class="col-lg mt-2">
                             <label>Title <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="title" value="{{ $memory->title ?? '' }}" placeholder="Enter memory title" value="{{ old('title') }}" required>
                             @if ($errors->has('title'))
                                 <span class="text-danger text-left">{{ $errors->first('title') }}</span>
                             @endif
                         </div>
-                        <div class="col-lg">
+                        <div class="col-lg mt-2">
                             <label>Slug <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="slug" value="{{ $memory->slug ?? '' }}" placeholder="Enter memory slug" value="{{ old('slug') }}" required>
                             @if ($errors->has('slug'))
@@ -35,15 +35,15 @@
                             @endif
                         </div>
                     </div>
-                    <div class="row row-sm mt-2">
-                        <div class="col-lg">
+                    <div class="row row-sm">
+                        <div class="col-lg mt-2">
                             <label>Select status <span class="text-danger">*</span></label>
                             <select class="form-control" name="status">
                                 <option value="active" {{ ($memory->status == 'active') ? 'selected' : '' }}>Active</option>
                                 <option value="inactive" {{ ($memory->status == 'inactive') ? 'selected' : '' }}>Inactive</option>
                             </select>
                         </div>
-                        <div class="col-lg"></div>
+                        <div class="col-lg mt-2"></div>
                     </div>
                     <button type="submit" class="btn btn-success mt-3">Update Memory</button>
                 </form>

@@ -20,14 +20,14 @@
                     @csrf
                     @method('PUT')
                     <div class="row row-sm">
-                        <div class="col-lg-6">
+                        <div class="col-lg-6 mt-2">
                             <label>Title <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="title" value="{{ $colors->title ?? '' }}" placeholder="Enter colors title" value="{{ old('title') }}" required>
                             @if ($errors->has('title'))
                                 <span class="text-danger text-left">{{ $errors->first('title') }}</span>
                             @endif
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-6 mt-2">
                             <label>Slug <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="slug" value="{{ $colors->slug ?? '' }}" placeholder="Enter colors slug" value="{{ old('slug') }}" required>
                             @if ($errors->has('slug'))

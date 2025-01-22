@@ -18,14 +18,14 @@
                 <form method="POST" action="{{ route('admin.colors.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="row row-sm">
-                    <div class="col-lg">
+                    <div class="col-lg mt-2">
                             <label>Title <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="title" placeholder="Enter colors Title" value="{{ old('title') }}" required>
                             @if ($errors->has('title'))
                                 <span class="text-danger text-left">{{ $errors->first('title') }}</span>
                             @endif
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-6 mt-2">
                             <label>Slug <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="slug" placeholder="Enter Slug" value="{{ old('slug') }}" required>
                             @if ($errors->has('slug'))
@@ -33,15 +33,15 @@
                             @endif
                         </div>
                     </div>
-                    <div class="row row-sm mt-2">
-                        <div class="col-lg-6">
+                    <div class="row row-sm">
+                        <div class="col-lg-6 mt-2">
                             <label>Code <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="code" placeholder="Enter Code" value="{{ old('code') }}" required>
                             @if ($errors->has('code'))
                                 <span class="text-danger text-left">{{ $errors->first('code') }}</span>
                             @endif   
                         </div>
-                        <div class="col-lg">
+                        <div class="col-lg mt-2">
                             <label>Select status<span class="text-danger">*</span></label>
                             <select class="form-control" name="status">
                                 <option value="active">Active</option>

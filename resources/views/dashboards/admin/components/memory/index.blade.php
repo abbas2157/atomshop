@@ -16,19 +16,19 @@
                 <p class="mg-b-20">All memory list here to view, edit & delete</p>
                 <form action="">
                     <div class="row row-sm mb-2">
-                        <div class="col-lg">
+                        <div class="col-lg mt-2">
                             <select class="form-control" name="status">
                                 <option selected disabled>Select Status</option>
                                 <option value="inactive">Inactive</option>
                                 <option value="active">Active</option>
                             </select>
                         </div>
-                        <div class="col-lg">
+                        <div class="col-lg mt-2">
                             <div class="input-group">
                                 <input type="text" value="{{ request()->q ?? '' }}" class="form-control" name="q" placeholder="Search for...">
                             </div>
                         </div>
-                        <div class="col-lg">
+                        <div class="col-lg mt-2">
                             <div class="input-group">
                                 <span class="input-group-btn">
                                     <button class="btn btn-primary" type="submit" style="padding: 8px 20px;"><i class="fa fa-search"></i></button>
