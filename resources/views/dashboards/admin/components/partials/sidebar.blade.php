@@ -17,13 +17,13 @@
         </nav>
         <label>Colors</label>
         <nav class="nav flex-column">
-            <a href="" class="nav-link {{ (request()->segment(2) == 'areas' && (request()->segment(3) !== 'create')) ? 'active' : '' }}">View & Edit</a>
-            <a href="" class="nav-link {{ (request()->segment(2) == 'areas' && (request()->segment(3) == 'create')) ? 'active' : '' }}">Create new</a>
+            <a href="{{ route('admin.colors.index') }}" class="nav-link {{ (request()->segment(2) == 'areas' && (request()->segment(3) !== 'create')) ? 'active' : '' }}">View & Edit</a>
+            <a href="{{ route('admin.colors.create') }}" class="nav-link {{ (request()->segment(2) == 'areas' && (request()->segment(3) == 'create')) ? 'active' : '' }}">Create new</a>
         </nav>
         <label>Memory</label>
         <nav class="nav flex-column">
-            <a href="" class="nav-link {{ (request()->segment(2) == 'areas' && (request()->segment(3) !== 'create')) ? 'active' : '' }}">View & Edit</a>
-            <a href="" class="nav-link {{ (request()->segment(2) == 'areas' && (request()->segment(3) == 'create')) ? 'active' : '' }}">Create new</a>
+            <a href="{{ route('admin.memory.index') }}" class="nav-link {{ (request()->segment(2) == 'areas' && (request()->segment(3) !== 'create')) ? 'active' : '' }}">View & Edit</a>
+            <a href="{{ route('admin.memory.create') }}" class="nav-link {{ (request()->segment(2) == 'areas' && (request()->segment(3) == 'create')) ? 'active' : '' }}">Create new</a>
         </nav>
     </div>
 </div>
