@@ -24,7 +24,7 @@ Route::group(['middleware' => ['auth']], function() {
             Route::resource('areas', App\Http\Controllers\Dashboards\Admin\Components\AreaController::class,['as' => 'admin']);
             //Account Management
             Route::resource('users', App\Http\Controllers\Dashboards\Admin\Accounts\UserController::class,['as' => 'admin']);
-            Route::resource('vendors', App\Http\Controllers\Dashboards\Admin\Accounts\VendorController::class,['as' => 'admin']);
+            Route::resource('suppliers', App\Http\Controllers\Dashboards\Admin\Accounts\SupplierController::class,['as' => 'admin']);
             Route::resource('customers', App\Http\Controllers\Dashboards\Admin\Accounts\CustomerController::class,['as' => 'admin']);
         });
     });

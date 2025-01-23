@@ -9,11 +9,11 @@
         <div class="az-content-body pd-lg-l-40 d-flex flex-column">
             <div class="az-content-breadcrumb">
                 <span>Accounts Management</span>
-                <span>Vendors</span>
+                <span>Suppliers</span>
             </div>
-            <h2 class="az-content-title">Vendors</h2>
+            <h2 class="az-content-title">Suppliers</h2>
             <div class="az-content-label mg-b-5">List All</div>
-            <p class="mg-b-20">All Vendors list here to view, edit & delete</p>
+            <p class="mg-b-20">All Suppliers list here to view, edit & delete</p>
             <form action="">
                 <div class="row row-sm mb-2">
                     <div class="col-lg mt-2">
