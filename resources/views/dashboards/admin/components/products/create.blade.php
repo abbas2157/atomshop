@@ -30,11 +30,11 @@
                     @csrf
                     <div id="product-form">
                         <h3>Product Information</h3>
-                        @include('dashboards/admin/components/products/partials/product-information')
+                        @include('dashboards/admin/components/products/create-partials/product-information')
                         <h3>Product Description</h3>
-                        @include('dashboards/admin/components/products/partials/product-description')
+                        @include('dashboards/admin/components/products/create-partials/product-description')
                         <h3>Product Images</h3>
-                        @include('dashboards/admin/components/products/partials/product-images')
+                        @include('dashboards/admin/components/products/create-partials/product-images')
                         <h3>Publish Product</h3>
                         <section>
                             <p>The next and previous buttons help you to navigate through your content.</p>
