@@ -5,15 +5,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/img/favicon.png') }}">
         <meta name="description" content="AtomShop - Pay in Steps">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="author" content="AtomShop">
         @yield('title')
         <link href="{!! asset('assets/lib/fontawesome-free/css/all.min.css') !!}" rel="stylesheet">
         <link href="{!! asset('assets/lib/ionicons/css/ionicons.min.css') !!}" rel="stylesheet">
         <link href="{!! asset('assets/lib/typicons.font/typicons.css') !!}" rel="stylesheet">
         <link href="{!! asset('assets/lib/flag-icon-css/css/flag-icon.min.css') !!}" rel="stylesheet">
-        <link rel="stylesheet" href="{!! asset('assets/css/style.css') !!}">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
         @yield('css')
+        <link rel="stylesheet" href="{!! asset('assets/css/style.css') !!}">
+       
     </head>
     <body>
         <!-- at-header start-->

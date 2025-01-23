@@ -3,6 +3,10 @@
     <title>Categories - {{ env('APP_NAME') ?? '' }}</title>
 @endsection
 @section('css')
+<link href="{!! asset('assets/lib/select2/css/select2.min.css') !!}" rel="stylesheet">
+<link href="{!! asset('assets/lib/quill/quill.snow.css') !!}" rel="stylesheet">
+<link href="{!! asset('assets/lib/quill/quill.bubble.css') !!}" rel="stylesheet">
+<link href="{!! asset('assets/lib/line-awesome/css/line-awesome.min.css') !!}" rel="stylesheet">
 <style>
     .ck-editor__editable {
         min-height: 200px;
@@ -22,167 +26,21 @@
                 <h2 class="az-content-title">Products</h2>
                 <div class="az-content-label mg-b-5">Create new</div>
                 <p class="mg-b-20">Using this form you can add new product</p>
-                <div id="wizard2">
-                    <h3>Product Information</h3>
-                    <section>
-                        <p class="mg-b-20">Try the keyboard navigation by clicking arrow left or right!</p>
-                        <div class="row row-sm">
-                            <div class="col-md-6">
-                                <label class="form-control-label">Title <span class="tx-danger">*</span></label>
-                                <input id="title" class="form-control" name="title" placeholder="Enter title"
-                                    type="text" value="{{ old('title') }}" required>
-                                @if ($errors->has('title'))
-                                    <span class="text-danger text-left">{{ $errors->first('title') }}</span>
-                                @endif
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-control-label">Slug <span class="tx-danger">*</span></label>
-                                <input id="slug" class="form-control" name="slug" placeholder="Enter slug"
-                                    type="text" value="{{ old('slug') }}" required>
-                                @if ($errors->has('slug'))
-                                    <span class="text-danger text-left">{{ $errors->first('slug') }}</span>
-                                @endif
-                            </div>
-                            <div class="col-md-6 mt-2">
-                                <label class="form-control-label">PR Number <span class="tx-danger">*</span></label>
-                                <input id="pr_number" class="form-control" name="pr_number" placeholder="Enter PR number"
-                                    type="text" value="{{ old('pr_number') }}" required>
-                                @if ($errors->has('pr_number'))
-                                    <span class="text-danger text-left">{{ $errors->first('pr_number') }}</span>
-                                @endif
-                            </div>
-                            <div class="col-md-6 mt-2">
-                                <label class="form-control-label">Category <span class="tx-danger">*</span></label>
-                                <select id="category_id" class="form-control" name="category_id" required>
-                                    <option value="">Select category</option>
-                                    @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}"
-                                            {{ old('category_id') == $category->id ? 'selected' : '' }}>
-                                            {{ $category->title }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @if ($errors->has('category_id'))
-                                    <span class="text-danger text-left">{{ $errors->first('category_id') }}</span>
-                                @endif
-                            </div>
-
-                            <div class="col-md-6 mt-2">
-                                <label class="form-control-label">Brand <span class="tx-danger">*</span></label>
-                                <select id="brand_id" class="form-control" name="brand_id" required>
-                                    <option value="">Select brand</option>
-                                    @foreach ($brands as $brand)
-                                        <option value="{{ $brand->id }}"
-                                            {{ old('brand_id') == $brand->id ? 'selected' : '' }}>
-                                            {{ $brand->title }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @if ($errors->has('brand_id'))
-                                    <span class="text-danger text-left">{{ $errors->first('brand_id') }}</span>
-                                @endif
-                            </div>
-
-                            <div class="col-md-6 mt-2">
-                                <label class="form-control-label">Memory <span class="tx-danger">*</label>
-                                <select id="memory_id" class="form-control" name="memory_id">
-                                    <option value="">Select memory</option>
-                                    @foreach ($memories as $memory)
-                                        <option value="{{ $memory->id }}"
-                                            {{ old('memory_id') == $memory->id ? 'selected' : '' }}>
-                                            {{ $memory->title }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @if ($errors->has('memory_id'))
-                                    <span class="text-danger text-left">{{ $errors->first('memory_id') }}</span>
-                                @endif
-                            </div>
-
-                            <div class="col-md-6 mt-2">
-                                <label class="form-control-label">Color <span class="tx-danger">*</label>
-                                <select id="color_id" class="form-control" name="color_id">
-                                    <option value="">Select color</option>
-                                    @foreach ($colors as $color)
-                                        <option value="{{ $color->id }}"
-                                            {{ old('color_id') == $color->id ? 'selected' : '' }}>
-                                            {{ $color->title }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @if ($errors->has('color_id'))
-                                    <span class="text-danger text-left">{{ $errors->first('color_id') }}</span>
-                                @endif
-                            </div>
-                            <div class="col-md-6 mt-2">
-                                <label class="form-control-label">Status <span class="tx-danger">*</span></label>
-                                <select id="status" class="form-control" name="status" required>
-                                    <option value="">Select status</option>
-                                    <option value="Published" {{ old('status') == 'Published' ? 'selected' : '' }}>
-                                        Published</option>
-                                    <option value="Pending" {{ old('status') == 'Pending' ? 'selected' : '' }}>Pending
-                                    </option>
-                                    <option value="Out of Stock" {{ old('status') == 'Out of Stock' ? 'selected' : '' }}>
-                                        Out of Stock</option>
-                                    <option value="On hold" {{ old('status') == 'On hold' ? 'selected' : '' }}>On hold
-                                    </option>
-                                    <option value="Closed" {{ old('status') == 'Closed' ? 'selected' : '' }}>Closed
-                                    </option>
-                                </select>
-                                @if ($errors->has('status'))
-                                    <span class="text-danger text-left">{{ $errors->first('status') }}</span>
-                                @endif
-                            </div>
-                        </div>
-                    </section>
-                    <h3>Product Description</h3>
-                    <section>
-                        <p>Wonderful Product Description.</p>
-                        <div class="row">
-                            <!-- Short Description -->
-                            <div class="col-12 col-md-12 mb-3">
-                                <label class="form-control-label">Short Description:</label>
-                                <textarea id="short" class="form-control" name="short" placeholder="Enter short description" rows="2"
-                                    data-parsley-required="true" data-parsley-maxlength="255">{{ old('short') }}</textarea>
-                                @if ($errors->has('short'))
-                                    <span class="text-danger text-left">{{ $errors->first('short') }}</span>
-                                @endif
-                            </div>
-                            <!-- Long Description -->
-                            <div class="col-12 col-md-12">
-                                <label class="form-control-label">Long Description:</label>
-                                <textarea id="long" class="form-control" name="long" placeholder="Enter long description" rows="5"></textarea>
-                            </div>
-                        </div>
-                    </section>
-                    <h3>Product Images</h3>
-                    <section>
-                        <div class="row row-sm">
-                            <div class="col-md-6">
-                                <label>Feature Image <span class="text-danger">*</span></label>
-                                <div class="custom-file">
-                                    <input type="file" accept="images/jpg,jpeg,png" class="custom-file-input"
-                                        name="feature_image" id="customFile" required>
-                                    <label class="custom-file-label" for="customFile">Choose feature image</label>
-                                </div>
-                                @if ($errors->has('feature_image'))
-                                    <span class="text-danger text-left">{{ $errors->first('feature_image') }}</span>
-                                @endif
-                            </div>
-                            <div class="col-md-6" id="gallery-images-container">
-                                <label>Gallery Images:</label>
-                                <div class="custom-file">
-                                    <input type="file" accept="images/jpg,jpeg,png" class="custom-file-input"
-                                        name="gallery_images[]" id="galleryImages" multiple>
-                                    <label class="custom-file-label" for="galleryImages">Choose gallery images</label>
-                                </div>
-                                @if ($errors->has('gallery_images'))
-                                    <span class="text-danger text-left">{{ $errors->first('gallery_images') }}</span>
-                                @endif
-                            </div>
-                        </div>
-                    </section>
-                </div>
+                <form id="product-form-name" method="POST" action="{{ route('admin.products.store') }}" enctype="multipart/form-data">
+                    @csrf
+                    <div id="product-form">
+                        <h3>Product Information</h3>
+                        @include('dashboards/admin/components/products/partials/product-information')
+                        <h3>Product Description</h3>
+                        @include('dashboards/admin/components/products/partials/product-description')
+                        <h3>Product Images</h3>
+                        @include('dashboards/admin/components/products/partials/product-images')
+                        <h3>Publish Product</h3>
+                        <section>
+                            <p>The next and previous buttons help you to navigate through your content.</p>
+                        </section>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -190,30 +48,23 @@
 @section('js')
     <script src="{!! asset('assets/lib/jquery-steps/jquery.steps.min.js') !!}"></script>
     <script src="{!! asset('assets/lib/parsleyjs/parsley.min.js') !!}"></script>
-    <script src="https://cdn.ckeditor.com/ckeditor5/41.2.1/classic/ckeditor.js"></script>
-    <script>
-        ClassicEditor
-            .create(document.querySelector('#long'))
-            .catch(error => {
-                console.error(error);
-            });
-    </script>
+    <script src="{!! asset('assets/lib/select2/js/select2.min.js') !!}"></script>
+    <script src="{!! asset('assets/lib/quill/quill.min.js') !!}"></script>
     <script>
         $(function() {
             'use strict';
-
-            $('#wizard2').steps({
+            $('#product-form').steps({
                 headerTag: 'h3',
                 bodyTag: 'section',
                 autoFocus: true,
                 titleTemplate: '<span class="number">#index#</span> <span class="title">#title#</span>',
+                labels: {
+                    finish: "Publish Product",
+                },
                 onStepChanging: function(event, currentIndex, newIndex) {
                     if (currentIndex < newIndex) {
                         if (currentIndex === 0) {
-                            // Validate fields in the first step
                             var title = $('#title').parsley();
-                            var slug = $('#slug').parsley();
-                            var prNumber = $('#pr_number').parsley();
                             var categoryId = $('#category_id').parsley();
                             var brandId = $('#brand_id').parsley();
                             var memoryId = $('#memory_id').parsley();
@@ -222,8 +73,6 @@
 
                             if (
                                 title.isValid() &&
-                                slug.isValid() &&
-                                prNumber.isValid() &&
                                 categoryId.isValid() &&
                                 brandId.isValid() &&
                                 memoryId.isValid() &&
@@ -231,53 +80,118 @@
                                 status.isValid()
                             ) {
                                 return true;
-                            } else {
+                            } 
+                            else {
                                 title.validate();
-                                slug.validate();
-                                prNumber.validate();
                                 categoryId.validate();
                                 brandId.validate();
                                 memoryId.validate();
                                 colorId.validate();
                                 status.validate();
                             }
-                        } else if (currentIndex === 1) {
-                            // Validate fields in the second step
-                            var short = $('#short').parsley();
-
+                        } 
+                        else if (currentIndex === 1) {
+                            var short = $('#short_description').parsley();
                             if (short.isValid()) {
                                 return true;
-                            } else {
+                            } 
+                            else {
                                 short.validate();
                             }
                         }
-                    } else {
+                        else if (currentIndex === 2) {
+                            return true;
+                            var picture = $('#picture').parsley();
+                            if (picture.isValid()) {
+                                return true;
+                            } 
+                            else {
+                                picture.validate();
+                            }
+                        }
+                    } 
+                    else {
                         return true;
                     }
+                },
+                onFinishing: function (event, currentIndex) {
+                    console.log('Finishing... Current Index:', currentIndex);
+                    var formData = new FormData(document.getElementById('product-form-name'));
+                    $.ajax({
+                        url: "{{ route('admin.products.store') }}",
+                        type: 'POST',
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function (response) {
+                            console.log(response);
+                            location.reload();
+                        },
+                        error: function (xhr, status, error) {
+                            alert('An error occurred. Please try again.');
+                            console.error(xhr.responseText);
+                        }
+                    });
                 }
             });
-
+            
             // Add Parsley.js validations to form fields
             $('#title').attr('data-parsley-required', 'true');
-            $('#slug').attr('data-parsley-required', 'true');
-            $('#pr_number').attr('data-parsley-required', 'true');
             $('#category_id').attr('data-parsley-required', 'true');
             $('#brand_id').attr('data-parsley-required', 'true');
             $('#memory_id').attr('data-parsley-required', 'true');
             $('#color_id').attr('data-parsley-required', 'true');
             $('#status').attr('data-parsley-required', 'true');
 
-            // Description validations
-            $('#short').attr({
-                'data-parsley-required': 'true',
-                'data-parsley-maxlength': '255',
-                'data-parsley-errors-container': '#short-error'
-            });
             // File upload validation
             $('#customFile').attr('data-parsley-required', 'true');
 
             // Initialize Parsley on the form
-            $('#wizard2 form').parsley();
+            $('#product-form form').parsley();
+
+            $('.select2').select2({
+                placeholder: 'Choose items',
+                searchInputPlaceholder: 'Search'
+            });
+
+            var icons = Quill.import('ui/icons');
+            icons['bold'] = '<i class="la la-bold" aria-hidden="true"></i>';
+            icons['italic'] = '<i class="la la-italic" aria-hidden="true"></i>';
+            icons['underline'] = '<i class="la la-underline" aria-hidden="true"></i>';
+            icons['strike'] = '<i class="la la-strikethrough" aria-hidden="true"></i>';
+            icons['list']['ordered'] = '<i class="la la-list-ol" aria-hidden="true"></i>';
+            icons['list']['bullet'] = '<i class="la la-list-ul" aria-hidden="true"></i>';
+    
+            icons['link'] = '<i class="la la-link" aria-hidden="true"></i>';
+            icons['image'] = '<i class="la la-image" aria-hidden="true"></i>';
+            icons['video'] = '<i class="la la-film" aria-hidden="true"></i>';
+            icons['code-block'] = '<i class="la la-code" aria-hidden="true"></i>';
+    
+            var toolbarOptions = [
+                [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                ['bold', 'italic', 'underline', 'strike'],
+                [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                ['link', 'image', 'video']
+            ];
+    
+            var quill = new Quill('#londDescription', {
+                modules: {
+                    toolbar: toolbarOptions
+                },
+                theme: 'snow'
+            });
+            quill.on('text-change', function () {
+                var htmlContent = quill.root.innerHTML;
+                $('#long').html(htmlContent);
+            });
+            var toolbarInlineOptions = [
+                ['bold', 'italic', 'underline'],
+                [{ 'header': 1 }, { 'header': 2 }, 'blockquote'],
+                ['link', 'image', 'code-block'],
+            ];
         });
     </script>
 @endsection

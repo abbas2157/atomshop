@@ -82,8 +82,8 @@
                                 <tr>
                                     <th>{{ $item->id ?? '' }}</th>
                                     <td>{{ $item->title ?? '' }}</td>
-                                    <td>{{ $item->brand->title ?? '' }}</td>
                                     <td>{{ $item->category->title ?? '' }}</td>
+                                    <td>{{ $item->brand->title ?? '' }}</td>
                                     <td>{{ $item->status ?? '' }}</td>
                                     <td>{{ $item->created_at->format('M d, Y') ?? '' }}</td>
                                     <td>
