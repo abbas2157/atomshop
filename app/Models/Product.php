@@ -22,11 +22,11 @@ class Product extends Model
     }
     public function colors()
     {
-        return $this->hasMany(ProductColor::class,'id','product_id')->select('id','title');
+        return $this->hasMany(ProductColor::class,'product_id','id')->with('color');
     }
     public function memories()
     {
-        return $this->hasMany(ProductMemory::class,'id','product_id')->select('id','title');
+        return $this->hasMany(ProductMemory::class,'product_id','id')->with('memory');
     }
     public function getProductPictureAttribute() {
         return asset($this->picture);

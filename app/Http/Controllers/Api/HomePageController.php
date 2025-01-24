@@ -54,9 +54,8 @@ class HomePageController extends BaseController
     }
     public function product_detail(Request $request, $id) {
         try {
-            $product = Product::orderBy('id','desc')
-                        ->with('category', 'brand', 'colors', 'memories')
-                        ->where(['status' => 'Published', 'id' => $id])
+            $product = Product::with('category', 'brand', 'colors', 'memories')
+                        ->where(['status' => 'Published'])
                         ->select('id','title','picture', 'price', 'category_id', 'brand_id')
                         ->first();
             return $this->sendResponse($product, 'Product deatil is here .', 200);
