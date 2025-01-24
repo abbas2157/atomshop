@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('pr_number')->nullable()->index();
             $table->string('title', 255);
             $table->string('slug', 255)->nullable();
+            $table->integer('price')->nullable();
             $table->string('picture')->nullable();
             $table->foreignId('category_id')->nullable()->index();
             $table->foreignId('brand_id')->nullable()->index();
