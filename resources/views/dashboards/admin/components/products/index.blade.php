@@ -64,7 +64,7 @@
                 </div>
             </form>
             <div class="table-responsive">
-                <table class="table table-bordered mg-b-0">
+                <table class="table table-bordered mg-b-0" style="width: 100%">
                     <thead>
                         <tr>
                             <th width="70px">PR No</th>
@@ -80,11 +80,23 @@
                         @if($products->isNotEmpty())
                             @foreach($products as $item)
                                 <tr>
-                                    <th>{{ $item->id ?? '' }}</th>
+                                    <th>{{ $item->pr_number ?? '' }}</th>
                                     <td>{{ $item->title ?? '' }}</td>
                                     <td>{{ $item->category->title ?? '' }}</td>
                                     <td>{{ $item->brand->title ?? '' }}</td>
-                                    <td>{{ $item->status ?? '' }}</td>
+                                    <td>
+                                        @if($item->status == 'Out of Stock')
+                                            <label class="badge badge-info">{{ $item->status ?? '' }}</label>
+                                        @elseif($item->status == 'On hold')
+                                            <label class="badge badge-info">{{ $item->status ?? '' }}</label>
+                                        @elseif($item->status == 'Closed')
+                                            <label class="badge badge-danger">{{ $item->status ?? '' }}</label>
+                                        @elseif($item->status == 'Pending')
+                                            <label class="badge badge-warning">{{ $item->status ?? '' }}</label>
+                                        @elseif($item->status == 'Published')
+                                            <label class="badge badge-success">{{ $item->status ?? '' }}</label>
+                                        @endif
+                                    </td>
                                     <td>{{ $item->created_at->format('M d, Y') ?? '' }}</td>
                                     <td>
                                         <a href="{{ route('admin.products.edit',$item->id) }}">View</a> |

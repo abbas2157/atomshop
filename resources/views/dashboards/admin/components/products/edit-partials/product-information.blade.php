@@ -1,9 +1,16 @@
 <section>
     <p class="mg-b-20">Try the keyboard navigation by clicking arrow left or right!</p>
     <div class="row row-sm">
-        <div class="col-md mt-2">
+        <div class="col-lg-9 mt-2">
             <label class="form-control-label">Product Title <span class="tx-danger">*</span></label>
             <input type="text" id="title" class="form-control" name="title" placeholder="Enter product title" value="{{ old('title') ?? $product->title ?? ''}}" required>
+            @if ($errors->has('title'))
+                <span class="text-danger text-left">{{ $errors->first('title') }}</span>
+            @endif
+        </div>
+        <div class="col-lg-3 mt-2">
+            <label class="form-control-label">Product Price <span class="tx-danger">*</span></label>
+            <input type="number" id="price" class="form-control" name="price" placeholder="Enter product price" value="{{ old('price') ?? $product->price }}" required>
             @if ($errors->has('title'))
                 <span class="text-danger text-left">{{ $errors->first('title') }}</span>
             @endif
@@ -70,7 +77,7 @@
         </div>
     </div>
     <div class="row row-sm">
-        <div class="col-md-6 mt-2">
+        <div class="col-lg mt-2">
             <label class="form-control-label">Status <span class="tx-danger">*</span></label>
             <select id="status" class="form-control" name="status" required>
                 <option value="Published" {{ old('status', $product->status) == 'Published' ? 'selected' : '' }}>Published</option>
@@ -81,6 +88,38 @@
             </select>
             @if ($errors->has('status'))
                 <span class="text-danger text-left">{{ $errors->first('status') }}</span>
+            @endif
+        </div>
+        <div class="col-lg mt-2">
+            <label class="form-control-label">Feature <span class="tx-danger">*</span></label>
+            <select id="feature" class="form-control" name="feature" required>
+                <option value="1" {{ old('feature') == 1 ? 'selected' : '' }} {{ old('feature', $product->feature) == 1 ? 'selected' : '' }}>Yes</option>
+                <option value="0" {{ old('feature') == 0 ? 'selected' : '' }} {{ old('feature', $product->feature) == 0 ? 'selected' : '' }}>No</option>
+            </select>
+            @if ($errors->has('feature'))
+                <span class="text-danger text-left">{{ $errors->first('feature') }}</span>
+            @endif
+        </div>
+    </div>
+    <div class="row row-sm">
+        <div class="col-lg mt-2">
+            <label class="form-control-label">App Home <span class="tx-danger">*</span></label>
+            <select id="app_home" class="form-control" name="app_home" required>
+                <option value="1" {{ old('app_home') == 1 ? 'selected' : '' }} {{ old('app_home', $product->app_home) == 1 ? 'selected' : '' }}>Yes, Show on app homepage</option>
+                <option value="0" {{ old('app_home') == 0 ? 'selected' : '' }} {{ old('app_home', $product->app_home) == 0 ? 'selected' : '' }}>No, Not show on app homepage</option>
+            </select>
+            @if ($errors->has('app_home'))
+                <span class="text-danger text-left">{{ $errors->first('app_home') }}</span>
+            @endif
+        </div>
+        <div class="col-lg mt-2">
+            <label class="form-control-label">Web Home <span class="tx-danger">*</span></label>
+            <select id="web_home" class="form-control" name="web_home" required>
+                <option value="1" {{ old('web_home') == 1 ? 'selected' : '' }} {{ old('web_home', $product->web_home) == 1 ? 'selected' : '' }}>Yes, Show on web homepage</option>
+                <option value="0" {{ old('web_home') == 0 ? 'selected' : '' }} {{ old('web_home', $product->web_home) == 0 ? 'selected' : '' }}>No, Not show on web homepage</option>
+            </select>
+            @if ($errors->has('web_home'))
+                <span class="text-danger text-left">{{ $errors->first('web_home') }}</span>
             @endif
         </div>
     </div>
