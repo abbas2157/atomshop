@@ -20,3 +20,7 @@ Route::group(['prefix' => 'account'], function(){
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::group(['prefix' => 'home'], function(){
+    Route::get('categories', [App\Http\Controllers\Api\HomePageController::class, 'categories']);
+});
