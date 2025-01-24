@@ -33,6 +33,6 @@ class Product extends Model
     }
     public function getFormattedPriceAttribute()
 {
-    return number_format($this->number, 0);
+    return number_format($this->price, 0);
 }
 }
