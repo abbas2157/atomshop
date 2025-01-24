@@ -17,7 +17,7 @@ class HomePageController extends BaseController
      */
     public function categories(Request $request) {
         try {
-            $categories = Category::orderBy('id','desc')->where('status', 'active')->get();
+            $categories = Category::orderBy('id','desc')->where('status', 'active')->select('id','title')->get();
             return $this->sendResponse($categories, 'Here list of categories.', 200);
         } catch (Exception $e) {
             DB::rollBack();

@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    public function getPictureAttribute() {
-        return public_path($this->picture);
+    protected $guarded = [];
+    protected $appends = ['category_picture'];
+    public function getCategoryPictureAttribute() {
+        return asset($this->picture);
     }
 }
