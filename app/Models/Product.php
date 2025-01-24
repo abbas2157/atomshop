@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     protected $guarded = [];
-    protected $appends = ['product_picture'];
+    protected $appends = ['product_picture', 'formatted_picture'];
     public function category()
     {
         return $this->belongsTo(Category::class,'category_id','id')->select('id','title');
