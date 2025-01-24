@@ -115,7 +115,7 @@
 @section('js')
 <script>
     $(document).on('click', '#delete-btn', function () {
-        if (confirm('Are you sure you want to delete this Brand?')) {
+        if (confirm('Are you sure you want to delete this Product?')) {
             $('#delete-form').submit();
         }
     });

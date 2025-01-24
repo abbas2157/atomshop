@@ -1,0 +1,87 @@
+<section>
+    <p class="mg-b-20">Try the keyboard navigation by clicking arrow left or right!</p>
+    <div class="row row-sm">
+        <div class="col-md mt-2">
+            <label class="form-control-label">Product Title <span class="tx-danger">*</span></label>
+            <input type="text" id="title" class="form-control" name="title" placeholder="Enter product title" value="{{ old('title') ?? $product->title ?? ''}}" required>
+            @if ($errors->has('title'))
+                <span class="text-danger text-left">{{ $errors->first('title') }}</span>
+            @endif
+        </div>
+    </div>
+    <div class="row row-sm">
+        <div class="col-md mt-2">
+            <label class="form-control-label">Category <span class="tx-danger">*</span></label>
+            <select id="category_id" class="form-control" name="category_id" required>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id ?? '' }}"
+                        {{ old('category_id') == $category->id || $product->category_id == $category->id ? 'selected' : '' }}>
+                        {{ $category->title ?? '' }}
+                    </option>
+                @endforeach
+            </select>
+            @if ($errors->has('category_id'))
+                <span class="text-danger text-left">{{ $errors->first('category_id') }}</span>
+            @endif
+        </div>
+        <div class="col-md mt-2">
+            <label class="form-control-label">Brand <span class="tx-danger">*</span></label>
+            <select id="brand_id" class="form-control" name="brand_id" required>
+                @foreach ($brands as $brand)
+                    <option value="{{ $brand->id ?? '' }}"
+                        {{ old('brand_id') == $brand->id || $product->brand_id == $brand->id ? 'selected' : '' }}>
+                        {{ $brand->title ?? '' }}
+                    </option>
+                @endforeach
+            </select>
+            @if ($errors->has('brand_id'))
+                <span class="text-danger text-left">{{ $errors->first('brand_id') }}</span>
+            @endif
+        </div>
+    </div>
+    <div class="row row-sm">
+        <div class="col-md mt-2">
+            <label class="form-control-label">Color <span class="tx-danger">*</span></label>
+            <select id="color_id" class="form-control select2" name="colors[]" multiple="multiple">
+                @foreach ($colors as $color)
+                    <option value="{{ $color->id }}" 
+                        {{ in_array($color->id, $productColor) ? 'selected' : ''  }}>
+                        {{ $color->title }}
+                    </option>
+                @endforeach
+            </select>
+            @if ($errors->has('colors'))
+                <span class="text-danger text-left">{{ $errors->first('colors') }}</span>
+            @endif
+        </div>        
+        <div class="col-md mt-2">
+            <label class="form-control-label">Memory <span class="tx-danger">*</label>
+                <select id="memory_id" class="form-control select2" name="memory[]" multiple="multiple">
+                    @foreach ($memories as $memory)
+                        <option value="{{ $memory->id }}" 
+                            {{ in_array($memory->id, $productmemory) ? 'selected' : '' }}>
+                            {{ $memory->title }}
+                        </option>
+                    @endforeach
+                </select>
+                @if ($errors->has('memories'))
+                    <span class="text-danger text-left">{{ $errors->first('memories') }}</span>
+                @endif
+        </div>
+    </div>
+    <div class="row row-sm">
+        <div class="col-md-6 mt-2">
+            <label class="form-control-label">Status <span class="tx-danger">*</span></label>
+            <select id="status" class="form-control" name="status" required>
+                <option value="Published" {{ old('status', $product->status) == 'Published' ? 'selected' : '' }}>Published</option>
+                <option value="Pending" {{ old('status', $product->status) == 'Pending' ? 'selected' : '' }}>Pending</option>
+                <option value="Out of Stock" {{ old('status', $product->status) == 'Out of Stock' ? 'selected' : '' }}>Out of Stock</option>
+                <option value="On hold" {{ old('status', $product->status) == 'On hold' ? 'selected' : '' }}>On hold</option>
+                <option value="Closed" {{ old('status', $product->status) == 'Closed' ? 'selected' : '' }}>Closed</option>
+            </select>
+            @if ($errors->has('status'))
+                <span class="text-danger text-left">{{ $errors->first('status') }}</span>
+            @endif
+        </div>
+    </div>
+</section>
