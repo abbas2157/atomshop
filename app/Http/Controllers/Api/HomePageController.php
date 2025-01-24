@@ -43,6 +43,22 @@ class HomePageController extends BaseController
         try {
             $products = Product::orderBy('id','desc')
                         ->with('category', 'brand')
+                        ->where(['status' => 'Published'])
+                        ->select('id','title','picture', 'price', 'category_id', 'brand_id')
+                        ->get();
+            return $this->sendResponse($products, 'Here list of products.', 200);
+        } catch (Exception $e) {
+            DB::rollBack();
+            return $this->sendError('Something Went Wrong.', $e->getMessage(), 200);
+        }
+    }
+    /**
+     * Get Products For Home Page App
+     */
+    public function home_products(Request $request) {
+        try {
+            $products = Product::orderBy('id','desc')
+                        ->with('category', 'brand')
                         ->where(['status' => 'Published', 'app_home' => '1'])
                         ->select('id','title','picture', 'price', 'category_id', 'brand_id')
                         ->get();
@@ -52,6 +68,7 @@ class HomePageController extends BaseController
             return $this->sendError('Something Went Wrong.', $e->getMessage(), 200);
         }
     }
+
     /**
      * Get Feature Products For Home Page App
      */
