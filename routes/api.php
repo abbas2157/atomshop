@@ -25,6 +25,7 @@ Route::get('categories', [App\Http\Controllers\Api\HomePageController::class, 'c
 Route::get('brands', [App\Http\Controllers\Api\HomePageController::class, 'brands']);
 Route::group(['prefix' => 'products'], function(){
     Route::get('/', [App\Http\Controllers\Api\HomePageController::class, 'products']);
+    Route::get('{id}', [App\Http\Controllers\Api\HomePageController::class, 'product_detail']);
     Route::get('home', [App\Http\Controllers\Api\HomePageController::class, 'home_products']);
     Route::get('recent', [App\Http\Controllers\Api\HomePageController::class, 'recent_products']);
     Route::get('feature', [App\Http\Controllers\Api\HomePageController::class, 'feature_products']);
