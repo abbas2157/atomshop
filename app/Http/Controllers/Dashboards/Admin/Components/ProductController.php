@@ -159,7 +159,7 @@ class ProductController extends Controller
             $product->slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->title)));
             $product->category_id = $request->category_id;
             $product->brand_id = $request->brand_id;
-    
+            $product->price = $request->price;
             if ($request->hasFile('picture')) {
                 $file = $request->file('picture');
                 $fileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
@@ -168,7 +168,9 @@ class ProductController extends Controller
                 $file->move(public_path('images/categories'), $filename);
                 $product->picture = 'images/products/' . $filename;
             }
-    
+            $product->feature = $request->feature;
+            $product->app_home = $request->app_home;
+            $product->web_home = $request->web_home;
             $product->status = $request->status;
             $product->save();
     
