@@ -24,4 +24,13 @@ class HomePageController extends BaseController
             return $this->sendError('Something Went Wrong.', $e->getMessage(), 200);
         }
     }
+    public function brands(Request $request) {
+        try {
+            $categories = Brand::orderBy('id','desc')->where('status', 'active')->select('id','title','picture')->get();
+            return $this->sendResponse($categories, 'Here list of Brands.', 200);
+        } catch (Exception $e) {
+            DB::rollBack();
+            return $this->sendError('Something Went Wrong.', $e->getMessage(), 200);
+        }
+    }
 }

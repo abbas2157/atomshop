@@ -23,4 +23,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group(['prefix' => 'home'], function(){
     Route::get('categories', [App\Http\Controllers\Api\HomePageController::class, 'categories']);
+    Route::get('brands', [App\Http\Controllers\Api\HomePageController::class, 'brands']);
 });
