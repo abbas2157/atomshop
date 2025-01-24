@@ -20,6 +20,9 @@ return new class extends Migration
             $table->string('picture')->nullable();
             $table->foreignId('category_id')->nullable()->index();
             $table->foreignId('brand_id')->nullable()->index();
+            $table->enum('feature',[0,1])->default(0);
+            $table->enum('app_home',[0,1])->default(0);
+            $table->enum('web_home',[0,1])->default(0);
             $table->enum('status',['Published', 'Pending', 'Out of Stock', 'On hold', 'Closed'])->default('Pending');
             $table->timestamps();
         });
