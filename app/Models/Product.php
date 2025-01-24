@@ -31,4 +31,8 @@ class Product extends Model
     public function getProductPictureAttribute() {
         return asset($this->picture);
     }
+    public function getFormattedPriceAttribute()
+{
+    return number_format($this->number, 0);
+}
 }
