@@ -14,7 +14,7 @@
         <div class="col-lg mt-2">
             <label>Supplier area <span class="text-danger">*</span></label>
             <select class="form-control" name="area_id" id="area_id">
-                @if($areas->isNotEmpty())
+                @if(!empty($areas))
                     @foreach($areas as $item)
                         <option value="{{ $item->id ?? '' }}" {{ ($item->id == old('area_id')) ? 'selected' : '' }}>{{ $item->title ?? '' }}</option>
                     @endforeach
