@@ -93,8 +93,8 @@
         <div class="col-lg mt-2">
             <label class="form-control-label">Feature <span class="tx-danger">*</span></label>
             <select id="feature" class="form-control" name="feature" required>
-                <option value="1" {{ old('feature') == 1 ? 'selected' : '' }} {{ old('feature', $product->feature) == 1 ? 'selected' : '' }}>Yes</option>
-                <option value="0" {{ old('feature') == 0 ? 'selected' : '' }} {{ old('feature', $product->feature) == 0 ? 'selected' : '' }}>No</option>
+                <option value="1" {{ old('feature') == '1' ? 'selected' : '' }} {{ old('feature', $product->feature) == '1' ? 'selected' : '' }}>Yes</option>
+                <option value="0" {{ old('feature') == '0' ? 'selected' : '' }} {{ old('feature', $product->feature) == '0' ? 'selected' : '' }}>No</option>
             </select>
             @if ($errors->has('feature'))
                 <span class="text-danger text-left">{{ $errors->first('feature') }}</span>
@@ -105,8 +105,8 @@
         <div class="col-lg mt-2">
             <label class="form-control-label">App Home <span class="tx-danger">*</span></label>
             <select id="app_home" class="form-control" name="app_home" required>
-                <option value="1" {{ old('app_home') == 1 ? 'selected' : '' }} {{ old('app_home', $product->app_home) == 1 ? 'selected' : '' }}>Yes, Show on app homepage</option>
-                <option value="0" {{ old('app_home') == 0 ? 'selected' : '' }} {{ old('app_home', $product->app_home) == 0 ? 'selected' : '' }}>No, Not show on app homepage</option>
+                <option value="1" {{ old('app_home') == '1' ? 'selected' : '' }} {{ old('app_home', $product->app_home) == '1' ? 'selected' : '' }}>Yes, Show on app homepage</option>
+                <option value="0" {{ old('app_home') == '0' ? 'selected' : '' }} {{ old('app_home', $product->app_home) == '0' ? 'selected' : '' }}>No, Not show on app homepage</option>
             </select>
             @if ($errors->has('app_home'))
                 <span class="text-danger text-left">{{ $errors->first('app_home') }}</span>
@@ -115,8 +115,8 @@
         <div class="col-lg mt-2">
             <label class="form-control-label">Web Home <span class="tx-danger">*</span></label>
             <select id="web_home" class="form-control" name="web_home" required>
-                <option value="1" {{ old('web_home') == 1 ? 'selected' : '' }} {{ old('web_home', $product->web_home) == 1 ? 'selected' : '' }}>Yes, Show on web homepage</option>
-                <option value="0" {{ old('web_home') == 0 ? 'selected' : '' }} {{ old('web_home', $product->web_home) == 0 ? 'selected' : '' }}>No, Not show on web homepage</option>
+                <option value="1" {{ old('web_home') == '1'? 'selected' : '' }} {{ old('web_home', $product->web_home) == '1' ? 'selected' : '' }}>Yes, Show on web homepage</option>
+                <option value="0" {{ old('web_home') == '0' ? 'selected' : '' }} {{ old('web_home', $product->web_home) == '0' ? 'selected' : '' }}>No, Not show on web homepage</option>
             </select>
             @if ($errors->has('web_home'))
                 <span class="text-danger text-left">{{ $errors->first('web_home') }}</span>

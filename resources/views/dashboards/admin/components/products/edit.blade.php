@@ -122,7 +122,7 @@
                 var formData = new FormData(document.getElementById('product-form-name'));
                 
                 $.ajax({
-                    url: `/admin/products/${productId}`, 
+                    url: "{{ route('admin.products.update', $product->id) }}", 
                     type: 'POST',
                     data: formData,
                     contentType: false,
