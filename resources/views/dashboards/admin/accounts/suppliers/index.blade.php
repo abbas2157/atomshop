@@ -36,10 +36,10 @@
                                 <button class="btn btn-primary" type="submit" style="padding: 8px 20px;"><i class="fa fa-search"></i></button>
                             </span>
                             <span class="input-group-btn" title="Clear Search">
-                                <a href="{{ route('admin.vendors.index') }}" class="btn btn-warning" type="submit" style="padding: 8px 20px;"><i class="far fa-arrow-alt-circle-left"></i></a>
+                                <a href="{{ route('admin.suppliers.index') }}" class="btn btn-warning" type="submit" style="padding: 8px 20px;"><i class="far fa-arrow-alt-circle-left"></i></a>
                             </span>
                             <span class="input-group-btn" title="Create New">
-                                <a href="{{ route('admin.vendors.create') }}" class="btn btn-info" type="submit" style="padding: 8px 20px;"><i class="typcn typcn-document-add"></i></a>
+                                <a href="{{ route('admin.suppliers.create') }}" class="btn btn-info" type="submit" style="padding: 8px 20px;"><i class="typcn typcn-document-add"></i></a>
                             </span>
                         </div>
                     </div>
@@ -59,8 +59,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if($vendors->isNotEmpty())
-                            @foreach($vendors as $item)
+                        @if($suppliers->isNotEmpty())
+                            @foreach($suppliers as $item)
                                 <tr>
                                     <th>{{ $item->id ?? '' }}</th>
                                     <td>{{ $item->name ?? '' }}</td>
@@ -79,10 +79,10 @@
                                     </td>
                                     <td>{{ $item->created_at->format('M d, Y') ?? '' }}</td>
                                     <td>
-                                        <a href="{{ route('admin.vendors.edit',$item->uuid) }}">View</a> |
-                                        <a href="{{ route('admin.vendors.edit',$item->uuid) }}">Edit</a> | 
+                                        <a href="{{ route('admin.suppliers.edit',$item->uuid) }}">View</a> |
+                                        <a href="{{ route('admin.suppliers.edit',$item->uuid) }}">Edit</a> | 
                                         <a href="javascript:;" id="delete-btn">Delete</a>
-                                        <form id="delete-form" action="{{ route('admin.vendors.destroy', $item->uuid) }}" method="POST">
+                                        <form id="delete-form" action="{{ route('admin.suppliers.destroy', $item->uuid) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                         </form>
@@ -98,7 +98,7 @@
                 </table>
             </div>
             <div class="mt-2">
-                {!! $vendors->withQueryString()->links('pagination::bootstrap-5') !!} 
+                {!! $suppliers->withQueryString()->links('pagination::bootstrap-5') !!} 
             </div>
         </div>
     </div>
