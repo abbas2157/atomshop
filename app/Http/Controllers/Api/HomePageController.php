@@ -43,7 +43,7 @@ class HomePageController extends BaseController
         try {
             $products = Product::orderBy('id','desc')
                         ->with('category', 'brand')
-                        ->where(['status' => 'Published', 'app_home' => 1])
+                        ->where(['status' => 'Published', 'app_home' => '1'])
                         ->select('id','title','picture', 'price', 'category_id', 'brand_id')
                         ->get();
             return $this->sendResponse($products, 'Here list of products.', 200);
@@ -75,7 +75,7 @@ class HomePageController extends BaseController
         try {
             $products = Product::orderBy('id','desc')
                         ->with('category', 'brand')
-                        ->where(['status' => 'Published', 'feature' => 1])
+                        ->where(['status' => 'Published', 'feature' => '1'])
                         ->select('id','title','picture', 'price', 'category_id', 'brand_id')
                         ->get();
             return $this->sendResponse($products, 'Here list of products.', 200);
