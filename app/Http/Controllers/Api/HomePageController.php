@@ -39,9 +39,80 @@ class HomePageController extends BaseController
     /**
      * Get Products For Home Page App
      */
+    public function products(Request $request) {
+        try {
+            $products = Product::orderBy('id','desc')
+                        ->with('category', 'brand')
+                        ->where(['status' => 'Published', 'app_home' => 1])
+                        ->select('id','title','picture', 'price', 'category_id', 'brand_id')
+                        ->get();
+            return $this->sendResponse($products, 'Here list of products.', 200);
+        } catch (Exception $e) {
+            DB::rollBack();
+            return $this->sendError('Something Went Wrong.', $e->getMessage(), 200);
+        }
+    }
+    /**
+     * Get Recent Products For Home Page App
+     */
+    public function recent_products(Request $request) {
+        try {
+            $products = Product::orderBy('id','desc')
+                        ->with('category', 'brand')
+                        ->where(['status' => 'Published'])
+                        ->select('id','title','picture', 'price', 'category_id', 'brand_id')
+                        ->get();
+            return $this->sendResponse($products, 'Here list of products.', 200);
+        } catch (Exception $e) {
+            DB::rollBack();
+            return $this->sendError('Something Went Wrong.', $e->getMessage(), 200);
+        }
+    }
+    /**
+     * Get Feature Products For Home Page App
+     */
     public function feature_products(Request $request) {
         try {
-            $products = Product::orderBy('id','desc')->where(['status' => 'Published'])->select('id','title','picture')->get();
+            $products = Product::orderBy('id','desc')
+                        ->with('category', 'brand')
+                        ->where(['status' => 'Published', 'feature' => 1])
+                        ->select('id','title','picture', 'price', 'category_id', 'brand_id')
+                        ->get();
+            return $this->sendResponse($products, 'Here list of products.', 200);
+        } catch (Exception $e) {
+            DB::rollBack();
+            return $this->sendError('Something Went Wrong.', $e->getMessage(), 200);
+        }
+    }
+    
+    /**
+     * Get Category Products For Home Page App
+     */
+    public function category_products(Request $request, $category_id) {
+        try {
+
+            $products = Product::orderBy('id','desc')
+                        ->with('category', 'brand')
+                        ->where(['status' => 'Published', 'category_id' => $category_id])
+                        ->select('id','title','picture', 'price', 'category_id', 'brand_id')
+                        ->get();
+            return $this->sendResponse($products, 'Here list of products.', 200);
+        } catch (Exception $e) {
+            DB::rollBack();
+            return $this->sendError('Something Went Wrong.', $e->getMessage(), 200);
+        }
+    }
+    /**
+     * Get Brand Products For Home Page App
+     */
+    public function brand_products(Request $request, $brand_id) {
+        try {
+
+            $products = Product::orderBy('id','desc')
+                        ->with('category', 'brand')
+                        ->where(['status' => 'Published', 'brand_id' => $brand_id])
+                        ->select('id','title','picture', 'price', 'category_id', 'brand_id')
+                        ->get();
             return $this->sendResponse($products, 'Here list of products.', 200);
         } catch (Exception $e) {
             DB::rollBack();

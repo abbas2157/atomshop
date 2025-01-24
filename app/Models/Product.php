@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+    protected $guarded = [];
+    protected $appends = ['product_picture'];
     public function category()
     {
         return $this->belongsTo(Category::class,'category_id','id')->select('id','title');
@@ -25,5 +27,8 @@ class Product extends Model
     public function memories()
     {
         return $this->hasMany(ProductMemory::class,'id','product_id')->select('id','title');
+    }
+    public function getProductPictureAttribute() {
+        return asset($this->picture);
     }
 }
