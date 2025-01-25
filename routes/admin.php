@@ -15,6 +15,7 @@ Route::group(['middleware' => ['auth']], function() {
             });
             //Product Management
             Route::resource('products', App\Http\Controllers\Dashboards\Admin\Components\ProductController::class,['as' => 'admin']);
+            Route::delete('products/{product}/gallery-image/{id}', [App\Http\Controllers\Dashboards\Admin\Components\ProductController::class, 'deleteGalleryImage'])->name('products.gallery-image');
             Route::resource('categories', App\Http\Controllers\Dashboards\Admin\Components\CategoryController::class,['as' => 'admin']);
             Route::resource('brands', App\Http\Controllers\Dashboards\Admin\Components\BrandController::class,['as' => 'admin']);
             Route::resource('colors', App\Http\Controllers\Dashboards\Admin\Components\ColorController::class,['as' => 'admin']);
