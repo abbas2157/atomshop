@@ -53,6 +53,8 @@
     <script>
         $(function() {
             'use strict';
+            let isSubmitting = false; 
+            
             $('#product-form').steps({
                 headerTag: 'h3',
                 bodyTag: 'section',
@@ -115,6 +117,13 @@
                     }
                 },
                 onFinishing: function (event, currentIndex) {
+
+                    if (isSubmitting) {
+                        return false;
+                    }
+                    isSubmitting = true;
+
+                    $('.actions a[href="#finish"]').text('Publishing...').addClass('disabled').css('pointer-events', 'none');
                     console.log('Finishing... Current Index:', currentIndex);
                     var formData = new FormData(document.getElementById('product-form-name'));
                     $.ajax({
@@ -133,11 +142,14 @@
                         error: function (xhr, status, error) {
                             alert('An error occurred. Please try again.');
                             console.error(xhr.responseText);
+                            isSubmitting = false;
+
+                            $('.actions a[href="#finish"]').text('Publish Product').removeClass('disabled').css('pointer-events', 'auto');
                         }
                     });
                 }
             });
-            
+
             // Add Parsley.js validations to form fields
             $('#title').attr('data-parsley-required', 'true');
             $('#category_id').attr('data-parsley-required', 'true');
