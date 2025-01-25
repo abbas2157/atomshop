@@ -16,27 +16,22 @@ class ProductController extends BaseController
     public function products(Request $request)
     {
         try {
-            $orderBy = $request->input('order_by', 'id');
-            $orderType = strtoupper($request->input('order_type', 'DESC'));
-            $margin = 10;
-            if (!in_array($orderType, ['ASC', 'DESC'])) {
-                return $this->sendError('Invalid order type.', 'Order type must be ASC or DESC.', 400);
-            }
             $products = Product::query()
-                ->orderBy($orderBy, $orderType)
-                ->with(['category', 'brand'])
-                ->when($request->input('status'), fn($query, $status) => $query->where('status', $status))
-                ->when($request->input('title'), fn($query, $title) => $query->where('title', 'like', '%' . $title . '%'))
-                ->when($request->input('price'), fn($query, $price) => $query->whereBetween('price', [$price - $margin, $price + $margin]))
-                ->when($request->input('brand_id'), fn($query, $brandId) => $query->where('brand_id', $brandId))
-                ->when($request->input('category_id'), fn($query, $categoryId) => $query->where('category_id', $categoryId))
-                ->select('id', 'title', 'picture', 'price', 'category_id', 'brand_id')
-                ->get();
-
-            return $this->sendResponse($products, 'Here list of products.', 200);
+                ->where('status', 'Published')
+                ->orderBy($request->input('order_by', 'title'), strtoupper($request->input('order_type', 'ASC')))
+                ->when($request->min_price, fn($q) => $q->where('price', '>=', $request->min_price))
+                ->when($request->max_price, fn($q) => $q->where('price', '<=', $request->max_price))
+                ->when($request->brand_id, fn($q) => $q->where('brand_id', $request->brand_id))
+                ->when($request->category_id, fn($q) => $q->where('category_id', $request->category_id))
+                ->when($request->color_id, fn($q) => $q->whereHas('colors', fn($q) => $q->where('color_id', $request->color_id)))
+                ->when($request->memory_id, fn($q) => $q->whereHas('memories', fn($q) => $q->where('memory_id', $request->memory_id)))
+                ->with(['category:id,title', 'brand:id,title'])
+                ->select('id', 'title', 'price', 'picture', 'category_id', 'brand_id');
+                $products = $products->paginate(10);
+            return $this->sendResponse($products, 'Here is the list of products.', 200);
         } catch (Exception $e) {
             DB::rollBack();
-            return $this->sendError('Something Went Wrong.', $e->getMessage(), 200);
+            return $this->sendError('Something went wrong.', $e->getMessage(), 500);
         }
     }
 
