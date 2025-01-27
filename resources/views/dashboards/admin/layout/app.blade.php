@@ -33,5 +33,21 @@
         <script src="{!! asset('assets/lib/ionicons/ionicons.js') !!}"></script>
         <script src="{!! asset('assets/js/scripts.js') !!}"></script>
         @yield('js')
+        @if ($errors->has('success'))
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    const currentTime = new Date();
+                    const options = { 
+                        weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', 
+                        hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true 
+                    };
+                    document.getElementById('toast-time').innerText = currentTime.toLocaleString('en-US', options);
+                    
+                    setTimeout(function(){
+                        $('.demo-static-toast').fadeOut('fast');
+                    }, 3000);
+                });
+            </script>
+        @endif
     </body>
 </html>

@@ -63899,3 +63899,10 @@ li::marker {
 .wd-100v {
   width: 100vw;
 }
+
+.toaster-style {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
