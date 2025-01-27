@@ -1,6 +1,6 @@
 @extends('dashboards.admin.layout.app')
 @section('title')
-    <title>colors - {{ env('APP_NAME') ?? '' }}</title> 
+    <title>Colors - {{ env('APP_NAME') ?? '' }}</title> 
 @endsection
 @section('content')
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">

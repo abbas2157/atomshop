@@ -1,4 +1,4 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-Route::get('/', function () { return view('website.home'); })->name('website');
+Route::get('/', [App\Http\Controllers\Web\HomeController::class, 'home'])->name('website');

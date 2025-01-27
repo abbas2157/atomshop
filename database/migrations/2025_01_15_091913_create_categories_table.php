@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug')->nullable();
             $table->string('picture')->nullable();
+            $table->integer('pr_count')->default(0);
             $table->enum('status',['active','inactive'])->default('inactive');
             $table->timestamps();
         });

@@ -3,10 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    @yield('title')
-    <title>Atomshop - Pay in steps</title>
-    <meta content="Atomshop - Pay in steps" name="description">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/img/favicon.png') }}">
+    @yield('title')
 
    <!-- Google Web Fonts -->
    <link rel="preconnect" href="https://fonts.gstatic.com">
