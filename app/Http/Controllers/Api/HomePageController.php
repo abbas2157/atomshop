@@ -15,96 +15,126 @@ class HomePageController extends BaseController
     /**
      * Get Categories For Home Page App
      */
-    public function categories(Request $request) {
+    public function categories(Request $request)
+    {
         try {
-            $categories = Category::orderBy('id','desc')->where('status', 'active')->select('id','title','picture')->get();
-            return $this->sendResponse($categories, 'Here list of categories.', 200);
+            $categories = Category::where('status', 'active')
+                ->orderBy($request->order_by ?? 'title', $request->order_type ?? 'desc')
+                ->select('id', 'title', 'picture')
+                ->paginate(10);
+
+            return $this->sendResponse($categories, 'Here is the list of categories.', 200);
         } catch (Exception $e) {
             DB::rollBack();
-            return $this->sendError('Something Went Wrong.', $e->getMessage(), 200);
+            return $this->sendError('Something went wrong.', $e->getMessage(), 500);
         }
     }
     /**
      * Get Brands For Home Page App
      */
-    public function brands(Request $request) {
+    public function brands(Request $request)
+    {
         try {
-            $categories = Brand::orderBy('id','desc')->where('status', 'active')->select('id','title','picture')->get();
-            return $this->sendResponse($categories, 'Here list of Brands.', 200);
+            $brands = Brand::where('status', 'active')
+                ->orderBy($request->order_by ?? 'title', $request->order_type ?? 'desc')
+                ->select('id', 'title', 'picture')
+                ->paginate(10);
+
+            return $this->sendResponse($brands, 'Here is the list of brands.', 200);
         } catch (Exception $e) {
             DB::rollBack();
-            return $this->sendError('Something Went Wrong.', $e->getMessage(), 200);
+            return $this->sendError('Something went wrong.', $e->getMessage(), 500);
         }
     }
     /**
      * Get Products For Home Page App
      */
-   
+
     /**
      * Get Products For Home Page App
      */
-    public function home_products(Request $request) {
+    public function home_products(Request $request)
+    {
         try {
-            $products = Product::orderBy('id','desc')
-                        ->with('category', 'brand')
-                        ->where(['status' => 'Published', 'app_home' => '1'])
-                        ->select('id','title','picture', 'price', 'category_id', 'brand_id')
-                        ->get();
-            return $this->sendResponse($products, 'Here list of products.', 200);
+            $products = Product::where(['status' => 'Published', 'app_home' => '1'])
+                ->with('category', 'brand')
+                ->when($request->min_price, fn($q) => $q->where('price', '>=', $request->min_price))
+                ->when($request->max_price, fn($q) => $q->where('price', '<=', $request->max_price))
+                ->when($request->category_id, fn($q) => $q->where('category_id', $request->category_id))
+                ->when($request->brand_id, fn($q) => $q->where('brand_id', $request->brand_id))
+                ->orderBy($request->order_by ?? 'title', $request->order_type ?? 'desc')
+                ->select('id', 'title', 'picture', 'price', 'category_id', 'brand_id')
+                ->paginate(10);
+
+            return $this->sendResponse($products, 'Here is the list of products.', 200);
         } catch (Exception $e) {
             DB::rollBack();
-            return $this->sendError('Something Went Wrong.', $e->getMessage(), 200);
+            return $this->sendError('Something went wrong.', $e->getMessage(), 500);
         }
     }
 
     /**
      * Get Feature Products For Home Page App
      */
-    public function feature_products(Request $request) {
+    public function feature_products(Request $request)
+    {
         try {
-            $products = Product::orderBy('id','desc')
-                        ->with('category', 'brand')
-                        ->where(['status' => 'Published', 'feature' => '1'])
-                        ->select('id','title','picture', 'price', 'category_id', 'brand_id')
-                        ->get();
-            return $this->sendResponse($products, 'Here list of products.', 200);
+            $products = Product::where(['status' => 'Published', 'feature' => '1'])
+                ->with('category', 'brand')
+                ->when($request->min_price, fn($q) => $q->where('price', '>=', $request->min_price))
+                ->when($request->max_price, fn($q) => $q->where('price', '<=', $request->max_price))
+                ->when($request->category_id, fn($q) => $q->where('category_id', $request->category_id))
+                ->when($request->brand_id, fn($q) => $q->where('brand_id', $request->brand_id))
+                ->orderBy($request->order_by ?? 'title', $request->order_type ?? 'desc')
+                ->select('id', 'title', 'picture', 'price', 'category_id', 'brand_id')
+                ->paginate(10);
+
+            return $this->sendResponse($products, 'Here is the list of feature products.', 200);
         } catch (Exception $e) {
             DB::rollBack();
-            return $this->sendError('Something Went Wrong.', $e->getMessage(), 200);
+            return $this->sendError('Something went wrong.', $e->getMessage(), 500);
         }
     }
     /**
      * Get Category Products For Home Page App
      */
-    public function category_products(Request $request, $category_id) {
+    public function category_products(Request $request, $category_id)
+    {
         try {
+            $products = Product::where(['status' => 'Published', 'category_id' => $category_id])
+                ->with('category', 'brand')
+                ->when($request->min_price, fn($q) => $q->where('price', '>=', $request->min_price))
+                ->when($request->max_price, fn($q) => $q->where('price', '<=', $request->max_price))
+                ->when($request->brand_id, fn($q) => $q->where('brand_id', $request->brand_id))
+                ->orderBy($request->order_by ?? 'title', $request->order_type ?? 'desc')
+                ->select('id', 'title', 'picture', 'price', 'category_id', 'brand_id')
+                ->paginate(10);
 
-            $products = Product::orderBy('id','desc')
-                        ->with('category', 'brand')
-                        ->where(['status' => 'Published', 'category_id' => $category_id])
-                        ->select('id','title','picture', 'price', 'category_id', 'brand_id')
-                        ->get();
-            return $this->sendResponse($products, 'Here list of products.', 200);
+            return $this->sendResponse($products, 'Here is the list of category products.', 200);
         } catch (Exception $e) {
             DB::rollBack();
-            return $this->sendError('Something Went Wrong.', $e->getMessage(), 200);
+            return $this->sendError('Something went wrong.', $e->getMessage(), 500);
         }
     }
     /**
      * Get Brand Products For Home Page App
      */
-    public function brand_products(Request $request, $brand_id) {
+    public function brand_products(Request $request, $brand_id)
+    {
         try {
+            $products = Product::where(['status' => 'Published', 'brand_id' => $brand_id])
+                ->with('category', 'brand')
+                ->when($request->min_price, fn($q) => $q->where('price', '>=', $request->min_price))
+                ->when($request->max_price, fn($q) => $q->where('price', '<=', $request->max_price))
+                ->when($request->category_id, fn($q) => $q->where('category_id', $request->category_id))
+                ->orderBy($request->order_by ?? 'title', $request->order_type ?? 'desc')
+                ->select('id', 'title', 'picture', 'price', 'category_id', 'brand_id')
+                ->paginate(10);
 
-            $products = Product::orderBy('id','desc')
-                        ->with('category', 'brand')
-                        ->where(['status' => 'Published', 'brand_id' => $brand_id])
-                        ->select('id','title','picture', 'price', 'category_id', 'brand_id')
-                        ->get();
-            return $this->sendResponse($products, 'Here list of products.', 200);
+            return $this->sendResponse($products, 'Here is the list of brand products.', 200);
         } catch (Exception $e) {
             DB::rollBack();
-            return $this->sendError('Something Went Wrong.', $e->getMessage(), 200);
+            return $this->sendError('Something went wrong.', $e->getMessage(), 500);
         }
     }
 }
