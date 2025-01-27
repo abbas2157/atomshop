@@ -1,6 +1,6 @@
 @extends('dashboards.admin.layout.app')
 @section('title')
-    <title>Categories - {{ env('APP_NAME') ?? '' }}</title>
+<title>Products - {{ env('APP_NAME') ?? '' }}</title>
 @endsection
 @section('css')
     <link href="{!! asset('assets/lib/select2/css/select2.min.css') !!}" rel="stylesheet">
@@ -47,30 +47,32 @@
     </div>
 @endsection
 @section('js')
-    <script src="{!! asset('assets/lib/jquery-steps/jquery.steps.min.js') !!}"></script>
-    <script src="{!! asset('assets/lib/parsleyjs/parsley.min.js') !!}"></script>
-    <script src="{!! asset('assets/lib/select2/js/select2.min.js') !!}"></script>
-    <script src="{!! asset('assets/lib/quill/quill.min.js') !!}"></script>
-    <script>
-        $(function() {
-            'use strict';
-            $('#product-form').steps({
-                headerTag: 'h3',
-                bodyTag: 'section',
-                autoFocus: true,
-                titleTemplate: '<span class="number">#index#</span> <span class="title">#title#</span>',
-                labels: {
-                    finish: "Publish Product",
-                },
-                onStepChanging: function(event, currentIndex, newIndex) {
-                    if (currentIndex < newIndex) {
-                        if (currentIndex === 0) {
-                            var title = $('#title').parsley();
-                            var categoryId = $('#category_id').parsley();
-                            var brandId = $('#brand_id').parsley();
-                            var memoryId = $('#memory_id').parsley();
-                            var colorId = $('#color_id').parsley();
-                            var status = $('#status').parsley();
+<script src="{!! asset('assets/lib/jquery-steps/jquery.steps.min.js') !!}"></script>
+<script src="{!! asset('assets/lib/parsleyjs/parsley.min.js') !!}"></script>
+<script src="{!! asset('assets/lib/select2/js/select2.min.js') !!}"></script>
+<script src="{!! asset('assets/lib/quill/quill.min.js') !!}"></script>
+<script>
+    $(function() {
+        'use strict';
+        let isSubmitting = false; 
+
+        $('#product-form').steps({
+            headerTag: 'h3',
+            bodyTag: 'section',
+            autoFocus: true,
+            titleTemplate: '<span class="number">#index#</span> <span class="title">#title#</span>',
+            labels: {
+                finish: "Publish Product",
+            },
+            onStepChanging: function(event, currentIndex, newIndex) {
+                if (currentIndex < newIndex) {
+                    if (currentIndex === 0) {
+                        var title = $('#title').parsley();
+                        var categoryId = $('#category_id').parsley();
+                        var brandId = $('#brand_id').parsley();
+                        var memoryId = $('#memory_id').parsley();
+                        var colorId = $('#color_id').parsley();
+                        var status = $('#status').parsley();
 
                             if (
                                 title.isValid() &&
@@ -108,9 +110,19 @@
                     } else {
                         return true;
                     }
-                },
-                onFinishing: function(event, currentIndex) {
-                    console.log('Finishing... Current Index:', currentIndex);
+                } 
+                else {
+                    return true;
+                }
+            },
+            onFinishing: function (event, currentIndex) {
+                if (isSubmitting) {
+                        return false;
+                    }
+                    isSubmitting = true;
+
+                $('.actions a[href="#finish"]').text('Publishing...').addClass('disabled').css('pointer-events', 'none');
+                console.log('Finishing... Current Index:', currentIndex);
 
                     var productId = '{{ $product->id }}';
                     var formData = new FormData(document.getElementById('product-form-name'));
@@ -218,11 +230,110 @@
                             alert(response.message);
                         }
                     },
-                    error: function(xhr) {
-                        console.error('AJAX error:', xhr.responseText);
+                    error: function (xhr, status, error) {
+                        alert('An error occurred. Please try again.');
+                        console.error(xhr.responseText);
+                        isSubmitting = false;
+                        
+                        $('.actions a[href="#finish"]').text('Publish Product').removeClass('disabled').css('pointer-events', 'auto');
                     }
                 });
             }
-        }
-    </script>
+        });
+        
+        $('#title').attr('data-parsley-required', 'true');
+        $('#category_id').attr('data-parsley-required', 'true');
+        $('#brand_id').attr('data-parsley-required', 'true');
+        $('#memory_id').attr('data-parsley-required', 'true');
+        $('#color_id').attr('data-parsley-required', 'true');
+        $('#status').attr('data-parsley-required', 'true');
+        $('#customFile').attr('data-parsley-required', 'true');
+        $('#product-form form').parsley();
+
+        $('.select2').select2({
+            placeholder: 'Choose items',
+            searchInputPlaceholder: 'Search'
+        });
+
+        var icons = Quill.import('ui/icons');
+        icons['bold'] = '<i class="la la-bold" aria-hidden="true"></i>';
+        icons['italic'] = '<i class="la la-italic" aria-hidden="true"></i>';
+        icons['underline'] = '<i class="la la-underline" aria-hidden="true"></i>';
+        icons['strike'] = '<i class="la la-strikethrough" aria-hidden="true"></i>';
+        icons['list']['ordered'] = '<i class="la la-list-ol" aria-hidden="true"></i>';
+        icons['list']['bullet'] = '<i class="la la-list-ul" aria-hidden="true"></i>';
+        icons['link'] = '<i class="la la-link" aria-hidden="true"></i>';
+        icons['image'] = '<i class="la la-image" aria-hidden="true"></i>';
+        icons['video'] = '<i class="la la-film" aria-hidden="true"></i>';
+        icons['code-block'] = '<i class="la la-code" aria-hidden="true"></i>';
+
+        var toolbarOptions = [
+            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+            ['bold', 'italic', 'underline', 'strike'],
+            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+            ['link', 'image', 'video']
+        ];
+
+        var quill = new Quill('#londDescription', {
+            modules: {
+                toolbar: toolbarOptions
+            },
+            theme: 'snow'
+        });
+
+        var initialContent = @json(old('long', $productdescription->long));
+        quill.clipboard.dangerouslyPasteHTML(initialContent);
+
+        quill.on('text-change', function () {
+            var htmlContent = quill.root.innerHTML;
+            document.getElementById('long').value = htmlContent;
+        });
+        var toolbarInlineOptions = [
+            ['bold', 'italic', 'underline'],
+            [{ 'header': 1 }, { 'header': 2 }, 'blockquote'],
+            ['link', 'image', 'code-block'],
+        ];
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+    $(document).on('click', '.update-product', function() {
+        var productId = '{{ $product->id }}';
+        var formData = new FormData(document.getElementById('product-form-name'));
+
+        $.ajax({
+            url: "{{ route('admin.products.update', $product->id) }}",
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                'X-HTTP-Method-Override': 'PUT'
+            },
+            success: function(response) {
+                toastr.success('Product updated successfully!', 'Success', {
+                    closeButton: true,
+                    progressBar: true,
+                    timeOut: 5000
+                });
+
+                // Update product information on the page without refreshing
+                // For example, update the product title
+                $('#title').val(response.title);
+            },
+            error: function(xhr, status, error) {
+                toastr.error('An error occurred while updating the product. Please try again.', 'Error', {
+                    closeButton: true,
+                    progressBar: true,
+                    timeOut: 5000
+                });
+
+                console.error(xhr.responseText);
+            }
+        });
+    });
+});
+</script>
 @endsection

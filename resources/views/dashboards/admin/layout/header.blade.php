@@ -113,3 +113,31 @@
         </div>
     </div>
 </div>
+@if(session('success'))
+    <div class="demo-static-toast" style="float:right">
+        <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">Notification</strong>
+                <small id="toast-time"></small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                {{ session('success') }}
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const currentTime = new Date();
+            const options = { 
+                weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', 
+                hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true 
+            };
+            document.getElementById('toast-time').innerText = currentTime.toLocaleString('en-US', options);
+            
+            setTimeout(function(){
+                $('.demo-static-toast').fadeOut('fast');
+            }, 2000);
+        });
+    </script>
+@endif

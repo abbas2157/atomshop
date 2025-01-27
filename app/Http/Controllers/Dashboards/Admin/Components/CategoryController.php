@@ -57,8 +57,10 @@ class CategoryController extends Controller
         $category->status = $request->status;
         $category->save();
 
-        $validator['success'] = 'Category created successfully';
-        return back()->withErrors($validator);
+        return redirect()->back()->with('success', 'Category created successfully');
+
+        // $validator['success'] = 'Category created successfully';
+        // return back()->withErrors($validator);
     }
 
     /**
