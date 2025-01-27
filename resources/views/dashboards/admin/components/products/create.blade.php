@@ -1,6 +1,6 @@
 @extends('dashboards.admin.layout.app')
 @section('title')
-    <title>Categories - {{ env('APP_NAME') ?? '' }}</title>
+    <title>Products - {{ env('APP_NAME') ?? '' }}</title>
 @endsection
 @section('css')
 <link href="{!! asset('assets/lib/select2/css/select2.min.css') !!}" rel="stylesheet">

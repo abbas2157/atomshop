@@ -1,5 +1,9 @@
+
+<button type="button" class="btn btn-primary update-product" style="float: right">Update Product</button>
+
 <section>
     <p class="mg-b-20">Try the keyboard navigation by clicking arrow left or right!</p>
+
     <div class="row row-sm">
         <div class="col-lg-9 mt-2">
             <label class="form-control-label">Product Title <span class="tx-danger">*</span></label>

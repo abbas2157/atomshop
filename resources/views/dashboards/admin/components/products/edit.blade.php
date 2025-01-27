@@ -1,6 +1,6 @@
 @extends('dashboards.admin.layout.app')
 @section('title')
-<title>Categories - {{ env('APP_NAME') ?? '' }}</title>
+<title>Products - {{ env('APP_NAME') ?? '' }}</title>
 @endsection
 @section('css')
 <link href="{!! asset('assets/lib/select2/css/select2.min.css') !!}" rel="stylesheet">
@@ -207,5 +207,46 @@
             ['link', 'image', 'code-block'],
         ];
     });
+</script>
+
+<script>
+    $(document).ready(function() {
+    $(document).on('click', '.update-product', function() {
+        var productId = '{{ $product->id }}';
+        var formData = new FormData(document.getElementById('product-form-name'));
+
+        $.ajax({
+            url: "{{ route('admin.products.update', $product->id) }}",
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                'X-HTTP-Method-Override': 'PUT'
+            },
+            success: function(response) {
+                toastr.success('Product updated successfully!', 'Success', {
+                    closeButton: true,
+                    progressBar: true,
+                    timeOut: 5000
+                });
+
+                // Update product information on the page without refreshing
+                // For example, update the product title
+                $('#title').val(response.title);
+            },
+            error: function(xhr, status, error) {
+                toastr.error('An error occurred while updating the product. Please try again.', 'Error', {
+                    closeButton: true,
+                    progressBar: true,
+                    timeOut: 5000
+                });
+
+                console.error(xhr.responseText);
+            }
+        });
+    });
+});
 </script>
 @endsection

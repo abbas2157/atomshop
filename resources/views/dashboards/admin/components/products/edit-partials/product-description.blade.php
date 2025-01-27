@@ -1,5 +1,7 @@
 <section>
     <p>Short description is summaries of your content.</p>
+    <button type="button" class="btn btn-primary update-product">Update Product</button>
+
     <div class="row">
         <div class="col-12 mb-3">
             <label class="form-control-label mb-1">Short Description <span class="tx-danger">*</span></label>
