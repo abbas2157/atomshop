@@ -17,22 +17,22 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::orderBy('id','desc');
-        if(request()->has('q') && !empty(request()->q)) {
+        $products = Product::orderBy('id', 'desc');
+        if (request()->has('q') && !empty(request()->q)) {
             $products->where('title', 'LIKE',  '%' . request()->q . '%');
         }
-        if(request()->has('category_id') && !empty(request()->category_id)) {
+        if (request()->has('category_id') && !empty(request()->category_id)) {
             $products->where('category_id', request()->category_id);
         }
-        if(request()->has('brand_id') && !empty(request()->brand_id)) {
+        if (request()->has('brand_id') && !empty(request()->brand_id)) {
             $products->where('brand_id', request()->brand_id);
         }
-        if(request()->has('status') && !empty(request()->status)) {
+        if (request()->has('status') && !empty(request()->status)) {
             $products->where('status', request()->status);
         }
         $products = $products->paginate(10);
-        $categories = Category::orderBy('id','desc')->get();
-        $brands = Brand::orderBy('id','desc')->get();
+        $categories = Category::orderBy('id', 'desc')->get();
+        $brands = Brand::orderBy('id', 'desc')->get();
         return view('dashboards.admin.components.products.index', compact('products', 'categories', 'brands'));
     }
 
@@ -43,8 +43,8 @@ class ProductController extends Controller
     {
         $categories = Category::orderBy('id', 'desc')->get();
         $brands = [];
-        if($categories->isNotEmpty()) {
-            $brands = Brand::orderBy('id','desc')->where('status', 'active')->where('category_id', $categories[0]->id)->get();
+        if ($categories->isNotEmpty()) {
+            $brands = Brand::orderBy('id', 'desc')->where('status', 'active')->where('category_id', $categories[0]->id)->get();
         }
         $colors = Color::orderBy('id', 'desc')->where('status', 'active')->get();
         $memories = Memory::orderBy('id', 'desc')->where('status', 'active')->get();
@@ -67,13 +67,13 @@ class ProductController extends Controller
             $product->category_id = $request->category_id;
             $product->brand_id = $request->brand_id;
             $product->price = $request->price;
-            if($request->hasFile('picture')) {
+            if ($request->hasFile('picture')) {
                 $file = $request->file('picture');
-                $fileName  = pathinfo($file->getClientOriginalName(),PATHINFO_FILENAME);
+                $fileName  = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
                 $extension = pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
-                $filename  = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', strtolower($request->title))).'.'.$extension;
-                $file->move(public_path('images/categories'),$filename);
-                $product->picture = 'images/products/'.$filename;
+                $filename  = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', strtolower($request->title))) . '.' . $extension;
+                $file->move(public_path('images/categories'), $filename);
+                $product->picture = $filename;
             }
             $product->feature = $request->feature;
             $product->app_home = $request->app_home;
@@ -81,18 +81,31 @@ class ProductController extends Controller
             $product->status = $request->status;
             $product->save();
 
-            $product->pr_number = 'PR-'.$product->id;
+            $product->pr_number = 'PR-' . $product->id;
             $product->save();
 
+            if ($request->hasFile('gallery_images')) {
+                foreach ($request->file('gallery_images') as $index => $galleryImage) {
+                    $fileName  = pathinfo($galleryImage->getClientOriginalName(), PATHINFO_FILENAME);
+                    $extension = pathinfo($galleryImage->getClientOriginalName(), PATHINFO_EXTENSION);
+                    $filename  = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', strtolower($request->title))) . '-' . time() . '-' . $index . '.' . $extension;
+                    $galleryImage->move(public_path('images/products'), $filename);
+                    $productImage = new ProductImage;
+                    $productImage->url = 'images/products/' . $filename;
+                    $productImage->product_id = $product->id;
+                    $productImage->type = 'Gallery';
+                    $productImage->save();
+                }
+            }
             $description = new ProductDescription;
             $description->product_id = $product->id;
             $description->short = $request->short;
             $description->long = $request->long;
             $description->save();
 
-            if(!empty($request->colors)) {
+            if (!empty($request->colors)) {
                 $colors = $request->colors;
-                for($i = 0; $i < count($colors); $i++){
+                for ($i = 0; $i < count($colors); $i++) {
                     $color = new ProductColor;
                     $color->product_id = $product->id;
                     $color->color_id = $colors[$i];
@@ -100,24 +113,23 @@ class ProductController extends Controller
                 }
             }
 
-            if(!empty($request->memory)) {
+            if (!empty($request->memory)) {
                 $memories = $request->memory;
-                for($i = 0; $i < count($memories); $i++){
+                for ($i = 0; $i < count($memories); $i++) {
                     $memory = new ProductMemory;
                     $memory->product_id = $product->id;
                     $memory->memory_id = $memories[$i];
                     $memory->save();
                 }
             }
-            
+
             DB::commit();
 
-            $response = [ 'success' => true, 'message' => 'Product Published Successfully'];
+            $response = ['success' => true, 'message' => 'Product Published Successfully'];
             return response()->json($response);
-
         } catch (\Exception $e) {
             DB::rollBack();
-            $response = [ 'success' => true, 'message' => $e->getMessage()];
+            $response = ['success' => true, 'message' => $e->getMessage()];
             return response()->json($response);
         }
     }
@@ -139,13 +151,29 @@ class ProductController extends Controller
         $categories = Category::orderBy('id', 'desc')->get();
         $brands = Brand::orderBy('id', 'desc')->where('category_id', $product->category_id)->get();
         $colors = Color::orderBy('id', 'desc')->where('status', 'active')->get();
-        $memories = Memory::orderBy('id', 'desc')->where('status', 'active')->get();    
+        $memories = Memory::orderBy('id', 'desc')->where('status', 'active')->get();
         $productColor = ProductColor::where('product_id', $product->id)->pluck('color_id')->toArray();
         $productmemory = ProductMemory::where('product_id', $product->id)->pluck('memory_id')->toArray();
         $productdescription = ProductDescription::where('product_id', $product->id)->first();
+        $galleryImages = ProductImage::where('product_id', $product->id)->where('type', 'Gallery')->get();
 
-        return view('dashboards.admin.components.products.edit', compact('product', 'categories', 'brands', 'colors', 'memories', 'productColor', 'productmemory', 'productdescription'));
+        return view('dashboards.admin.components.products.edit', compact('product', 'categories', 'brands', 'colors', 'memories', 'productColor', 'productmemory', 'productdescription', 'galleryImages'));
     }
+
+    public function deleteGalleryImage(Product $product, $id)
+    {
+        $image = ProductImage::find($id);
+
+        if (!$image) {
+            return response()->json(['success' => false, 'message' => 'Gallery image not found'], 404);
+        }
+        if (file_exists(public_path($image->url))) {
+            unlink(public_path($image->url));
+        }
+        $image->delete();
+        return response()->json(['success' => true, 'message' => 'Gallery image deleted successfully']);
+    }
+
     /**
      * Update the specified resource in storage.
      */
@@ -153,7 +181,7 @@ class ProductController extends Controller
     {
         try {
             DB::beginTransaction();
-    
+
             $product = Product::findOrFail($id);
             $product->title = $request->title;
             $product->slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->title)));
@@ -166,19 +194,33 @@ class ProductController extends Controller
                 $extension = pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
                 $filename = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', strtolower($request->title))) . '.' . $extension;
                 $file->move(public_path('images/categories'), $filename);
-                $product->picture = 'images/products/' . $filename;
+                $product->picture = $filename;
             }
             $product->feature = $request->feature;
             $product->app_home = $request->app_home;
             $product->web_home = $request->web_home;
             $product->status = $request->status;
             $product->save();
-    
+
+            if ($request->hasFile('gallery_images')) {
+                foreach ($request->file('gallery_images') as $index => $galleryImage) {
+                    $fileName = pathinfo($galleryImage->getClientOriginalName(), PATHINFO_FILENAME);
+                    $extension = pathinfo($galleryImage->getClientOriginalName(), PATHINFO_EXTENSION);
+                    $filename = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', strtolower($request->title))) . '-' . time() . '-' . $index . '.' . $extension;
+                    $galleryImage->move(public_path('images/products'), $filename);
+                    $productImage = new ProductImage;
+                    $productImage->url = 'images/products/' . $filename;
+                    $productImage->product_id = $id;
+                    $productImage->type = 'Gallery';
+                    $productImage->save();
+                }
+            }
+
             $description = ProductDescription::where('product_id', $id)->first();
             $description->short = $request->short;
             $description->long = $request->long;
             $description->save();
-    
+
             if (!empty($request->colors)) {
                 ProductColor::where('product_id', $id)->delete();
                 $colors = $request->colors;
@@ -201,10 +243,9 @@ class ProductController extends Controller
             }
 
             DB::commit();
-    
+
             $response = ['success' => true, 'message' => 'Product Updated Successfully'];
             return response()->json($response);
-    
         } catch (\Exception $e) {
             DB::rollBack();
             $response = ['success' => false, 'message' => $e->getMessage()];
