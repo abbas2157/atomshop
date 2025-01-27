@@ -29,9 +29,11 @@ class WebsiteController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function category_update(Request $request)
     {
-        //
+        $categoried_ids = json_decode($request->categories_id, true);
+        $categories = [];
+        
     }
 
     /**

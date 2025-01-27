@@ -28,7 +28,10 @@ Route::group(['middleware' => ['auth']], function() {
             Route::resource('suppliers', App\Http\Controllers\Dashboards\Admin\Accounts\SupplierController::class,['as' => 'admin']);
             Route::resource('customers', App\Http\Controllers\Dashboards\Admin\Accounts\CustomerController::class,['as' => 'admin']);
             //Website & App settings
-            Route::resource('website', App\Http\Controllers\Dashboards\Admin\WebApp\WebsiteController::class,['as' => 'admin']);
+            Route::group(['prefix' => 'website'], function(){
+                Route::get('/', [App\Http\Controllers\Dashboards\Admin\WebApp\WebsiteController::class, 'index'])->name('admin.website');
+                Route::post('category', [App\Http\Controllers\Dashboards\Admin\WebApp\WebsiteController::class, 'category_update'])->name('admin.website.category');
+            });
         });
     });
 });

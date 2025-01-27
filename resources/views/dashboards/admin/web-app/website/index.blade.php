@@ -17,9 +17,9 @@
             <div class="az-content-label mg-b-5">Home Page Categories</div>
             <div class="board-wrapper pt-2">
                 <div class="board-portlet">
-                  <ul id="portlet-card-list-1" class="portlet-card-list">
+                  <ul id="portlet-card-list-category" class="portlet-card-list">
                     @foreach($categories as $item)
-                        <li class="portlet-card">
+                        <li class="portlet-card" id="{{ $item->id ?? '' }}">
                             <p class="task-date">{{ $item->created_at->format('M d, Y') ?? '' }}</p>
                             <h4 class="task-title">{{ $item->title ?? '' }}</h4>
                             <div class="image-grouped">
@@ -35,84 +35,35 @@
 </div>
 @endsection
 @section('js')
-<script>
-    $(function(){
-      'use strict'
-
-      $('#checkAll').on('click', function(){
-        if($(this).is(':checked')) {
-          $('.az-mail-list .ckbox input').each(function(){
-            $(this).closest('.az-mail-item').addClass('selected');
-            $(this).attr('checked', true);
-          });
-
-          $('.az-mail-options .btn:not(:first-child)').removeClass('disabled');
-        } else {
-          $('.az-mail-list .ckbox input').each(function(){
-            $(this).closest('.az-mail-item').removeClass('selected');
-            $(this).attr('checked', false);
-          });
-
-          $('.az-mail-options .btn:not(:first-child)').addClass('disabled');
-        }
-      });
-
-      $('.az-mail-item .az-mail-checkbox input').on('click', function(){
-        if($(this).is(':checked')) {
-          $(this).attr('checked', false);
-          $(this).closest('.az-mail-item').addClass('selected');
-
-          $('.az-mail-options .btn:not(:first-child)').removeClass('disabled');
-
-        } else {
-          $(this).attr('checked', true);
-          $(this).closest('.az-mail-item').removeClass('selected');
-
-          if(!$('.az-mail-list .selected').length) {
-            $('.az-mail-options .btn:not(:first-child)').addClass('disabled');
-          }
-        }
-      });
-
-      $('.az-mail-star').on('click', function(e){
-        $(this).toggleClass('active');
-      });
-
-      $('#btnCompose').on('click', function(e){
-        e.preventDefault();
-        $('.az-mail-compose').show();
-      });
-
-      $('.az-mail-compose-header a:first-child').on('click', function(e){
-        e.preventDefault();
-        $('.az-mail-compose').toggleClass('az-mail-compose-minimize');
-      })
-
-      $('.az-mail-compose-header a:nth-child(2)').on('click', function(e){
-        e.preventDefault();
-        $(this).find('.fas').toggleClass('fa-compress');
-        $(this).find('.fas').toggleClass('fa-expand');
-        $('.az-mail-compose').toggleClass('az-mail-compose-compress');
-        $('.az-mail-compose').removeClass('az-mail-compose-minimize');
-      });
-
-      $('.az-mail-compose-header a:last-child').on('click', function(e){
-        e.preventDefault();
-        $('.az-mail-compose').hide(100);
-        $('.az-mail-compose').removeClass('az-mail-compose-minimize');
-      });
-
-
-    });
-  </script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
   <script>
     $(function()
     {
-      $("#portlet-card-list-1, #portlet-card-list-2, #portlet-card-list-3").sortable(
+      $("#portlet-card-list-category").sortable(
       {
-        connectWith: "#portlet-card-list-1, #portlet-card-list-2, #portlet-card-list-3",
-        items: ".portlet-card"
+        connectWith: "#portlet-card-list-category",
+        items: ".portlet-card",
+        update: function (event, ui) {
+            const sortedIDs = $(this).sortable("toArray");
+            const formData = new FormData();
+            formData.append("categories_id", JSON.stringify(sortedIDs));
+            $.ajax({
+                url: "{{ route('admin.website.category') }}",
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function (response) {
+                    
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        }
       });
     });
   </script>
