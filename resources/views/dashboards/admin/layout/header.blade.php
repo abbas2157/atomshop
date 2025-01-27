@@ -14,7 +14,7 @@
                     <a href="{{ route('admin') }}" class="nav-link"><i class="typcn typcn-chart-area-outline"></i> Dashboard</a>
                 </li>
                 <li class="nav-item {{ (request()->segment(1) == 'admin' && (in_array(request()->segment(2), ['categories', 'brands', 'cities', 'areas', 'colors', 'memory']))) ? 'active show' : '' }}">
-                    <a href="" class="nav-link with-sub"><i class="typcn typcn-th-large-outline"></i> Product Management</a>
+                    <a href="" class="nav-link with-sub"><i class="typcn typcn-th-large-outline"></i> Products</a>
                     <div class="az-menu-sub az-menu-sub-mega">
                         <div class="container">
                             <div>
@@ -54,7 +54,7 @@
                     </div>
                 </li>
                 <li class="nav-item {{ (request()->segment(1) == 'admin' && (in_array(request()->segment(2), ['users', 'suppliers', 'customers']))) ? 'active show' : '' }}">
-                    <a href="" class="nav-link with-sub"><i class="typcn typcn-group-outline"></i> Account Management</a>
+                    <a href="" class="nav-link with-sub"><i class="typcn typcn-group-outline"></i> Accounts</a>
                     <div class="az-menu-sub">
                         <div class="container">
                             <div>
@@ -62,6 +62,20 @@
                                     <a href="{{ route('admin.users.index') }}" class="nav-link">All Users</a>
                                     <a href="{{ route('admin.suppliers.index') }}" class="nav-link">Suppliers</a>
                                     <a href="{{ route('admin.customers.index') }}" class="nav-link">Customers</a>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item {{ (request()->segment(1) == 'admin' && (in_array(request()->segment(2), ['users', 'suppliers', 'customers']))) ? 'active show' : '' }}">
+                    <a href="" class="nav-link with-sub"><i class="typcn typcn-device-phone"></i>Web & App</a>
+                    <div class="az-menu-sub">
+                        <div class="container">
+                            <div>
+                                <nav class="nav">
+                                    <a href="{{ route('website') }}" class="nav-link">Website</a>
+                                    <a href="" class="nav-link">Mobile App</a>
+                                    <a href="" class="nav-link">Settings</a>
                                 </nav>
                             </div>
                         </div>

@@ -22785,11 +22785,12 @@ body {
 }
 .board-wrapper .board-portlet {
   background: #eae2ec;
-  margin: 0px 15px;
-  padding: 22px 20px;
-  min-width: 345px;
-  width: 345px;
+  margin: 0px 0px;
+  padding: 15px 20px;
+  /* min-width: 345px; */
+  width: 100%;
   border-radius: 4px;
+  
 }
 .board-wrapper .portlet-heading {
   font-weight: 500;
@@ -22804,17 +22805,15 @@ body {
   min-height: 70px;
 }
 .board-wrapper .portlet-card {
-  width: 100%;
+  width: 200px;
   border-radius: 4px;
-  padding: 20px 20px 20px 20px;
+  padding: 10px 10px 10px 10px;
   background: var(--bs-body-bg);
-  display: grid;
-  grid-template-rows: 5;
-  grid-template-columns: 2;
+  display: inline-block;
   border-radius: 6px;
   position: relative;
-  margin-bottom: 15px;
   cursor: grab;
+  margin: 5px 5px;
 }
 .board-wrapper .portlet-card .progress {
   position: absolute;
@@ -22861,7 +22860,7 @@ body {
   grid-column-start: 1;
   grid-column-end: 3;
   font-size: 16px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 .board-wrapper .portlet-card .image-grouped {
   grid-row-start: 3;
