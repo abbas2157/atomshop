@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('website_setups', function (Blueprint $table) {
             $table->id();
-            $table->text('categories');
-            $table->text('brands');
-            $table->text('feature_products');
-            $table->text('products');
+            $table->text('categories')->nullable();
+            $table->text('brands')->nullable();
+            $table->text('feature_products')->nullable();
+            $table->text('products')->nullable();
+            $table->foreignId('updated_by')->nullable();
             $table->timestamps();
         });
     }

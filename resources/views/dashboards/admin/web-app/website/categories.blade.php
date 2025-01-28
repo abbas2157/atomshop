@@ -14,22 +14,23 @@
             <h2 class="az-content-title">Website</h2>
             <div class="az-content-label mg-b-5">Home Page</div>
             <p class="mg-b-20">All Home section will be edit from here</p>
-            <div class="az-content-label mg-b-5">Home Page Categories</div>
-            <div class="board-wrapper pt-2">
-                <div class="board-portlet">
-                  <ul id="portlet-card-list-category" class="portlet-card-list">
-                    @foreach($categories as $item)
-                        <li class="portlet-card" id="{{ $item->id ?? '' }}">
-                            <p class="task-date">{{ $item->created_at->format('M d, Y') ?? '' }}</p>
-                            <h4 class="task-title">{{ $item->title ?? '' }}</h4>
-                            <div class="image-grouped">
-                                <img src="{{ $item->category_picture ?? '' }}" alt="profile image">
-                            </div>
-                        </li>
-                    @endforeach
-                  </ul>
+            @if(!empty($categories))
+                <div class="az-content-label mg-b-5">Home Page Categories</div>
+                <div class="board-wrapper pt-2">
+                    <div class="board-portlet">
+                        <ul id="portlet-card-list-category" class="portlet-card-list">
+                            @foreach($categories as $item)
+                                <li class="portlet-card" id="{{ $item->id ?? '' }}">
+                                    <h4 class="task-title">{{ $item->title ?? '' }}</h4>
+                                    <div class="image-grouped">
+                                        <img src="{{ $item->picture ?? '' }}" alt="profile image">
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
                 </div>
-            </div>
+            @endif
         </div>
     </div>
 </div>
@@ -48,7 +49,7 @@
             const formData = new FormData();
             formData.append("categories_id", JSON.stringify(sortedIDs));
             $.ajax({
-                url: "{{ route('admin.website.category') }}",
+                url: "{{ route('admin.website.categories.update') }}",
                 type: 'POST',
                 data: formData,
                 contentType: false,
