@@ -5,10 +5,10 @@
         <nav class="nav flex-column">
             <a href="{{ route('admin.users.index') }}" class="nav-link {{ (request()->segment(2) == 'users' && (request()->segment(3) !== 'create')) ? 'active' : '' }}">All Users</a>
         </nav>
-        <label>Suppliers</label>
+        <label>Sellers</label>
         <nav class="nav flex-column">
-            <a href="{{ route('admin.suppliers.index') }}" class="nav-link {{ (request()->segment(2) == 'suppliers' && (request()->segment(3) !== 'create')) ? 'active' : '' }}">View & Edit</a>
-            <a href="{{ route('admin.suppliers.create') }}" class="nav-link {{ (request()->segment(2) == 'suppliers' && (request()->segment(3) == 'create')) ? 'active' : '' }}">Create new</a>
+            <a href="{{ route('admin.sellers.index') }}" class="nav-link {{ (request()->segment(2) == 'sellers' && (request()->segment(3) !== 'create')) ? 'active' : '' }}">View & Edit</a>
+            <a href="{{ route('admin.sellers.create') }}" class="nav-link {{ (request()->segment(2) == 'sellers' && (request()->segment(3) == 'create')) ? 'active' : '' }}">Create new</a>
         </nav>
         <label>Customers</label>
         <nav class="nav flex-column">

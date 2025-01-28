@@ -1,6 +1,6 @@
 @extends('dashboards.admin.layout.app')
 @section('title')
-    <title>Customers - {{ env('APP_NAME') ?? '' }}</title> 
+    <title>Sellers - {{ env('APP_NAME') ?? '' }}</title> 
 @endsection
 @section('content')
 <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
@@ -9,28 +9,28 @@
         <div class="az-content-body pd-lg-l-40 d-flex flex-column">
             <div class="az-content-breadcrumb">
                 <span>Accounts Management</span>
-                <span>Supplier</span>
+                <span>Sellers</span>
                 <span>Create</span>
             </div>
-            <h2 class="az-content-title">Supplier</h2>
-            <div class="az-content-label mg-b-5">Product Supplier Information</div>
-            <p class="mg-b-20">Using this form you can add new Supplier </p>
-            <form id="product-form-name" method="POST" action="{{ route('admin.suppliers.store') }}" enctype="multipart/form-data">
+            <h2 class="az-content-title">Sellers</h2>
+            <div class="az-content-label mg-b-5">Product Sellers Information</div>
+            <p class="mg-b-20">Using this form you can add new Sellers </p>
+            <form id="product-form-name" method="POST" action="{{ route('admin.sellers.store') }}" enctype="multipart/form-data">
                 @csrf
                 <div id="product-form">
-                    <h3>Supplier Information</h3>
-                    @include('dashboards/admin/accounts/suppliers/partials/personal-information')
+                    <h3>Sellers Information</h3>
+                    @include('dashboards/admin/accounts/sellers/partials/personal-information')
                     <h3>Business Address</h3>
-                    @include('dashboards/admin/accounts/suppliers/partials/business-address')
+                    @include('dashboards/admin/accounts/sellers/partials/business-address')
                     <h3>Product Details (For Listing)</h3>
-                    @include('dashboards/admin/accounts/suppliers/partials/product-details')
-                    <h3>Publish Supplier</h3>
+                    @include('dashboards/admin/accounts/sellers/partials/product-details')
+                    <h3>Publish Sellers</h3>
                     <section>
                         <p>The next and previous buttons help you to navigate through your content.</p>
                     </section>
                 </div>
             </form>
-            <p class="mg-t-20"><b>Note : </b> Password will be (Atom@shop!) for every customer created by this form.</p>
+            <p class="mg-t-20"><b>Note : </b> Password will be (Atom@shop!) for every Seller created by this form.</p>
         </div>
     </div>
 </div>
@@ -48,22 +48,22 @@
                 autoFocus: true,
                 titleTemplate: '<span class="number">#index#</span> <span class="title">#title#</span>',
                 labels: {
-                    finish: "Publish Supplier",
+                    finish: "Publish Sellers",
                 },
                 onStepChanging: function(event, currentIndex, newIndex) {
                     if (currentIndex < newIndex) {
                         if (currentIndex === 0) {
                             var business_name = $('#business_name').parsley();
-                            var supplier_name = $('#supplier_name').parsley();
+                            var Sellers_name = $('#Sellers_name').parsley();
                             var cnic_number = $('#cnic_number').parsley();
                             var email = $('#email').parsley();
                             var phone = $('#phone').parsley();
-                            if (business_name.isValid() && supplier_name.isValid() && cnic_number.isValid() && email.isValid() && phone.isValid() ) {
+                            if (business_name.isValid() && Sellers_name.isValid() && cnic_number.isValid() && email.isValid() && phone.isValid() ) {
                                 return true;
                             } 
                             else {
                                 business_name.validate();
-                                supplier_name.validate();
+                                Sellers_name.validate();
                                 cnic_number.validate();
                                 email.validate();
                                 phone.validate();
@@ -101,7 +101,7 @@
                     console.log('Finishing... Current Index:', currentIndex);
                     var formData = new FormData(document.getElementById('product-form-name'));
                     $.ajax({
-                        url: "{{ route('admin.suppliers.store') }}",
+                        url: "{{ route('admin.sellers.store') }}",
                         type: 'POST',
                         data: formData,
                         contentType: false,

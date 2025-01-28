@@ -53,14 +53,14 @@
                         </div>
                     </div>
                 </li>
-                <li class="nav-item {{ (request()->segment(1) == 'admin' && (in_array(request()->segment(2), ['users', 'suppliers', 'customers']))) ? 'active show' : '' }}">
+                <li class="nav-item {{ (request()->segment(1) == 'admin' && (in_array(request()->segment(2), ['users', 'sellers', 'customers']))) ? 'active show' : '' }}">
                     <a href="" class="nav-link with-sub"><i class="typcn typcn-group-outline"></i> Accounts</a>
                     <div class="az-menu-sub">
                         <div class="container">
                             <div>
                                 <nav class="nav">
                                     <a href="{{ route('admin.users.index') }}" class="nav-link">All Users</a>
-                                    <a href="{{ route('admin.suppliers.index') }}" class="nav-link">Suppliers</a>
+                                    <a href="{{ route('admin.sellers.index') }}" class="nav-link">Sellers</a>
                                     <a href="{{ route('admin.customers.index') }}" class="nav-link">Customers</a>
                                 </nav>
                             </div>

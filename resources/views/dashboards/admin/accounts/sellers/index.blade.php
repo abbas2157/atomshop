@@ -1,6 +1,6 @@
 @extends('dashboards.admin.layout.app')
 @section('title')
-    <title>Vendors - {{ env('APP_NAME') ?? '' }}</title> 
+    <title>Sellers - {{ env('APP_NAME') ?? '' }}</title> 
 @endsection
 @section('content')
 <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
@@ -9,11 +9,11 @@
         <div class="az-content-body pd-lg-l-40 d-flex flex-column">
             <div class="az-content-breadcrumb">
                 <span>Accounts Management</span>
-                <span>Suppliers</span>
+                <span>Sellers</span>
             </div>
-            <h2 class="az-content-title">Suppliers</h2>
+            <h2 class="az-content-title">Sellers</h2>
             <div class="az-content-label mg-b-5">List All</div>
-            <p class="mg-b-20">All Suppliers list here to view, edit & delete</p>
+            <p class="mg-b-20">All sellers list here to view, edit & delete</p>
             <form action="">
                 <div class="row row-sm mb-2">
                     <div class="col-lg mt-2">
@@ -36,10 +36,10 @@
                                 <button class="btn btn-primary" type="submit" style="padding: 8px 20px; color:white;"><i class="fa fa-search"></i></button>
                             </span>
                             <span class="input-group-btn" title="Clear Search">
-                                <a href="{{ route('admin.suppliers.index') }}" class="btn btn-warning" type="submit" style="padding: 8px 20px; color:white;"><i class="far fa-arrow-alt-circle-left"></i></a>
+                                <a href="{{ route('admin.sellers.index') }}" class="btn btn-warning" type="submit" style="padding: 8px 20px; color:white;"><i class="far fa-arrow-alt-circle-left"></i></a>
                             </span>
                             <span class="input-group-btn" title="Create New">
-                                <a href="{{ route('admin.suppliers.create') }}" class="btn btn-info" type="submit" style="padding: 8px 20px; color:white;"><i class="typcn typcn-document-add"></i></a>
+                                <a href="{{ route('admin.sellers.create') }}" class="btn btn-info" type="submit" style="padding: 8px 20px; color:white;"><i class="typcn typcn-document-add"></i></a>
                             </span>
                         </div>
                     </div>
@@ -59,8 +59,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if($suppliers->isNotEmpty())
-                            @foreach($suppliers as $item)
+                        @if($sellers->isNotEmpty())
+                            @foreach($sellers as $item)
                                 <tr>
                                     <th>{{ $item->id ?? '' }}</th>
                                     <td>{{ $item->name ?? '' }}</td>
@@ -79,10 +79,10 @@
                                     </td>
                                     <td>{{ $item->created_at->format('M d, Y') ?? '' }}</td>
                                     <td>
-                                        <a href="{{ route('admin.suppliers.edit',$item->uuid) }}">View</a> |
-                                        <a href="{{ route('admin.suppliers.edit',$item->uuid) }}">Edit</a> | 
+                                        <a href="{{ route('admin.sellers.edit',$item->uuid) }}">View</a> |
+                                        <a href="{{ route('admin.sellers.edit',$item->uuid) }}">Edit</a> | 
                                         <a href="javascript:;" id="delete-btn">Delete</a>
-                                        <form id="delete-form" action="{{ route('admin.suppliers.destroy', $item->uuid) }}" method="POST">
+                                        <form id="delete-form" action="{{ route('admin.sellers.destroy', $item->uuid) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                         </form>
@@ -98,7 +98,7 @@
                 </table>
             </div>
             <div class="mt-2">
-                {!! $suppliers->withQueryString()->links('pagination::bootstrap-5') !!} 
+                {!! $sellers->withQueryString()->links('pagination::bootstrap-5') !!} 
             </div>
         </div>
     </div>

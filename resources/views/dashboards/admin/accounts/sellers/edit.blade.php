@@ -1,6 +1,6 @@
 @extends('dashboards.admin.layout.app')
 @section('title')
-    <title>Customers - {{ env('APP_NAME') ?? '' }}</title> 
+    <title>Sellers - {{ env('APP_NAME') ?? '' }}</title> 
 @endsection
 @section('content')
 <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
@@ -9,14 +9,14 @@
         <div class="az-content-body pd-lg-l-40 d-flex flex-column">
             <div class="az-content-breadcrumb">
                 <span>Accounts Management</span>
-                <span>Customers</span>
+                <span>Sellers</span>
                 <span>{{ $vendor->name ?? '' }}</span>
                 <span>Edit</span>
             </div>
-            <h2 class="az-content-title">Customers</h2>
+            <h2 class="az-content-title">Sellers</h2>
             <div class="az-content-label mg-b-5">Edit Detail</div>
-            <p class="mg-b-20">Using this form you can edit detail customers </p>
-            <form method="POST" action="{{ route('admin.vendors.update', $vendor->uuid) }}" enctype="multipart/form-data">
+            <p class="mg-b-20">Using this form you can edit detail Seller </p>
+            <form method="POST" action="{{ route('admin.sellers.update', $vendor->uuid) }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="row row-sm">

@@ -20,7 +20,7 @@
                         <select class="form-control" name="role">
                             <option selected disabled>Select Role</option>
                             <option value="customer" {{ ('customer' == request()->role) ? 'selected' : '' }}>Customer</option>
-                            <option value="vendor" {{ ('vendor' == request()->role) ? 'selected' : '' }}>Vendor</option>
+                            <option value="vendor" {{ ('seller' == request()->role) ? 'selected' : '' }}>Seller</option>
                             <option value="admin" {{ ('admin' == request()->role) ? 'selected' : '' }}>Admin</option>
                         </select>
                     </div>

@@ -8,28 +8,28 @@ use Illuminate\Support\Facades\{Auth, Hash, DB};
 use App\Models\{User, Supplier, City, Area};
 use Illuminate\Support\Str;
 
-class SupplierController extends Controller
+class SellersController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $suppliers = User::orderBy('id','desc')->where('role', 'vendor');
+        $sellers = User::orderBy('id','desc')->where('role', 'vendor');
         if(request()->has('q') && !empty(request()->q)) {
-            $suppliers->where('name', 'LIKE',  '%' . request()->q . '%');
+            $sellers->where('name', 'LIKE',  '%' . request()->q . '%');
         }
         if(request()->has('q') && !empty(request()->q)) {
-            $suppliers->where('email', 'LIKE',  '%' . request()->q . '%');
+            $sellers->where('email', 'LIKE',  '%' . request()->q . '%');
         }
         if(request()->has('q') && !empty(request()->q)) {
-            $suppliers->where('phone', 'LIKE',  '%' . request()->q . '%');
+            $sellers->where('phone', 'LIKE',  '%' . request()->q . '%');
         }
         if(request()->has('status') && !empty(request()->status)) {
-            $suppliers->where('status', request()->status);
+            $sellers->where('status', request()->status);
         }
-        $suppliers = $suppliers->paginate(10);
-        return view('dashboards.admin.accounts.suppliers.index',compact('suppliers'));
+        $sellers = $sellers->paginate(10);
+        return view('dashboards.admin.accounts.sellers.index',compact('sellers'));
     }
 
     /**
@@ -42,7 +42,7 @@ class SupplierController extends Controller
         if($cities->isNotEmpty()) {
             $areas = Area::orderBy('id','desc')->where('status', 'active')->where('city_id', $cities[0]->id)->get();
         }
-        return view('dashboards.admin.accounts.suppliers.create', compact('cities', 'areas'));
+        return view('dashboards.admin.accounts.sellers.create', compact('cities', 'areas'));
     }
 
     /**
@@ -59,7 +59,7 @@ class SupplierController extends Controller
             $user->email = $request->email;
             $user->phone = $request->phone;
             $user->password = 'Atom@shop!';
-            $user->role = 'supplier';
+            $user->role = 'seller';
             $user->status = $request->status;
             $user->save();
 
@@ -76,7 +76,7 @@ class SupplierController extends Controller
 
             DB::commit();
 
-            $response = [ 'success' => true, 'message' => 'Supplier Added Successfully'];
+            $response = [ 'success' => true, 'message' => 'Sellers Added Successfully'];
             return response()->json($response);
 
         } catch (Exception $e) {
@@ -103,7 +103,7 @@ class SupplierController extends Controller
         if(is_null($vendor)) {
             return abort(404);
         }
-        return view('dashboards.admin.accounts.suppliers.edit',compact('vendor'));
+        return view('dashboards.admin.accounts.sellers.edit',compact('vendor'));
     }
 
     /**
@@ -121,7 +121,7 @@ class SupplierController extends Controller
         $vendor->status = $request->status;
         $vendor->save();
 
-        $validator['success'] = 'Vendor updated successfully';
+        $validator['success'] = 'Seller updated successfully';
         return back()->withErrors($validator);
     }
 
