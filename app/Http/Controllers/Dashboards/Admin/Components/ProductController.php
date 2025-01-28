@@ -193,7 +193,7 @@ class ProductController extends Controller
                 $fileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
                 $extension = pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
                 $filename = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', strtolower($request->title))) . '.' . $extension;
-                $file->move(public_path('images/categories'), $filename);
+                $file->move(public_path('images/products'), $filename);
                 $product->picture = 'images/products/'.$filename;
             }
             $product->feature = $request->feature;
