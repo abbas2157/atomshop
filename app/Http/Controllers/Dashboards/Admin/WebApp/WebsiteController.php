@@ -49,15 +49,18 @@ class WebsiteController extends Controller
         $website = WebsiteSetup::first();
 
         $feature_products_list = Product::where(['status' => 'Published', 'feature' => '1'])->get();
-        $website_feature_products = array_column(json_decode($website->feature_products), 'id');
-        $feature_products = json_decode($website->feature_products);
+        $website_feature_products = [];
+        $feature_products = [];
+        if(!empty($website->feature_products) && !empty(json_decode($website->feature_products))) {
+            $website_feature_products = array_column(json_decode($website->feature_products), 'id');
+            $feature_products = json_decode($website->feature_products);
+        }
         foreach($feature_products_list as $product) {
             if(!in_array($product->id, $website_feature_products)) {
                 $feature_products[] = array('id' => $product->id, 'title' => $product->title, 'slug' => $product->slug, 'picture' => $product->product_picture, 'category' => $product->category->title, 'brand' => $product->brand->title);
             }
             else {
                 $index = array_search($product->id, array_column($feature_products, 'id'));
-                echo $index;
                 $feature_products[$index] = array('id' => $product->id, 'title' => $product->title, 'slug' => $product->slug, 'picture' => $product->product_picture, 'category' => $product->category->title, 'brand' => $product->brand->title);
             }
         }
@@ -109,11 +112,19 @@ class WebsiteController extends Controller
         $website = WebsiteSetup::first();
 
         $category_list = Category::where('status', 'active')->get();
-        $website_categories = array_column(json_decode($website->categories), 'id');
-        $categories = json_decode($website->categories);
+        $website_categories = [];
+        $categories = [];
+        if(!empty($website->categories) && !empty(json_decode($website->categories))) {
+            $website_categories = array_column(json_decode($website->categories), 'id');
+            $categories = json_decode($website->categories);
+        }
         foreach($category_list as $category) {
             if(!in_array($category->id, $website_categories)) {
                 $categories[] = array('id' => $category->id, 'title' => $category->title, 'slug' => $category->slug, 'picture' => $category->category_picture);
+            }
+            else {
+                $index = array_search($category->id, array_column($categories, 'id'));
+                $categories[$index] = array('id' => $category->id, 'title' => $category->title, 'slug' => $category->slug, 'picture' => $category->category_picture);
             }
         }
 
@@ -165,11 +176,19 @@ class WebsiteController extends Controller
         $website = WebsiteSetup::first();
 
         $brand_list = Brand::where('status', 'active')->get();
-        $website_brands = array_column(json_decode($website->brands), 'id');
-        $brands = json_decode($website->brands);
+        $website_brands = [];
+        $brands = [];
+        if(!empty($website->brands) && !empty(json_decode($website->brands))) {
+            $website_brands = array_column(json_decode($website->brands), 'id');
+            $brands = json_decode($website->brands);
+        }
         foreach($brand_list as $brand) {
             if(!in_array($brand->id, $website_brands)) {
                 $brands[] = array('id' => $brand->id, 'title' => $brand->title, 'slug' => $brand->slug, 'picture' => $brand->brand_picture);
+            }
+            else {
+                $index = array_search($brand->id, array_column($brands, 'id'));
+                $brands[$index] = array('id' => $brand->id, 'title' => $brand->title, 'slug' => $brand->slug, 'picture' => $brand->brand_picture);
             }
         }
         $website->brands     = json_encode($brands);
