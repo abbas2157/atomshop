@@ -31,7 +31,7 @@
             <div class="row">
                 @foreach ($galleryImages as $image)
                     <div class="col-md-3 mt-2">
-                        <img src="{{ asset($image->url) }}" alt="" class="img-fluid">
+                        <img src="{{ asset($image->url ?? '') }}" alt="" class="img-fluid">
                         <a href="#" class="btn btn-danger btn-sm" onclick="deleteGalleryImage({{ $product->id }}, {{ $image->id }})">Delete</a>
                     </div>
                 @endforeach
