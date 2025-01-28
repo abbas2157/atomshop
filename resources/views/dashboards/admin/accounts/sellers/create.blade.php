@@ -55,10 +55,11 @@
                         if (currentIndex === 0) {
                             var business_name = $('#business_name').parsley();
                             var Sellers_name = $('#Sellers_name').parsley();
+                            var supplier_name = $('#supplier_name').parsley();
                             var cnic_number = $('#cnic_number').parsley();
                             var email = $('#email').parsley();
                             var phone = $('#phone').parsley();
-                            if (business_name.isValid() && Sellers_name.isValid() && cnic_number.isValid() && email.isValid() && phone.isValid() ) {
+                            if (business_name.isValid() && supplier_name.isValid() && cnic_number.isValid() && email.isValid() && phone.isValid()) {
                                 return true;
                             } 
                             else {

@@ -15,7 +15,7 @@ class SellersController extends Controller
      */
     public function index()
     {
-        $sellers = User::orderBy('id','desc')->where('role', 'vendor');
+        $sellers = User::orderBy('id','desc');
         if(request()->has('q') && !empty(request()->q)) {
             $sellers->where('name', 'LIKE',  '%' . request()->q . '%');
         }
@@ -27,6 +27,12 @@ class SellersController extends Controller
         }
         if(request()->has('status') && !empty(request()->status)) {
             $sellers->where('status', request()->status);
+        }
+        if(request()->has('role') && !empty(request()->role)) {
+            $sellers->where('role', request()->role);
+        }
+        if(request()->has('role') && !empty(request()->role)) {
+            $sellers->where('role', request()->role);
         }
         $sellers = $sellers->paginate(10);
         return view('dashboards.admin.accounts.sellers.index',compact('sellers'));
@@ -79,7 +85,7 @@ class SellersController extends Controller
             $response = [ 'success' => true, 'message' => 'Sellers Added Successfully'];
             return response()->json($response);
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             $response = [ 'success' => true, 'message' => $e->getMessage()];
             return response()->json($response);
