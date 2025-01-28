@@ -39,8 +39,11 @@
                     <div class="col-lg mt-2">
                         <select class="form-control" name="status">
                             <option selected disabled>Select Status</option>
-                            <option value="inactive">Inactive</option>
-                            <option value="active">Active</option>
+                            <option value="Closed" {{ ('Closed' == request()->status) ? 'selected' : '' }}>Closed</option>
+                            <option value="Pending" {{ ('Pending' == request()->status) ? 'selected' : '' }}>Pending</option>
+                            <option value="Published" {{ ('Published' == request()->status) ? 'selected' : '' }}>Published</option>
+                            <option value="On hold" {{ ('On hold' == request()->status) ? 'selected' : '' }}>On hold</option>
+                            <option value="Out of Stock" {{ ('Out of Stock' == request()->status) ? 'selected' : '' }}>Out of Stock</option>
                         </select>
                     </div>
                     <div class="col-lg mt-2">
