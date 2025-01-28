@@ -41,7 +41,7 @@ Route::group(['middleware' => ['auth']], function() {
                 });
                 Route::group(['prefix' => 'categories'], function(){
                     Route::get('/', [App\Http\Controllers\Dashboards\Admin\WebApp\WebsiteController::class, 'categories'])->name('admin.website.categories');
-                    Route::post('sync', [App\Http\Controllers\Dashboards\Admin\WebApp\WebsiteController::class, 'category_sync'])->name('admin.website.categories.sync');
+                    Route::get('sync', [App\Http\Controllers\Dashboards\Admin\WebApp\WebsiteController::class, 'category_sync'])->name('admin.website.categories.sync');
                     Route::post('update', [App\Http\Controllers\Dashboards\Admin\WebApp\WebsiteController::class, 'category_update'])->name('admin.website.categories.update');
                 });
                 Route::group(['prefix' => 'brands'], function(){
