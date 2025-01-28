@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
             'status' => 'active'
         ]);
 
-        WebsiteSetup::factory()->create([
+        WebsiteSetup::create([
             'categories' => json_encode([]),
             'brands' => json_encode([]),
             'feature_products' => json_encode([]),
