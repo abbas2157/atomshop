@@ -221,7 +221,7 @@ class AccountController extends BaseController
             $success['customer'] = $customer;
             return $this->sendResponse('Profile retrieved successfully.', $success, 200);
         } catch (\Exception $e) {
-            return $this->sendError('Internal Server Error.', [$e->getMessage()], 500);
+            return $this->sendError('Profile not retrieved Error...', [$e->getMessage()], 500);
         }
     }
 
@@ -269,7 +269,7 @@ class AccountController extends BaseController
             $success['customer'] = $customer;
             return $this->sendResponse('Profile updated successfully.', $success, 200);
         } catch (\Exception $e) {
-            return $this->sendError('Internal Server Error.', [$e->getMessage()], 500);
+            return $this->sendError('Profile not updated Error...', [$e->getMessage()], 500);
         }
     }
 
