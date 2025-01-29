@@ -18,7 +18,7 @@ class Product extends Model
     }
     public function description()
     {
-        return $this->hasOne(ProductDescription::class,'id','product_id')->select('id','title');
+        return $this->hasOne(ProductDescription::class,'product_id','id')->select('id','product_id','short','long');
     }
     public function colors()
     {
@@ -27,6 +27,10 @@ class Product extends Model
     public function memories()
     {
         return $this->hasMany(ProductMemory::class,'product_id','id')->with('memory');
+    }
+    public function gallery()
+    {
+        return $this->hasMany(ProductImage::class,'product_id','id')->select('id','url','product_id');
     }
     public function getProductPictureAttribute() {
         return asset($this->picture);

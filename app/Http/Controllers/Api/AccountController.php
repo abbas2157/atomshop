@@ -11,8 +11,6 @@ use App\Models\{User, VerifyCode};
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Api\BaseController as BaseController;
 use Illuminate\Support\Facades\{Auth, Validator, DB, Password, Hash, Mail};
-
-
 class AccountController extends BaseController
 {
 

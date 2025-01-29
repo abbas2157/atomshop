@@ -6,8 +6,8 @@
             @foreach($feature_products as $item)
                 <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
                     <div class="product-item bg-light mb-4">
-                        <div class="product-img position-relative overflow-hidden">
-                            <img class="img-fluid w-100" style="height: 300px;" src="{{ asset('images/categories/' . $item->picture) }}" alt="{{ $item->title ?? '' }}">
+                        <div class="product-img position-relative overflow-hidden text-center">
+                            <img class="img-fluid w-50 " src="{{  asset($item->picture) }}" alt="{{ $item->title ?? '' }}">
                             <div class="product-action">
                                 <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
                                 <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
@@ -23,7 +23,7 @@
                                 <small class="fa fa-star text-primary mr-1"></small>
                                 <small class="fa fa-star text-primary mr-1"></small>
                                 <small class="fa fa-star text-primary mr-1"></small>
-                                <small>(99)</small>
+                                <small>(0)</small>
                             </div>
                         </div>
                     </div>

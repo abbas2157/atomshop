@@ -57,7 +57,7 @@
         <div class="col-md-6 px-xl-0">
             <p class="mb-md-0 text-center text-md-left text-secondary">
                 &copy; <a class="text-primary" href="#">Atomshop.pk</a>. All Rights Reserved.
-                <br>Distributed By: <a href="https://themewagon.com" target="_blank">ZAKA BROTHERS</a>
+                <br>Distributed By: <a href="" target="_blank">ZAKA BROTHERS</a>
             </p>
         </div>
         <div class="col-md-6 px-xl-0 text-center text-md-right"> </div>
