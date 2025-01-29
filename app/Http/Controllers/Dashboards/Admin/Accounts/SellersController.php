@@ -54,43 +54,43 @@ class SellersController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        try {
-            DB::beginTransaction();
+        public function store(Request $request)
+        {
+            try {
+                DB::beginTransaction();
 
-            $user = new User;
-            $user->uuid  = Str::uuid();
-            $user->name  = $request->supplier_name;
-            $user->email = $request->email;
-            $user->phone = $request->phone;
-            $user->password = 'Atom@shop!';
-            $user->role = 'seller';
-            $user->status = $request->status;
-            $user->save();
+                $user = new User;
+                $user->uuid  = Str::uuid();
+                $user->name  = $request->supplier_name;
+                $user->email = $request->email;
+                $user->phone = $request->phone;
+                $user->password = 'Atom@shop!';
+                $user->role = 'seller';
+                $user->status = $request->status;
+                $user->save();
 
-            $supplier = new Supplier;
-            $supplier->user_id  = $user->id;
-            $supplier->business_name = $request->business_name;
-            $supplier->supplier_name = $request->supplier_name;
-            $supplier->cnic_number = $request->cnic_number;
-            $supplier->website = $request->website;
-            $supplier->city_id = $request->city_id;
-            $supplier->area_id = $request->area_id;
-            $supplier->address = $request->business_address;
-            $supplier->save();
+                $supplier = new Supplier;
+                $supplier->user_id  = $user->id;
+                $supplier->business_name = $request->business_name;
+                $supplier->supplier_name = $request->supplier_name;
+                $supplier->cnic_number = $request->cnic_number;
+                $supplier->website = $request->website;
+                $supplier->city_id = $request->city_id;
+                $supplier->area_id = $request->area_id;
+                $supplier->address = $request->business_address;
+                $supplier->save();
 
-            DB::commit();
+                DB::commit();
 
-            $response = [ 'success' => true, 'message' => 'Sellers Added Successfully'];
-            return response()->json($response);
+                $response = [ 'success' => true, 'message' => 'Sellers Added Successfully'];
+                return response()->json($response);
 
-        } catch (\Exception $e) {
-            DB::rollBack();
-            $response = [ 'success' => true, 'message' => $e->getMessage()];
-            return response()->json($response);
+            } catch (\Exception $e) {
+                DB::rollBack();
+                $response = [ 'success' => true, 'message' => $e->getMessage()];
+                return response()->json($response);
+            }
         }
-    }
 
     /**
      * Display the specified resource.
@@ -105,32 +105,59 @@ class SellersController extends Controller
      */
     public function edit(string $id)
     {
-        $vendor = User::where('uuid', $id)->first();
-        if(is_null($vendor)) {
-            return abort(404);
+        $seller = Supplier::where('user_id', $id)->firstOrFail();
+        $user = User::where('id', $id)->firstOrFail();
+        $cities = City::orderBy('id', 'desc')->where('status', 'active')->get();
+        $areas = [];
+        if ($seller && $seller->city_id) {
+            $areas = Area::orderBy('id', 'desc')->where('status', 'active')->where('city_id', $seller->city_id)->get();
         }
-        return view('dashboards.admin.accounts.sellers.edit',compact('vendor'));
+        return view('dashboards.admin.accounts.sellers.edit', compact('seller', 'cities', 'areas', 'user'));
     }
+
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
-        $vendor = User::where('uuid', $id)->first();
-        if(is_null($vendor)) {
-            return abort(404);
+        try {
+            DB::beginTransaction();
+    
+            $user = User::where('uuid', $id)->first();
+    
+            if (is_null($user)) {
+                return abort(404);
+            }
+    
+            $user->name = $request->supplier_name;
+            $user->email = $request->email;
+            $user->phone = $request->phone;
+            $user->status = $request->status;
+            $user->save();
+    
+            $supplier = Supplier::where('user_id', $user->id)->first();
+    
+            $supplier->business_name = $request->business_name;
+            $supplier->supplier_name = $request->supplier_name;
+            $supplier->cnic_number = $request->cnic_number;
+            $supplier->website = $request->website;
+            $supplier->city_id = $request->city_id;
+            $supplier->area_id = $request->area_id;
+            $supplier->address = $request->business_address;
+            $supplier->save();
+    
+            DB::commit();
+    
+            $response = ['success' => true, 'message' => 'Seller updated successfully'];
+            return response()->json($response);
+    
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $response = ['success' => false, 'message' => $e->getMessage()];
+            return response()->json($response);
         }
-        $vendor->name  = $request->name;
-        $vendor->email = $request->email;
-        $vendor->phone = $request->phone;
-        $vendor->status = $request->status;
-        $vendor->save();
-
-        $validator['success'] = 'Seller updated successfully';
-        return back()->withErrors($validator);
     }
-
     /**
      * Remove the specified resource from storage.
      */

@@ -19,11 +19,11 @@
                 @csrf
                 <div id="product-form">
                     <h3>Sellers Information</h3>
-                    @include('dashboards/admin/accounts/sellers/partials/personal-information')
+                    @include('dashboards/admin/accounts/sellers/create-partials/personal-information')
                     <h3>Business Address</h3>
-                    @include('dashboards/admin/accounts/sellers/partials/business-address')
+                    @include('dashboards/admin/accounts/sellers/create-partials/business-address')
                     <h3>Product Details (For Listing)</h3>
-                    @include('dashboards/admin/accounts/sellers/partials/product-details')
+                    @include('dashboards/admin/accounts/sellers/create-partials/product-details')
                     <h3>Publish Sellers</h3>
                     <section>
                         <p>The next and previous buttons help you to navigate through your content.</p>
