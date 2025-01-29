@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Api;
 
+use Exception;
+use Carbon\Carbon;
+use App\Models\Customer;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Models\{User, VerifyCode};
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Api\BaseController as BaseController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{Auth, Validator, DB, Password, Hash, Mail};
-use App\Models\{User, VerifyCode};
-use Illuminate\Support\Str;
-use Carbon\Carbon;
-use Exception;
 
 
 class AccountController extends BaseController
@@ -27,7 +28,7 @@ class AccountController extends BaseController
                 'password' => 'required',
                 'c_password' => 'required|same:password',
             ]);
-            if ($validator->fails()) { 
+            if ($validator->fails()) {
                 return $this->sendError('Validation Error.', $validator->errors(), 200);
             }
             DB::beginTransaction();
@@ -49,8 +50,7 @@ class AccountController extends BaseController
 
             // Mail::to($request->email)->send(new RegisterEmail($user, $verificationCode));
             DB::commit();
-            return $this->sendResponse(['user_id' => $user->uuid,'code' => $verificationCode], 'User registered successfully!');
-
+            return $this->sendResponse(['user_id' => $user->uuid, 'code' => $verificationCode], 'User registered successfully!');
         } catch (Exception $e) {
             DB::rollBack();
             return $this->sendError('Something Went Wrong.', $e->getMessage(), 200);
@@ -66,7 +66,7 @@ class AccountController extends BaseController
                 'email' => 'required',
                 'password' => 'required',
             ]);
-            if ($validator->fails()) { 
+            if ($validator->fails()) {
                 return $this->sendError('Validation Error.', $validator->errors(), 200);
             }
             $credentials = $request->only('email', 'password');
@@ -82,7 +82,7 @@ class AccountController extends BaseController
             return $this->sendError('Something Went Wrong.', $e->getMessage(), 200);
         }
     }
-     /**
+    /**
      * Send Code on Email API
      */
     public function send_code(Request $request)
@@ -137,8 +137,7 @@ class AccountController extends BaseController
         }
         if ($code->used == '1') {
             return $this->sendError('Code is expired.', $request->all(), 200);
-        }
-        else {
+        } else {
             $code->used = '1';
             $code->save();
 
@@ -203,27 +202,75 @@ class AccountController extends BaseController
         }
     }
 
+    public function profile($uuid)
+    {
+        try {
+            $user = User::where('uuid', $uuid)->first();
+            if (is_null($user)) {
+                return $this->sendError('User not found.', [], 200);
+            }
+
+            $customer = Customer::where('user_id', $user->id)
+                ->with('city', 'area')
+                ->first();
+            if (is_null($customer)) {
+                return $this->sendError('Customer not found.', [], 200);
+            }
+
+            $success['user'] = $user;
+            $success['customer'] = $customer;
+            return $this->sendResponse('Profile retrieved successfully.', $success, 200);
+        } catch (\Exception $e) {
+            return $this->sendError('Profile not retrieved Error...', [$e->getMessage()], 500);
+        }
+    }
+
     public function profile_update(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'user_id' => 'required',
-            'name' => 'required'
-        ]);
+        try {
+            $validator = Validator::make($request->all(), [
+                'user_id' => 'required',
+                'name' => 'required',
+                'phone' => 'required',
+                'city_id' => 'required',
+                'area_id' => 'required',
+                'address' => 'required',
+                'picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            ]);
 
-        if ($validator->fails()) {
-            return $this->sendError('Validation Error.', $validator->errors(), 200);
+            if ($validator->fails()) {
+                return $this->sendError('Validation Error.', $validator->errors(), 200);
+            }
+
+            $user = User::where('uuid', $request->input('user_id'))->first();
+            if (is_null($user)) {
+                return $this->sendError('User not found.', $request->all(), 200);
+            }
+
+            $user->name = $request->name;
+            $user->phone = $request->phone;
+            $user->save();
+
+            $customer = Customer::where('user_id', $user->id)->first();
+            $customer->city_id = $request->city_id;
+            $customer->area_id = $request->area_id;
+            $customer->address = $request->address;
+            if ($request->hasFile('picture')) {
+                $file = $request->file('picture');
+                $fileName  = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                $extension = pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
+                $filename  = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', strtolower($request->title))) . '.' . $extension;
+                $file->move(public_path('images/profile'), $filename);
+                $customer->picture = 'images/profile/' . $filename;
+            }
+            $customer->save();
+
+            $success['user'] = $user;
+            $success['customer'] = $customer;
+            return $this->sendResponse('Profile updated successfully.', $success, 200);
+        } catch (\Exception $e) {
+            return $this->sendError('Profile not updated Error...', [$e->getMessage()], 500);
         }
-
-        $user = User::where('uuid', $request->input('user_id'))->first();
-        if (is_null($user)) {
-            return $this->sendError('User not found.', $request->all(), 200);
-        }
-
-        $user->name = $request->name;
-        $user->save();
-
-        $success['user'] = $user;
-        return $this->sendResponse('Profile updated successfully.', $success, 200);
     }
 
     public function change_password(Request $request)
