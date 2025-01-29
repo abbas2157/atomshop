@@ -79,8 +79,8 @@
                                     </td>
                                     <td>{{ $item->created_at->format('M d, Y') ?? '' }}</td>
                                     <td>
-                                        <a href="{{ route('admin.sellers.edit',$item->uuid) }}">View</a> |
-                                        <a href="{{ route('admin.sellers.edit',$item->uuid) }}">Edit</a> | 
+                                        <a href="{{ route('admin.sellers.edit',$item->id) }}">View</a> |
+                                        <a href="{{ route('admin.sellers.edit',$item->id) }}">Edit</a> | 
                                         <a href="javascript:;" id="delete-btn">Delete</a>
                                         <form id="delete-form" action="{{ route('admin.sellers.destroy', $item->uuid) }}" method="POST">
                                             @csrf
@@ -107,7 +107,7 @@
 @section('js')
 <script>
     $(document).on('click', '#delete-btn', function () {
-        if (confirm('Are you sure you want to delete this Brand?')) {
+        if (confirm('Are you sure you want to delete this Seller?')) {
             $('#delete-form').submit();
         }
     });
