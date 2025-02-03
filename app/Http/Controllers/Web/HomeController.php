@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{Category, WebsiteSetup};
+use App\Models\{Product, WebsiteSetup};
 
 class HomeController extends Controller
 {
