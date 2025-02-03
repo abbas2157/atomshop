@@ -12,7 +12,10 @@ class WebsiteController extends Controller
     public function feature_products()
     {
         $website = WebsiteSetup::first();
-        $products = json_decode($website->feature_products);
+        $products = [];
+        if(!is_null($website)) {
+            $products = json_decode($website->feature_products);
+        }
         return view('dashboards.admin.web-app.website.products.feature', compact('products'));
     }
 
@@ -25,7 +28,7 @@ class WebsiteController extends Controller
             for($i = 0; $i < count($products_id); $i++) {
                 $product = Product::where('id', $products_id[$i])->first();
                 if(!is_null($product)) {
-                    $products[] = array('id' => $product->id, 'title' => $product->title, 'slug' => $product->slug, 'picture' => $product->product_picture, 'category' => $product->category->title, 'brand' => $product->brand->title);
+                    $products[] = array('id' => $product->id, 'title' => $product->title, 'slug' => $product->slug, 'price' => $product->formatted_price, 'picture' => $product->product_picture, 'category' => $product->category->title, 'brand' => $product->brand->title);
                 }
             }
             $website = WebsiteSetup::first();
@@ -57,11 +60,11 @@ class WebsiteController extends Controller
         }
         foreach($feature_products_list as $product) {
             if(!in_array($product->id, $website_feature_products)) {
-                $feature_products[] = array('id' => $product->id, 'title' => $product->title, 'slug' => $product->slug, 'picture' => $product->product_picture, 'category' => $product->category->title, 'brand' => $product->brand->title);
+                $feature_products[] = array('id' => $product->id, 'title' => $product->title, 'slug' => $product->slug, 'price' => $product->formatted_price, 'picture' => $product->product_picture, 'category' => $product->category->title, 'brand' => $product->brand->title);
             }
             else {
                 $index = array_search($product->id, array_column($feature_products, 'id'));
-                $feature_products[$index] = array('id' => $product->id, 'title' => $product->title, 'slug' => $product->slug, 'picture' => $product->product_picture, 'category' => $product->category->title, 'brand' => $product->brand->title);
+                $feature_products[$index] = array('id' => $product->id, 'title' => $product->title, 'slug' => $product->slug, 'price' => $product->formatted_price, 'picture' => $product->product_picture, 'category' => $product->category->title, 'brand' => $product->brand->title);
             }
         }
         $website->feature_products     = json_encode($feature_products);
@@ -75,7 +78,10 @@ class WebsiteController extends Controller
     public function categories()
     {
         $website = WebsiteSetup::first();
-        $categories = json_decode($website->categories);
+        $categories = [];
+        if(!is_null($website)) {
+            $categories = json_decode($website->categories);
+        }
         return view('dashboards.admin.web-app.website.categories', compact('categories'));
     }
 
@@ -139,7 +145,10 @@ class WebsiteController extends Controller
     public function brands()
     {
         $website = WebsiteSetup::first();
-        $brands = json_decode($website->brands);
+        $brands = [];
+        if(!is_null($website)) {
+            $brands = json_decode($website->brands);
+        }
         return view('dashboards.admin.web-app.website.brands', compact('brands'));
     }
 

@@ -7,7 +7,7 @@
                 <a class="text-decoration-none" href="">
                     <div class="cat-item d-flex align-items-center mb-4">
                         <div class="overflow-hidden category--img">
-                            <img class="img-fluid" src="{!! asset($item->picture) !!}" alt="{{ $item->title ?? '' }}">
+                            <img class="img-fluid" src="{{ $item->picture ?? ''}}" alt="{{ $item->title ?? '' }}">
                         </div>
                         <div class="flex-fill pl-3">
                             <h6>{{ $item->title ?? '' }}</h6>
