@@ -4,13 +4,20 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{Category, Brand, Memory, Product};
+use App\Models\{Product, WebsiteSetup};
 
 class HomeController extends Controller
 {
     public function home()  {
-        $categories = Category::where('status', 'active')->select('id','title','picture', 'slug')->get();
-        $feature_products = Product::where(['status' => 'Published', 'feature' => '1'])->select('id','title','slug','price','picture')->get();
+        $website = WebsiteSetup::first();
+        $feature_products = [];
+        if(!is_null($website)) {
+            $feature_products = json_decode($website->feature_products);
+        }
+        $categories = [];
+        if(!is_null($website)) {
+            $categories = json_decode($website->categories);
+        }
         return view('website.home.index', compact('categories', 'feature_products'));
     }
 
@@ -75,7 +82,7 @@ class HomeController extends Controller
                 $product_deatil['short_description'] = $product->description->short;
                 $product_deatil['long_description'] = $product->description->long;
             }
-            $product = $product_deatil; 
+            $product = $product_deatil;
             $products = Product::where(['status' => 'Published'])->select('id','title','slug','price','picture')->get();
             return view('website.home.detail', compact('product','products'));
         } catch (Exception $e) {
