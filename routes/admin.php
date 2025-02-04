@@ -50,6 +50,11 @@ Route::group(['middleware' => ['auth']], function() {
                     Route::post('update', [App\Http\Controllers\Dashboards\Admin\WebApp\WebsiteController::class, 'brand_update'])->name('admin.website.brands.update');
                 });
             });
+            //Installment Calculator
+            Route::group(['prefix' => 'installment-calculator'], function(){
+                Route::get('/', [App\Http\Controllers\Dashboards\Admin\CalculatorController::class, 'index'])->name('admin.installment-calculator');
+                Route::post('store', [App\Http\Controllers\Dashboards\Admin\CalculatorController::class, 'store'])->name('admin.installment-calculator.store');
+            });
         });
     });
 });

@@ -10,17 +10,18 @@
         <div class="col-lg-8 col-md-12">
             <div class="row">
                 <div class="col-md-4 mb-5">
-                    <h5 class="text-secondary text-uppercase mb-4">Famous Categories</h5>
+                    <h5 class="text-secondary text-uppercase mb-4">Quick Shop</h5>
                     <div class="d-flex flex-column justify-content-start">
-                        @foreach($categories as $item)
-                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>{{ $item->title ?? '' }}</a>
-                        @endforeach
+                        <a class="text-secondary mb-2" href="{{ route('website') }}"><i class="fa fa-angle-right mr-2"></i> Home</a>
+                        <a class="text-secondary mb-2" href="{{ route('website') }}"><i class="fa fa-angle-right mr-2"></i> Shop</a>
+                        <a class="text-secondary mb-2" href="{{ route('calculator') }}"><i class="fa fa-angle-right mr-2"></i> Installment Calculator</a>
+                        <a class="text-secondary mb-2" href="{{ route('website') }}"><i class="fa fa-angle-right mr-2"></i> Contact</a>
                     </div>
                 </div>
                 <div class="col-md-4 mb-5">
-                    <h5 class="text-secondary text-uppercase mb-4">Famous Brands</h5>
+                    <h5 class="text-secondary text-uppercase mb-4">Famous Categories</h5>
                     <div class="d-flex flex-column justify-content-start">
-                        <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>iPhone</a>
+                        <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Mobile</a>
                     </div>
                 </div>
                 <div class="col-md-4 mb-5">

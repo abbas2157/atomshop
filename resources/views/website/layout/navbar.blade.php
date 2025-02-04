@@ -31,8 +31,9 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto py-0">
-                        <a href="{{ route('website') }}" class="nav-item nav-link">Home</a>
-                        <a href="" class="nav-item nav-link">Shop</a>
+                        <a href="{{ route('website') }}" class="nav-item nav-link {{ (request()->segment(1) == '') ? 'active' : '' }}">Home</a>
+                        <a href="" class="nav-item nav-link ">Shop</a>
+                        <a href="{{ route('calculator') }}" class="nav-item nav-link {{ (request()->segment(1) == 'installment-calculator') ? 'active' : '' }}">Installment Calculator</a>
                         <a href="" class="nav-item nav-link">Contact</a>
                     </div>
                     <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
