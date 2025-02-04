@@ -37,7 +37,7 @@
             </a>
          </div>
          <div class="countdown">
-            <p class="timer-cta">We will relaunch our website in </p>
+            <p class="timer-cta">We will launch our website in </p>
             <ul class="timer">
                <li>
                   <div class="time-box"><span class="time" id="days"></span> <span class="time-txt">Days</span></div>
