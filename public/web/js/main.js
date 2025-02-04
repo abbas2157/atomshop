@@ -91,10 +91,31 @@
         if (button.hasClass('btn-plus')) {
             var newVal = parseFloat(oldValue) + 1;
         } else {
-            if (oldValue > 0) {
+            if (oldValue > 1) {
                 var newVal = parseFloat(oldValue) - 1;
             } else {
-                newVal = 0;
+                newVal = 1;
+            }
+        }
+        button.parent().parent().find('input').val(newVal);
+    });
+
+    //installment-calculator
+    $('.installment-calculator button').on('click', function () {
+        var button = $(this);
+        var oldValue = button.parent().parent().find('input').val();
+        if (button.hasClass('btn-plus')) {
+            if (oldValue < 12) {
+                var newVal = parseFloat(oldValue) + 1;
+            }
+            else {
+                var newVal = parseFloat(oldValue);
+            }
+        } else {
+            if (oldValue > 3) {
+                var newVal = parseFloat(oldValue) - 1;
+            } else {
+                newVal = 3;
             }
         }
         button.parent().parent().find('input').val(newVal);
