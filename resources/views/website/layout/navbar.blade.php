@@ -1,3 +1,10 @@
+@php
+    $website = App\Models\WebsiteSetup::select('categories')->first();
+    $categories = [];
+    if(!is_null($website)) {
+        $categories = json_decode($website->categories);
+    }
+@endphp
 <div class="container-fluid bg-dark mb-30">
     <div class="row px-xl-5">
         <div class="col-lg-3 d-none d-lg-block">
@@ -7,8 +14,9 @@
             </a>
             <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999;">
                 <div class="navbar-nav w-100">
-                    <a href="iphone" class="nav-item nav-link">Mobile</a>
-                    <a href="laptop" class="nav-item nav-link">Laptop</a>
+                    @foreach($categories as $item)
+                        <a href="" class="nav-item nav-link">{{ $item->title ?? '' }}</a>
+                    @endforeach
                 </div>
             </nav>
         </div>
@@ -23,7 +31,7 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto py-0">
-                        <a href="{{ route('website') }}" class="nav-item nav-link active">Home</a>
+                        <a href="{{ route('website') }}" class="nav-item nav-link">Home</a>
                         <a href="" class="nav-item nav-link">Shop</a>
                         <a href="" class="nav-item nav-link">Contact</a>
                     </div>

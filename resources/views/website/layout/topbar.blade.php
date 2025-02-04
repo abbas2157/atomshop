@@ -58,7 +58,7 @@
         </div>
         <div class="col-lg-4 col-6 text-right">
             <p class="m-0">Customer Service</p>
-            <h5 class="m-0">+92300 0000000</h5>
+            <h5 class="m-0">{{ config('website.mobile') ?? 'No Phone' }}</h5>
         </div>
     </div>
 </div>
