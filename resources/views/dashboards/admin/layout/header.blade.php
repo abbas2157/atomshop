@@ -37,6 +37,10 @@
                                     <span class="mt-3">Memory</span>
                                     <a href="{{ route('admin.memory.index') }}" class="nav-link">Memory List</a>
                                     <a href="{{ route('admin.memory.create') }}" class="nav-link">Create new</a>
+
+                                    <span class="mt-3">Sliders</span>
+                                    <a href="{{ route('admin.sliders.index') }}" class="nav-link">Sliders List</a>
+                                    <a href="{{ route('admin.sliders.create') }}" class="nav-link">Create new</a>
                                 </nav>
                             </div>
                             <div>

@@ -108,8 +108,10 @@
                         contentType: false,
                         processData: false,
                         headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            'X-HTTP-Method-Override': 'PUT'
                         },
+
                         success: function (response) {
                             console.log(response);
                             location.reload();

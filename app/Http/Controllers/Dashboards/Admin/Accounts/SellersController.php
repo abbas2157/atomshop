@@ -115,7 +115,6 @@ class SellersController extends Controller
         return view('dashboards.admin.accounts.sellers.edit', compact('seller', 'cities', 'areas', 'user'));
     }
 
-
     /**
      * Update the specified resource in storage.
      */
@@ -123,21 +122,26 @@ class SellersController extends Controller
     {
         try {
             DB::beginTransaction();
-    
-            $user = User::where('uuid', $id)->first();
-    
+
+            $supplier = Supplier::where('id', $id)->firstOrFail();
+            $user = User::where('id', $supplier->user_id)->firstOrFail();
+
             if (is_null($user)) {
                 return abort(404);
             }
-    
-            $user->name = $request->supplier_name;
+
+            $user->name  = $request->supplier_name;
             $user->email = $request->email;
             $user->phone = $request->phone;
+            $user->password = 'Atom@shop!';
+            $user->role = 'seller';
             $user->status = $request->status;
             $user->save();
-    
-            $supplier = Supplier::where('user_id', $user->id)->first();
-    
+
+            if (is_null($supplier)) {
+                return abort(404);
+            }
+
             $supplier->business_name = $request->business_name;
             $supplier->supplier_name = $request->supplier_name;
             $supplier->cnic_number = $request->cnic_number;
@@ -146,18 +150,19 @@ class SellersController extends Controller
             $supplier->area_id = $request->area_id;
             $supplier->address = $request->business_address;
             $supplier->save();
-    
+
             DB::commit();
-    
+
             $response = ['success' => true, 'message' => 'Seller updated successfully'];
             return response()->json($response);
-    
+
         } catch (\Exception $e) {
             DB::rollBack();
             $response = ['success' => false, 'message' => $e->getMessage()];
             return response()->json($response);
         }
     }
+
     /**
      * Remove the specified resource from storage.
      */
