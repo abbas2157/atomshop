@@ -2,20 +2,23 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Models\AddToCart;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Models\{Product, WebsiteSetup, InstallmentCalculator};
 
 class HomeController extends Controller
 {
-    public function home()  {
+    public function home()
+    {
         $website = WebsiteSetup::first();
         $feature_products = [];
-        if(!is_null($website)) {
+        if (!is_null($website)) {
             $feature_products = json_decode($website->feature_products);
         }
         $categories = [];
-        if(!is_null($website)) {
+        if (!is_null($website)) {
             $categories = json_decode($website->categories);
         }
         return view('website.home.index', compact('categories', 'feature_products'));
@@ -29,7 +32,7 @@ class HomeController extends Controller
                 ->where(['status' => 'Published'])
                 ->select('id', 'title', 'picture', 'price', 'category_id', 'brand_id')
                 ->first();
-            if(is_null($product)) {
+            if (is_null($product)) {
                 return abort(404);
             }
 
@@ -83,18 +86,62 @@ class HomeController extends Controller
                 $product_deatil['long_description'] = $product->description->long;
             }
             $product = $product_deatil;
-            $products = Product::where(['status' => 'Published'])->select('id','title','slug','price','picture')->get();
-            return view('website.home.detail', compact('product','products'));
+            $products = Product::where(['status' => 'Published'])->select('id', 'title', 'slug', 'price', 'picture')->get();
+            return view('website.home.detail', compact('product', 'products'));
         } catch (Exception $e) {
             return abort(505, $e->getMessage());
         }
     }
 
-    public function calculator()  {
+    public function calculator()
+    {
         $calculator = InstallmentCalculator::select('installment_tenure', 'per_month_percentage')->first();
-        if(is_null($calculator)) {
+        if (is_null($calculator)) {
             abort(404);
         }
         return view('website.installment-calculator', compact('calculator'));
+    }
+    public function addtocart($uuid)
+    {
+        $user = User::where('uuid', $uuid)->firstOrFail();
+        $cartItems = AddToCart::where('user_id', $user->id)
+            ->with('product')
+            ->get();
+
+        return view('website.add-to-cart', compact('cartItems'));
+    }
+
+    public function updateCart(Request $request, $id)
+    {
+        $cart = AddToCart::findOrFail($id);
+        $cart->update(['quantity' => $request->quantity]);
+
+        $cartItems = AddToCart::where('user_id', $cart->user_id)->with('product')->get();
+        $subtotal = $cartItems->sum(fn($item) => $item->product->price * $item->quantity);
+        $cartTotal = $subtotal + 10;
+
+        return response()->json([
+            'success' => true,
+            'total_price' => $cart->product->price * $cart->quantity,
+            'cart_total' => $cartTotal,
+            'subtotal' => $subtotal
+        ]);
+    }
+
+    public function removeCart($id)
+    {
+
+        $cart = AddToCart::findOrFail($id);
+        $userId = $cart->user_id;
+        $cart->delete(); 
+        $cartItems = AddToCart::where('user_id', $userId)->with('product')->get();
+        $subtotal = $cartItems->sum(fn($item) => $item->product->price * $item->quantity);
+        $cartTotal = $subtotal + 10;
+
+        return response()->json([
+            'success' => true,
+            'cart_total' => $cartTotal,
+            'subtotal' => $subtotal
+        ]);
     }
 }
