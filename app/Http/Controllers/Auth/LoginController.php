@@ -58,6 +58,9 @@ class LoginController extends Controller
         if($user->role == 'admin') {
             return redirect()->route('admin');
         }
+        if($user->role == 'seller') {
+            return redirect()->route('seller');
+        }
     }
     /**
      * Show the form for creating a new resource.

@@ -27,6 +27,16 @@ class DatabaseSeeder extends Seeder
             'role' => 'admin',
             'status' => 'active'
         ]);
+        User::factory()->create([
+            'uuid' => Str::uuid(),
+            'name' => 'Test Seller',
+            'email' => 'seller@atomshop.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('password'),
+            'remember_token' => Str::random(10),
+            'role' => 'seller',
+            'status' => 'active'
+        ]);
 
         WebsiteSetup::create([
             'categories' => json_encode([]),
