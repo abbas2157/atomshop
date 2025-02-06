@@ -27,31 +27,45 @@
                             @endif
                         </div>
                         <div class="col-lg mt-2">
-                            <label>Description <span class="text-danger">*</span></label>
-                            <textarea class="form-control" name="description" rows="5">{{ $slider->description }}</textarea>
-                            @if ($errors->has('description'))
-                                <span class="text-danger text-left">{{ $errors->first('description') }}</span>
+                            <label>Tagline <span class="text-danger">*</span></label>
+                            <textarea class="form-control" name="tagline" rows="5">{{ $slider->tagline }}</textarea>
+                            @if ($errors->has('tagline'))
+                                <span class="text-danger text-left">{{ $errors->first('tagline') }}</span>
                             @endif         
                         </div>
                     </div>
                     <div class="row row-sm">
                         <div class="col-lg mt-2">
+                            <label>Select Action <span class="text-danger">*</span></label>
+                            <select class="form-control" name="action">
+                                @foreach ($routes as $route)
+                                    <option value="{{ url($route) }}" {{ old('action', $slider->action) == url($route) ? 'selected' : '' }}>{{ $route ?? '' }}</option>
+                                @endforeach
+                            </select>
+                            @if ($errors->has('action'))
+                                <span class="text-danger text-left">{{ $errors->first('action') }}</span>
+                            @endif 
+                        </div>
+                        <div class="col-lg mt-2">
                             <label>Picture <span class="text-danger">*</span></label>
                             <div class="custom-file">
-                                <input type="file" accept="images/jpg,jpeg,png" class="custom-file-input" name="picture" id="customFile" >
+                                <input type="file" accept="images/jpg,jpeg,png" class="custom-file-input" name="picture" id="customFile">
                                 <label class="custom-file-label" for="customFile">Choose picture</label>
                             </div>
                             @if ($errors->has('picture'))
                                 <span class="text-danger text-left">{{ $errors->first('picture') }}</span>
                             @endif  
                         </div>
+                    </div>
+                    <div class="row row-sm">
                         <div class="col-lg mt-2">
                             <label>Select status <span class="text-danger">*</span></label>
                             <select class="form-control" name="status">
-                                <option value="active" {{ ($slider->status == 'active') ? 'selected' : '' }}>Active</option>
-                                <option value="inactive" {{ ($slider->status == 'inactive') ? 'selected' : '' }}>Inactive</option>
+                                <option value="active" {{ old('status', $slider->status) == 'active' ? 'selected' : '' }}>Active</option>
+                                <option value="inactive" {{ old('status', $slider->status) == 'inactive' ? 'selected' : '' }}>Inactive</option>
                             </select>
                         </div>
+                        <div class="col-lg mt-2"></div>
                     </div>
                     <button type="submit" class="btn btn-success mt-3">Update Slider</button>
                 </form>

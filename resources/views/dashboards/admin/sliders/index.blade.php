@@ -50,7 +50,7 @@
                             <th>Slider</th>
                             <th>Title</th>
                             <th>Tagline</th>
-                            <th>Button Link</th>
+                            {{-- <th>Button Link</th> --}}
                             <th width="60px">Status</th>
                             <th width="120px">Created On</th>
                             <th width="150px">Action</th>
