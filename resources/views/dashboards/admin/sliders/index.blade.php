@@ -5,10 +5,10 @@
 @section('content')
 <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
     <div class="container">
-        @include('dashboards/admin/components/partials/sidebar')
+        @include('dashboards/admin/sliders/partials/sidebar')
         <div class="az-content-body pd-lg-l-40 d-flex flex-column">
             <div class="az-content-breadcrumb">
-                <span>Product Management</span>
+                <span>Web & App</span>
                 <span>Sliders</span>
             </div>
             <h2 class="az-content-title">Sliders</h2>
@@ -47,9 +47,10 @@
                 <table class="table table-bordered mg-b-0">
                     <thead>
                         <tr>
-                            <th width="40px">ID</th>
+                            <th>Slider</th>
                             <th>Title</th>
-                            <th>Description</th>
+                            <th>Tagline</th>
+                            <th>Button Link</th>
                             <th width="60px">Status</th>
                             <th width="120px">Created On</th>
                             <th width="150px">Action</th>
@@ -59,9 +60,9 @@
                         @if($sliders->isNotEmpty())
                             @foreach($sliders as $item)
                                 <tr>
-                                    <th >{{ $item->id ?? '' }}</th>
+                                    <th><img src=""> {{ $item->id ?? '' }}</th>
                                     <td>{{ $item->title ?? '' }}</td>
-                                    <td>{{ $item->description ?? '' }}</td>
+                                    <td>{{ $item->tagline ?? '' }}</td>
                                     <td>{{ $item->status ?? '' }}</td>
                                     <td>{{ $item->created_at->format('M d, Y') ?? '' }}</td>
                                     <td>

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Dashboards\Admin\Components;
 
+use Illuminate\Support\Facades\{File, Route};
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Slider;
-use Illuminate\Support\Facades\File;
 
 class SliderController extends Controller
 {
@@ -24,7 +24,7 @@ class SliderController extends Controller
         }
 
         $sliders = $sliders->paginate(10);
-        return view('dashboards.admin.components.sliders.index',compact('sliders'));
+        return view('dashboards.admin.sliders.index',compact('sliders'));
     }
 
     /**
@@ -32,7 +32,14 @@ class SliderController extends Controller
      */
     public function create()
     {
-        return view('dashboards.admin.components.sliders.create');
+        $all_routes = Route::getRoutes();
+        $routes = [];
+        foreach ($all_routes as $route) {
+            if ($route->methods()[0] === 'GET' && !empty($route->getName()) && str_starts_with('website.', $route->getName())) {
+                $routes[] = $route->uri();
+            }
+        }
+        return view('dashboards.admin.sliders.create', compact('routes'));
     }
 
     /**
@@ -42,11 +49,13 @@ class SliderController extends Controller
     {
         $request->validate([
             'title' => 'required|unique:sliders',
+            'picture' => 'required',
+            'action' => 'required',
+            'tagline' => 'required'
         ]);
     
         $slider = new Slider;
         $slider->title = $request->title;
-    
         if($request->hasFile('picture')) {
             $file = $request->file('picture');
             $fileName  = pathinfo($file->getClientOriginalName(),PATHINFO_FILENAME);
@@ -55,8 +64,8 @@ class SliderController extends Controller
             $file->move(public_path('images/sliders'),$filename);
             $slider->picture = 'images/sliders/'.$filename;
         }
-
-        $slider->description = $request->description;
+        $slider->tagline = $request->tagline;
+        $slider->action = $request->action;
         $slider->status = $request->status;
         $slider->save();
     
@@ -78,7 +87,7 @@ class SliderController extends Controller
     public function edit(string $id)
     {
         $slider = Slider::findOrFail($id);
-        return view('dashboards.admin.components.sliders.edit',compact('slider'));
+        return view('dashboards.admin.sliders.edit',compact('slider'));
     }
 
     /**

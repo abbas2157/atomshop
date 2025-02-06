@@ -71,7 +71,7 @@
                         </div>
                     </div>
                 </li>
-                <li class="nav-item {{ (request()->segment(1) == 'admin' && (in_array(request()->segment(2), ['website','installment-calculator']))) ? 'active show' : '' }}">
+                <li class="nav-item {{ (request()->segment(1) == 'admin' && (in_array(request()->segment(2), ['website','installment-calculator','sliders']))) ? 'active show' : '' }}">
                     <a href="" class="nav-link with-sub"><i class="typcn typcn-device-phone"></i>Web & App</a>
                     <div class="az-menu-sub">
                         <div class="container">
@@ -80,6 +80,7 @@
                                     <a href="{{ route('admin.website.categories') }}" class="nav-link">Website</a>
                                     <a href="" class="nav-link">Mobile App</a>
                                     <a href="{{ route('admin.installment-calculator') }}" class="nav-link">Installment Calculator</a>
+                                    <a href="{{ route('admin.sliders.index') }}" class="nav-link">Sliders</a>
                                 </nav>
                             </div>
                         </div>

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('brands')->nullable();
             $table->text('feature_products')->nullable();
             $table->text('products')->nullable();
+            $table->text('sliders')->nullable();
             $table->foreignId('updated_by')->nullable();
             $table->timestamps();
         });

@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('sliders', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('description')->nullable();
+            $table->text('tagline')->nullable();
             $table->string('picture')->nullable();
-            $table->enum('status',['active','inactive'])->default('inactive');
+            $table->string('action')->nullable();
+            $table->enum('status',['active','inactive'])->default('active');
             $table->timestamps();
         });
     }
