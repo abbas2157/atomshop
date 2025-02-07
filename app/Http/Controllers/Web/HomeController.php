@@ -13,6 +13,10 @@ class HomeController extends Controller
     public function home()
     {
         $website = WebsiteSetup::first();
+        $sliders = [];
+        if (!is_null($sliders)) {
+            $sliders = json_decode($website->sliders);
+        }
         $feature_products = [];
         if (!is_null($website)) {
             $feature_products = json_decode($website->feature_products);
@@ -21,7 +25,7 @@ class HomeController extends Controller
         if (!is_null($website)) {
             $categories = json_decode($website->categories);
         }
-        return view('website.home.index', compact('categories', 'feature_products'));
+        return view('website.home.index', compact('sliders', 'categories', 'feature_products'));
     }
 
     public function product_detail($slug)

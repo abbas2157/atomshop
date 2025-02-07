@@ -9,16 +9,12 @@
                     <li data-target="#header-carousel" data-slide-to="2"></li>
                 </ol>
                 <div class="carousel-inner">
-                    <div class="carousel-item position-relative active" style="height: 430px;">
-                        <img class="position-absolute w-100 h-100" src="{{ asset('sliders/atomshop-1.jpg') }}" style="object-fit: cover;">
-                        <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                            <div class="p-3" style="max-width: 700px;">
-                                <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Atomshop</h1>
-                                <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Online shop with easy installment facility in Lahore, Pakistan.</p>
-                                <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="#">Shop Now</a>
-                            </div>
+                    @foreach($sliders as $slide)
+                        <div class="carousel-item position-relative @if($loop->first) active @endif" style="height: 430px;">
+                            <img class="position-absolute w-100 h-100" src="{{ $slide->picture ?? '' }}" style="object-fit: cover;">
+                            
                         </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -39,7 +35,6 @@
                     <a href="" class="btn btn-primary">Shop Now</a>
                 </div>
             </div>
-            
         </div>
     </div>
 </div>

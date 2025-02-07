@@ -60,7 +60,7 @@
                         @if($sliders->isNotEmpty())
                             @foreach($sliders as $item)
                                 <tr>
-                                    <th><img src=""> {{ $item->id ?? '' }}</th>
+                                    <th><img src="{{ asset($item->picture) }}" style="width: 100px"></th>
                                     <td>{{ $item->title ?? '' }}</td>
                                     <td>{{ $item->tagline ?? '' }}</td>
                                     <td>{{ $item->status ?? '' }}</td>
