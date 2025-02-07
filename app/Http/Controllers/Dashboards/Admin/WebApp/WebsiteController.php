@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Dashboards\Admin\WebApp;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{Category, Brand, Product, WebsiteSetup};
+use App\Models\{Category, Brand, Product, WebsiteSetup, Slider};
 use Illuminate\Support\Facades\{Auth, Hash, DB};
 
 class WebsiteController extends Controller
@@ -205,6 +205,72 @@ class WebsiteController extends Controller
         $website->save();
 
         $validator['success'] = 'Brands Sync successfully';
+        return back()->withErrors($validator);
+    }
+
+    public function sliders()
+    {
+        $website = WebsiteSetup::first();
+        $sliders = [];
+        if(!is_null($website)) {
+            $sliders = json_decode($website->sliders);
+        }
+        return view('dashboards.admin.web-app.website.sliders', compact('sliders'));
+    }
+
+    public function slider_update(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            $slider_id = json_decode($request->slider_id, true);
+            $sliders = [];
+            for($i = 0; $i < count($slider_id); $i++) {
+                $slider = Slider::where('id', $slider_id[$i])->first();
+                if(!is_null($slider)) {
+                    $sliders[] = array('id' => $slider->id, 'title' => $slider->title, 'tagline' => $slider->tagline, 'picture' => $slider->slider_picture);
+                }
+            }
+            $website = WebsiteSetup::first();
+            $website->sliders = json_encode($sliders);
+            $website->updated_by = Auth::user()->id;
+            $website->save();
+
+            DB::commit();
+
+            $response = ['success' => true, 'message' => 'Slider Updated Successfully'];
+            return response()->json($response);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $response = ['success' => false, 'message' => $e->getMessage()];
+            return response()->json($response);
+        }
+    }
+    
+    public function slider_sync()
+    {
+        $website = WebsiteSetup::first();
+
+        $slider_list = Slider::where('status', 'active')->get();
+        $website_sliders = [];
+        $sliders = [];
+        if(!empty($website->sliders) && !empty(json_decode($website->sliders))) {
+            $website_sliders = array_column(json_decode($website->sliders), 'id');
+            $sliders = json_decode($website->sliders);
+        }
+        foreach($slider_list as $slider) {
+            if(!in_array($slider->id, $website_sliders)) {
+                $sliders[] = array('id' => $slider->id, 'title' => $slider->title, 'tagline' => $slider->tagline, 'picture' => $slider->slider_picture);
+            }
+            else {
+                $index = array_search($slider->id, array_column($sliders, 'id'));
+                $sliders[$index] = array('id' => $slider->id, 'title' => $slider->title, 'tagline' => $slider->tagline, 'picture' => $slider->slider_picture);
+            }
+        }
+        $website->sliders     = json_encode($sliders);
+        $website->updated_by = Auth::user()->id;
+        $website->save();
+
+        $validator['success'] = 'Sliders Sync successfully';
         return back()->withErrors($validator);
     }
 }

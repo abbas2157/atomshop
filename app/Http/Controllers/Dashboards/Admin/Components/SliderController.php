@@ -72,7 +72,7 @@ class SliderController extends Controller
         $validator['success'] = 'Slider created successfully';
         return back()->withErrors($validator);
     }
-
+    
     /**
      * Display the specified resource.
      */
@@ -87,7 +87,14 @@ class SliderController extends Controller
     public function edit(string $id)
     {
         $slider = Slider::findOrFail($id);
-        return view('dashboards.admin.sliders.edit',compact('slider'));
+        $all_routes = Route::getRoutes();
+        $routes = [];
+        foreach ($all_routes as $route) {
+            if ($route->methods()[0] === 'GET' && !empty($route->getName()) && str_starts_with('website.', $route->getName())) {
+                $routes[] = $route->uri();
+            }
+        }
+        return view('dashboards.admin.sliders.edit',compact('slider', 'routes'));
     }
 
     /**
@@ -97,6 +104,8 @@ class SliderController extends Controller
     {
         $request->validate([
             'title' => 'required|unique:sliders,title,'.$id,
+            'action' => 'required',
+            'tagline' => 'required'
         ]);
         
         $slider = Slider::findOrFail($id);
@@ -110,10 +119,11 @@ class SliderController extends Controller
             $file->move(public_path('images/sliders'),$filename);
             $slider->picture = 'images/sliders/'.$filename;
         }
-        $slider->description = $request->description;
+        $slider->tagline = $request->tagline;
+        $slider->action = $request->action;
         $slider->status = $request->status;
         $slider->save();
-        
+
         $validator['success'] = 'Slider updated successfully';
         return back()->withErrors($validator);
     }
