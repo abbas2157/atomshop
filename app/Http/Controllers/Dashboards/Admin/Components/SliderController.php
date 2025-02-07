@@ -48,7 +48,7 @@ class SliderController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|unique:sliders',
+            'title' => 'required',
             'picture' => 'required',
             'action' => 'required',
             'tagline' => 'required'
@@ -103,7 +103,7 @@ class SliderController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'title' => 'required|unique:sliders,title,'.$id,
+            'title' => 'required',
             'action' => 'required',
             'tagline' => 'required'
         ]);
