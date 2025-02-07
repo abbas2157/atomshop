@@ -24,11 +24,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('categories', [App\Http\Controllers\Api\HomePageController::class, 'categories']);
 Route::get('brands', [App\Http\Controllers\Api\HomePageController::class, 'brands']);
-
-Route::post('cart/store', [App\Http\Controllers\Api\HomePageController::class, 'addtocart_store']);
-Route::post('cart/update/{id}', [App\Http\Controllers\Api\HomePageController::class, 'updateCart']);
-Route::post('cart/remove/{id}', [App\Http\Controllers\Api\HomePageController::class, 'removeCart']);
-
 Route::group(['prefix' => 'products'], function(){
     Route::get('/', [App\Http\Controllers\Api\ProductController::class, 'products']);
     Route::get('{id}', [App\Http\Controllers\Api\ProductController::class, 'product_detail']);
@@ -39,3 +34,12 @@ Route::group(['prefix' => 'products'], function(){
     Route::get('category/{id}', [App\Http\Controllers\Api\HomePageController::class, 'category_products']);
     Route::get('brand/{id}', [App\Http\Controllers\Api\HomePageController::class, 'brand_products']);
 });
+
+Route::group(['prefix' => 'cart'], function(){
+    Route::post('/', [App\Http\Controllers\Api\Order\CartController::class, 'get_cart']);
+    Route::post('add', [App\Http\Controllers\Api\Order\CartController::class, 'add_to_cart']);
+    Route::post('update', [App\Http\Controllers\Api\Order\CartController::class, 'update_cart']);
+    Route::post('remove', [App\Http\Controllers\Api\Order\CartController::class, 'remove_from_cart']);
+});
+
+

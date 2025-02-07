@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Web;
 
 use App\Models\User;
-use App\Models\AddToCart;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -101,93 +100,5 @@ class HomeController extends Controller
             abort(404);
         }
         return view('website.installment-calculator', compact('calculator'));
-    }
-
-    public function addtocart_store(Request $request)
-    {
-        $product = Product::find($request->product_id);
-        if (!$product) {
-            return response()->json(['success' => false, 'message' => 'Product not found.']);
-        }
-        $userId = Auth::check() ? Auth::id() : session()->get('guest_user_id');
-        if (!$userId) {
-            $userId = 'guest_' . uniqid();
-            session()->put('guest_user_id', $userId);
-        }
-
-        $cartItem = AddToCart::where('user_id', $userId)
-            ->where('product_id', $product->id)
-            ->first();
-
-        if ($cartItem) {
-            $cartItem->increment('quantity');
-        } else {
-            AddToCart::create([
-                'user_id' => $userId,
-                'product_id' => $product->id,
-                'quantity' => 1,
-                'status' => 'pending',
-            ]);
-        }
-
-        return response()->json(['success' => true, 'message' => 'Product added to cart successfully!']);
-    }
-
-    public function addtocart()
-    {
-        $userId = Auth::check() ? Auth::id() : session()->get('guest_user_id');
-
-        if (!$userId) {
-            $userId = 'guest_' . uniqid();
-            session()->put('guest_user_id', $userId);
-        }
-
-        $cartItems = AddToCart::with('product')
-            ->where('user_id', $userId)
-            ->get();
-
-        return view('website.add-to-cart', compact('cartItems'));
-    }
-
-    public function updateCart(Request $request, $id)
-    {
-        $userId = auth()->check() ? auth()->id() : session()->get('guest_user_id');
-        if (!$userId) return response()->json(['success' => false, 'message' => 'User not identified.']);
-
-        $cartItem = AddToCart::where('id', $id)->where('user_id', $userId)->first();
-        if (!$cartItem) return response()->json(['success' => false, 'message' => 'Item not found in cart.']);
-
-        $cartItem->update(['quantity' => max(1, $request->quantity)]);
-        $cartItems = AddToCart::where('user_id', $userId)->with('product')->get();
-        $subtotal = $cartItems->sum(fn($item) => $item->product->price * $item->quantity);
-        $cartTotal = $subtotal + 10;
-
-        return response()->json([
-            'success' => true,
-            'total_price' => $cartItem->product->price * $cartItem->quantity,
-            'cart_total' => $cartTotal,
-            'subtotal' => $subtotal
-        ]);
-    }
-
-    public function removeCart($id)
-    {
-        $userId = auth()->check() ? auth()->id() : session()->get('guest_user_id');
-        if (!$userId) return response()->json(['success' => false, 'message' => 'User not identified.']);
-
-        $cartItem = AddToCart::where('id', $id)->where('user_id', $userId)->first();
-        if (!$cartItem) return response()->json(['success' => false, 'message' => 'Item not found in cart.']);
-
-        $cartItem->delete();
-        $cartItems = AddToCart::where('user_id', $userId)->with('product')->get();
-        $subtotal = $cartItems->sum(fn($item) => $item->product->price * $item->quantity);
-        $cartTotal = $subtotal + 10;
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Item removed from cart successfully.',
-            'cart_total' => $cartTotal,
-            'subtotal' => $subtotal
-        ]);
     }
 }

@@ -39,7 +39,18 @@
 
     <!-- Back to Top -->
     <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
-
+    @auth
+        <input type="hidden" id="user-type" value="auth">
+        <input type="hidden" id="user_id" value="{{ Auth::user()->id ?? '' }}">
+    @endauth
+    @guest
+        <input type="hidden" id="user-type" value="guest">
+    @endguest
+    <script type="text/javascript">
+        var APP_URL = {!! json_encode(url('/')) !!}
+        var ASSET_URL = {!! json_encode(asset('/')) !!}
+        var API_URL = {!! json_encode(url('api')) !!}
+    </script>
     <script src="{!! asset('web/js/jquery-3.4.1.min.js') !!}"></script>
     <script src="{!! asset('web/js/bootstrap.bundle.min.js') !!}"></script>
     <script src="{!! asset('web/lib/easing/easing.min.js') !!}"></script>

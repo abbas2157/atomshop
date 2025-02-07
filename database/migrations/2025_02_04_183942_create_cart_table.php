@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('add_to_carts', function (Blueprint $table) {
+        Schema::create('carts', function (Blueprint $table) {
             $table->id();
-            $table->string('user_id');
-            $table->integer('product_id');
+            $table->integer('user_id')->nullable();
+            $table->string('guest_id')->nullable();
+            $table->integer('product_id')->nullable();
             $table->integer('quantity')->default(1);
-            $table->string('status')->default('In Progress');
+            $table->enum('status',['Pending', 'Purchased'])->default('Pending');
             $table->timestamps();
             $table->index(['user_id', 'product_id']);
         });
