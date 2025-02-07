@@ -20,6 +20,8 @@ Route::group(['middleware' => ['auth']], function() {
             Route::resource('brands', App\Http\Controllers\Dashboards\Admin\Components\BrandController::class,['as' => 'admin']);
             Route::resource('colors', App\Http\Controllers\Dashboards\Admin\Components\ColorController::class,['as' => 'admin']);
             Route::resource('memory', App\Http\Controllers\Dashboards\Admin\Components\MemoryController::class,['as' => 'admin']);
+            Route::resource('sliders', App\Http\Controllers\Dashboards\Admin\Components\SliderController::class,['as' => 'admin']);
+            
             //Zone Management
             Route::resource('cities', App\Http\Controllers\Dashboards\Admin\Components\CitiesController::class,['as' => 'admin']);
             Route::resource('areas', App\Http\Controllers\Dashboards\Admin\Components\AreaController::class,['as' => 'admin']);
@@ -49,6 +51,17 @@ Route::group(['middleware' => ['auth']], function() {
                     Route::get('sync', [App\Http\Controllers\Dashboards\Admin\WebApp\WebsiteController::class, 'brand_sync'])->name('admin.website.brands.sync');
                     Route::post('update', [App\Http\Controllers\Dashboards\Admin\WebApp\WebsiteController::class, 'brand_update'])->name('admin.website.brands.update');
                 });
+
+                Route::group(['prefix' => 'sliders'], function(){
+                    Route::get('/', [App\Http\Controllers\Dashboards\Admin\WebApp\WebsiteController::class, 'sliders'])->name('admin.website.sliders');
+                    Route::get('sync', [App\Http\Controllers\Dashboards\Admin\WebApp\WebsiteController::class, 'slider_sync'])->name('admin.website.sliders.sync');
+                    Route::post('update', [App\Http\Controllers\Dashboards\Admin\WebApp\WebsiteController::class, 'slider_update'])->name('admin.website.sliders.update');
+                });
+            });
+            //Installment Calculator
+            Route::group(['prefix' => 'installment-calculator'], function(){
+                Route::get('/', [App\Http\Controllers\Dashboards\Admin\CalculatorController::class, 'index'])->name('admin.installment-calculator');
+                Route::post('store', [App\Http\Controllers\Dashboards\Admin\CalculatorController::class, 'store'])->name('admin.installment-calculator.store');
             });
         });
     });

@@ -37,6 +37,10 @@
                                     <span class="mt-3">Memory</span>
                                     <a href="{{ route('admin.memory.index') }}" class="nav-link">Memory List</a>
                                     <a href="{{ route('admin.memory.create') }}" class="nav-link">Create new</a>
+
+                                    <span class="mt-3">Sliders</span>
+                                    <a href="{{ route('admin.sliders.index') }}" class="nav-link">Sliders List</a>
+                                    <a href="{{ route('admin.sliders.create') }}" class="nav-link">Create new</a>
                                 </nav>
                             </div>
                             <div>
@@ -67,7 +71,7 @@
                         </div>
                     </div>
                 </li>
-                <li class="nav-item {{ (request()->segment(1) == 'admin' && (in_array(request()->segment(2), ['website']))) ? 'active show' : '' }}">
+                <li class="nav-item {{ (request()->segment(1) == 'admin' && (in_array(request()->segment(2), ['website','installment-calculator','sliders']))) ? 'active show' : '' }}">
                     <a href="" class="nav-link with-sub"><i class="typcn typcn-device-phone"></i>Web & App</a>
                     <div class="az-menu-sub">
                         <div class="container">
@@ -75,7 +79,8 @@
                                 <nav class="nav">
                                     <a href="{{ route('admin.website.categories') }}" class="nav-link">Website</a>
                                     <a href="" class="nav-link">Mobile App</a>
-                                    <a href="" class="nav-link">Settings</a>
+                                    <a href="{{ route('admin.installment-calculator') }}" class="nav-link">Installment Calculator</a>
+                                    <a href="{{ route('admin.sliders.index') }}" class="nav-link">Sliders</a>
                                 </nav>
                             </div>
                         </div>

@@ -38,7 +38,7 @@ class ProductController extends BaseController
     public function product_detail(Request $request, $id)
     {
         try {
-            $product = Product::with('category', 'brand', 'colors', 'memories')
+            $product = Product::with('category', 'brand', 'colors', 'memories', 'gallery', 'description')
                 ->where(['status' => 'Published'])
                 ->select('id', 'title', 'picture', 'price', 'category_id', 'brand_id')
                 ->first();
@@ -61,24 +61,33 @@ class ProductController extends BaseController
                 $product_deatil['brand'] = $product->brand->toArray();
             }
 
-            if (!is_null($product->colors)) {
-                foreach ($product->colors as $clr) {
-                    if (!is_null($clr->color)) {
-                        $product_deatil['colors'][] = array('color_id' => $clr->color_id, 'title' => $clr->color->title);
+            if ($product->colors->isNotEmpty()) {
+                foreach ($product->colors as $item) {
+                    if (!is_null($item->color)) {
+                        $product_deatil['colors'][] = array('id' => $item->color_id, 'title' => $item->color->title);
                     }
                 }
             } else {
                 $product_deatil['colors'] = [];
             }
-            if (!is_null($product->memories)) {
+            if ($product->memories->isNotEmpty()) {
                 foreach ($product->memories as $mem) {
-                    if (!is_null($mem->memory)) {
-                        $product_deatil['memories'][] = array('color_id' => $mem->memory_id, 'title' => $mem->memory->title);
+                    if (!is_null($item->memory)) {
+                        $product_deatil['memories'][] = array('id' => $item->memory_id, 'title' => $item->memory->title);
                     }
                 }
             } else {
                 $product_deatil['memories'] = [];
             }
+
+            if ($product->gallery->isNotEmpty()) {
+                foreach ($product->gallery as $item) {
+                    $product_deatil['gallery'][] = array('id' => $item->id, 'url' => $item->url);
+                }
+            } else {
+                $product_deatil['gallery'] = [];
+            }
+
             $product_deatil['short_description'] = '';
             $product_deatil['long_description'] = '';
             if (!is_null($product->description)) {
@@ -88,7 +97,6 @@ class ProductController extends BaseController
 
             return $this->sendResponse($product_deatil, 'Product deatil is here .', 200);
         } catch (Exception $e) {
-            DB::rollBack();
             return $this->sendError('Something Went Wrong.', $e->getMessage(), 200);
         }
     }

@@ -12,6 +12,7 @@ Route::group(['prefix' => 'account'], function(){
     Route::post('send/code/reset/password', [App\Http\Controllers\Api\AccountController::class, 'reset_password']);
 
     Route::post('profile/upload', [App\Http\Controllers\Api\AccountController::class, 'profile_upload']);
+    Route::get('profile/{uuid}', [App\Http\Controllers\Api\AccountController::class, 'profile']);
     Route::post('profile/update', [App\Http\Controllers\Api\AccountController::class, 'profile_update']);
 
     Route::post('change/password', [App\Http\Controllers\Api\AccountController::class, 'change_password']);
@@ -23,6 +24,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('categories', [App\Http\Controllers\Api\HomePageController::class, 'categories']);
 Route::get('brands', [App\Http\Controllers\Api\HomePageController::class, 'brands']);
+
+Route::post('cart/store', [App\Http\Controllers\Api\HomePageController::class, 'addtocart_store']);
+Route::post('cart/update/{id}', [App\Http\Controllers\Api\HomePageController::class, 'updateCart']);
+Route::post('cart/remove/{id}', [App\Http\Controllers\Api\HomePageController::class, 'removeCart']);
+
 Route::group(['prefix' => 'products'], function(){
     Route::get('/', [App\Http\Controllers\Api\ProductController::class, 'products']);
     Route::get('{id}', [App\Http\Controllers\Api\ProductController::class, 'product_detail']);

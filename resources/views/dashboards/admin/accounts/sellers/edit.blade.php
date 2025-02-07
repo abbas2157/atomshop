@@ -10,52 +10,137 @@
             <div class="az-content-breadcrumb">
                 <span>Accounts Management</span>
                 <span>Sellers</span>
-                <span>{{ $vendor->name ?? '' }}</span>
                 <span>Edit</span>
             </div>
             <h2 class="az-content-title">Sellers</h2>
-            <div class="az-content-label mg-b-5">Edit Detail</div>
-            <p class="mg-b-20">Using this form you can edit detail Seller </p>
-            <form method="POST" action="{{ route('admin.sellers.update', $vendor->uuid) }}" enctype="multipart/form-data">
+            <div class="az-content-label mg-b-5">Product Sellers Information</div>
+            <p class="mg-b-20">Using this form you can edit Seller </p>
+            <form id="product-form-name" method="POST" action="{{ route('admin.sellers.update', $seller->id) }}" enctype="multipart/form-data">
                 @csrf
-                @method('PUT')
-                <div class="row row-sm">
-                    <div class="col-lg mt-2">
-                        <label>Customer name <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" name="name" value="{{ $vendor->name ?? '' }}" placeholder="Enter customer name" value="{{ old('name') }}" required>
-                        @if ($errors->has('name'))
-                            <span class="text-danger text-left">{{ $errors->first('name') }}</span>
-                        @endif
-                    </div>
-                    <div class="col-lg mt-2">
-                        <label>Customer email <span class="text-danger">*</span></label>
-                        <input type="email" class="form-control" name="email" value="{{ $vendor->email ?? '' }}" placeholder="Enter customer email" value="{{ old('email') }}" required>
-                        @if ($errors->has('email'))
-                            <span class="text-danger text-left">{{ $errors->first('email') }}</span>
-                        @endif
-                    </div>
+                <div id="product-form">
+                    <h3>Sellers Information</h3>
+                    @include('dashboards/admin/accounts/sellers/edit-partials/personal-information')
+                    <h3>Business Address</h3>
+                    @include('dashboards/admin/accounts/sellers/edit-partials/business-address')
+                    <h3>Product Details (For Listing)</h3>
+                    @include('dashboards/admin/accounts/sellers/edit-partials/product-details')
+                    <h3>Publish Sellers</h3>
+                    <section>
+                        <p>The next and previous buttons help you to navigate through your content.</p>
+                    </section>
                 </div>
-                <div class="row row-sm">
-                    <div class="col-lg mt-2">
-                        <label>Customer phone <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" name="phone" value="{{ $vendor->phone ?? '' }}" placeholder="Enter customer phone" value="{{ old('phone') }}" required>
-                        @if ($errors->has('phone'))
-                            <span class="text-danger text-left">{{ $errors->first('phone') }}</span>
-                        @endif
-                    </div>
-                    <div class="col-lg mt-2">
-                        <label>Select status <span class="text-danger">*</span></label>
-                        <select class="form-control" name="status">
-                            <option value="active" {{ $vendor->status == 'active' ? 'selected' : ''}}>Active</option>
-                            <option value="block" {{ $vendor->status == 'block' ? 'selected' : ''}}>Block</option>
-                            <option value="pending" {{ $vendor->status == 'pending' ? 'selected' : ''}}>Pending</option>
-                            <option value="support" {{ $vendor->status == 'support' ? 'selected' : ''}}>Support</option>
-                        </select>
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-success mt-3">Update customer</button>
             </form>
+            <p class="mg-t-20"><b>Note : </b> Password will be (Atom@shop!) for every Seller created by this form.</p>
         </div>
     </div>
 </div>
+@endsection
+
+@section('js')
+    <script src="{!! asset('assets/lib/jquery-steps/jquery.steps.min.js') !!}"></script>
+    <script src="{!! asset('assets/lib/parsleyjs/parsley.min.js') !!}"></script>
+    <script>
+        $(function() {
+            'use strict';
+            $('#product-form').steps({
+                headerTag: 'h3',
+                bodyTag: 'section',
+                autoFocus: true,
+                titleTemplate: '<span class="number">#index#</span> <span class="title">#title#</span>',
+                labels: {
+                    finish: "Publish Sellers",
+                },
+                onStepChanging: function(event, currentIndex, newIndex) {
+                    if (currentIndex < newIndex) {
+                        if (currentIndex === 0) {
+                            var business_name = $('#business_name').parsley();
+                            var Sellers_name = $('#Sellers_name').parsley();
+                            var supplier_name = $('#supplier_name').parsley();
+                            var cnic_number = $('#cnic_number').parsley();
+                            var email = $('#email').parsley();
+                            var phone = $('#phone').parsley();
+                            if (business_name.isValid() && supplier_name.isValid() && cnic_number.isValid() && email.isValid() && phone.isValid()) {
+                                return true;
+                            } 
+                            else {
+                                business_name.validate();
+                                Sellers_name.validate();
+                                cnic_number.validate();
+                                email.validate();
+                                phone.validate();
+                            }
+                        } 
+                        else if (currentIndex === 1) {
+                            var area_id = $('#area_id').parsley();
+                            var city_id = $('#city_id').parsley();
+                            var business_address = $('#business_address').parsley();
+                            if (city_id.isValid() && area_id.isValid() && business_address.isValid()) {
+                                return true;
+                            } 
+                            else {
+                                area_id.validate();
+                                city_id.validate();
+                                business_address.validate();
+                            }
+                        }
+                        else if (currentIndex === 2) {
+                            return true;
+                            var picture = $('#picture').parsley();
+                            if (picture.isValid()) {
+                                return true;
+                            } 
+                            else {
+                                picture.validate();
+                            }
+                        }
+                    } 
+                    else {
+                        return true;
+                    }
+                },
+                onFinishing: function (event, currentIndex) {
+                    console.log('Finishing... Current Index:', currentIndex);
+                    var formData = new FormData(document.getElementById('product-form-name'));
+                    $.ajax({
+                        url: "{{ route('admin.sellers.update', $seller->id) }}",
+                        type: 'POST',
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            'X-HTTP-Method-Override': 'PUT'
+                        },
+
+                        success: function (response) {
+                            console.log(response);
+                            location.reload();
+                        },
+                        error: function (xhr, status, error) {
+                            alert('An error occurred. Please try again.');
+                            console.error(xhr.responseText);
+                        }
+                    });
+                }
+            });
+            
+            // Add Parsley.js validations to form fields
+            $('#title').attr('data-parsley-required', 'true');
+            $('#category_id').attr('data-parsley-required', 'true');
+            $('#brand_id').attr('data-parsley-required', 'true');
+            $('#memory_id').attr('data-parsley-required', 'true');
+            $('#color_id').attr('data-parsley-required', 'true');
+            $('#status').attr('data-parsley-required', 'true');
+
+            // File upload validation
+            $('#customFile').attr('data-parsley-required', 'true');
+
+            // Initialize Parsley on the form
+            $('#product-form form').parsley();
+
+            $('.az-toggle').on('click', function(){
+                $(this).toggleClass('on');
+            })
+        });
+    </script>
 @endsection

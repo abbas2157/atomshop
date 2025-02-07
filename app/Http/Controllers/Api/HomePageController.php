@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\{Auth, DB};
-use App\Models\{Category, Brand, Product};
-use Illuminate\Support\Str;
-use Carbon\Carbon;
 use Exception;
+use Carbon\Carbon;
+use App\Models\AddToCart;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
+use App\Models\{Category, Brand, Product};
+use Illuminate\Support\Facades\{Auth, DB};
 
 class HomePageController extends BaseController
 {
@@ -20,8 +22,7 @@ class HomePageController extends BaseController
         try {
             $categories = Category::where('status', 'active')
                 ->orderBy($request->order_by ?? 'title', $request->order_type ?? 'desc')
-                ->select('id', 'title', 'picture')
-                ->paginate(10);
+                ->select('id', 'title', 'picture');
 
             return $this->sendResponse($categories, 'Here is the list of categories.', 200);
         } catch (Exception $e) {
@@ -37,8 +38,7 @@ class HomePageController extends BaseController
         try {
             $brands = Brand::where('status', 'active')
                 ->orderBy($request->order_by ?? 'title', $request->order_type ?? 'desc')
-                ->select('id', 'title', 'picture')
-                ->paginate(10);
+                ->select('id', 'title', 'picture');
 
             return $this->sendResponse($brands, 'Here is the list of brands.', 200);
         } catch (Exception $e) {
@@ -132,6 +132,108 @@ class HomePageController extends BaseController
                 ->paginate(10);
 
             return $this->sendResponse($products, 'Here is the list of brand products.', 200);
+        } catch (Exception $e) {
+            DB::rollBack();
+            return $this->sendError('Something went wrong.', $e->getMessage(), 500);
+        }
+    }
+
+    public function addtocart_store(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            $product = Product::find($request->product_id);
+            if (!$product) {
+                return $this->sendError('Product not found.', [], 404);
+            }
+
+            $userId = $request->cookie('guest_user_id');
+            if (!$userId) {
+                $userId = 'guest_' . uniqid();
+                return response($this->sendResponse([], 'Product added to cart successfully!', 201));
+            }
+
+            $cartItem = AddToCart::where('user_id', $userId)
+                ->where('product_id', $product->id)
+                ->first();
+
+            if ($cartItem) {
+                $cartItem->increment('quantity');
+                $data = $cartItem->toArray();
+            } else {
+                $data = AddToCart::create([
+                    'user_id' => $userId,
+                    'product_id' => $product->id,
+                    'quantity' => 1,
+                    'status' => 'pending',
+                ])->toArray();
+            }
+
+            DB::commit();
+            return $this->sendResponse($data, 'Product added to cart successfully!', 201);
+        } catch (Exception $e) {
+            DB::rollBack();
+            return $this->sendError('Something went wrong.', $e->getMessage(), 500);
+        }
+    }
+
+    public function updateCart(Request $request, $id)
+    {
+        try {
+            DB::beginTransaction();
+            $userId = Auth::check() ? Auth::id() : $request->cookie('guest_user_id');
+            if (!$userId) {
+                $userId = 'guest_' . uniqid();
+                return response($this->sendResponse([], 'Cart updated successfully!', 200))->withCookie('guest_user_id', $userId);
+            }
+
+            $cartItem = AddToCart::where('id', $id)->where('user_id', $userId)->first();
+            if (!$cartItem) {
+                return $this->sendError('Item not found in cart.', [], 404);
+            }
+
+            $cartItem->update(['quantity' => max(1, $request->quantity)]);
+            $cartItems = AddToCart::where('user_id', $userId)->with('product')->get();
+            $subtotal = $cartItems->sum(fn($item) => $item->product->price * $item->quantity);
+            $cartTotal = $subtotal + 10;
+
+            DB::commit();
+            return response()->json($this->sendResponse([
+                'total_price' => $cartItem->product->price * $cartItem->quantity,
+                'cart_total' => $cartTotal,
+                'subtotal' => $subtotal
+            ], 'Cart updated successfully!', 200))->withCookie('guest_user_id', $userId);
+        } catch (Exception $e) {
+            DB::rollBack();
+            return $this->sendError('Something went wrong.', $e->getMessage(), 500);
+        }
+    }
+
+    public function removeCart(Request $request, $id)
+    {
+        try {
+            DB::beginTransaction();
+            $userId = Auth::check() ? Auth::id() : $request->cookie('guest_user_id');
+            if (!$userId) {
+                $userId = 'guest_' . uniqid();
+                return response($this->sendResponse([], 'Item removed from cart successfully!', 200))->withCookie('guest_user_id', $userId);
+            }
+
+            $cartItem = AddToCart::where('id', $id)->where('user_id', $userId)->first();
+            if (!$cartItem) {
+                return $this->sendError('Item not found in cart.', [], 404);
+            }
+
+            $cartItem->delete();
+            $cartItems = AddToCart::where('user_id', $userId)->with('product')->get();
+            $subtotal = $cartItems->sum(fn($item) => $item->product->price * $item->quantity);
+            $cartTotal = $subtotal + 10;
+
+            DB::commit();
+            return response()->json($this->sendResponse([
+                'cart_total' => $cartTotal,
+                'subtotal' => $subtotal
+            ], 'Item removed from cart successfully!', 200))->withCookie('guest_user_id', $userId);
         } catch (Exception $e) {
             DB::rollBack();
             return $this->sendError('Something went wrong.', $e->getMessage(), 500);

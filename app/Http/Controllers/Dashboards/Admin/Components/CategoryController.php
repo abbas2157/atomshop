@@ -97,7 +97,7 @@ class CategoryController extends Controller
             $extension = pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
             $filename  = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', strtolower($request->title))).'.'.$extension;
             $file->move(public_path('images/categories'),$filename);
-            $category->picture = $filename;
+            $category->picture = 'images/categories/'.$filename;
         }
         $category->status = $request->status;
         $category->save();

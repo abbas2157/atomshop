@@ -39,7 +39,7 @@
     </div>
     <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
         <div class="col-lg-4">
-            <a href="" class="text-decoration-none">
+            <a href="{{ route('website') }}" class="text-decoration-none">
                 <span class="h1 text-uppercase text-primary bg-dark px-2">Atom</span>
                 <span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">Shop</span>
             </a>
@@ -58,7 +58,7 @@
         </div>
         <div class="col-lg-4 col-6 text-right">
             <p class="m-0">Customer Service</p>
-            <h5 class="m-0">+92300 0000000</h5>
+            <h5 class="m-0">{{ config('website.mobile') ?? 'No Phone' }}</h5>
         </div>
     </div>
 </div>

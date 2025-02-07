@@ -6,7 +6,7 @@
         <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/img/favicon.png') }}">
         <meta name="description" content="Atomshop - Pay in Steps">
         <meta name="author" content="AtomShop">
-        <title>Login - {{ env('APP_NAME') ?? 'AtomShop' }}</title>
+        <title>Login - {{ env('APP_NAME') ?? 'Atomshop' }}</title>
         <link href="{!! asset('assets/lib/ionicons/css/ionicons.min.css') !!}" rel="stylesheet">
         <link href="{!! asset('assets/lib/typicons.font/typicons.css') !!}" rel="stylesheet">
         <link href="{!! asset('assets/lib/typicons.font/typicons.css') !!}" rel="stylesheet">

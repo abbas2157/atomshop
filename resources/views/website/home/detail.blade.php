@@ -1,6 +1,6 @@
 @extends('website.layout.app')
 @section('title')
-    <title>Atomshop - Pay in steps</title>
+    <title>{{ $product['title'] ?? '' }} | Atomshop - Pay in steps</title>
     <meta content="Atomshop - Pay in steps" name="description">
 @endsection
 @section('content')
@@ -8,23 +8,25 @@
         <div class="row px-xl-5">
             <div class="col-12">
                 <nav class="breadcrumb bg-light mb-30">
-                    <a class="breadcrumb-item text-dark" href="{{ route('website') }}">Home</a>
-                    <span class="breadcrumb-item active">Product</span>
-                    <span> / {{ $product->title ?? '' }}</span>
-                </div>
+                    <a class="breadcrumb-item text-dark" href="{{ route('website') }}"> Home </a>
+                    <a class="breadcrumb-item text-dark" href="{{ route('website') }}"> Shop </a>
+                    <span class="breadcrumb-item active"> {{ $product['title'] ?? '' }}</span>
+                </nav>
+            </div>
         </div>
     </div>
-
-
     <!-- Shop Detail Start -->
     <div class="container-fluid pb-5">
         <div class="row px-xl-5">
             <div class="col-lg-5 mb-30">
                 <div id="product-carousel" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner bg-light">
-                        @foreach ($productImages as $index => $image)
-                            <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                                <img class="w-100 h-100" src="{{ asset($image->url ?? '') }}" alt="Image">
+                        <div class="carousel-item active">
+                            <img class="w-100 h-100" src="{{ asset($product['picture'] ?? '') }}" alt="Image">
+                        </div>
+                        @foreach ($product['gallery'] as $item)
+                            <div class="carousel-item">
+                                <img class="w-100 h-100" src="{{ asset($item['url'] ?? '') }}" alt="Image">
                             </div>
                         @endforeach
                     </div>
@@ -36,10 +38,9 @@
                     </a>
                 </div>
             </div>
-
             <div class="col-lg-7 h-auto mb-30">
                 <div class="h-100 bg-light p-30">
-                    <h3>{{ $product->title ?? '' }}</h3>
+                    <h3>{{ $product['title'] ?? '' }}</h3>
                     <div class="d-flex mb-3">
                         <div class="text-primary mr-2">
                             <small class="fas fa-star"></small>
@@ -50,56 +51,25 @@
                         </div>
                         <small class="pt-1">(00 Reviews)</small>
                     </div>
-                    <h3 class="font-weight-semi-bold mb-4">RS/-{{ $product->price ?? '' }}</h3>
-                    <p class="mb-4">{{ $description->short ?? '' }}</p>
+                    <h3 class="font-weight-semi-bold mb-2">Rs. {{ $product['price'] ?? '' }}</h3>
+                    <p class="mb-2">{!! $product['short_description'] ?? '' !!}</p>
                     <div class="d-flex mb-3">
-                        <strong class="text-dark mr-3">{{ $memory->title ?? '' }}:</strong>
-                        {{-- <form>
+                        <strong class="text-dark mr-3">Choose Memory :</strong>
+                        @foreach ($product['memories'] as $item)
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="size-1" name="size">
-                                <label class="custom-control-label" for="size-1">XS</label>
+                                <input type="radio" class="custom-control-input" id="size-{{ $item['id'] ?? '' }}" name="size">
+                                <label class="custom-control-label" for="size-{{ $item['id'] ?? '' }}">{{ $item['title'] ?? '' }}</label>
                             </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="size-2" name="size">
-                                <label class="custom-control-label" for="size-2">S</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="size-3" name="size">
-                                <label class="custom-control-label" for="size-3">M</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="size-4" name="size">
-                                <label class="custom-control-label" for="size-4">L</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="size-5" name="size">
-                                <label class="custom-control-label" for="size-5">XL</label>
-                            </div>
-                        </form> --}}
+                        @endforeach
                     </div>
                     <div class="d-flex mb-4">
-                        <strong class="text-dark mr-3">Color:</strong>
-                        <form>
-                            <div class="">
-                                {{ $color->title ?? '' }}
-                            </div>
-                            {{-- <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="color-2" name="color">
-                                <label class="custom-control-label" for="color-2">White</label>
-                            </div>
+                        <strong class="text-dark mr-3">Choose Color :</strong>
+                        @foreach ($product['colors'] as $item)
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="color-3" name="color">
-                                <label class="custom-control-label" for="color-3">Red</label>
+                                <input type="radio" class="custom-control-input" id="color-{{ $item['id'] ?? '' }}" name="color">
+                                <label class="custom-control-label" for="color-{{ $item['id'] ?? '' }}">{{ $item['title'] ?? '' }}</label>
                             </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="color-4" name="color">
-                                <label class="custom-control-label" for="color-4">Blue</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="color-5" name="color">
-                                <label class="custom-control-label" for="color-5">Green</label>
-                            </div> --}}
-                        </form>
+                        @endforeach
                     </div>
                     <div class="d-flex align-items-center mb-4 pt-2">
                         <div class="input-group quantity mr-3" style="width: 130px;">
@@ -115,8 +85,7 @@
                                 </button>
                             </div>
                         </div>
-                        <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To
-                            Cart</button>
+                        <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
                     </div>
                 </div>
             </div>
@@ -132,7 +101,7 @@
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="tab-pane-1">
                             <h4 class="mb-3">Product Description</h4>
-                            <p>{!! $description->long ?? '' !!}</p>
+                            <p>{!! $product['long_description'] ?? '' !!}</p>
                         </div>
                         <div class="tab-pane fade" id="tab-pane-3">
                             <div class="row">
@@ -193,22 +162,16 @@
             </div>
         </div>
     </div>
-    <!-- Shop Detail End -->
-
-
     <!-- Products Start -->
     <div class="container-fluid py-5">
-        <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">You May
-                Also Like</span></h2>
+        <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">You May Also Like</span></h2>
         <div class="row px-xl-5">
             <div class="col">
                 <div class="owl-carousel related-carousel">
-                    @foreach ($feature_products as $item)
+                    @foreach ($products as $item)
                         <div class="product-item bg-light">
                             <div class="product-img position-relative overflow-hidden">
-                                <img class="img-fluid w-100" style="height: 300px;"
-                                    src="{{ asset('images/categories/' . $item->picture) }}"
-                                    alt="{{ $item->title ?? '' }}">
+                                <img class="img-fluid w-100"  style="height: 300px;" src="{{ asset($item->picture) }}" alt="{{ $item->title ?? '' }}">
                                 <div class="product-action">
                                     <a class="btn btn-outline-dark btn-square" href=""><i
                                             class="fa fa-shopping-cart"></i></a>
