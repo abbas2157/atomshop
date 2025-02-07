@@ -4,16 +4,23 @@
         <label>Products</label>
         <nav class="nav flex-column">
             <a href="{{ route('admin.website.products.feature') }}" class="nav-link {{ (request()->segment(2) == 'website' && (request()->segment(3) == 'products') && (request()->segment(4) == 'feature')) ? 'active' : '' }}">Feature Section</a>
+            <a href="{{ route('admin.website.products.feature.sync') }}" class="nav-link">Sync Section</a>
         </nav>
-        <label></label>
+        <label>Categories</label>
         <nav class="nav flex-column">
             <a href="{{ route('admin.website.categories') }}" class="nav-link {{ (request()->segment(2) == 'website' && (request()->segment(3) == 'categories')) ? 'active' : '' }}">Categories Section</a>
+            <a href="{{ route('admin.website.categories.sync') }}" class="nav-link">Sync Section</a>
+        </nav>
+        <label>Brands</label>
+        <nav class="nav flex-column">
             <a href="{{ route('admin.website.brands') }}" class="nav-link {{ (request()->segment(2) == 'website' && (request()->segment(3) == 'brands')) ? 'active' : '' }}">Brands Section</a>
+            <a href="{{ route('admin.website.brands.sync') }}" class="nav-link">Sync Section</a>
         </nav>
 
         <label>Sliders</label>
         <nav class="nav flex-column">
-            <a href="{{ route('admin.website.sliders') }}" class="nav-link {{ (request()->segment(2) == 'website' && (request()->segment(3) == 'sliders') && (request()->segment(4) == 'feature')) ? 'active' : '' }}">Sliders Section</a>
+            <a href="{{ route('admin.website.sliders') }}" class="nav-link {{ (request()->segment(2) == 'website' && (request()->segment(3) == 'sliders')) ? 'active' : '' }}">Sliders Section</a>
+            <a href="{{ route('admin.website.sliders.sync') }}" class="nav-link">Sync Section</a>
         </nav>
     </div>
 </div>

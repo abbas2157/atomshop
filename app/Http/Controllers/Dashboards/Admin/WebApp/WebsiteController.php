@@ -227,7 +227,7 @@ class WebsiteController extends Controller
             for($i = 0; $i < count($slider_id); $i++) {
                 $slider = Slider::where('id', $slider_id[$i])->first();
                 if(!is_null($slider)) {
-                    $sliders[] = array('id' => $slider->id, 'title' => $slider->title, 'tagline' => $slider->tagline, 'picture' => $slider->slider_picture);
+                    $sliders[] = array('id' => $slider->id, 'title' => $slider->title, 'tagline' => $slider->tagline, 'picture' => asset($slider->picture));
                 }
             }
             $website = WebsiteSetup::first();
@@ -259,11 +259,11 @@ class WebsiteController extends Controller
         }
         foreach($slider_list as $slider) {
             if(!in_array($slider->id, $website_sliders)) {
-                $sliders[] = array('id' => $slider->id, 'title' => $slider->title, 'tagline' => $slider->tagline, 'picture' => $slider->slider_picture);
+                $sliders[] = array('id' => $slider->id, 'title' => $slider->title, 'tagline' => $slider->tagline, 'picture' => asset($slider->picture));
             }
             else {
                 $index = array_search($slider->id, array_column($sliders, 'id'));
-                $sliders[$index] = array('id' => $slider->id, 'title' => $slider->title, 'tagline' => $slider->tagline, 'picture' => $slider->slider_picture);
+                $sliders[$index] = array('id' => $slider->id, 'title' => $slider->title, 'tagline' => $slider->tagline, 'picture' => asset($slider->picture));
             }
         }
         $website->sliders     = json_encode($sliders);

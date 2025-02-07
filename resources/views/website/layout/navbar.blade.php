@@ -5,9 +5,9 @@
         $categories = json_decode($website->categories);
     }
     if (auth()->check()) {
-        $cartCount = \App\Models\AddToCart::where('user_id', auth()->id())->count();
+        $cartCount = \App\Models\Cart::where('user_id', auth()->id())->count();
     } else {
-        $cartCount = \App\Models\AddToCart::where('user_id', session('guest_user_id'))->count();
+        $cartCount = \App\Models\Cart::where('user_id', session('guest_user_id'))->count();
     }
 @endphp
 <div class="container-fluid bg-dark mb-30">
@@ -52,7 +52,7 @@
                             <span class="badge text-secondary border border-secondary rounded-circle"
                                 style="padding-bottom: 2px;">0</span>
                         </a>
-                        <a href="{{ route('add-to-cart') }}" class="btn px-0 ml-3">
+                        <a href="{{ route('cart') }}" class="btn px-0 ml-3">
                             <i class="fas fa-shopping-cart text-primary"></i>
                             <span class="badge text-secondary border border-secondary rounded-circle"
                                 style="padding-bottom: 2px;">{{ $cartCount ?? '0' }}</span>
