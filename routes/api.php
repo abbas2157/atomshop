@@ -24,6 +24,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('categories', [App\Http\Controllers\Api\HomePageController::class, 'categories']);
 Route::get('brands', [App\Http\Controllers\Api\HomePageController::class, 'brands']);
+
+Route::post('cart/store', [App\Http\Controllers\Api\HomePageController::class, 'addtocart_store']);
+Route::post('cart/update/{id}', [App\Http\Controllers\Api\HomePageController::class, 'updateCart']);
+Route::post('cart/remove/{id}', [App\Http\Controllers\Api\HomePageController::class, 'removeCart']);
+
 Route::group(['prefix' => 'products'], function(){
     Route::get('/', [App\Http\Controllers\Api\ProductController::class, 'products']);
     Route::get('{id}', [App\Http\Controllers\Api\ProductController::class, 'product_detail']);

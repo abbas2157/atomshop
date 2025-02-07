@@ -9,12 +9,12 @@
                         <div class="product-img position-relative overflow-hidden text-center">
                             <img class="img-fluid w-50 " src="{{  $item->picture ?? '' }}" alt="{{ $item->title ?? '' }}">
                             <div class="product-action">
-                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                                <a class="btn btn-outline-dark btn-square add-to-cart" data-id="{{ $item->id }}" href="javascript:void(0)"><i class="fa fa-shopping-cart"></i></a>
                                 <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
                             </div>
                         </div>
                         <div class="text-center py-4">
-                            <a class="h6 text-eslint-disable-next-line text-decoration-none text-truncate" href="{{ route('product.detail', ['slug' => $item->slug]) }}">{{ $item->title }}</a>                            <div class="d-flex align-items-center justify-content-center mt-2">
+                            <a class="h6 text-eslint-disable-next-line text-decoration-none text-truncate" href="{{ route('website.product.detail', ['slug' => $item->slug]) }}">{{ $item->title }}</a>                            <div class="d-flex align-items-center justify-content-center mt-2">
                                 <h5>Rs. {{ $item->price ?? '' }}</h5><h6 class="text-muted ml-2"><del>Rs. {{ $item->price ?? '' }}</del></h6>
                             </div>
                             <div class="d-flex align-items-center justify-content-center mb-1">
