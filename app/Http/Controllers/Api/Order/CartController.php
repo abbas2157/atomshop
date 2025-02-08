@@ -67,6 +67,7 @@ class CartController extends BaseController
                     $cart_item->quantity = 1;
                     $cart_item->product_id = $product->id;
                     $cart_item->user_id = $user_id;
+                    $cart_item->portal = $request->portal ?? 'Web';
                     $cart_item->status = 'Pending';
                     $cart_item->save();
                 }

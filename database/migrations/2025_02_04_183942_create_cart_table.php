@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('product_id')->nullable();
             $table->integer('quantity')->default(1);
             $table->enum('status',['Pending', 'Purchased'])->default('Pending');
+            $table->enum('portal',['Web', 'App'])->default('Web');
             $table->timestamps();
             $table->index(['user_id', 'product_id']);
         });
