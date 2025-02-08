@@ -64,8 +64,8 @@
                             <div>
                                 <nav class="nav">
                                     <a href="{{ route('admin.users.index') }}" class="nav-link">All Users</a>
-                                    <a href="{{ route('admin.sellers.index') }}" class="nav-link">Sellers</a>
                                     <a href="{{ route('admin.customers.index') }}" class="nav-link">Customers</a>
+                                    <a href="{{ route('admin.sellers.index') }}" class="nav-link">Sellers</a>
                                 </nav>
                             </div>
                         </div>

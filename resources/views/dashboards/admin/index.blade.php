@@ -16,6 +16,53 @@
                     <h5>00,00</h5>
                 </div>
             </div>
+            <div class="card card-body card-dashboard-twentyfive mg-b-20">
+              <h6 class="card-title">Conversions</h6>
+              <div class="row row-sm">
+                <div class="col-6 col-sm-4 col-lg">
+                  <label class="card-label">Conversion Rate</label>
+                  <h6 class="card-value">0.81<small>%</small></h6>
+                  <div class="chart-wrapper">
+                    <div id="flotChart1" class="flot-chart" style="padding: 0px; position: relative;"><canvas class="flot-base" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 166.664px; height: 35px;" width="333" height="70"></canvas><canvas class="flot-overlay" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 166.664px; height: 35px;" width="333" height="70"></canvas></div>
+                  </div><!-- chart-wrapper -->
+                </div><!-- col -->
+                <div class="col-6 col-sm-4 col-lg">
+                  <label class="card-label">Revenue</label>
+                  <h6 class="card-value"><span>$</span>1,095,190</h6>
+                  <div class="chart-wrapper">
+                    <div id="flotChart2" class="flot-chart" style="padding: 0px; position: relative;"><canvas class="flot-base" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 166.664px; height: 35px;" width="333" height="70"></canvas><canvas class="flot-overlay" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 166.664px; height: 35px;" width="333" height="70"></canvas></div>
+                  </div><!-- chart-wrapper -->
+                </div><!-- col -->
+                <div class="col-6 col-sm-4 col-lg mg-t-20 mg-sm-t-0">
+                  <label class="card-label">Unique Purchases</label>
+                  <h6 class="card-value">53</h6>
+                  <div class="chart-wrapper">
+                    <div id="flotChart3" class="flot-chart" style="padding: 0px; position: relative;"><canvas class="flot-base" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 166.664px; height: 35px;" width="333" height="70"></canvas><canvas class="flot-overlay" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 166.664px; height: 35px;" width="333" height="70"></canvas></div>
+                  </div><!-- chart-wrapper -->
+                </div><!-- col -->
+                <div class="col-6 col-sm-4 col-lg mg-t-20 mg-lg-t-0">
+                  <label class="card-label">Transactions</label>
+                  <h6 class="card-value">31</h6>
+                  <div class="chart-wrapper">
+                    <div id="flotChart4" class="flot-chart" style="padding: 0px; position: relative;"><canvas class="flot-base" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 166.664px; height: 35px;" width="333" height="70"></canvas><canvas class="flot-overlay" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 166.664px; height: 35px;" width="333" height="70"></canvas></div>
+                  </div><!-- chart-wrapper -->
+                </div><!-- col -->
+                <div class="col-6 col-sm-4 col-lg mg-t-20 mg-lg-t-0">
+                  <label class="card-label">Avg. Order Value</label>
+                  <h6 class="card-value"><span>$</span>306.20</h6>
+                  <div class="chart-wrapper">
+                    <div id="flotChart5" class="flot-chart" style="padding: 0px; position: relative;"><canvas class="flot-base" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 166.664px; height: 35px;" width="333" height="70"></canvas><canvas class="flot-overlay" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 166.664px; height: 35px;" width="333" height="70"></canvas></div>
+                  </div><!-- chart-wrapper -->
+                </div><!-- col -->
+                <div class="col-6 col-sm-4 col-lg mg-t-20 mg-lg-t-0">
+                  <label class="card-label">Quantity</label>
+                  <h6 class="card-value">52</h6>
+                  <div class="chart-wrapper">
+                    <div id="flotChart6" class="flot-chart" style="padding: 0px; position: relative;"><canvas class="flot-base" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 166.664px; height: 35px;" width="333" height="70"></canvas><canvas class="flot-overlay" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 166.664px; height: 35px;" width="333" height="70"></canvas></div>
+                  </div><!-- chart-wrapper -->
+                </div><!-- col -->
+              </div><!-- row -->
+            </div>
             <div class="card card-dashboard-seven">
                 <div class="card-header">
                   <div class="row row-sm">
