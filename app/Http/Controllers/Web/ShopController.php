@@ -20,7 +20,7 @@ class ShopController extends Controller
         if(request()->has('min') || request()->has('max')) {
             $products->whereBetween('price', [request()->min ?? 0, request()->max ?? 500000000]);
         }
-        $products = $products->paginate(1)->appends(request()->query());
+        $products = $products->paginate(20)->appends(request()->query());
         $categories = Category::orderBy('title','asc')->select('id','title','slug')->get();
         $brands = Brand::orderBy('title','asc')->select('id','title','slug')->get();
         return view('website.shop.index', compact('products', 'categories', 'brands'));
