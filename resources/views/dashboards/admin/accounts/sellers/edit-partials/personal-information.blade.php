@@ -1,13 +1,13 @@
 <section>
-    <p class="mg-b-20"> To get registered, kindly fill out the form below with supplier's details</p>
+    <p class="mg-b-20"> To get registered, kindly fill out the form below with Seller's details</p>
     <div class="row row-sm">
         <div class="col-lg mt-2">
             <label>Business Name <span class="text-danger">*</span></label>
             <input type="text" class="form-control" name="business_name" id="business_name" placeholder="Enter Business Name" value="{{ old('business_name', $seller->business_name ?? '') }}" required>
         </div>
         <div class="col-lg mt-2">
-            <label>Supplier name <span class="text-danger">*</span></label>
-            <input type="text" class="form-control" name="supplier_name" id="supplier_name" placeholder="Enter Supplier Name" value="{{ old('supplier_name', $seller->supplier_name ?? '') }}" required>
+            <label>Seller name <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" name="name" id="name" placeholder="Enter Seller Name" value="{{ old('name', $seller->name ?? '') }}" required>
         </div>
     </div>
     <div class="row row-sm">
@@ -22,13 +22,13 @@
     </div>
     <div class="row row-sm">
         <div class="col-lg mt-2">
-            <label>Supplier email <span class="text-danger">*</span></label>
-            <input type="email" class="form-control" name="email" id="email" placeholder="Enter Supplier Email" 
+            <label>Seller email <span class="text-danger">*</span></label>
+            <input type="email" class="form-control" name="email" id="email" placeholder="Enter Seller Email" 
             value="{{ old('email', $user->email ?? '') }}" required>
         </div>
         <div class="col-lg mt-2">
-            <label>Supplier phone <span class="text-danger">*</span></label>
-            <input type="text" class="form-control" name="phone" id="phone" placeholder="Enter Supplier Phone" 
+            <label>Seller phone <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" name="phone" id="phone" placeholder="Enter Seller Phone" 
             value="{{ old('phone', $user->phone ?? '') }}" required> 
         </div>
     </div>

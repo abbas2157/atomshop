@@ -1,8 +1,8 @@
 <section>
-    <p class="mg-b-20"> To get registered, kindly fill out the form below with supplier's details</p>
+    <p class="mg-b-20"> To get registered, kindly fill out the form below with Seller's details</p>
     <div class="row row-sm">
         <div class="col-lg mt-2">
-            <label>Supplier city <span class="text-danger">*</span></label>
+            <label>Seller city <span class="text-danger">*</span></label>
             <select class="form-control" name="city_id" id="city_id">
                 @if($cities->isNotEmpty())
                     @foreach($cities as $item)
@@ -12,7 +12,7 @@
             </select>
         </div>
         <div class="col-lg mt-2">
-            <label>Supplier area <span class="text-danger">*</span></label>
+            <label>Seller area <span class="text-danger">*</span></label>
             <select class="form-control" name="area_id" id="area_id">
                 @if(!empty($areas))
                     @foreach($areas as $item)

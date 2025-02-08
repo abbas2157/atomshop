@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Dashboards\Admin\Accounts;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{Auth, Hash, DB};
-use App\Models\{User, Supplier, City, Area};
+use App\Models\{User, Seller, City, Area};
 use Illuminate\Support\Str;
 
 class SellersController extends Controller
@@ -61,7 +61,7 @@ class SellersController extends Controller
 
                 $user = new User;
                 $user->uuid  = Str::uuid();
-                $user->name  = $request->supplier_name;
+                $user->name  = $request->name;
                 $user->email = $request->email;
                 $user->phone = $request->phone;
                 $user->password = 'Atom@shop!';
@@ -69,16 +69,16 @@ class SellersController extends Controller
                 $user->status = $request->status;
                 $user->save();
 
-                $supplier = new Supplier;
-                $supplier->user_id  = $user->id;
-                $supplier->business_name = $request->business_name;
-                $supplier->supplier_name = $request->supplier_name;
-                $supplier->cnic_number = $request->cnic_number;
-                $supplier->website = $request->website;
-                $supplier->city_id = $request->city_id;
-                $supplier->area_id = $request->area_id;
-                $supplier->address = $request->business_address;
-                $supplier->save();
+                $Seller = new Seller;
+                $seller->user_id  = $user->id;
+                $seller->business_name = $request->business_name;
+                $seller->name = $request->name;
+                $seller->cnic_number = $request->cnic_number;
+                $seller->website = $request->website;
+                $seller->city_id = $request->city_id;
+                $seller->area_id = $request->area_id;
+                $seller->address = $request->business_address;
+                $seller->save();
 
                 DB::commit();
 
@@ -105,7 +105,7 @@ class SellersController extends Controller
      */
     public function edit(string $id)
     {
-        $seller = Supplier::where('user_id', $id)->firstOrFail();
+        $seller = Seller::where('user_id', $id)->firstOrFail();
         $user = User::where('id', $id)->firstOrFail();
         $cities = City::orderBy('id', 'desc')->where('status', 'active')->get();
         $areas = [];
@@ -123,14 +123,14 @@ class SellersController extends Controller
         try {
             DB::beginTransaction();
 
-            $supplier = Supplier::where('id', $id)->firstOrFail();
-            $user = User::where('id', $supplier->user_id)->firstOrFail();
+            $Seller = Seller::where('id', $id)->firstOrFail();
+            $user = User::where('id', $Seller->user_id)->firstOrFail();
 
             if (is_null($user)) {
                 return abort(404);
             }
 
-            $user->name  = $request->supplier_name;
+            $user->name  = $request->name;
             $user->email = $request->email;
             $user->phone = $request->phone;
             $user->password = 'Atom@shop!';
@@ -138,18 +138,18 @@ class SellersController extends Controller
             $user->status = $request->status;
             $user->save();
 
-            if (is_null($supplier)) {
+            if (is_null($Seller)) {
                 return abort(404);
             }
 
-            $supplier->business_name = $request->business_name;
-            $supplier->supplier_name = $request->supplier_name;
-            $supplier->cnic_number = $request->cnic_number;
-            $supplier->website = $request->website;
-            $supplier->city_id = $request->city_id;
-            $supplier->area_id = $request->area_id;
-            $supplier->address = $request->business_address;
-            $supplier->save();
+            $Seller->business_name = $request->business_name;
+            $Seller->name = $request->name;
+            $Seller->cnic_number = $request->cnic_number;
+            $Seller->website = $request->website;
+            $Seller->city_id = $request->city_id;
+            $Seller->area_id = $request->area_id;
+            $Seller->address = $request->business_address;
+            $Seller->save();
 
             DB::commit();
 

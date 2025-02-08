@@ -54,17 +54,16 @@
                     if (currentIndex < newIndex) {
                         if (currentIndex === 0) {
                             var business_name = $('#business_name').parsley();
-                            var Sellers_name = $('#Sellers_name').parsley();
-                            var supplier_name = $('#supplier_name').parsley();
+                            var name = $('#name').parsley();
                             var cnic_number = $('#cnic_number').parsley();
                             var email = $('#email').parsley();
                             var phone = $('#phone').parsley();
-                            if (business_name.isValid() && supplier_name.isValid() && cnic_number.isValid() && email.isValid() && phone.isValid()) {
+                            if (business_name.isValid() && name.isValid() && cnic_number.isValid() && email.isValid() && phone.isValid()) {
                                 return true;
                             } 
                             else {
                                 business_name.validate();
-                                Sellers_name.validate();
+                                sellers_name.validate();
                                 cnic_number.validate();
                                 email.validate();
                                 phone.validate();

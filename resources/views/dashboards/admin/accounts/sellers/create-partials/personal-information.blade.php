@@ -1,13 +1,13 @@
 <section>
-    <p class="mg-b-20"> To get registered, kindly fill out the form below with supplier's details</p>
+    <p class="mg-b-20"> To get registered, kindly fill out the form below with seller's details</p>
     <div class="row row-sm">
         <div class="col-lg mt-2">
             <label>Business Name <span class="text-danger">*</span></label>
             <input type="text" class="form-control" name="business_name" id="business_name" placeholder="Enter Business Name" value="{{ old('business_name') }}" required>
         </div>
         <div class="col-lg mt-2">
-            <label>Supplier name <span class="text-danger">*</span></label>
-            <input type="text" class="form-control" name="supplier_name" id="supplier_name" placeholder="Enter customer name" value="{{ old('name') }}" required>
+            <label>Seller name <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" name="name" id="name" placeholder="Enter customer name" value="{{ old('name') }}" required>
         </div>
     </div>
     <div class="row row-sm">
@@ -22,11 +22,11 @@
     </div>
     <div class="row row-sm">
         <div class="col-lg mt-2">
-            <label>Supplier email <span class="text-danger">*</span></label>
+            <label>Seller email <span class="text-danger">*</span></label>
             <input type="email" class="form-control" name="email" id="email" placeholder="Enter customer email" value="{{ old('email') }}" required>
         </div>
         <div class="col-lg mt-2">
-            <label>Supplier phone <span class="text-danger">*</span></label>
+            <label>Seller phone <span class="text-danger">*</span></label>
             <input type="text" class="form-control" name="phone" id="phone" placeholder="Enter customer phone" value="{{ old('phone') }}" required>
         </div>
     </div>
