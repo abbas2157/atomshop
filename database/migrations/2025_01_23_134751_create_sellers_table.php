@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreignId('city_id')->nullable()->index();
             $table->foreignId('area_id')->nullable()->index();
             $table->string('address', 255)->nullable();
+            $table->enum('verified',[0,1])->default(0);
             $table->timestamps();
         });
     }
