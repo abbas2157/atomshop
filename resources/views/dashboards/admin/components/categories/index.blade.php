@@ -58,6 +58,7 @@
                         @if($categories->isNotEmpty())
                             @foreach($categories as $item)
                                 <tr>
+                                <tr>
                                     <th >{{ $item->id ?? '' }}</th>
                                     <td>{{ $item->title ?? '' }}</td>
                                     <td>{{ $item->status ?? '' }}</td>

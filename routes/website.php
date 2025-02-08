@@ -15,5 +15,6 @@ Route::get('/', function(){
     return view('welcome');
 })->name('home');
 Route::get('home', [App\Http\Controllers\Web\HomeController::class, 'home'])->name('website');
+Route::get('shop', [App\Http\Controllers\Web\ShopController::class, 'index'])->name('shop');
 Route::get('/{slug}', [App\Http\Controllers\Web\HomeController::class, 'product_detail'])->name('website.product.detail');
 

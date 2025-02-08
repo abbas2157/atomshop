@@ -22,7 +22,7 @@
                 id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999;">
                 <div class="navbar-nav w-100">
                     @foreach ($categories as $item)
-                        <a href="" class="nav-item nav-link">{{ $item->title ?? '' }}</a>
+                        <a href="{{ route('shop') }}?category[]={{ $item->id ?? '' }}" class="nav-item nav-link">{{ $item->title ?? '' }}</a>
                     @endforeach
                 </div>
             </nav>
@@ -40,7 +40,7 @@
                     <div class="navbar-nav mr-auto py-0">
                         <a href="{{ route('website') }}"
                             class="nav-item nav-link {{ request()->segment(1) == '' ? 'active' : '' }}">Home</a>
-                        <a href="" class="nav-item nav-link ">Shop</a>
+                        <a href="{{ route('shop') }}" class="nav-item nav-link {{ request()->segment(1) == 'shop' ? 'active' : '' }}">Shop</a>
                         <a href="{{ route('calculator') }}"
                             class="nav-item nav-link {{ request()->segment(1) == 'installment-calculator' ? 'active' : '' }}">Installment
                             Calculator</a>
