@@ -65,7 +65,7 @@
                         <h6>{{ Auth::user()->name ?? '' }}</h6>
                         <span>{{ Auth::user()->role ?? '' }}</span>
                     </div>
-                    <a href="{{ route('admin.profile') }}" class="dropdown-item"><i class="typcn typcn-user-outline"></i> My Profile</a>
+                    <a href="{{ route('seller.profile') }}" class="dropdown-item"><i class="typcn typcn-user-outline"></i> My Profile</a>
                     <a href="" class="dropdown-item"><i class="typcn typcn-time"></i> Activity Logs</a>
                     <a href="" class="dropdown-item"><i class="typcn typcn-cog-outline"></i> Account Settings</a>
                     <a href="{!! route('logout') !!}" class="dropdown-item"><i class="typcn typcn-power-outline"></i> Sign Out</a>
