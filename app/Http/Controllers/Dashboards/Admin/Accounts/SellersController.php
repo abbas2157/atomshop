@@ -69,7 +69,7 @@ class SellersController extends Controller
                 $user->status = $request->status;
                 $user->save();
 
-                $Seller = new Seller;
+                $seller = new Seller;
                 $seller->user_id  = $user->id;
                 $seller->business_name = $request->business_name;
                 $seller->name = $request->name;
