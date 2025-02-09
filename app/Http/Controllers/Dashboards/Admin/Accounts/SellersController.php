@@ -78,6 +78,8 @@ class SellersController extends Controller
                 $seller->city_id = $request->city_id;
                 $seller->area_id = $request->area_id;
                 $seller->address = $request->business_address;
+                $seller->investment_capacity = $request->investment_capacity;
+                $seller->previous_experience = $request->previous_experience;
                 $seller->save();
 
                 DB::commit();
@@ -123,8 +125,8 @@ class SellersController extends Controller
         try {
             DB::beginTransaction();
 
-            $Seller = Seller::where('id', $id)->firstOrFail();
-            $user = User::where('id', $Seller->user_id)->firstOrFail();
+            $seller = Seller::where('id', $id)->firstOrFail();
+            $user = User::where('id', $seller->user_id)->firstOrFail();
 
             if (is_null($user)) {
                 return abort(404);
@@ -138,18 +140,20 @@ class SellersController extends Controller
             $user->status = $request->status;
             $user->save();
 
-            if (is_null($Seller)) {
+            if (is_null($seller)) {
                 return abort(404);
             }
 
-            $Seller->business_name = $request->business_name;
-            $Seller->name = $request->name;
-            $Seller->cnic_number = $request->cnic_number;
-            $Seller->website = $request->website;
-            $Seller->city_id = $request->city_id;
-            $Seller->area_id = $request->area_id;
-            $Seller->address = $request->business_address;
-            $Seller->save();
+            $seller->business_name = $request->business_name;
+            $seller->name = $request->name;
+            $seller->cnic_number = $request->cnic_number;
+            $seller->website = $request->website;
+            $seller->city_id = $request->city_id;
+            $seller->area_id = $request->area_id;
+            $seller->address = $request->business_address;
+            $seller->investment_capacity = $request->investment_capacity;
+            $seller->previous_experience = $request->previous_experience;
+            $seller->save();
 
             DB::commit();
 
