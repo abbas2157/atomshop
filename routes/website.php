@@ -7,7 +7,6 @@ Route::group(['prefix' => 'cart'], function(){
     Route::get('/', [App\Http\Controllers\Web\Order\CartController::class, 'index'])->name('cart');
 });
 
-
 Route::get('installment-calculator', [App\Http\Controllers\Web\HomeController::class, 'calculator'])->name('calculator');
 
 //Home

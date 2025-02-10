@@ -28,7 +28,7 @@
                 <img class="img-fluid" src="{{ asset('sliders/Special-offer-2.jpg') }}" alt="Atomshop - Pay in steps">
                 <div class="offer-text">
                     <h6 class="text-white text-uppercase">Pay in Steps</h6>
-                    <h3 class="text-white mb-3">Special Offer</h3>
+                    <h3 class="text-white mb-3">Mobile, Laptop, Smart TV</h3>
                     {{-- <a href="" class="btn btn-primary">Shop Now</a> --}}
                 </div>
             </div>
@@ -36,7 +36,7 @@
                 <img class="img-fluid" src="{{ asset('sliders/Special-offer.jpg') }}" alt="Atomshop - Pay in steps">
                 <div class="offer-text">
                     <h6 class="text-white text-uppercase">Pay in Steps</h6>
-                    <h3 class="text-white mb-3">On Installment</h3>
+                    <h3 class="text-white mb-3">Motorbikes, Electirc Scooty</h3>
                     {{-- <a href="" class="btn btn-primary">Shop Now</a> --}}
                 </div>
             </div>
