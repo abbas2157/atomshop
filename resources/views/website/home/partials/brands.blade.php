@@ -1,5 +1,5 @@
 
-<div class="container-fluid py-5">
+<div class="container-fluid py-3">
     <div class="row px-xl-5">
         <div class="col">
             <div class="owl-carousel vendor-carousel">

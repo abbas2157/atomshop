@@ -154,8 +154,6 @@
             $('#title').attr('data-parsley-required', 'true');
             $('#category_id').attr('data-parsley-required', 'true');
             $('#brand_id').attr('data-parsley-required', 'true');
-            $('#memory_id').attr('data-parsley-required', 'true');
-            $('#color_id').attr('data-parsley-required', 'true');
             $('#status').attr('data-parsley-required', 'true');
 
             // File upload validation
