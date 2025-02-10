@@ -75,7 +75,7 @@
                                     <td>{{ $item->email ?? '' }}</td>
                                     <td>{{ $item->phone ?? '' }}</td>
                                     <td>
-                                        @if($item->role == 'vendor')
+                                        @if($item->role == 'seller')
                                             <label class="badge badge-info">{{ $item->role ?? '' }}</label>
                                         @elseif($item->role == 'admin')
                                             <label class="badge badge-warning">{{ $item->role ?? '' }}</label>
