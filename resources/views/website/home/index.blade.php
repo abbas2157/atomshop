@@ -8,4 +8,5 @@
     @include('website.home.partials.featured-start')
     @include('website.home.partials.categories')
     @include('website.home.partials.featured-products')
+    @include('website.home.partials.brands')
 @endsection

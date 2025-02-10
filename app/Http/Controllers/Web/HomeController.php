@@ -25,7 +25,11 @@ class HomeController extends Controller
         if (!is_null($website)) {
             $categories = json_decode($website->categories);
         }
-        return view('website.home.index', compact('sliders', 'categories', 'feature_products'));
+        $brands = [];
+        if (!is_null($website)) {
+            $brands = json_decode($website->brands);
+        }
+        return view('website.home.index', compact('sliders', 'categories', 'feature_products', 'brands'));
     }
 
     public function product_detail($slug)

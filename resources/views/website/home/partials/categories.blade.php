@@ -11,7 +11,7 @@
                         </div>
                         <div class="flex-fill pl-3">
                             <h6>{{ $item->title ?? '' }}</h6>
-                            <small class="text-body">0 Products</small>
+                            <small class="text-body">{{ $item->pr_count ?? '0' }} Products</small>
                         </div>
                     </div>
                 </a>
