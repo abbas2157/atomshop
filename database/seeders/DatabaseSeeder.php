@@ -52,7 +52,8 @@ class DatabaseSeeder extends Seeder
             'categories' => json_encode([]),
             'brands' => json_encode([]),
             'feature_products' => json_encode([]),
-            'products' => json_encode([])
+            'products' => json_encode([]),
+            'sliders' => json_encode([])
         ]);
     }
 }
