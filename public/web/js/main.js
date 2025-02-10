@@ -89,7 +89,12 @@
         var button = $(this);
         var oldValue = button.parent().parent().find('input').val();
         if (button.hasClass('btn-plus')) {
-            var newVal = parseFloat(oldValue) + 1;
+            if (oldValue < 1) {
+                var newVal = parseFloat(oldValue) + 1;
+            }
+            else {
+                var newVal = parseFloat(oldValue);
+            }
         } else {
             if (oldValue > 1) {
                 var newVal = parseFloat(oldValue) - 1;

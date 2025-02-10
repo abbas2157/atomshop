@@ -10,7 +10,7 @@ class ShopController extends Controller
 {
     public function index()
     {
-        $products = Product::where(['status' => 'Published'])->select('id','title','price','picture');
+        $products = Product::where(['status' => 'Published'])->select('id','title','slug', 'price','picture', 'brand_id');
         if(request()->has('category')) {
             $products->whereIn('category_id', request()->category);
         }

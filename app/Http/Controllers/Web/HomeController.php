@@ -46,6 +46,7 @@ class HomeController extends Controller
 
             $product_deatil = [];
 
+            $product_deatil['id'] = $product->id;
             $product_deatil['title'] = $product->title;
             $product_deatil['price'] = $product->formatted_price;
             $product_deatil['picture'] = $product->product_picture;
@@ -94,7 +95,7 @@ class HomeController extends Controller
                 $product_deatil['long_description'] = $product->description->long;
             }
             $product = $product_deatil;
-            $products = Product::where(['status' => 'Published'])->select('id', 'title', 'slug', 'price', 'picture')->get();
+            $products = Product::where(['status' => 'Published'])->select('id', 'title', 'slug', 'price', 'picture','brand_id')->get();
             return view('website.home.detail', compact('product', 'products'));
         } catch (Exception $e) {
             return abort(505, $e->getMessage());

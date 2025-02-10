@@ -69,11 +69,11 @@ class WebsiteController extends Controller
         }
         foreach($feature_products_list as $product) {
             if(!in_array($product->id, $website_feature_products)) {
-                $feature_products[] = array('id' => $product->id, 'title' => $product->title, 'slug' => $product->slug, 'price' => $product->formatted_price, 'picture' => $product->product_picture, 'category' => $product->category->title, 'brand' => $product->brand->title);
+                $feature_products[] = array('id' => $product->id, 'title' => $product->title, 'slug' => $product->slug, 'price' => $product->formatted_price, 'picture' => $product->product_picture, 'category' => $product->category->title, 'brand' => $product->brand->title, 'brand_img' => $product->brand->brand_picture);
             }
             else {
                 $index = array_search($product->id, array_column($feature_products, 'id'));
-                $feature_products[$index] = array('id' => $product->id, 'title' => $product->title, 'slug' => $product->slug, 'price' => $product->formatted_price, 'picture' => $product->product_picture, 'category' => $product->category->title, 'brand' => $product->brand->title);
+                $feature_products[$index] = array('id' => $product->id, 'title' => $product->title, 'slug' => $product->slug, 'price' => $product->formatted_price, 'picture' => $product->product_picture, 'category' => $product->category->title, 'brand' => $product->brand->title, 'brand_img' => $product->brand->brand_picture);
             }
         }
         $categories = json_decode($website->categories);

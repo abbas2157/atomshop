@@ -70,19 +70,15 @@
                         var title = $('#title').parsley();
                         var categoryId = $('#category_id').parsley();
                         var brandId = $('#brand_id').parsley();
-                        var memoryId = $('#memory_id').parsley();
-                        var colorId = $('#color_id').parsley();
                         var status = $('#status').parsley();
 
-                        if (title.isValid() && categoryId.isValid() && brandId.isValid() && memoryId.isValid() && colorId.isValid() && status.isValid()) {
+                        if (title.isValid() && categoryId.isValid() && brandId.isValid() && status.isValid()) {
                             return true;
                         } 
                         else {
                             title.validate();
                             categoryId.validate();
                             brandId.validate();
-                            memoryId.validate();
-                            colorId.validate();
                             status.validate();
                         }
                     } 
