@@ -46,6 +46,7 @@ class ProductController extends Controller
         if ($categories->isNotEmpty()) {
             $brands = Brand::orderBy('id', 'desc')->where('status', 'active')->where('category_id', $categories[0]->id)->get();
         }
+        $brands = Brand::orderBy('id', 'desc')->where('status', 'active')->get();
         $colors = Color::orderBy('id', 'desc')->where('status', 'active')->get();
         $memories = Memory::orderBy('id', 'desc')->where('status', 'active')->get();
 
