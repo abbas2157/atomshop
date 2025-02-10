@@ -21,7 +21,12 @@
                 <div class="col-md-4 mb-5">
                     <h5 class="text-secondary text-uppercase mb-4">Famous Categories</h5>
                     <div class="d-flex flex-column justify-content-start">
-                        <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Mobile</a>
+                        <a class="text-secondary mb-2" href="{{ route('shop') }}?category[]=1"><i class="fa fa-angle-right mr-2"></i>Mobile Phone</a>
+                        <a class="text-secondary mb-2" href="{{ route('shop') }}?category[]=2"><i class="fa fa-angle-right mr-2"></i>Tables</a>
+                        <a class="text-secondary mb-2" href="{{ route('shop') }}?category[]=3"><i class="fa fa-angle-right mr-2"></i>Laptops</a>
+                        <a class="text-secondary mb-2" href="{{ route('shop') }}?category[]=4"><i class="fa fa-angle-right mr-2"></i>Smart TV</a>
+                        <a class="text-secondary mb-2" href="{{ route('shop') }}?category[]=5"><i class="fa fa-angle-right mr-2"></i>Motorbikes</a>
+                        <a class="text-secondary mb-2" href="{{ route('shop') }}?category[]=6"><i class="fa fa-angle-right mr-2"></i>Electric Scooty</a>
                     </div>
                 </div>
                 <div class="col-md-4 mb-5">
