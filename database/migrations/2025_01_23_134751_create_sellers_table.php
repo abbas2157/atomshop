@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreignId('city_id')->nullable()->index();
             $table->foreignId('area_id')->nullable()->index();
             $table->string('address', 255)->nullable();
-            $table->string('invenstment_capacity')->nullable();
+            $table->string('investment_capacity')->nullable();
             $table->enum('previous_experience',[0,1])->default(0);
             $table->enum('verified',[0,1])->default(0);
             $table->timestamps();
