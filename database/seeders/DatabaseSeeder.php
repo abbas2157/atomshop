@@ -2,11 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\{User, WebsiteSetup};
+use App\Models\AppSetup;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Database\Seeder;
+use App\Models\{User, WebsiteSetup};
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -49,6 +50,13 @@ class DatabaseSeeder extends Seeder
         ]);
 
         WebsiteSetup::create([
+            'categories' => json_encode([]),
+            'brands' => json_encode([]),
+            'feature_products' => json_encode([]),
+            'products' => json_encode([]),
+            'sliders' => json_encode([])
+        ]);
+        AppSetup::create([
             'categories' => json_encode([]),
             'brands' => json_encode([]),
             'feature_products' => json_encode([]),
