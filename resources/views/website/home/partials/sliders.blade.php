@@ -22,9 +22,9 @@
             <div class="product-offer mb-30" style="height: 200px;">
                 <img class="img-fluid" src="{{ asset('sliders/Special-offer-2.jpg') }}" alt="Atomshop - Pay in steps">
                 <div class="offer-text">
-                    {{-- <h6 class="text-white text-uppercase">Pay in Steps</h6>
+                    <h6 class="text-white text-uppercase">Pay in Steps</h6>
                     <h3 class="text-white mb-3">Special Offer</h3>
-                    <a href="" class="btn btn-primary">Shop Now</a> --}}
+                    {{-- <a href="" class="btn btn-primary">Shop Now</a> --}}
                 </div>
             </div>
             <div class="product-offer mb-30" style="height: 200px;">
@@ -32,7 +32,7 @@
                 <div class="offer-text">
                     <h6 class="text-white text-uppercase">Pay in Steps</h6>
                     <h3 class="text-white mb-3">On Installment</h3>
-                    <a href="" class="btn btn-primary">Shop Now</a>
+                    {{-- <a href="" class="btn btn-primary">Shop Now</a> --}}
                 </div>
             </div>
         </div>
