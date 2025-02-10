@@ -58,6 +58,15 @@ class WebsiteController extends Controller
             $website_feature_products = array_column(json_decode($website->feature_products), 'id');
             $feature_products = json_decode($website->feature_products);
         }
+        $feature_products_list_ids = Slider::where('status', 'active')->pluck('id');
+        if($feature_products_list_ids->isNotEmpty()){
+            $feature_products_list_ids = $feature_products_list_ids->toArray();
+            foreach($feature_products as $key => $slider) { 
+                if(!in_array($slider->id, $feature_products_list_ids)) {
+                    unset($feature_products[$key]);
+                }
+            }
+        }
         foreach($feature_products_list as $product) {
             if(!in_array($product->id, $website_feature_products)) {
                 $feature_products[] = array('id' => $product->id, 'title' => $product->title, 'slug' => $product->slug, 'price' => $product->formatted_price, 'picture' => $product->product_picture, 'category' => $product->category->title, 'brand' => $product->brand->title);
@@ -142,6 +151,15 @@ class WebsiteController extends Controller
             $website_categories = array_column(json_decode($website->categories), 'id');
             $categories = json_decode($website->categories);
         }
+        $category_list_ids = Slider::where('status', 'active')->pluck('id');
+        if($category_list_ids->isNotEmpty()){
+            $category_list_ids = $category_list_ids->toArray();
+            foreach($categories as $key => $slider) { 
+                if(!in_array($slider->id, $category_list_ids)) {
+                    unset($categories[$key]);
+                }
+            }
+        }
         foreach($category_list as $category) {
             $product_count = 0;
             if(!in_array($category->id, $website_categories)) {
@@ -211,6 +229,15 @@ class WebsiteController extends Controller
             $website_brands = array_column(json_decode($website->brands), 'id');
             $brands = json_decode($website->brands);
         }
+        $website_brands_ids = Slider::where('status', 'active')->pluck('id');
+        if($website_brands_ids->isNotEmpty()){
+            $website_brands_ids = $website_brands_ids->toArray();
+            foreach($brands as $key => $slider) { 
+                if(!in_array($slider->id, $website_brands_ids)) {
+                    unset($brands[$key]);
+                }
+            }
+        }
         foreach($brand_list as $brand) {
             $product_count = 0;
             if(!in_array($brand->id, $website_brands)) {
@@ -277,6 +304,15 @@ class WebsiteController extends Controller
         if(!empty($website->sliders) && !empty(json_decode($website->sliders))) {
             $website_sliders = array_column(json_decode($website->sliders), 'id');
             $sliders = json_decode($website->sliders);
+        }
+        $slider_list_ids = Slider::where('status', 'active')->pluck('id');
+        if($slider_list_ids->isNotEmpty()){
+            $slider_list_ids = $slider_list_ids->toArray();
+            foreach($sliders as $key => $slider) { 
+                if(!in_array($slider->id, $slider_list_ids)) {
+                    unset($sliders[$key]);
+                }
+            }
         }
         foreach($slider_list as $slider) {
             if(!in_array($slider->id, $website_sliders)) {
