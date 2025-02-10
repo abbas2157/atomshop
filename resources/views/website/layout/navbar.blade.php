@@ -4,11 +4,6 @@
     if (!is_null($website)) {
         $categories = json_decode($website->categories);
     }
-    if (auth()->check()) {
-        $cartCount = \App\Models\Cart::where('user_id', auth()->id())->count();
-    } else {
-        $cartCount = \App\Models\Cart::where('user_id', session('guest_user_id'))->count();
-    }
 @endphp
 <div class="container-fluid bg-dark mb-30">
     <div class="row px-xl-5">
@@ -22,7 +17,8 @@
                 id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999;">
                 <div class="navbar-nav w-100">
                     @foreach ($categories as $item)
-                        <a href="{{ route('shop') }}?category[]={{ $item->id ?? '' }}" class="nav-item nav-link">{{ $item->title ?? '' }}</a>
+                        <a href="{{ route('shop') }}?category[]={{ $item->id ?? '' }}"
+                            class="nav-item nav-link">{{ $item->title ?? '' }}</a>
                     @endforeach
                 </div>
             </nav>
@@ -40,7 +36,8 @@
                     <div class="navbar-nav mr-auto py-0">
                         <a href="{{ route('website') }}"
                             class="nav-item nav-link {{ request()->segment(1) == '' ? 'active' : '' }}">Home</a>
-                        <a href="{{ route('shop') }}" class="nav-item nav-link {{ request()->segment(1) == 'shop' ? 'active' : '' }}">Shop</a>
+                        <a href="{{ route('shop') }}"
+                            class="nav-item nav-link {{ request()->segment(1) == 'shop' ? 'active' : '' }}">Shop</a>
                         <a href="{{ route('calculator') }}"
                             class="nav-item nav-link {{ request()->segment(1) == 'installment-calculator' ? 'active' : '' }}">Installment
                             Calculator</a>
@@ -54,8 +51,8 @@
                         </a>
                         <a href="{{ route('cart') }}" class="btn px-0 ml-3">
                             <i class="fas fa-shopping-cart text-primary"></i>
-                            <span class="badge text-secondary border border-secondary rounded-circle"
-                                style="padding-bottom: 2px;">{{ $cartCount ?? '0' }}</span>
+                            <span class="badge text-secondary border border-secondary rounded-circle cart-count"
+                                style="padding-bottom: 2px;">0</span>
                         </a>
                     </div>
                 </div>

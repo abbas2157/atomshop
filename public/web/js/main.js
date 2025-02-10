@@ -1,8 +1,8 @@
 (function ($) {
     "use strict";
-    
     // Dropdown on mouse hover
     $(document).ready(function () {
+        getCartCount();
         function toggleNavbarMethod() {
             if ($(window).width() > 992) {
                 $('.navbar .dropdown').on('mouseover', function () {
@@ -17,8 +17,8 @@
         toggleNavbarMethod();
         $(window).resize(toggleNavbarMethod);
     });
-    
-    
+
+
     // Back to top button
     $(window).scroll(function () {
         if ($(this).scrollTop() > 100) {
@@ -141,6 +141,7 @@
             success: function(response) {
                 if (response.success) {
                     alert(response.message);
+                    getCartCount();
                 } else {
                     alert("Error: " + response.message);
                 }
@@ -160,6 +161,28 @@
         return guestId;
     }
     const guestId = generateGuestId();
-    console.log("Guest ID:", guestId);
+    function getCartCount() {
+        var user_type = $('#user-type').val();
+        let guest_id = localStorage.getItem("guest_id");
+        const user_id = document.getElementById("user_id");
+
+        var data = user_id && user_id.value
+            ? { user_type: user_type, user_id: user_id.value }
+            : { user_type: user_type, guest_id: guest_id };
+
+        $.ajax({
+            url: API_URL + "/cart/count",
+            type: "POST",
+            data: data,
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            success: function(response) {
+                if (response.success) {
+                    $(".cart-count").text(response.count);
+                } else {
+                    $(".cart-count").text("0");
+                }
+            }
+        });
+    }
 })(jQuery);
 

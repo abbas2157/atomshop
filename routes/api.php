@@ -40,6 +40,8 @@ Route::group(['prefix' => 'cart'], function(){
     Route::post('add', [App\Http\Controllers\Api\Order\CartController::class, 'add_to_cart']);
     Route::post('update', [App\Http\Controllers\Api\Order\CartController::class, 'update_cart']);
     Route::post('remove', [App\Http\Controllers\Api\Order\CartController::class, 'remove_from_cart']);
+    Route::post('/count', [App\Http\Controllers\Api\Order\CartController::class, 'cart_count']);
+
 });
 
 

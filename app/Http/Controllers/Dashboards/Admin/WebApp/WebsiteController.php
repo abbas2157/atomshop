@@ -67,6 +67,24 @@ class WebsiteController extends Controller
                 $feature_products[$index] = array('id' => $product->id, 'title' => $product->title, 'slug' => $product->slug, 'price' => $product->formatted_price, 'picture' => $product->product_picture, 'category' => $product->category->title, 'brand' => $product->brand->title);
             }
         }
+        $categories = json_decode($website->categories);
+        foreach($categories as &$category) {
+            $product_count = Product::where('category_id', $category->id)->where('status', 'Published')->count();
+            $category->pr_count = $product_count;
+            $category_model = Category::find($category->id);
+            $category_model->pr_count = $product_count;
+            $category_model->save();
+        }
+        $brands = json_decode($website->brands);
+        foreach($brands as &$brand) {
+            $product_count = Product::where('brand_id', $brand->id)->where('status', 'Published')->count();
+            $brand->pr_count = $product_count;
+            $brand_model = Brand::find($brand->id);
+            $brand_model->pr_count = $product_count;
+            $brand_model->save();
+        }
+        $website->categories = json_encode($categories);
+        $website->brands = json_encode($brands);
         $website->feature_products     = json_encode($feature_products);
         $website->updated_by = Auth::user()->id;
         $website->save();
@@ -125,17 +143,19 @@ class WebsiteController extends Controller
             $categories = json_decode($website->categories);
         }
         foreach($category_list as $category) {
+            $product_count = 0;
             if(!in_array($category->id, $website_categories)) {
-                $categories[] = array('id' => $category->id, 'title' => $category->title, 'slug' => $category->slug, 'picture' => $category->category_picture);
+                $categories[] = array('id' => $category->id, 'title' => $category->title, 'slug' => $category->slug, 'picture' => $category->category_picture,'pr_count' => $product_count);
             }
             else {
                 $index = array_search($category->id, array_column($categories, 'id'));
-                $categories[$index] = array('id' => $category->id, 'title' => $category->title, 'slug' => $category->slug, 'picture' => $category->category_picture);
+                $categories[$index] = array('id' => $category->id, 'title' => $category->title, 'slug' => $category->slug, 'picture' => $category->category_picture,'pr_count' => $product_count);
             }
         }
 
         $website->categories = json_encode($categories);
         $website->updated_by = Auth::user()->id;
+        $category->pr_count = $product_count;
         $website->save();
 
         $validator['success'] = 'Categories Sync successfully';
@@ -192,12 +212,13 @@ class WebsiteController extends Controller
             $brands = json_decode($website->brands);
         }
         foreach($brand_list as $brand) {
+            $product_count = 0;
             if(!in_array($brand->id, $website_brands)) {
-                $brands[] = array('id' => $brand->id, 'title' => $brand->title, 'slug' => $brand->slug, 'picture' => $brand->brand_picture);
+                $brands[] = array('id' => $brand->id, 'title' => $brand->title, 'slug' => $brand->slug, 'picture' => $brand->brand_picture,'pr_count' => $product_count);
             }
             else {
                 $index = array_search($brand->id, array_column($brands, 'id'));
-                $brands[$index] = array('id' => $brand->id, 'title' => $brand->title, 'slug' => $brand->slug, 'picture' => $brand->brand_picture);
+                $brands[$index] = array('id' => $brand->id, 'title' => $brand->title, 'slug' => $brand->slug, 'picture' => $brand->brand_picture,'pr_count' => $product_count);
             }
         }
         $website->brands     = json_encode($brands);
@@ -245,7 +266,7 @@ class WebsiteController extends Controller
             return response()->json($response);
         }
     }
-    
+
     public function slider_sync()
     {
         $website = WebsiteSetup::first();

@@ -41,7 +41,7 @@ class CartController extends BaseController
             $data = $request->all();
             return $this->sendError('Cart is empty', $data, 200);
         }
-        
+
     }
     public function add_to_cart(Request $request)
     {
@@ -110,5 +110,20 @@ class CartController extends BaseController
             DB::rollBack();
             return $this->sendError('Something went wrong.', $e->getMessage(), 500);
         }
+    }
+
+    public function cart_count(Request $request)
+    {
+        $count = 0;
+
+        if ($request->has('user_type') && $request->user_type == 'auth') {
+            $user_id = $request->user_id;
+            $count = Cart::where('user_id', $user_id)->where('status', 'Pending')->count();
+        } elseif ($request->has('guest_id') && $request->user_type != 'auth') {
+            $guest_id = $request->guest_id;
+            $count = Cart::where('guest_id', $guest_id)->where('status', 'Pending')->count();
+        }
+
+        return response()->json(['success' => true, 'count' => $count], 200);
     }
 }

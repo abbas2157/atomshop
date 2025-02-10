@@ -22,7 +22,9 @@ function getCart() {
         success: function(response) {
             if (response.success == true) {
                 var cart = response.data.cart;
+                var cartCount = 0;
                 cart.forEach(function(item) {
+                    cartCount += item.quantity;
                     var row = '<tr>\
                         <td class="align-middle">\
                             <img src="'+item.product.picture+'" alt="" style="width: 50px;">\
@@ -43,12 +45,14 @@ function getCart() {
                 });
                 $('#sub-total').text(response.data.sub_total);
                 $('#total').text(response.data.total);
+                $(".cart-count").text(cartCount);
             }
             else {
                 var row = '<tr><td class="align-middle" colspan="5">Cart is empty.</td></tr>';
                 $('.cart-table').append(row);
                 $('#sub-total').text('00.00');
                 $('#total').text('00.00');
+                $(".cart-count").text("0");
             }
         }
     });

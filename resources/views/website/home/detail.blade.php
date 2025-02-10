@@ -185,7 +185,7 @@
                             </div>
                             <div class="text-center py-4">
                                 <a class="h6 text-decoration-none text-truncate"
-                                    href="{{ route('product.detail', ['slug' => $item->slug]) }}">{{ $item->title ?? '' }}</a>
+                                    href="{{ route('website.product.detail', ['slug' => $item->slug]) }}">{{ $item->title ?? '' }}</a>
                                 <div class="d-flex align-items-center justify-content-center mt-2">
                                     <h5>RS. {{ $item->formatted_price ?? '' }}</h5>
                                     <h6 class="text-muted ml-2"><del>RS. {{ $item->formatted_price ?? '' }}</del></h6>
