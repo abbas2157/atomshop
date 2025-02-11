@@ -12,7 +12,7 @@
                                 <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
                             </div>
                         </div>
-                        <div class="p-2">
+                        <div class="py-2 px-4">
                             <a class="text-decoration-none product-item-title" href="{{ route('website.product.detail', ['slug' => $item->slug]) }}">{{ $item->title }}</a>                            
                             <div class="row">
                                 <div class="col-lg-8 col-md-8 col-sm-8 py-1">
