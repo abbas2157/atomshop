@@ -188,11 +188,14 @@ class ProductController extends Controller
             DB::beginTransaction();
 
             $product = Product::findOrFail($id);
+            $product->uuid = $product->uuid; // No need to update UUID
             $product->title = $request->title;
+            $product->detail_page_title = $request->detail_page_title;
             $product->slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->title)));
             $product->category_id = $request->category_id;
             $product->brand_id = $request->brand_id;
             $product->price = $request->price;
+            $product->min_advance_price = $request->min_advance_price;
             if ($request->hasFile('picture')) {
                 $file = $request->file('picture');
                 $fileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
@@ -236,17 +239,18 @@ class ProductController extends Controller
                     $productColor->save();
                 }
             }
-            if (!empty($request->memory)) {
-                ProductMemory::where('product_id', $id)->delete();
-                $memories = $request->memory;
-                foreach ($memories as $memory) {
+            ProductMemory::where('product_id', $id)->delete();
+            if ($request->has('memories')) {
+                $names = $request->input('memories.name');
+                $prices = $request->input('memories.price');
+                foreach ($names as $index => $name) {
                     $productMemory = new ProductMemory;
                     $productMemory->product_id = $id;
-                    $productMemory->memory_id = $memory;
+                    $productMemory->memory_id = $name;
+                    $productMemory->price = $prices[$index];
                     $productMemory->save();
                 }
             }
-
             DB::commit();
 
             $response = ['success' => true, 'message' => 'Product Updated Successfully'];

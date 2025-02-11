@@ -13,7 +13,8 @@
             @if ($product->picture)
                 <div class="row">
                     <div class="col-md-6 mt-2">
-                        <img src="{{ asset('images/categories/' . $product->picture) }}" alt="" class="img-fluid">
+                        <img src="{{ asset('images/categories/' . $product->picture) }}" alt=""
+                            class="img-fluid">
                     </div>
                 </div>
             @endif
@@ -32,7 +33,8 @@
                 @foreach ($galleryImages as $image)
                     <div class="col-md-3 mt-2">
                         <img src="{{ asset($image->url ?? '') }}" alt="" class="img-fluid">
-                        <a href="#" class="btn btn-danger btn-sm" onclick="deleteGalleryImage({{ $product->id }}, {{ $image->id }})">Delete</a>
+                        <a href="#" class="btn btn-danger btn-sm"
+                            onclick="deleteGalleryImage('{{ route('products.gallery-image', [$product->id, ':imageId']) }}', {{ $image->id }})">Delete</a>
                     </div>
                 @endforeach
             </div>
