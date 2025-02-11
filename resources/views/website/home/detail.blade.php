@@ -42,7 +42,7 @@
             </div>
             <div class="col-lg-7 h-auto mb-30">
                 <div class="h-100 bg-light p-30">
-                    <h3>{{ $product['title'] ?? '' }}</h3>
+                    <h3>{{ $product['detail_page_title'] ?? '' }}</h3>
                     <div class="mb-2">
                         <div><b>Category : </b>{{ $product['category']['title'] ?? '' }}</div>
                         <div><b>Brand : </b>{{ $product['brand']['title'] ?? '' }}</div>

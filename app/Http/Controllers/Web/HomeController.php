@@ -38,7 +38,7 @@ class HomeController extends Controller
             $product = Product::with('category', 'brand', 'colors', 'memories', 'gallery', 'description')
                 ->where('slug', $slug)
                 ->where(['status' => 'Published'])
-                ->select('id', 'title', 'picture', 'price','min_advance_price' , 'category_id', 'brand_id')
+                ->select('id', 'title', 'detail_page_title', 'picture', 'price', 'min_advance_price', 'category_id', 'brand_id')
                 ->first();
             if (is_null($product)) {
                 return abort(404);
