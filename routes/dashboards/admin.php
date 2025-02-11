@@ -21,7 +21,7 @@ Route::group(['middleware' => ['auth']], function() {
             Route::resource('colors', App\Http\Controllers\Dashboards\Admin\Components\ColorController::class,['as' => 'admin']);
             Route::resource('memory', App\Http\Controllers\Dashboards\Admin\Components\MemoryController::class,['as' => 'admin']);
             Route::resource('sliders', App\Http\Controllers\Dashboards\Admin\Components\SliderController::class,['as' => 'admin']);
-            
+
             //Zone Management
             Route::resource('cities', App\Http\Controllers\Dashboards\Admin\Components\CitiesController::class,['as' => 'admin']);
             Route::resource('areas', App\Http\Controllers\Dashboards\Admin\Components\AreaController::class,['as' => 'admin']);
@@ -56,6 +56,34 @@ Route::group(['middleware' => ['auth']], function() {
                     Route::get('/', [App\Http\Controllers\Dashboards\Admin\WebApp\WebsiteController::class, 'sliders'])->name('admin.website.sliders');
                     Route::get('sync', [App\Http\Controllers\Dashboards\Admin\WebApp\WebsiteController::class, 'slider_sync'])->name('admin.website.sliders.sync');
                     Route::post('update', [App\Http\Controllers\Dashboards\Admin\WebApp\WebsiteController::class, 'slider_update'])->name('admin.website.sliders.update');
+                });
+            });
+            Route::group(['prefix' => 'app'], function(){
+                Route::group(['prefix' => 'products'], function(){
+                    Route::get('/', [App\Http\Controllers\Dashboards\Admin\WebApp\AppSetupController::class, 'products'])->name('admin.app.products');
+                    Route::get('sync', [App\Http\Controllers\Dashboards\Admin\WebApp\AppSetupController::class, 'product_sync'])->name('admin.app.products.sync');
+                    Route::post('update', [App\Http\Controllers\Dashboards\Admin\WebApp\AppSetupController::class, 'product_update'])->name('admin.app.products.update');
+                    Route::group(['prefix' => 'feature'], function(){
+                        Route::get('/', [App\Http\Controllers\Dashboards\Admin\WebApp\AppSetupController::class, 'feature_products'])->name('admin.app.products.feature');
+                        Route::get('sync', [App\Http\Controllers\Dashboards\Admin\WebApp\AppSetupController::class, 'feature_products_sync'])->name('admin.app.products.feature.sync');
+                        Route::post('update', [App\Http\Controllers\Dashboards\Admin\WebApp\AppSetupController::class, 'feature_products_update'])->name('admin.app.products.feature.update');
+                    });
+                });
+                Route::group(['prefix' => 'categories'], function(){
+                    Route::get('/', [App\Http\Controllers\Dashboards\Admin\WebApp\AppSetupController::class, 'categories'])->name('admin.app.categories');
+                    Route::get('sync', [App\Http\Controllers\Dashboards\Admin\WebApp\AppSetupController::class, 'category_sync'])->name('admin.app.categories.sync');
+                    Route::post('update', [App\Http\Controllers\Dashboards\Admin\WebApp\AppSetupController::class, 'category_update'])->name('admin.app.categories.update');
+                });
+                Route::group(['prefix' => 'brands'], function(){
+                    Route::get('/', [App\Http\Controllers\Dashboards\Admin\WebApp\AppSetupController::class, 'brands'])->name('admin.app.brands');
+                    Route::get('sync', [App\Http\Controllers\Dashboards\Admin\WebApp\AppSetupController::class, 'brand_sync'])->name('admin.app.brands.sync');
+                    Route::post('update', [App\Http\Controllers\Dashboards\Admin\WebApp\AppSetupController::class, 'brand_update'])->name('admin.app.brands.update');
+                });
+
+                Route::group(['prefix' => 'sliders'], function(){
+                    Route::get('/', [App\Http\Controllers\Dashboards\Admin\WebApp\AppSetupController::class, 'sliders'])->name('admin.app.sliders');
+                    Route::get('sync', [App\Http\Controllers\Dashboards\Admin\WebApp\AppSetupController::class, 'slider_sync'])->name('admin.app.sliders.sync');
+                    Route::post('update', [App\Http\Controllers\Dashboards\Admin\WebApp\AppSetupController::class, 'slider_update'])->name('admin.app.sliders.update');
                 });
             });
             //Installment Calculator

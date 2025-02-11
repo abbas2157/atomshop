@@ -5,7 +5,7 @@
 @section('content')
 <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
     <div class="container">
-        @include('dashboards/admin/web-app/website.partials/sidebar')
+        @include('dashboards/admin/web-app/app.partials/sidebar')
         <div class="az-content-body pd-lg-l-40 d-flex flex-column">
             <div class="az-content-breadcrumb">
                 <span>Website & App</span>
@@ -49,7 +49,7 @@
             const formData = new FormData();
             formData.append("categories_id", JSON.stringify(sortedIDs));
             $.ajax({
-                url: "{{ route('admin.website.categories.update') }}",
+                url: "{{ route('admin.app.categories.update') }}",
                 type: 'POST',
                 data: formData,
                 contentType: false,

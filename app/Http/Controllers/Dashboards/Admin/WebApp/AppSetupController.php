@@ -4,19 +4,19 @@ namespace App\Http\Controllers\Dashboards\Admin\WebApp;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{Category, Brand, Product, WebsiteSetup, Slider};
+use App\Models\{Category, Brand, Product, AppSetup, Slider};
 use Illuminate\Support\Facades\{Auth, Hash, DB};
 
-class WebsiteController extends Controller
+class AppSetupController extends Controller
 {
     public function feature_products()
     {
-        $website = WebsiteSetup::first();
+        $website = AppSetup::first();
         $products = [];
         if(!is_null($website)) {
             $products = json_decode($website->feature_products);
         }
-        return view('dashboards.admin.web-app.website.products.feature', compact('products'));
+        return view('dashboards.admin.web-app.app.products.feature', compact('products'));
     }
 
     public function feature_products_update(Request $request)
@@ -31,7 +31,7 @@ class WebsiteController extends Controller
                     $products[] = array('id' => $product->id, 'title' => $product->title, 'slug' => $product->slug, 'price' => $product->formatted_price, 'picture' => $product->product_picture, 'category' => $product->category->title, 'brand' => $product->brand->title);
                 }
             }
-            $website = WebsiteSetup::first();
+            $website = AppSetup::first();
             $website->feature_products = json_encode($products);
             $website->updated_by = Auth::user()->id;
             $website->save();
@@ -49,58 +49,36 @@ class WebsiteController extends Controller
 
     public function feature_products_sync()
     {
-        // Initailize Feature Product (Start)
-        $feature_products = [];
-        $website_feature_products_ids = [];
-        $website = WebsiteSetup::first();
-        if(!empty($website->feature_products) && !empty(json_decode($website->feature_products,true))) {
-            $website_feature_products_ids = array_column(json_decode($website->feature_products,true), 'id');
-            $feature_products = json_decode($website->feature_products,true);
-        }
-        // Initailize Feature Product (end)
+        $website = AppSetup::first();
 
-        // Remove deleted one from feature products (Start)
-        $feature_products_list_ids = Product::where(['status' => 'Published', 'feature' => '1'])->pluck('id');
+        $feature_products_list = Product::where(['status' => 'Published', 'feature' => '1'])->get();
+        $website_feature_products = [];
+        $feature_products = [];
+        if(!empty($website->feature_products) && !empty(json_decode($website->feature_products))) {
+            $website_feature_products = array_column(json_decode($website->feature_products), 'id');
+            $feature_products = json_decode($website->feature_products);
+        }
+        $feature_products_list_ids = Slider::where('status', 'active')->pluck('id');
         if($feature_products_list_ids->isNotEmpty()){
             $feature_products_list_ids = $feature_products_list_ids->toArray();
-            foreach($feature_products as $key => $product) { 
-                if(!in_array($product['id'], $feature_products_list_ids)) {
+            foreach($feature_products as $key => $slider) {
+                if(!in_array($slider->id, $feature_products_list_ids)) {
                     unset($feature_products[$key]);
                 }
             }
         }
-        // Remove deleted one from feature products (end)
-        // Update feature products in Website_Setup Table (Start)
-        $feature_products_list = Product::where(['status' => 'Published', 'feature' => '1'])->get();
         foreach($feature_products_list as $product) {
-            if(!in_array($product->id, $website_feature_products_ids)) {
-                $feature_products[] = array(
-                    'id' => $product->id,
-                    'title' => $product->title,
-                    'slug' => $product->slug,
-                    'price' => $product->formatted_advance_price,
-                    'picture' => $product->product_picture,
-                    'category' => $product->category->title,
-                    'brand' => $product->brand->title
-                );
+            if(!in_array($product->id, $website_feature_products)) {
+                $feature_products[] = array('id' => $product->id, 'title' => $product->title, 'slug' => $product->slug, 'price' => $product->formatted_price, 'picture' => $product->product_picture, 'category' => $product->category->title, 'brand' => $product->brand->title);
             }
             else {
                 $index = array_search($product->id, array_column($feature_products, 'id'));
-                $feature_products[$index] = array(
-                    'id' => $product->id,
-                    'title' => $product->title,
-                    'slug' => $product->slug,
-                    'price' => $product->formatted_advance_price,
-                    'picture' => $product->product_picture,
-                    'category' => $product->category->title,
-                    'brand' => $product->brand->title
-                );
+                $feature_products[$index] = array('id' => $product->id, 'title' => $product->title, 'slug' => $product->slug, 'price' => $product->formatted_price, 'picture' => $product->product_picture, 'category' => $product->category->title, 'brand' => $product->brand->title);
             }
         }
-        $website->feature_products = json_encode($feature_products);
+        $website->feature_products     = json_encode($feature_products);
         $website->updated_by = Auth::user()->id;
         $website->save();
-        // Update feature products in Website_Setup Table (end)
 
         $validator['success'] = 'Feature Products Sync successfully';
         return back()->withErrors($validator);
@@ -108,12 +86,12 @@ class WebsiteController extends Controller
 
     public function categories()
     {
-        $website = WebsiteSetup::first();
+        $website = AppSetup::first();
         $categories = [];
         if(!is_null($website)) {
             $categories = json_decode($website->categories);
         }
-        return view('dashboards.admin.web-app.website.categories', compact('categories'));
+        return view('dashboards.admin.web-app.app.categories', compact('categories'));
     }
 
     public function category_update(Request $request)
@@ -128,7 +106,7 @@ class WebsiteController extends Controller
                     $categories[] = array('id' => $category->id, 'title' => $category->title, 'slug' => $category->slug, 'picture' => $category->category_picture);
                 }
             }
-            $website = WebsiteSetup::first();
+            $website = AppSetup::first();
             $website->categories = json_encode($categories);
             $website->updated_by = Auth::user()->id;
             $website->save();
@@ -146,7 +124,7 @@ class WebsiteController extends Controller
 
     public function category_sync()
     {
-        $website = WebsiteSetup::first();
+        $website = AppSetup::first();
 
         $category_list = Category::where('status', 'active')->get();
         $website_categories = [];
@@ -155,7 +133,7 @@ class WebsiteController extends Controller
             $website_categories = array_column(json_decode($website->categories), 'id');
             $categories = json_decode($website->categories);
         }
-        $category_list_ids = Category::where('status', 'active')->pluck('id');
+        $category_list_ids = Slider::where('status', 'active')->pluck('id');
         if($category_list_ids->isNotEmpty()){
             $category_list_ids = $category_list_ids->toArray();
             foreach($categories as $key => $slider) {
@@ -189,12 +167,12 @@ class WebsiteController extends Controller
 
     public function brands()
     {
-        $website = WebsiteSetup::first();
+        $website = AppSetup::first();
         $brands = [];
         if(!is_null($website)) {
             $brands = json_decode($website->brands);
         }
-        return view('dashboards.admin.web-app.website.brands', compact('brands'));
+        return view('dashboards.admin.web-app.app.brands', compact('brands'));
     }
 
     public function brand_update(Request $request)
@@ -209,7 +187,7 @@ class WebsiteController extends Controller
                     $brands[] = array('id' => $brand->id, 'title' => $brand->title, 'slug' => $brand->slug, 'picture' => $brand->brand_picture);
                 }
             }
-            $website = WebsiteSetup::first();
+            $website = AppSetup::first();
             $website->brands = json_encode($brands);
             $website->updated_by = Auth::user()->id;
             $website->save();
@@ -227,7 +205,7 @@ class WebsiteController extends Controller
 
     public function brand_sync()
     {
-        $website = WebsiteSetup::first();
+        $website = AppSetup::first();
 
         $brand_list = Brand::where('status', 'active')->get();
         $website_brands = [];
@@ -236,7 +214,7 @@ class WebsiteController extends Controller
             $website_brands = array_column(json_decode($website->brands), 'id');
             $brands = json_decode($website->brands);
         }
-        $website_brands_ids = Brand::where('status', 'active')->pluck('id');
+        $website_brands_ids = Slider::where('status', 'active')->pluck('id');
         if($website_brands_ids->isNotEmpty()){
             $website_brands_ids = $website_brands_ids->toArray();
             foreach($brands as $key => $slider) {
@@ -268,12 +246,12 @@ class WebsiteController extends Controller
 
     public function sliders()
     {
-        $website = WebsiteSetup::first();
+        $website = AppSetup::first();
         $sliders = [];
         if(!is_null($website)) {
             $sliders = json_decode($website->sliders);
         }
-        return view('dashboards.admin.web-app.website.sliders', compact('sliders'));
+        return view('dashboards.admin.web-app.app.sliders', compact('sliders'));
     }
 
     public function slider_update(Request $request)
@@ -288,7 +266,7 @@ class WebsiteController extends Controller
                     $sliders[] = array('id' => $slider->id, 'title' => $slider->title, 'tagline' => $slider->tagline, 'picture' => asset($slider->picture));
                 }
             }
-            $website = WebsiteSetup::first();
+            $website = AppSetup::first();
             $website->sliders = json_encode($sliders);
             $website->updated_by = Auth::user()->id;
             $website->save();
@@ -306,7 +284,7 @@ class WebsiteController extends Controller
 
     public function slider_sync()
     {
-        $website = WebsiteSetup::first();
+        $website = AppSetup::first();
 
         $slider_list = Slider::where('status', 'active')->get();
         $website_sliders = [];

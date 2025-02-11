@@ -32,7 +32,7 @@
                             <div>
                                 <nav class="nav">
                                     <a href="{{ route('admin.website.categories') }}" class="nav-link">Website</a>
-                                    <a href="" class="nav-link">Mobile App</a>
+                                    <a href="{{ route('admin.app.categories') }}" class="nav-link">Mobile App</a>
                                     <a href="{{ route('admin.installment-calculator') }}" class="nav-link">Installment Calculator</a>
                                     <a href="{{ route('admin.sliders.index') }}" class="nav-link">Sliders</a>
                                 </nav>
