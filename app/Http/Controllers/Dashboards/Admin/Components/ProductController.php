@@ -68,6 +68,7 @@ class ProductController extends Controller
             $product->category_id = $request->category_id;
             $product->brand_id = $request->brand_id;
             $product->price = $request->price;
+            $product->min_advance_price = $request->min_advance_price;
             if ($request->hasFile('picture')) {
                 $file = $request->file('picture');
                 $fileName  = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
