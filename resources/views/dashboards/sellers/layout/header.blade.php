@@ -1,17 +1,17 @@
 <div class="az-header">
     <div class="container">
         <div class="az-header-left">
-            <a href="{{ route('admin') }}" class="az-logo"><span></span> atomshop</a>
+            <a href="{{ route('seller') }}" class="az-logo"><span></span> atomshop</a>
             <a href="" id="azMenuShow" class="az-header-menu-icon d-lg-none"><span></span></a>
         </div>
         <div class="az-header-menu">
             <div class="az-header-menu-header">
-                <a href="{{ route('admin') }}" class="az-logo"><span></span> atomshop</a>
+                <a href="{{ route('seller') }}" class="az-logo"><span></span> atomshop</a>
                 <a href="" class="close">&times;</a>
             </div>
             <ul class="nav">
-                <li class="nav-item {{ (request()->segment(1) == 'admin' && (request()->segment(2) == '')) ? 'active show' : '' }}">
-                    <a href="{{ route('admin') }}" class="nav-link"><i class="typcn typcn-chart-area-outline"></i> Dashboard</a>
+                <li class="nav-item {{ (request()->segment(1) == 'seller' && (request()->segment(2) == '')) ? 'active show' : '' }}">
+                    <a href="{{ route('seller') }}" class="nav-link"><i class="typcn typcn-chart-area-outline"></i> Dashboard</a>
                 </li>
                 <li class="nav-item {{ (request()->segment(1) == 'seller' && (in_array(request()->segment(2), ['users', 'sellers', 'customers']))) ? 'active show' : '' }}">
                     <a href="" class="nav-link with-sub"><i class="typcn typcn-group-outline"></i> Accounts</a>
@@ -19,13 +19,13 @@
                         <div class="container">
                             <div>
                                 <nav class="nav">
-                                    <a href="{{ route('seller.sellers.index') }}" class="nav-link">Sellers</a>
+                                    <a href="{{ route('seller.index') }}" class="nav-link">Sellers</a>
                                 </nav>
                             </div>
                         </div>
                     </div>
                 </li>
-                <li class="nav-item {{ (request()->segment(1) == 'admin' && (in_array(request()->segment(2), ['website','installment-calculator','sliders']))) ? 'active show' : '' }}">
+                <li class="nav-item {{ (request()->segment(1) == 'seller' && (in_array(request()->segment(2), ['website','installment-calculator','sliders']))) ? 'active show' : '' }}">
                     <a href="" class="nav-link with-sub"><i class="typcn typcn-device-phone"></i>Web & App</a>
                     <div class="az-menu-sub">
                         <div class="container">
