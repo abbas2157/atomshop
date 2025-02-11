@@ -9621,7 +9621,12 @@ a.text-dark:hover, a.text-dark:focus {
   min-height: 300px;
   background-color: #FFFFFF !important;
 }
-
+.product-img {
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .product-action {
   position: absolute;
   width: 100%;
@@ -9675,6 +9680,7 @@ a.text-dark:hover, a.text-dark:focus {
 
 .product-item .product-img img {
   transition: .5s;
+  object-fit: cover;
 }
 
 .product-item:hover .product-img img {
