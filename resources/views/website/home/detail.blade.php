@@ -2,6 +2,7 @@
 @section('title')
     <title>{{ $product['title'] ?? '' }} | Atomshop - Pay in steps</title>
     <meta content="Atomshop - Pay in steps" name="description">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 @endsection
 @section('content')
     <div class="container-fluid">
@@ -129,6 +130,7 @@
     <!-- Products End -->
 @endsection
 @section('js')
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 <script>
     var total = parseInt("{{ $product['variation_price'] ?? 0 }}");
     console.log(total);

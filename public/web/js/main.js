@@ -145,6 +145,14 @@
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
             success: function(response) {
                 if (response.success) {
+                    Toastify({
+                        text: "<i class='fas fa-check-circle'></i> <b> Success </b> ! Product added into cart.",
+                        duration: 3000,
+                        gravity: "top",
+                        position: "right",
+                        escapeMarkup: false,
+                        backgroundColor: "linear-gradient(to right, #FFD333, #3D464D)",
+                    }).showToast();
                     getCartCount();
                 } else {
                     
