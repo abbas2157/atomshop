@@ -39,4 +39,8 @@ class Product extends Model
     {
         return number_format($this->price, 0);
     }
+    public function getFormattedAdvancePriceAttribute()
+    {
+        return number_format($this->price, 0);
+    }
 }

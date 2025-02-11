@@ -89,7 +89,12 @@
         var button = $(this);
         var oldValue = button.parent().parent().find('input').val();
         if (button.hasClass('btn-plus')) {
-            var newVal = parseFloat(oldValue) + 1;
+            if (oldValue < 1) {
+                var newVal = parseFloat(oldValue) + 1;
+            }
+            else {
+                var newVal = parseFloat(oldValue);
+            }
         } else {
             if (oldValue > 1) {
                 var newVal = parseFloat(oldValue) - 1;
@@ -140,14 +145,13 @@
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
             success: function(response) {
                 if (response.success) {
-                    alert(response.message);
                     getCartCount();
                 } else {
-                    alert("Error: " + response.message);
+                    
                 }
             },
             error: function() {
-                alert("Something went wrong! Please try again.");
+                
             }
         });
     });

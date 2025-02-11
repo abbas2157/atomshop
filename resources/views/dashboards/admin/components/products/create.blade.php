@@ -31,14 +31,12 @@
                     <div id="product-form">
                         <h3>Product Information</h3>
                         @include('dashboards/admin/components/products/create-partials/product-information')
+                        <h3>Prices & Variations</h3>
+                        @include('dashboards/admin/components/products/create-partials/prices-variations')
                         <h3>Product Description</h3>
                         @include('dashboards/admin/components/products/create-partials/product-description')
                         <h3>Product Images</h3>
                         @include('dashboards/admin/components/products/create-partials/product-images')
-                        <h3>Publish Product</h3>
-                        <section>
-                            <p>The next and previous buttons help you to navigate through your content.</p>
-                        </section>
                     </div>
                 </form>
             </div>
@@ -50,158 +48,5 @@
     <script src="{!! asset('assets/lib/parsleyjs/parsley.min.js') !!}"></script>
     <script src="{!! asset('assets/lib/select2/js/select2.min.js') !!}"></script>
     <script src="{!! asset('assets/lib/quill/quill.min.js') !!}"></script>
-    <script>
-        $(function() {
-            'use strict';
-            let isSubmitting = false; 
-            
-            $('#product-form').steps({
-                headerTag: 'h3',
-                bodyTag: 'section',
-                autoFocus: true,
-                titleTemplate: '<span class="number">#index#</span> <span class="title">#title#</span>',
-                labels: {
-                    finish: "Publish Product",
-                },
-                onStepChanging: function(event, currentIndex, newIndex) {
-                    if (currentIndex < newIndex) {
-                        if (currentIndex === 0) {
-                            var title = $('#title').parsley();
-                            var categoryId = $('#category_id').parsley();
-                            var brandId = $('#brand_id').parsley();
-                            var memoryId = $('#memory_id').parsley();
-                            var colorId = $('#color_id').parsley();
-                            var status = $('#status').parsley();
-
-                            if (
-                                title.isValid() &&
-                                categoryId.isValid() &&
-                                brandId.isValid() &&
-                                memoryId.isValid() &&
-                                colorId.isValid() &&
-                                status.isValid()
-                            ) {
-                                return true;
-                            } 
-                            else {
-                                title.validate();
-                                categoryId.validate();
-                                brandId.validate();
-                                memoryId.validate();
-                                colorId.validate();
-                                status.validate();
-                            }
-                        } 
-                        else if (currentIndex === 1) {
-                            var short = $('#short_description').parsley();
-                            if (short.isValid()) {
-                                return true;
-                            } 
-                            else {
-                                short.validate();
-                            }
-                        }
-                        else if (currentIndex === 2) {
-                            return true;
-                            var picture = $('#picture').parsley();
-                            if (picture.isValid()) {
-                                return true;
-                            } 
-                            else {
-                                picture.validate();
-                            }
-                        }
-                    } 
-                    else {
-                        return true;
-                    }
-                },
-                onFinishing: function (event, currentIndex) {
-
-                    if (isSubmitting) {
-                        return false;
-                    }
-                    isSubmitting = true;
-
-                    $('.actions a[href="#finish"]').text('Publishing...').addClass('disabled').css('pointer-events', 'none');
-                    console.log('Finishing... Current Index:', currentIndex);
-                    var formData = new FormData(document.getElementById('product-form-name'));
-                    $.ajax({
-                        url: "{{ route('admin.products.store') }}",
-                        type: 'POST',
-                        data: formData,
-                        contentType: false,
-                        processData: false,
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        success: function (response) {
-                            console.log(response);
-                            location.reload();
-                        },
-                        error: function (xhr, status, error) {
-                            alert('An error occurred. Please try again.');
-                            console.error(xhr.responseText);
-                            isSubmitting = false;
-
-                            $('.actions a[href="#finish"]').text('Publish Product').removeClass('disabled').css('pointer-events', 'auto');
-                        }
-                    });
-                }
-            });
-
-            // Add Parsley.js validations to form fields
-            $('#title').attr('data-parsley-required', 'true');
-            $('#category_id').attr('data-parsley-required', 'true');
-            $('#brand_id').attr('data-parsley-required', 'true');
-            $('#status').attr('data-parsley-required', 'true');
-
-            // File upload validation
-            $('#customFile').attr('data-parsley-required', 'true');
-
-            // Initialize Parsley on the form
-            $('#product-form form').parsley();
-
-            $('.select2').select2({
-                placeholder: 'Choose items',
-                searchInputPlaceholder: 'Search'
-            });
-
-            var icons = Quill.import('ui/icons');
-            icons['bold'] = '<i class="la la-bold" aria-hidden="true"></i>';
-            icons['italic'] = '<i class="la la-italic" aria-hidden="true"></i>';
-            icons['underline'] = '<i class="la la-underline" aria-hidden="true"></i>';
-            icons['strike'] = '<i class="la la-strikethrough" aria-hidden="true"></i>';
-            icons['list']['ordered'] = '<i class="la la-list-ol" aria-hidden="true"></i>';
-            icons['list']['bullet'] = '<i class="la la-list-ul" aria-hidden="true"></i>';
-    
-            icons['link'] = '<i class="la la-link" aria-hidden="true"></i>';
-            icons['image'] = '<i class="la la-image" aria-hidden="true"></i>';
-            icons['video'] = '<i class="la la-film" aria-hidden="true"></i>';
-            icons['code-block'] = '<i class="la la-code" aria-hidden="true"></i>';
-    
-            var toolbarOptions = [
-                [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-                ['bold', 'italic', 'underline', 'strike'],
-                [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                ['link', 'image', 'video']
-            ];
-    
-            var quill = new Quill('#londDescription', {
-                modules: {
-                    toolbar: toolbarOptions
-                },
-                theme: 'snow'
-            });
-            quill.on('text-change', function () {
-                var htmlContent = quill.root.innerHTML;
-                $('#long').html(htmlContent);
-            });
-            var toolbarInlineOptions = [
-                ['bold', 'italic', 'underline'],
-                [{ 'header': 1 }, { 'header': 2 }, 'blockquote'],
-                ['link', 'image', 'code-block'],
-            ];
-        });
-    </script>
+    <script src="{!! asset('web/js/product/create.js') !!}"></script>
 @endsection

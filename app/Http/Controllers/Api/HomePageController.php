@@ -21,7 +21,7 @@ class HomePageController extends BaseController
         try {
             $categories = Category::where('status', 'active')
                 ->orderBy($request->order_by ?? 'title', $request->order_type ?? 'desc')
-                ->select('id', 'title', 'picture');
+                ->select('id', 'title', 'picture')->get();
 
             return $this->sendResponse($categories, 'Here is the list of categories.', 200);
         } catch (Exception $e) {
@@ -35,10 +35,11 @@ class HomePageController extends BaseController
     public function brands(Request $request)
     {
         try {
-            $brands = Brand::where('status', 'active')
-                ->orderBy($request->order_by ?? 'title', $request->order_type ?? 'desc')
-                ->select('id', 'title', 'picture');
-
+            $brands = Brand::where('status', 'active')->orderBy($request->order_by ?? 'title', $request->order_type ?? 'desc');
+            if($request->has('category_id')) {
+                $brands->where('category_id', $request->category_id);
+            }
+            $brands = $brands->select('id', 'title', 'picture')->get();
             return $this->sendResponse($brands, 'Here is the list of brands.', 200);
         } catch (Exception $e) {
             DB::rollBack();

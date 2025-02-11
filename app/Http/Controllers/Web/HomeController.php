@@ -38,7 +38,7 @@ class HomeController extends Controller
             $product = Product::with('category', 'brand', 'colors', 'memories', 'gallery', 'description')
                 ->where('slug', $slug)
                 ->where(['status' => 'Published'])
-                ->select('id', 'title', 'picture', 'price', 'category_id', 'brand_id')
+                ->select('id', 'title', 'detail_page_title', 'picture', 'price', 'min_advance_price', 'category_id', 'brand_id')
                 ->first();
             if (is_null($product)) {
                 return abort(404);
@@ -46,8 +46,12 @@ class HomeController extends Controller
 
             $product_deatil = [];
 
+            $product_deatil['id'] = $product->id;
             $product_deatil['title'] = $product->title;
+            $product_deatil['detail_page_title'] = $product->detail_page_title;
             $product_deatil['price'] = $product->formatted_price;
+            $product_deatil['variation_price'] = $product->price;
+            $product_deatil['min_advance_price'] = $product->min_advance_price;
             $product_deatil['picture'] = $product->product_picture;
             $product_deatil['category'] = $product->category;
             if (!is_null($product->category)) {
@@ -59,18 +63,33 @@ class HomeController extends Controller
             }
 
             if ($product->colors->isNotEmpty()) {
-                foreach ($product->colors as $clr) {
-                    if (!is_null($clr->color)) {
-                        $product_deatil['colors'][] = array('id' => $clr->color_id, 'title' => $clr->color->title);
+                $first = true;
+                foreach ($product->colors as $item) {
+                    if (!is_null($item->color)) {
+                        if ($first) {
+                            $product_deatil['colors'][] = array('id' => $item->color_id, 'title' => $item->color->title, 'active' => true);
+                            $first = false;
+                        } 
+                        else {
+                            $product_deatil['colors'][] = array('id' => $item->color_id, 'title' => $item->color->title, 'active' => false);
+                        }
                     }
                 }
             } else {
                 $product_deatil['colors'] = [];
             }
             if ($product->memories->isNotEmpty()) {
-                foreach ($product->memories as $mem) {
-                    if (!is_null($mem->memory)) {
-                        $product_deatil['memories'][] = array('id' => $mem->memory_id, 'title' => $mem->memory->title);
+                $first = true;
+                foreach ($product->memories as $item) {
+                    if (!is_null($item->memory)) {
+                        if ($first) {
+                            $product_deatil['memories'][] = array('id' => $item->memory_id, 'title' => $item->memory->title, 'variation_price' => $item->price, 'active' => true);
+                            $first = false;
+                            $product_deatil['variation_price'] = $item->price;
+                        } 
+                        else {
+                            $product_deatil['memories'][] = array('id' => $item->memory_id, 'title' => $item->memory->title,  'variation_price' => $item->price, 'active' => false);
+                        }
                     }
                 }
             } else {
@@ -79,9 +98,7 @@ class HomeController extends Controller
 
             if ($product->gallery->isNotEmpty()) {
                 foreach ($product->gallery as $img) {
-                    if (!is_null($mem->memory)) {
-                        $product_deatil['gallery'][] = array('id' => $img->id, 'url' => $img->url);
-                    }
+                    $product_deatil['gallery'][] = array('id' => $img->id, 'url' => $img->url);
                 }
             } else {
                 $product_deatil['gallery'] = [];
@@ -94,7 +111,8 @@ class HomeController extends Controller
                 $product_deatil['long_description'] = $product->description->long;
             }
             $product = $product_deatil;
-            $products = Product::where(['status' => 'Published'])->select('id', 'title', 'slug', 'price', 'picture')->get();
+            
+            $products = Product::where(['status' => 'Published'])->select('id', 'title', 'slug', 'price', 'picture','brand_id')->get();
             return view('website.home.detail', compact('product', 'products'));
         } catch (Exception $e) {
             return abort(505, $e->getMessage());
