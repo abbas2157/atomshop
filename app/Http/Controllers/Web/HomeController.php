@@ -38,7 +38,7 @@ class HomeController extends Controller
             $product = Product::with('category', 'brand', 'colors', 'memories', 'gallery', 'description')
                 ->where('slug', $slug)
                 ->where(['status' => 'Published'])
-                ->select('id', 'title', 'picture', 'price', 'category_id', 'brand_id')
+                ->select('id', 'title', 'picture', 'price','min_advance_price' , 'category_id', 'brand_id')
                 ->first();
             if (is_null($product)) {
                 return abort(404);
@@ -50,6 +50,7 @@ class HomeController extends Controller
             $product_deatil['title'] = $product->title;
             $product_deatil['price'] = $product->formatted_price;
             $product_deatil['variation_price'] = $product->formatted_price;
+            $product_deatil['min_advance_price'] = $product->min_advance_price;
             $product_deatil['picture'] = $product->product_picture;
             $product_deatil['category'] = $product->category;
             if (!is_null($product->category)) {
@@ -81,12 +82,12 @@ class HomeController extends Controller
                 foreach ($product->memories as $item) {
                     if (!is_null($item->memory)) {
                         if ($first) {
-                            $product_deatil['memories'][] = array('id' => $item->memory_id, 'title' => $item->memory->title, 'active' => true);
+                            $product_deatil['memories'][] = array('id' => $item->memory_id, 'title' => $item->memory->title, 'variation_price' => $item->price, 'active' => true);
                             $first = false;
-                            $product_deatil['variation_price'] = $item->formatted_price;
+                            $product_deatil['variation_price'] = $item->price;
                         } 
                         else {
-                            $product_deatil['memories'][] = array('id' => $item->memory_id, 'title' => $item->memory->title, 'active' => false);
+                            $product_deatil['memories'][] = array('id' => $item->memory_id, 'title' => $item->memory->title,  'variation_price' => $item->price, 'active' => false);
                         }
                     }
                 }

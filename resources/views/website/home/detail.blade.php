@@ -47,14 +47,14 @@
                         <div><b>Category : </b>{{ $product['category']['title'] ?? '' }}</div>
                         <div><b>Brand : </b>{{ $product['brand']['title'] ?? '' }}</div>
                     </div>
-                    <h3 class="font-weight-semi-bold mb-2">Rs. <span class="variation-price">{{ $product['variation_price'] ?? '' }}</span></h3>
+                    <h3 class="font-weight-semi-bold mb-2">Rs. <span class="variation-price">{{ number_format($product['variation_price']) }}</span></h3>
                     <p class="mb-2">{!! nl2br($product['short_description']) ?? '' !!}</p>
                     @if(!empty($product['memories']))
                     <div class="d-flex mb-3">
                         <strong class="text-dark mr-3">Choose Memory :</strong>
                         @foreach ($product['memories'] as $item)
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" {{ $item['active'] ? 'checked' : '' }} id="size-{{ $item['id'] ?? '' }}" name="size">
+                                <input type="radio" class="custom-control-input variation-memory" value="{{ $item['id'] ?? '' }}" {{ $item['active'] ? 'checked' : '' }} id="size-{{ $item['id'] ?? '' }}" name="memory">
                                 <label class="custom-control-label" for="size-{{ $item['id'] ?? '' }}">{{ $item['title'] ?? '' }}</label>
                             </div>
                         @endforeach
@@ -88,27 +88,27 @@
                         <button class="btn btn-primary px-3 add-to-cart" data-id="{{ $product['id'] ?? '' }}" ><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
                     </div>
                 </div>
+                
             </div>
         </div>
         <div class="row px-xl-5">
             <div class="col">
                 <div class="bg-light p-30">
                     <div class="nav nav-tabs mb-4">
-                        <a class="nav-item nav-link text-dark active" data-toggle="tab"
+                        <a class="nav-item nav-link text-dark " data-toggle="tab"
                             href="#tab-pane-1">Description</a>
-                        <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-3">Reviews (0)</a>
+                        <a class="nav-item nav-link text-dark active" data-toggle="tab" href="#tab-pane-3">Installment Calculator</a>
                     </div>
                     <div class="tab-content">
-                        <div class="tab-pane fade show active" id="tab-pane-1">
+                        <div class="tab-pane fade " id="tab-pane-1">
                             <h4 class="mb-3">Product Description</h4>
                             <p>{!! $product['long_description'] ?? '' !!}</p>
                         </div>
-                        <div class="tab-pane fade" id="tab-pane-3">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <h4 class="mb-4">Coming Soon</h4>
-                                </div>
-                            </div>
+                        <div class="tab-pane fade show active" id="tab-pane-3">
+                            @php
+                                $calculator = App\Models\InstallmentCalculator::first();
+                            @endphp
+                            @include('website.home.partials.installment')
                         </div>
                     </div>
                 </div>
@@ -127,4 +127,18 @@
         </div>
     </div>
     <!-- Products End -->
+@endsection
+@section('js')
+<script>
+    @if(is_null($calculator)) 
+        var total_tenure_percentage = 4;
+    @else 
+        var total_tenure_percentage = parseInt('{{ $calculator->per_month_percentage?? 0 }}');
+    @endif
+    var memories = [];
+    @if(!empty($product['memories']))
+        memories =  JSON.parse('{{ json_encode($product['memories']) }}'.replace(/&quot;/g, '"'));
+    @endif
+</script>
+<script src="{!! asset('web/js/shop.js') !!}"></script>
 @endsection
