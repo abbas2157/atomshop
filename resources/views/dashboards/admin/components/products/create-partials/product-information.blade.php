@@ -1,18 +1,18 @@
 <section>
     <p class="mg-b-20">Try the keyboard navigation by clicking arrow left or right!</p>
     <div class="row row-sm">
-        <div class="col-lg-9 mt-2">
-            <label class="form-control-label">Product Title <span class="tx-danger">*</span></label>
+        <div class="col-lg-4 mt-2">
+            <label class="form-control-label">Product Title (Listing Page) <span class="tx-danger">*</span></label>
             <input type="text" id="title" class="form-control" name="title" placeholder="Enter product title" value="{{ old('title') ?? 'iPhone 13 Pro Max LLA Model' }}" required>
             @if ($errors->has('title'))
                 <span class="text-danger text-left">{{ $errors->first('title') }}</span>
             @endif
         </div>
-        <div class="col-lg-3 mt-2">
-            <label class="form-control-label">Product Price <span class="tx-danger">*</span></label>
-            <input type="number" id="price" class="form-control" name="price" placeholder="Enter product price" value="{{ old('price') ?? 200000 }}" required>
-            @if ($errors->has('title'))
-                <span class="text-danger text-left">{{ $errors->first('title') }}</span>
+        <div class="col-lg-8 mt-2">
+            <label class="form-control-label">Product Title (Detail Page) </label>
+            <input type="text" id="detail_page_title" class="form-control" name="detail_page_title" placeholder="Enter product title" value="{{ old('detail_page_title') ?? '' }}" required>
+            @if ($errors->has('detail_page_title'))
+                <span class="text-danger text-left">{{ $errors->first('detail_page_title') }}</span>
             @endif
         </div>
     </div>
@@ -46,9 +46,9 @@
             @endif
         </div>
     </div>
-    <div class="row row-sm">
+    <div class="row row-sm color-div">
         <div class="col-md mt-2">
-            <label class="form-control-label">Color <span class="tx-danger">*</label>
+            <label class="form-control-label">Colors </label>
             <select id="color_id" class="form-control select2" name="colors[]" multiple="multiple">
                 {{-- <option value="" selected disabled>Select color</option> --}}
                 @foreach ($colors as $color)
@@ -59,20 +59,6 @@
             </select>
             @if ($errors->has('colors'))
                 <span class="text-danger text-left">{{ $errors->first('colors') }}</span>
-            @endif
-        </div>
-        <div class="col-md mt-2">
-            <label class="form-control-label">Memory <span class="tx-danger">*</label>
-            <select id="memory_id" class="form-control select2" multiple="multiple" name="memory[]">
-                {{-- <option value="" selected disabled>Select memory</option> --}}
-                @foreach ($memories as $memory)
-                    <option value="{{ $memory->id ?? '' }}" selected {{ old('memory') == $memory->id ? 'selected' : '' }}>
-                        {{ $memory->title ?? '' }}
-                    </option>
-                @endforeach
-            </select>
-            @if ($errors->has('memory'))
-                <span class="text-danger text-left">{{ $errors->first('memory') }}</span>
             @endif
         </div>
     </div>

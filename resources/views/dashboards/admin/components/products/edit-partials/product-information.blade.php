@@ -1,6 +1,4 @@
 
-<button type="button" class="btn btn-primary update-product" style="float: right">Update Product</button>
-
 <section>
     <p class="mg-b-20">Try the keyboard navigation by clicking arrow left or right!</p>
 

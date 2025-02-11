@@ -9690,7 +9690,6 @@ a.text-dark:hover, a.text-dark:focus {
 .product-item-price {
   font-size: 13px;
   color: #000;
-  font-weight: 500;
 }
 .table.table-borderless thead tr,
 .table.table-borderless tbody tr:not(:last-child) {

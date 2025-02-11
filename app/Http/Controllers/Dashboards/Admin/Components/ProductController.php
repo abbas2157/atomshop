@@ -41,14 +41,13 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = Category::orderBy('id', 'desc')->get();
+        $categories = Category::orderBy('id', 'asc')->get();
         $brands = [];
         if ($categories->isNotEmpty()) {
-            $brands = Brand::orderBy('id', 'desc')->where('status', 'active')->where('category_id', $categories[0]->id)->get();
+            $brands = Brand::orderBy('id', 'asc')->where('status', 'active')->where('category_id', $categories[0]->id)->get();
         }
-        $brands = Brand::orderBy('id', 'desc')->where('status', 'active')->get();
-        $colors = Color::orderBy('id', 'desc')->where('status', 'active')->get();
-        $memories = Memory::orderBy('id', 'desc')->where('status', 'active')->get();
+        $colors = Color::orderBy('id', 'asc')->where('status', 'active')->get();
+        $memories = Memory::orderBy('id', 'asc')->where('status', 'active')->get();
 
         return view('dashboards.admin.components.products.create', compact('categories', 'brands', 'colors', 'memories'));
     }
@@ -113,24 +112,27 @@ class ProductController extends Controller
                     $color->save();
                 }
             }
-
-            if (!empty($request->memory)) {
-                $memories = $request->memory;
-                for ($i = 0; $i < count($memories); $i++) {
-                    $memory = new ProductMemory;
-                    $memory->product_id = $product->id;
-                    $memory->memory_id = $memories[$i];
-                    $memory->save();
+            if($request->category_id == 1) {
+                if (!empty($request->memories)) {
+                    if(isset($request->memories['name'])) {
+                        $memories = $request->memories;
+                        for ($i = 0; $i < count($memories['name']); $i++) {
+                            $memory = new ProductMemory;
+                            $memory->product_id = $product->id;
+                            $memory->memory_id = $memories['name'][$i];
+                            $memory->price = $memories['price'][$i];
+                            $memory->save();
+                        }
+                    }
                 }
             }
-
             DB::commit();
 
             $response = ['success' => true, 'message' => 'Product Published Successfully'];
             return response()->json($response);
         } catch (\Exception $e) {
             DB::rollBack();
-            $response = ['success' => true, 'message' => $e->getMessage()];
+            $response = ['success' => false, 'message' => $e->getMessage()];
             return response()->json($response);
         }
     }

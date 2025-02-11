@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('uuid')->nullable();
             $table->string('pr_number')->nullable()->index();
             $table->string('title', 255);
+            $table->string('detail_page_title', 500);
             $table->string('slug', 255)->nullable();
             $table->integer('price')->nullable();
             $table->string('picture')->nullable();
@@ -52,6 +53,7 @@ return new class extends Migration
             $table->id();
             $table->integer('memory_id')->nullable();
             $table->integer('product_id')->nullable();
+            $table->integer('price')->nullable();
         });
     }
 

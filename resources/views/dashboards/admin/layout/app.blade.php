@@ -27,6 +27,7 @@
         <script type="text/javascript">
             var APP_URL = {!! json_encode(url('/')) !!}
             var ASSET_URL = {!! json_encode(asset('/')) !!}
+            var API_URL = {!! json_encode(url('api')) !!}
         </script>
         <script src="{!! asset('assets/lib/jquery/jquery.min.js') !!}"></script>
         <script src="{!! asset('assets/lib/bootstrap/js/bootstrap.bundle.min.js') !!}"></script>

@@ -1,0 +1,28 @@
+<section>
+    <p>The next and previous buttons help you to navigate through your content.</p>
+    <div class="row row-sm">
+        <div class="col-lg-6 mt-2">
+            <label class="form-control-label">Product Price (Default) <span class="tx-danger">*</span></label>
+            <input type="number" id="price" class="form-control" name="price" placeholder="Enter product price" value="{{ old('price') ?? 0 }}" required>
+            @if ($errors->has('price'))
+                <span class="text-danger text-left">{{ $errors->first('price') }}</span>
+            @endif
+        </div>
+    </div>
+    <div class="mt-3 memory-price">
+        @foreach ($memories as $memory)
+            <div class="row row-sm">
+                <div class="col-lg-6 mt-2">
+                    <label class="form-control-label">Variation Price ({{ $memory->title ?? '' }})</label>
+                    <input type="number" class="form-control" name="memories[price][]" placeholder="Enter product price" value="0">
+                </div>
+                <div class="col-lg-3 mt-2 pt-4">
+                    <label class="ckbox mt-1">
+                        <input type="checkbox" name="memories[name][]" value="{{ $memory->id ?? '' }}"><span> {{ $memory->title ?? '' }}</span>
+                    </label>
+                </div>
+            </div>
+        @endforeach
+    </div>
+    
+</section>

@@ -145,14 +145,13 @@
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
             success: function(response) {
                 if (response.success) {
-                    alert(response.message);
                     getCartCount();
                 } else {
-                    alert("Error: " + response.message);
+                    
                 }
             },
             error: function() {
-                alert("Something went wrong! Please try again.");
+                
             }
         });
     });
