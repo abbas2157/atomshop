@@ -49,54 +49,58 @@ class WebsiteController extends Controller
 
     public function feature_products_sync()
     {
-        $website = WebsiteSetup::first();
-
-        $feature_products_list = Product::where(['status' => 'Published', 'feature' => '1'])->get();
-        $website_feature_products = [];
+        // Initailize Feature Product (Start)
         $feature_products = [];
-        if(!empty($website->feature_products) && !empty(json_decode($website->feature_products))) {
-            $website_feature_products = array_column(json_decode($website->feature_products), 'id');
-            $feature_products = json_decode($website->feature_products);
+        $website_feature_products_ids = [];
+        $website = WebsiteSetup::first();
+        if(!empty($website->feature_products) && !empty(json_decode($website->feature_products,true))) {
+            $website_feature_products_ids = array_column(json_decode($website->feature_products,true), 'id');
+            $feature_products = json_decode($website->feature_products,true);
         }
-        $feature_products_list_ids = Slider::where('status', 'active')->pluck('id');
+        // Initailize Feature Product (end)
+
+        // Remove deleted one from feature products (Start)
+        $feature_products_list_ids = Product::where(['status' => 'Published', 'feature' => '1'])->pluck('id');
         if($feature_products_list_ids->isNotEmpty()){
             $feature_products_list_ids = $feature_products_list_ids->toArray();
-            foreach($feature_products as $key => $slider) { 
-                if(!in_array($slider->id, $feature_products_list_ids)) {
+            foreach($feature_products as $key => $product) { 
+                if(!in_array($product['id'], $feature_products_list_ids)) {
                     unset($feature_products[$key]);
                 }
             }
         }
+        // Remove deleted one from feature products (end)
+        // Update feature products in Website_Setup Table (Start)
+        $feature_products_list = Product::where(['status' => 'Published', 'feature' => '1'])->get();
         foreach($feature_products_list as $product) {
-            if(!in_array($product->id, $website_feature_products)) {
-                $feature_products[] = array('id' => $product->id, 'title' => $product->title, 'slug' => $product->slug, 'price' => $product->formatted_price, 'picture' => $product->product_picture, 'category' => $product->category->title, 'brand' => $product->brand->title, 'brand_img' => $product->brand->brand_picture);
+            if(!in_array($product->id, $website_feature_products_ids)) {
+                $feature_products[] = array(
+                    'id' => $product->id,
+                    'title' => $product->title,
+                    'slug' => $product->slug,
+                    'price' => $product->formatted_advance_price,
+                    'picture' => $product->product_picture,
+                    'category' => $product->category->title,
+                    'brand' => $product->brand->title
+                );
             }
             else {
                 $index = array_search($product->id, array_column($feature_products, 'id'));
-                $feature_products[$index] = array('id' => $product->id, 'title' => $product->title, 'slug' => $product->slug, 'price' => $product->formatted_price, 'picture' => $product->product_picture, 'category' => $product->category->title, 'brand' => $product->brand->title, 'brand_img' => $product->brand->brand_picture);
+                $feature_products[$index] = array(
+                    'id' => $product->id,
+                    'title' => $product->title,
+                    'slug' => $product->slug,
+                    'price' => $product->formatted_advance_price,
+                    'picture' => $product->product_picture,
+                    'category' => $product->category->title,
+                    'brand' => $product->brand->title
+                );
             }
         }
-        $categories = json_decode($website->categories);
-        foreach($categories as &$category) {
-            $product_count = Product::where('category_id', $category->id)->where('status', 'Published')->count();
-            $category->pr_count = $product_count;
-            $category_model = Category::find($category->id);
-            $category_model->pr_count = $product_count;
-            $category_model->save();
-        }
-        $brands = json_decode($website->brands);
-        foreach($brands as &$brand) {
-            $product_count = Product::where('brand_id', $brand->id)->where('status', 'Published')->count();
-            $brand->pr_count = $product_count;
-            $brand_model = Brand::find($brand->id);
-            $brand_model->pr_count = $product_count;
-            $brand_model->save();
-        }
-        $website->categories = json_encode($categories);
-        $website->brands = json_encode($brands);
-        $website->feature_products     = json_encode($feature_products);
+        $website->feature_products = json_encode($feature_products);
         $website->updated_by = Auth::user()->id;
         $website->save();
+        // Update feature products in Website_Setup Table (end)
 
         $validator['success'] = 'Feature Products Sync successfully';
         return back()->withErrors($validator);
@@ -151,7 +155,7 @@ class WebsiteController extends Controller
             $website_categories = array_column(json_decode($website->categories), 'id');
             $categories = json_decode($website->categories);
         }
-        $category_list_ids = Slider::where('status', 'active')->pluck('id');
+        $category_list_ids = Category::where('status', 'active')->pluck('id');
         if($category_list_ids->isNotEmpty()){
             $category_list_ids = $category_list_ids->toArray();
             foreach($categories as $key => $slider) { 
@@ -229,7 +233,7 @@ class WebsiteController extends Controller
             $website_brands = array_column(json_decode($website->brands), 'id');
             $brands = json_decode($website->brands);
         }
-        $website_brands_ids = Slider::where('status', 'active')->pluck('id');
+        $website_brands_ids = Brand::where('status', 'active')->pluck('id');
         if($website_brands_ids->isNotEmpty()){
             $website_brands_ids = $website_brands_ids->toArray();
             foreach($brands as $key => $slider) { 

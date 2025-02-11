@@ -63,6 +63,7 @@ class ProductController extends Controller
             $product = new Product;
             $product->uuid  = Str::uuid();
             $product->title  = $request->title;
+            $product->detail_page_title  = $request->detail_page_title;
             $product->slug  = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->title)));
             $product->category_id = $request->category_id;
             $product->brand_id = $request->brand_id;

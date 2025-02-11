@@ -49,6 +49,7 @@ class HomeController extends Controller
             $product_deatil['id'] = $product->id;
             $product_deatil['title'] = $product->title;
             $product_deatil['price'] = $product->formatted_price;
+            $product_deatil['variation_price'] = $product->formatted_price;
             $product_deatil['picture'] = $product->product_picture;
             $product_deatil['category'] = $product->category;
             if (!is_null($product->category)) {
@@ -60,18 +61,33 @@ class HomeController extends Controller
             }
 
             if ($product->colors->isNotEmpty()) {
-                foreach ($product->colors as $clr) {
-                    if (!is_null($clr->color)) {
-                        $product_deatil['colors'][] = array('id' => $clr->color_id, 'title' => $clr->color->title);
+                $first = true;
+                foreach ($product->colors as $item) {
+                    if (!is_null($item->color)) {
+                        if ($first) {
+                            $product_deatil['colors'][] = array('id' => $item->color_id, 'title' => $item->color->title, 'active' => true);
+                            $first = false;
+                        } 
+                        else {
+                            $product_deatil['colors'][] = array('id' => $item->color_id, 'title' => $item->color->title, 'active' => false);
+                        }
                     }
                 }
             } else {
                 $product_deatil['colors'] = [];
             }
             if ($product->memories->isNotEmpty()) {
-                foreach ($product->memories as $mem) {
-                    if (!is_null($mem->memory)) {
-                        $product_deatil['memories'][] = array('id' => $mem->memory_id, 'title' => $mem->memory->title);
+                $first = true;
+                foreach ($product->memories as $item) {
+                    if (!is_null($item->memory)) {
+                        if ($first) {
+                            $product_deatil['memories'][] = array('id' => $item->memory_id, 'title' => $item->memory->title, 'active' => true);
+                            $first = false;
+                            $product_deatil['variation_price'] = $item->formatted_price;
+                        } 
+                        else {
+                            $product_deatil['memories'][] = array('id' => $item->memory_id, 'title' => $item->memory->title, 'active' => false);
+                        }
                     }
                 }
             } else {
@@ -95,6 +111,7 @@ class HomeController extends Controller
                 $product_deatil['long_description'] = $product->description->long;
             }
             $product = $product_deatil;
+            
             $products = Product::where(['status' => 'Published'])->select('id', 'title', 'slug', 'price', 'picture','brand_id')->get();
             return view('website.home.detail', compact('product', 'products'));
         } catch (Exception $e) {

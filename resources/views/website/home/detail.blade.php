@@ -47,14 +47,14 @@
                         <div><b>Category : </b>{{ $product['category']['title'] ?? '' }}</div>
                         <div><b>Brand : </b>{{ $product['brand']['title'] ?? '' }}</div>
                     </div>
-                    <h3 class="font-weight-semi-bold mb-2">Rs. {{ $product['price'] ?? '' }}</h3>
+                    <h3 class="font-weight-semi-bold mb-2">Rs. <span class="variation-price">{{ $product['variation_price'] ?? '' }}</span></h3>
                     <p class="mb-2">{!! nl2br($product['short_description']) ?? '' !!}</p>
                     @if(!empty($product['memories']))
                     <div class="d-flex mb-3">
                         <strong class="text-dark mr-3">Choose Memory :</strong>
                         @foreach ($product['memories'] as $item)
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="size-{{ $item['id'] ?? '' }}" name="size">
+                                <input type="radio" class="custom-control-input" {{ $item['active'] ? 'checked' : '' }} id="size-{{ $item['id'] ?? '' }}" name="size">
                                 <label class="custom-control-label" for="size-{{ $item['id'] ?? '' }}">{{ $item['title'] ?? '' }}</label>
                             </div>
                         @endforeach
@@ -65,7 +65,7 @@
                         <strong class="text-dark mr-3">Choose Color :</strong>
                         @foreach ($product['colors'] as $item)
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="color-{{ $item['id'] ?? '' }}" name="color">
+                                <input type="radio" class="custom-control-input" {{ $item['active'] ? 'checked' : '' }} id="color-{{ $item['id'] ?? '' }}" name="color">
                                 <label class="custom-control-label" for="color-{{ $item['id'] ?? '' }}">{{ $item['title'] ?? '' }}</label>
                             </div>
                         @endforeach

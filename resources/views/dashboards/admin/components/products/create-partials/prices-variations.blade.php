@@ -8,6 +8,13 @@
                 <span class="text-danger text-left">{{ $errors->first('price') }}</span>
             @endif
         </div>
+        <div class="col-lg-6 mt-2">
+            <label class="form-control-label">Minimum Advance Price <span class="tx-danger">*</span></label>
+            <input type="number" id="min_advance_price" class="form-control" name="min_advance_price" placeholder="Minimum Advance Price" value="{{ old('min_advance_price') ?? 0 }}">
+            @if ($errors->has('min_advance_price'))
+                <span class="text-danger text-left">{{ $errors->first('min_advance_price') }}</span>
+            @endif
+        </div>
     </div>
     <div class="mt-3 memory-price">
         @foreach ($memories as $memory)

@@ -21,10 +21,10 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-8 col-md-8 col-sm-8 pb-1">
-                                    <div class="product-item-price ">Advance : <b>40,000</b></div>
+                                    <div class="product-item-price ">Advance : <b>{{ $item->price ?? '00.00' }}</b></div>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-4 text-left">
-                                    <div class="product-item-price ">{{ $item->brand ?? '' }}</div>
+                                    <div class="product-item-price "><b>{{ $item->brand ?? '' }}</b></div>
                                 </div>
                             </div>
                         </div>
