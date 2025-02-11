@@ -15,16 +15,16 @@
                         <div class="p-2">
                             <a class="text-decoration-none product-item-title" href="{{ route('website.product.detail', ['slug' => $item->slug]) }}">{{ $item->title }}</a>                            
                             <div class="row">
-                                <div class="col-lg-8 col-md-8 col-sm-8 pb-1">
-                                    <div class="product-item-price ">On Installment</div>
+                                <div class="col-lg-8 col-md-8 col-sm-8 py-1">
+                                    <div class="product-item-installment">On Installment</div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-7 col-md-7 col-sm-7 pb-1">
-                                    <div class="product-item-price ">Advance : <b>{{ $item->price ?? '00.00' }}</b></div>
+                                <div class="col-lg-8 col-md-8 col-sm-8 pb-1">
+                                    <div class="product-item-price">Advance : <b>{{ $item->price ?? '00.00' }}</b></div>
                                 </div>
-                                <div class="col-lg-5 col-md-5 col-sm-5 text-left">
-                                    <div class="product-item-price "><b>{{ $item->brand ?? '' }}</b></div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 text-left">
+                                    <div class="product-item-brand "><b>{{ $item->brand ?? '' }}</b></div>
                                 </div>
                             </div>
                         </div>
