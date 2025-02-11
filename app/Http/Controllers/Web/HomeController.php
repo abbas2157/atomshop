@@ -48,6 +48,7 @@ class HomeController extends Controller
 
             $product_deatil['id'] = $product->id;
             $product_deatil['title'] = $product->title;
+            $product_deatil['detail_page_title'] = $product->detail_page_title;
             $product_deatil['price'] = $product->formatted_price;
             $product_deatil['variation_price'] = $product->price;
             $product_deatil['min_advance_price'] = $product->min_advance_price;
