@@ -97,9 +97,7 @@ class HomeController extends Controller
 
             if ($product->gallery->isNotEmpty()) {
                 foreach ($product->gallery as $img) {
-                    if (!is_null($mem->memory)) {
-                        $product_deatil['gallery'][] = array('id' => $img->id, 'url' => $img->url);
-                    }
+                    $product_deatil['gallery'][] = array('id' => $img->id, 'url' => $img->url);
                 }
             } else {
                 $product_deatil['gallery'] = [];
