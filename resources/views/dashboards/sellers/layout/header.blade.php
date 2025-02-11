@@ -13,6 +13,18 @@
                 <li class="nav-item {{ (request()->segment(1) == 'admin' && (request()->segment(2) == '')) ? 'active show' : '' }}">
                     <a href="{{ route('admin') }}" class="nav-link"><i class="typcn typcn-chart-area-outline"></i> Dashboard</a>
                 </li>
+                <li class="nav-item {{ (request()->segment(1) == 'seller' && (in_array(request()->segment(2), ['users', 'sellers', 'customers']))) ? 'active show' : '' }}">
+                    <a href="" class="nav-link with-sub"><i class="typcn typcn-group-outline"></i> Accounts</a>
+                    <div class="az-menu-sub">
+                        <div class="container">
+                            <div>
+                                <nav class="nav">
+                                    <a href="{{ route('seller.sellers.index') }}" class="nav-link">Sellers</a>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </li>
                 <li class="nav-item {{ (request()->segment(1) == 'admin' && (in_array(request()->segment(2), ['website','installment-calculator','sliders']))) ? 'active show' : '' }}">
                     <a href="" class="nav-link with-sub"><i class="typcn typcn-device-phone"></i>Web & App</a>
                     <div class="az-menu-sub">
