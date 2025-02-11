@@ -9619,7 +9619,6 @@ a.text-dark:hover, a.text-dark:focus {
   transition: .5s;
   border-radius: 7px;
   min-height: 300px;
-  max-height: 300px;
   background-color: #FFFFFF !important;
 }
 
