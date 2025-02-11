@@ -1,6 +1,6 @@
 @extends('dashboards.admin.layout.app')
 @section('title')
-    <title>Sliders - {{ env('APP_NAME') ?? '' }}</title> 
+    <title>Sliders - {{ env('APP_NAME') ?? '' }}</title>
 @endsection
 @section('content')
     <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
@@ -30,7 +30,7 @@
                             <textarea class="form-control" name="tagline" rows="5"></textarea>
                             @if ($errors->has('tagline'))
                                 <span class="text-danger text-left">{{ $errors->first('tagline') }}</span>
-                            @endif     
+                            @endif
                         </div>
                     </div>
                     <div class="row row-sm">
@@ -43,7 +43,7 @@
                             </select>
                             @if ($errors->has('action'))
                                 <span class="text-danger text-left">{{ $errors->first('action') }}</span>
-                            @endif 
+                            @endif
                         </div>
                         <div class="col-lg mt-2">
                             <label>Picture <span class="text-danger">*</span></label>
@@ -53,9 +53,9 @@
                             </div>
                             @if ($errors->has('picture'))
                                 <span class="text-danger text-left">{{ $errors->first('picture') }}</span>
-                            @endif  
+                            @endif
                         </div>
-                        
+
                     </div>
                     <div class="row row-sm">
                         <div class="col-lg mt-2">
@@ -65,7 +65,13 @@
                                 <option value="inactive">Inactive</option>
                             </select>
                         </div>
-                        <div class="col-lg mt-2"></div>
+                        <div class="col-lg mt-2">
+                            <label>Select portal <span class="text-danger">*</span></label>
+                            <select class="form-control" name="portal">
+                                <option value="web">Web</option>
+                                <option value="app">App</option>
+                            </select>
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-success mt-3">Create Slider</button>
                 </form>
