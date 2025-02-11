@@ -14,4 +14,6 @@ Route::group(['middleware' => ['auth']], function() {
             });
         });
     });
+    Route::resource('sellers', App\Http\Controllers\Dashboards\Sellers\SellersController::class,['as' => 'seller']);
+    
 });
