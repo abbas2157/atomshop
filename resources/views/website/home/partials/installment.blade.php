@@ -7,8 +7,8 @@
                     <tr>
                         <th>Minimum Advance Amount</th>
                         <th>Installment Tenure (Months)</th>
-                        <th>Pr Month Percentage</th>
-                        <th>Product Price</th>
+                        <th>Monthly Amount Pecentage</th>
+                        <th>Total Deal Amount</th>
                         <th>Action</th>
                     </tr>
                 </thead>

@@ -41,7 +41,6 @@
     });
     function makeInstallments() {
         var memory_id = $('input[name="memory"]:checked').val();
-        var total = 0;
         memories.forEach(function(item) {
             if(item.id == memory_id){
                 total = parseInt(item.variation_price);
@@ -54,7 +53,7 @@
         var total_percentage_amount = (total_tenure_percentage / 100) * remaining_amount;
         var total_amount_with_percentage = total_percentage_amount + remaining_amount;
         var per_installment_price   =  (total_amount_with_percentage / tenure_months).toFixed(0);
-        per_installment_price = per_installment_price.toLocaleString()
+        per_installment_price = per_installment_price.toLocaleString();
         var months = ['1st','2nd','3rd','4th','5th','6th','7th','8th','9th','10th','11th','12th'];
 
         $('#installment-rows').html('');

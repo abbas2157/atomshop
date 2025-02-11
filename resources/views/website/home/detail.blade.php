@@ -130,6 +130,8 @@
 @endsection
 @section('js')
 <script>
+    var total = parseInt('{{ $product['variation_price'] ?? 0 }}');
+    console.log(total);
     @if(is_null($calculator)) 
         var total_tenure_percentage = 4;
     @else 
