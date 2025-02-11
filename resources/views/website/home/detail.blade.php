@@ -120,7 +120,7 @@
         <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">You May Also Like</span></h2>
         <div class="row px-xl-5">
             @foreach($products as $item)
-                <div class="col-lg-2 col-md-4 col-sm-6 pb-1">
+                <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
                     @include('website.partials.single-item')
                 </div>
             @endforeach

@@ -61,7 +61,7 @@
                         <p>No products found within this range.</p>
                     @endif
                     @foreach ($products as $item)
-                        <div class="col-lg-3 col-md-6 col-sm-6 pb-1">
+                        <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
                             @include('website.partials.single-item')
                         </div>
                     @endforeach
