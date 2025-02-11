@@ -16,7 +16,7 @@
                             <a class="text-decoration-none product-item-title" href="{{ route('website.product.detail', ['slug' => $item->slug]) }}">{{ $item->title }}</a>                            
                             <div class="row">
                                 <div class="col-lg-8 col-md-8 col-sm-8 py-1">
-                                    <div class="product-item-installment">On Installment</div>
+                                    <div class="product-item-installment">Available On Installment</div>
                                 </div>
                             </div>
                             <div class="row">
