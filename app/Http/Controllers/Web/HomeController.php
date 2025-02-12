@@ -112,7 +112,7 @@ class HomeController extends Controller
             }
             $product = $product_deatil;
             
-            $products = Product::where(['status' => 'Published'])->select('id', 'title', 'slug', 'price', 'picture','brand_id')->get();
+            $products = Product::where(['status' => 'Published'])->select('id', 'title', 'slug', 'price', 'min_advance_price', 'picture','brand_id')->get();
             return view('website.home.detail', compact('product', 'products'));
         } catch (Exception $e) {
             return abort(505, $e->getMessage());

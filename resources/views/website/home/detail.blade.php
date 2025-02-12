@@ -52,7 +52,7 @@
                     <p class="mb-2">{!! nl2br($product['short_description']) ?? '' !!}</p>
                     @if(!empty($product['memories']))
                     <div class="d-flex mb-3">
-                        <strong class="text-dark mr-3">Choose Memory :</strong>
+                        <strong class="text-dark mr-3">Choose Storage :</strong>
                         @foreach ($product['memories'] as $item)
                             <div class="custom-control custom-radio custom-control-inline">
                                 <input type="radio" class="custom-control-input variation-memory" value="{{ $item['id'] ?? '' }}" {{ $item['active'] ? 'checked' : '' }} id="size-{{ $item['id'] ?? '' }}" name="memory">
