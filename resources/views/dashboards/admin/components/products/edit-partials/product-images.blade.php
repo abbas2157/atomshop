@@ -13,7 +13,7 @@
             @if ($product->picture)
                 <div class="row">
                     <div class="col-md-6 mt-2">
-                        <img src="{{ asset('images/categories/' . $product->picture) }}" alt=""
+                        <img src="{{ asset($product->picture) }}" alt=""
                             class="img-fluid">
                     </div>
                 </div>
