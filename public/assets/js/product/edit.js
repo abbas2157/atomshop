@@ -32,19 +32,35 @@ $(function () {
                         brandId.validate();
                         status.validate();
                     }
-                } else if (currentIndex === 1) {
-                    var short = $("#short_description").parsley();
+                } 
+                else if (currentIndex === 1) {
+                    var price = $('#price').parsley();
+                    var min_advance_price = $('#min_advance_price').parsley();
+                    if (price.isValid() && min_advance_price.isValid()) {
+                        return true;
+                    } 
+                    else {
+                        price.validate();
+                        min_advance_price.validate();
+                    }
+                }
+                else if (currentIndex === 2) {
+                    var short = $('#short_description').parsley();
                     if (short.isValid()) {
                         return true;
-                    } else {
+                    } 
+                    else {
                         short.validate();
                     }
-                } else if (currentIndex === 2) {
+                    
+                }
+                else if (currentIndex === 3) { 
                     return true;
-                    var picture = $("#picture").parsley();
+                    var picture = $('#picture').parsley();
                     if (picture.isValid()) {
                         return true;
-                    } else {
+                    } 
+                    else {
                         picture.validate();
                     }
                 }

@@ -11,7 +11,9 @@ $(function() {
             finish: "Publish Product",
         },
         onStepChanging: function(event, currentIndex, newIndex) {
+            
             if (currentIndex < newIndex) {
+                
                 if (currentIndex === 0) {
                     var title = $('#title').parsley();
                     var categoryId = $('#category_id').parsley();
@@ -36,6 +38,17 @@ $(function() {
                     }
                 } 
                 else if (currentIndex === 1) {
+                    var price = $('#price').parsley();
+                    var min_advance_price = $('#min_advance_price').parsley();
+                    if (price.isValid() && min_advance_price.isValid()) {
+                        return true;
+                    } 
+                    else {
+                        price.validate();
+                        min_advance_price.validate();
+                    }
+                }
+                else if (currentIndex === 2) {
                     var short = $('#short_description').parsley();
                     if (short.isValid()) {
                         return true;
@@ -43,8 +56,9 @@ $(function() {
                     else {
                         short.validate();
                     }
+                    
                 }
-                else if (currentIndex === 2) {
+                else if (currentIndex === 3) { 
                     return true;
                     var picture = $('#picture').parsley();
                     if (picture.isValid()) {

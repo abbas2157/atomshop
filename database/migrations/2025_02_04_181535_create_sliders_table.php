@@ -17,9 +17,8 @@ return new class extends Migration
             $table->text('tagline')->nullable();
             $table->string('picture')->nullable();
             $table->string('action')->nullable();
-            $table->enum('slider_type',['web','app'])->default('web');
             $table->enum('status',['active','inactive'])->default('active');
-            $table->enum('portal',['Web', 'App'])->default('Web');
+            $table->enum('portal',['web', 'app'])->default('web');
             $table->timestamps();
         });
     }

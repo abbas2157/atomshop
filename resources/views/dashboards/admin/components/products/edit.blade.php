@@ -51,6 +51,6 @@
 <script src="{!! asset('assets/lib/parsleyjs/parsley.min.js') !!}"></script>
 <script src="{!! asset('assets/lib/select2/js/select2.min.js') !!}"></script>
 <script src="{!! asset('assets/lib/quill/quill.min.js') !!}"></script>
-    <script src="{!! asset('web/js/product/edit.js') !!}"></script>
+    <script src="{!! asset('assets/js/product/edit.js') !!}"></script>
 @endsection
 
