@@ -7612,7 +7612,9 @@ textarea.form-check-input.parsley-error ~ .form-check-label {
 .w-100 {
   width: 100% !important;
 }
-
+.w-7 {
+  width: 7% !important;
+}
 .w-auto {
   width: auto !important;
 }

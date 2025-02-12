@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('product_id')->nullable();
             $table->integer('quantity')->default(1);
             $table->integer('color_id')->nullable();
-            $table->integer('mempry_id')->nullable();
+            $table->integer('memory_id')->nullable();
             $table->integer('size_id')->nullable();
             $table->enum('status',['Pending', 'Purchased'])->default('Pending');
             $table->enum('portal',['Web', 'App'])->default('Web');

@@ -66,7 +66,7 @@
                         <strong class="text-dark mr-3">Choose Color :</strong>
                         @foreach ($product['colors'] as $item)
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" {{ $item['active'] ? 'checked' : '' }} id="color-{{ $item['id'] ?? '' }}" name="color">
+                                <input type="radio" class="custom-control-input" {{ $item['active'] ? 'checked' : '' }} id="color-{{ $item['id'] ?? '' }}" value="{{ $item['id'] ?? '' }}" name="color">
                                 <label class="custom-control-label" for="color-{{ $item['id'] ?? '' }}">{{ $item['title'] ?? '' }}</label>
                             </div>
                         @endforeach
@@ -86,7 +86,15 @@
                                 </button>
                             </div>
                         </div>
-                        <button class="btn btn-primary px-3 add-to-cart" data-id="{{ $product['id'] ?? '' }}" ><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
+                        <div class="loader-btn">
+                            <button class="btn btn-primary px-3 w-25" ><img  src="{{ asset('web/img/loader.gif') }}" class="w-25" alt="Loader"></button>
+                        </div>
+                        <div class="checkout-btn" >
+                            
+                        </div>
+                        <div class="cart-btn d-none" >
+                            <button class="btn btn-primary px-3 add-to-cart" data-id="{{ $product['id'] ?? '' }}" ><i class="fa fa-shopping-cart mr-1"> </i> Add to Cart</button>
+                        </div>
                     </div>
                 </div>
                 
@@ -132,8 +140,8 @@
 @section('js')
 <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 <script>
+    var product_id = parseInt("{{ $product['id'] ?? 0 }}");
     var total = parseInt("{{ $product['variation_price'] ?? 0 }}");
-    console.log(total);
     @if(is_null($calculator)) 
         var total_tenure_percentage = 4;
     @else 
