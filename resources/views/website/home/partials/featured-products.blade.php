@@ -7,7 +7,7 @@
                 <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
                     <div class="product-item bg-light mb-2">
                         <div class="product-img position-relative overflow-hidden text-center py-1">
-                            <img class="img-fluid w-50" src="{{  $item->picture ?? '' }}" alt="{{ $item->title ?? '' }}">
+                            <img class="img-fluid w-100" src="{{  $item->picture ?? '' }}" alt="{{ $item->title ?? '' }}">
                             <div class="product-action">
                                 <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
                             </div>
