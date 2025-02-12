@@ -28,7 +28,7 @@
                             <img class="w-75 h-75" src="{{ asset($product['picture'] ?? '') }}" alt="Image">
                         </div>
                         @foreach ($product['gallery'] as $item)
-                            <div class="carousel-item">
+                            <div class="carousel-item text-center">
                                 <img class="w-75 h-75" src="{{ asset($item['url'] ?? '') }}" alt="Image">
                             </div>
                         @endforeach
