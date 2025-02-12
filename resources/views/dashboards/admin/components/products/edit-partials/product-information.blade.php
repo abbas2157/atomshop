@@ -1,20 +1,18 @@
-
 <section>
     <p class="mg-b-20">Try the keyboard navigation by clicking arrow left or right!</p>
-
     <div class="row row-sm">
-        <div class="col-lg-9 mt-2">
-            <label class="form-control-label">Product Title <span class="tx-danger">*</span></label>
+        <div class="col-lg-4 mt-2">
+            <label class="form-control-label">Product Title (Listing Page) <span class="tx-danger">*</span></label>
             <input type="text" id="title" class="form-control" name="title" placeholder="Enter product title" value="{{ old('title') ?? $product->title ?? ''}}" required>
             @if ($errors->has('title'))
                 <span class="text-danger text-left">{{ $errors->first('title') }}</span>
             @endif
         </div>
-        <div class="col-lg-3 mt-2">
-            <label class="form-control-label">Product Price <span class="tx-danger">*</span></label>
-            <input type="number" id="price" class="form-control" name="price" placeholder="Enter product price" value="{{ old('price') ?? $product->price }}" required>
-            @if ($errors->has('title'))
-                <span class="text-danger text-left">{{ $errors->first('title') }}</span>
+        <div class="col-lg-8 mt-2">
+            <label class="form-control-label">Product Title (Detail Page) </label>
+            <input type="text" id="detail_page_title" class="form-control" name="detail_page_title" placeholder="Enter product title" value="{{ old('detail_page_title') ?? $product->detail_page_title ?? ''}}" required>
+            @if ($errors->has('detail_page_title'))
+                <span class="text-danger text-left">{{ $errors->first('detail_page_title') }}</span>
             @endif
         </div>
     </div>
@@ -37,10 +35,10 @@
             <label class="form-control-label">Brand <span class="tx-danger">*</span></label>
             <select id="brand_id" class="form-control" name="brand_id" required>
                 @foreach ($brands as $brand)
-                    <option value="{{ $brand->id ?? '' }}"
-                        {{ old('brand_id') == $brand->id || $product->brand_id == $brand->id ? 'selected' : '' }}>
-                        {{ $brand->title ?? '' }}
-                    </option>
+                <option value="{{ $brand->id ?? '' }}"
+                    {{ old('brand_id') == $brand->id || $product->brand_id == $brand->id ? 'selected' : '' }}>
+                    {{ $brand->title ?? '' }}
+                </option>
                 @endforeach
             </select>
             @if ($errors->has('brand_id'))
@@ -48,12 +46,12 @@
             @endif
         </div>
     </div>
-    <div class="row row-sm">
+    <div class="row row-sm color-div">
         <div class="col-md mt-2">
-            <label class="form-control-label">Color <span class="tx-danger">*</span></label>
+            <label class="form-control-label">Colors </label>
             <select id="color_id" class="form-control select2" name="colors[]" multiple="multiple">
                 @foreach ($colors as $color)
-                    <option value="{{ $color->id }}" 
+                    <option value="{{ $color->id }}"
                         {{ in_array($color->id, $productColor) ? 'selected' : ''  }}>
                         {{ $color->title }}
                     </option>
@@ -62,20 +60,6 @@
             @if ($errors->has('colors'))
                 <span class="text-danger text-left">{{ $errors->first('colors') }}</span>
             @endif
-        </div>        
-        <div class="col-md mt-2">
-            <label class="form-control-label">Memory <span class="tx-danger">*</label>
-                <select id="memory_id" class="form-control select2" name="memory[]" multiple="multiple">
-                    @foreach ($memories as $memory)
-                        <option value="{{ $memory->id }}" 
-                            {{ in_array($memory->id, $productmemory) ? 'selected' : '' }}>
-                            {{ $memory->title }}
-                        </option>
-                    @endforeach
-                </select>
-                @if ($errors->has('memories'))
-                    <span class="text-danger text-left">{{ $errors->first('memories') }}</span>
-                @endif
         </div>
     </div>
     <div class="row row-sm">
