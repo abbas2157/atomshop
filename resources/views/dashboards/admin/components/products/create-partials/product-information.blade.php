@@ -52,7 +52,7 @@
             <select id="color_id" class="form-control select2" name="colors[]" multiple="multiple">
                 {{-- <option value="" selected disabled>Select color</option> --}}
                 @foreach ($colors as $color)
-                    <option value="{{ $color->id ?? '' }}" selected {{ old('colors[]') == $color->id ? 'selected' : '' }}>
+                    <option value="{{ $color->id ?? '' }}" {{ old('colors[]') == $color->id ? 'selected' : '' }}>
                         {{ $color->title ?? '' }}
                     </option>
                 @endforeach
