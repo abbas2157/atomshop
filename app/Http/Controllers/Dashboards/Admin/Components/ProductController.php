@@ -117,12 +117,12 @@ class ProductController extends Controller
             if($request->category_id == 1 && $request->category_id == 2) {
                 if ($request->has('memories')) {
                     $names = $request->input('memories.name');
-                    $prices = $request->input('memories.price');
-                    foreach ($names as $index => $name) {
+                    $memories = $request->input('memories');
+                    foreach ($names as $index => $memory_id) {
                         $productMemory = new ProductMemory;
-                        $productMemory->product_id = $product->id;
-                        $productMemory->memory_id = $name;
-                        $productMemory->price = $prices[$index];
+                        $productMemory->product_id = $id;
+                        $productMemory->memory_id = $memory_id;
+                        $productMemory->price = $memories['price_'.$memory_id];
                         $productMemory->save();
                     }
                 }
@@ -238,16 +238,18 @@ class ProductController extends Controller
                     $productColor->save();
                 }
             }
-            ProductMemory::where('product_id', $id)->delete();
-            if ($request->has('memories')) {
-                $names = $request->input('memories.name');
-                $prices = $request->input('memories.price');
-                foreach ($names as $index => $name) {
-                    $productMemory = new ProductMemory;
-                    $productMemory->product_id = $id;
-                    $productMemory->memory_id = $name;
-                    $productMemory->price = $prices[$index];
-                    $productMemory->save();
+            if($request->category_id == 1 || $request->category_id == 2) {
+                ProductMemory::where('product_id', $id)->delete();
+                if ($request->has('memories')) {
+                    $names = $request->input('memories.name');
+                    $memories = $request->input('memories');
+                    foreach ($names as $index => $memory_id) {
+                        $productMemory = new ProductMemory;
+                        $productMemory->product_id = $id;
+                        $productMemory->memory_id = $memory_id;
+                        $productMemory->price = $memories['price_'.$memory_id];
+                        $productMemory->save();
+                    }
                 }
             }
             DB::commit();

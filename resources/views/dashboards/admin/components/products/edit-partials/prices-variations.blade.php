@@ -23,7 +23,7 @@
             <div class="row row-sm">
                 <div class="col-lg-6 mt-2">
                     <label class="form-control-label">Variation Price ({{ $memory->title ?? '' }})</label>
-                    <input type="number" class="form-control" name="memories[price][]"
+                    <input type="number" class="form-control" name="memories[price_{{ $memory->id ?? '' }}]"
                         placeholder="Enter product price"
                         value="{{ old("memories.price.$memory->id", $product->memories()->where('memory_id', $memory->id)->first()->price ?? 0) }}">
                 </div>

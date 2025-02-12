@@ -21,7 +21,7 @@
             <div class="row row-sm">
                 <div class="col-lg-6 mt-2">
                     <label class="form-control-label">Variation Price ({{ $memory->title ?? '' }})</label>
-                    <input type="number" class="form-control" name="memories[price][]" placeholder="Enter product price" value="0">
+                    <input type="number" class="form-control" name="memories[price_{{ $memory->id ?? '' }}]" placeholder="Enter product price" value="0">
                 </div>
                 <div class="col-lg-3 mt-2 pt-4">
                     <label class="ckbox mt-1">
