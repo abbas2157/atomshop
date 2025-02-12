@@ -93,9 +93,11 @@ $(function() {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function (response) {
-                    console.log(response);
-                    if(response.status) {
+                    if(response.success == true) {
+                        alert(response.message);
                         location.reload();
+                    } else {
+                        alert(response.message);
                     }
                 },
                 error: function (xhr, status, error) {
