@@ -4,6 +4,8 @@ $(document).ready(function() {
 });
 
 function getCart() {
+    $('.cart-table').html('<tr><td colspan="5"><img src="'+ASSET_URL+'/web/img/loader.gif" class="w-10" alt="Loader"></td></tr>');
+
     $('.cart-table').html('');
     $('#sub-total').text('00.00');
     $('#total').text('00.00');
@@ -58,7 +60,6 @@ function getCart() {
         }
     });
 }
-
 
 $(document).on('click', ".remove-item", function(event) {
     event.preventDefault();

@@ -48,7 +48,7 @@
                         <div><b>Category : </b>{{ $product['category']['title'] ?? '' }}</div>
                         <div><b>Brand : </b>{{ $product['brand']['title'] ?? '' }}</div>
                     </div>
-                    <h3 class="font-weight-semi-bold mb-3 mt-3">Rs. <span class="variation-price">{{ number_format($product['variation_price']) }}</span></h3>
+                    <h3 class="font-weight-semi-bold mb-3 mt-3">Rs. <span class="variation-price" id="variation-price">{{ number_format($product['variation_price']) }}</span></h3>
                     <p class="mb-3 mt-3">{!! nl2br($product['short_description']) ?? '' !!}</p>
                     @if(!empty($product['memories']))
                     <div class="d-flex mb-3">

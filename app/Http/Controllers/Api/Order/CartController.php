@@ -68,6 +68,7 @@ class CartController extends BaseController
                     $cart_item->product_id = $product->id;
                     $cart_item->memory_id = $request->memory_id;
                     $cart_item->color_id = $request->color_id;
+                    $cart_item->product_price = $request->price;
                     $cart_item->user_id = $user_id;
                     $cart_item->portal = $request->portal ?? 'Web';
                     $cart_item->status = 'Pending';
@@ -88,6 +89,7 @@ class CartController extends BaseController
                     $cart_item->product_id = $product->id;
                     $cart_item->memory_id = $request->memory_id;
                     $cart_item->color_id = $request->color_id;
+                    $cart_item->product_price = $request->price;
                     $cart_item->guest_id = $guest_id;
                     $cart_item->status = 'Pending';
                     $cart_item->save();

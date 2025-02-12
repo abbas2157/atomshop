@@ -21,7 +21,11 @@
                         </tr>
                     </thead>
                     <tbody class="align-middle cart-table">
-                       
+                       <tr>
+                            <td colspan="5">
+                                <img  src="{{ asset('web/img/loader.gif') }}" class="w-10" alt="Loader">
+                            </td>
+                       </tr>
                     </tbody>
                 </table>
             </div>
@@ -44,7 +48,7 @@
                         </div>
                         <div class="d-flex justify-content-between">
                             <h6 class="font-weight-medium">Shipping</h6>
-                            <h6 class="font-weight-medium">Rs. 10</h6>
+                            <h6 class="font-weight-medium">Rs. 00</h6>
                         </div>
                     </div>
                     <div class="pt-2">
@@ -52,7 +56,7 @@
                             <h5>Total</h5>
                             <h5 class="cart-total">Rs. <span id="total"> 00.00 </span></h5>
                         </div>
-                        <button class="btn btn-block btn-primary font-weight-bold my-3 py-3">Proceed To Checkout</button>
+                        <a href="{{ route('checkout') }}" class="btn btn-block btn-primary font-weight-bold my-3 py-3">Proceed To Checkout</a>
                     </div>
                 </div>
             </div>

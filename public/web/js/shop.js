@@ -66,16 +66,21 @@
     //Add to Cart
     $(".add-to-cart").click(function(e) {
         e.preventDefault();
+
+        $('.cart-btn').addClass('d-none');
+        $('.loader-btn').removeClass('d-none');
+
         var product_id = $(this).data("id");
         var memory_id = $('input[name="memory"]:checked').val();
         var color_id = $('input[name="color"]:checked').val();
+        var price = parseInt($('#variation-price').text().replace(',',''));
         var user_type = $('#user-type').val();
         let guest_id = localStorage.getItem("guest_id");
         const user_id = document.getElementById("user_id");
         if (user_id && user_id.value) {
-            var data = { product_id: product_id, memory_id: memory_id, color_id: color_id, user_type : user_type, user_id : user_id.value };
+            var data = { product_id: product_id, memory_id: memory_id, color_id: color_id, price: price, user_type : user_type, user_id : user_id.value };
         } else {
-            var data = { product_id: product_id, memory_id: memory_id, color_id: color_id, user_type : user_type, guest_id : guest_id };
+            var data = { product_id: product_id, memory_id: memory_id, color_id: color_id, price: price, user_type : user_type, guest_id : guest_id };
         }
         $.ajax({
             url: API_URL + "/cart/add",
@@ -84,6 +89,8 @@
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
             success: function(response) {
                 if (response.success) {
+                    $('.loader-btn').addClass('d-none');
+                    $('.checkout-btn').html('<a href="'+APP_URL+'/checkout" class="btn btn-block btn-primary px-3">Proceed To Checkout</a>');
                     Toastify({
                         text: "<i class='fas fa-check-circle'></i> <b> Success </b> ! Product added into cart.",
                         duration: 3000,
@@ -93,17 +100,57 @@
                         backgroundColor: "linear-gradient(to right, #FFD333, #3D464D)",
                     }).showToast();
                     getCartCount();
-                } else {
-                    
+                } 
+                else {
+                    $('.loader-btn').addClass('d-none');
+                    $('.cart-btn').removeClass('d-none');
+                    Toastify({
+                        text: "<i class='fas fa-times-circle'></i> <b> Error </b> ! Product not added into cart.",
+                        duration: 3000,
+                        gravity: "top",
+                        position: "right",
+                        escapeMarkup: false,
+                        backgroundColor: "linear-gradient(to right, #FF0000, #000000)",
+                    }).showToast();
                 }
             },
             error: function() {
-                
+                $('.loader-btn').addClass('d-none');
+                $('.cart-btn').removeClass('d-none');
+                Toastify({
+                    text: "<i class='fas fa-times-circle'></i> <b> Error </b> ! Product not added into cart.",
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    escapeMarkup: false,
+                    backgroundColor: "linear-gradient(to right, #FF0000, #000000)",
+                }).showToast();
             }
         });
     });
+    function getCartCount() {
+        var user_type = $('#user-type').val();
+        let guest_id = localStorage.getItem("guest_id");
+        const user_id = document.getElementById("user_id");
 
-    
+        var data = user_id && user_id.value
+            ? { user_type: user_type, user_id: user_id.value }
+            : { user_type: user_type, guest_id: guest_id };
+
+        $.ajax({
+            url: API_URL + "/cart/count",
+            type: "POST",
+            data: data,
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            success: function(response) {
+                if (response.success) {
+                    $(".cart-count").text(response.count);
+                } else {
+                    $(".cart-count").text("0");
+                }
+            }
+        });
+    }
     getCart();
     function getCart() {
         $('.cart-table').html('');
@@ -126,12 +173,10 @@
                 if (response.success == true) {
                     var cart = response.data.cart;
                     cart.forEach(function(item) {
-                        console.log(item, product_id)
                         if(item.product.id == product_id) {
-                            console.log('ss')
                             $('.loader-btn').addClass('d-none');
                             $('.cart-btn').addClass('d-none');
-                            $('.checkout-btn').html('<a href="" class="btn btn-block btn-primary px-3">Proceed To Checkout</a>');
+                            $('.checkout-btn').html('<a href="'+APP_URL+'/checkout" class="btn btn-block btn-primary px-3">Proceed To Checkout</a>');
                         }
                         else {
                             $('.loader-btn').addClass('d-none');

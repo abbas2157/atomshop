@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'cart'], function(){
     Route::get('/', [App\Http\Controllers\Web\Order\CartController::class, 'index'])->name('cart');
 });
+Route::group(['prefix' => 'checkout'], function(){
+    Route::get('/', [App\Http\Controllers\Web\Order\OrderController::class, 'index'])->name('checkout');
+});
 
 Route::get('installment-calculator', [App\Http\Controllers\Web\HomeController::class, 'calculator'])->name('calculator');
 
