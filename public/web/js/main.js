@@ -125,44 +125,7 @@
         }
         button.parent().parent().find('input').val(newVal);
     });
-
-    //Add to Cart
-    $(".add-to-cart").click(function(e) {
-        e.preventDefault();
-        var product_id = $(this).data("id");
-        var user_type = $('#user-type').val();
-        let guest_id = localStorage.getItem("guest_id");
-        const user_id = document.getElementById("user_id");
-        if (user_id && user_id.value) {
-            var data = { product_id: product_id, user_type : user_type, user_id : user_id.value };
-        } else {
-            var data = { product_id: product_id, user_type : user_type, guest_id : guest_id };
-        }
-        $.ajax({
-            url: API_URL + "/cart/add",
-            method: "POST",
-            data: data,
-            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-            success: function(response) {
-                if (response.success) {
-                    Toastify({
-                        text: "<i class='fas fa-check-circle'></i> <b> Success </b> ! Product added into cart.",
-                        duration: 3000,
-                        gravity: "top",
-                        position: "right",
-                        escapeMarkup: false,
-                        backgroundColor: "linear-gradient(to right, #FFD333, #3D464D)",
-                    }).showToast();
-                    getCartCount();
-                } else {
-                    
-                }
-            },
-            error: function() {
-                
-            }
-        });
-    });
+    
     // Get or create Guest ID
     function generateGuestId() {
         let guestId = localStorage.getItem("guest_id");

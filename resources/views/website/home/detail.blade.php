@@ -44,19 +44,19 @@
             <div class="col-lg-7 h-auto mb-30">
                 <div class="h-100 bg-light p-30">
                     <h3>{{ $product['detail_page_title'] ?? '' }}</h3>
-                    <div class="mb-2">
+                    <div class="mb-3 mt-3">
                         <div><b>Category : </b>{{ $product['category']['title'] ?? '' }}</div>
                         <div><b>Brand : </b>{{ $product['brand']['title'] ?? '' }}</div>
                     </div>
-                    <h3 class="font-weight-semi-bold mb-2">Rs. <span class="variation-price">{{ number_format($product['variation_price']) }}</span></h3>
-                    <p class="mb-2">{!! nl2br($product['short_description']) ?? '' !!}</p>
+                    <h3 class="font-weight-semi-bold mb-3 mt-3">Rs. <span class="variation-price">{{ number_format($product['variation_price']) }}</span></h3>
+                    <p class="mb-3 mt-3">{!! nl2br($product['short_description']) ?? '' !!}</p>
                     @if(!empty($product['memories']))
                     <div class="d-flex mb-3">
                         <strong class="text-dark mr-3">Choose Storage :</strong>
                         @foreach ($product['memories'] as $item)
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input variation-memory" value="{{ $item['id'] ?? '' }}" {{ $item['active'] ? 'checked' : '' }} id="size-{{ $item['id'] ?? '' }}" name="memory">
-                                <label class="custom-control-label" for="size-{{ $item['id'] ?? '' }}">{{ $item['title'] ?? '' }}</label>
+                                <input type="radio" class="custom-control-input variation-memory" value="{{ $item['id'] ?? '' }}" {{ $item['active'] ? 'checked' : '' }} id="memory-{{ $item['id'] ?? '' }}" name="memory">
+                                <label class="custom-control-label" for="memory-{{ $item['id'] ?? '' }}">{{ $item['title'] ?? '' }}</label>
                             </div>
                         @endforeach
                     </div>
