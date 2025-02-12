@@ -115,16 +115,15 @@ class ProductController extends Controller
                 }
             }
             if($request->category_id == 1) {
-                if (!empty($request->memories)) {
-                    if(isset($request->memories['name'])) {
-                        $memories = $request->memories;
-                        for ($i = 0; $i < count($memories['name']); $i++) {
-                            $memory = new ProductMemory;
-                            $memory->product_id = $product->id;
-                            $memory->memory_id = $memories['name'][$i];
-                            $memory->price = $memories['price'][$i];
-                            $memory->save();
-                        }
+                if ($request->has('memories')) {
+                    $names = $request->input('memories.name');
+                    $prices = $request->input('memories.price');
+                    foreach ($names as $index => $name) {
+                        $productMemory = new ProductMemory;
+                        $productMemory->product_id = $product->id;
+                        $productMemory->memory_id = $name;
+                        $productMemory->price = $prices[$index];
+                        $productMemory->save();
                     }
                 }
             }
