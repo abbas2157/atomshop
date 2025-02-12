@@ -41,6 +41,6 @@ class Product extends Model
     }
     public function getFormattedAdvancePriceAttribute()
     {
-        return number_format($this->price, 0);
+        return number_format($this->min_advance_price, 0);
     }
 }
