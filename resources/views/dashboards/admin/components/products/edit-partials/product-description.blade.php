@@ -10,7 +10,7 @@
         </div>
         <div class="col-12">
             <label class="form-control-label mb-1">Long Description <span class="tx-danger">*</span></label>
-            <div id="londDescription" style="height: 200px"></div>
+            <div id="londDescription" data-initial-content="{{ old('long', $productdescription->long) }}" style="height: 200px"></div>
             <textarea id="long" class="form-control" name="long" hidden>{{ old('long', $productdescription->long) }}</textarea>
         </div>
     </div>
