@@ -14,7 +14,7 @@
         </div>
         <div class="row">
             <div class="col-lg-8 col-md-8 col-sm-8 pb-1">
-                <div class="product-item-price">Advance : Rs. <b>{{ $item->formatted_price ?? '00.00' }}</b></div>
+                <div class="product-item-price">Advance : Rs. <b>{{ $item->formatted_advance_price ?? '00.00' }}</b></div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 text-left">
                 <div class="product-item-brand "><b>{{ $item->brand->title ?? '' }}</b></div>

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug')->nullable();
-            $table->string('code')->unique();
+            $table->string('code')->nullable();
             $table->enum('status',['active','inactive'])->default('active');
             $table->timestamps();
         });
