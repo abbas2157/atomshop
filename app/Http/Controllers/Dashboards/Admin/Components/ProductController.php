@@ -114,7 +114,7 @@ class ProductController extends Controller
                     $color->save();
                 }
             }
-            if($request->category_id == 1) {
+            if($request->category_id == 1 && $request->category_id == 2) {
                 if ($request->has('memories')) {
                     $names = $request->input('memories.name');
                     $prices = $request->input('memories.price');
