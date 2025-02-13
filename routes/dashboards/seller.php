@@ -16,9 +16,8 @@ Route::group(['middleware' => ['auth']], function() {
         Route::group(['prefix' => 'sellers'], function(){
             Route::get('/sellers', [App\Http\Controllers\Dashboards\Sellers\SellersController::class, 'create'])->name('seller.index');
             Route::post('perform', [App\Http\Controllers\Dashboards\Sellers\SellersController::class, 'update'])->name('seller.perform');
-            // Route::get('change/password', [App\Http\Controllers\Dashboards\Sellers\SellersController::class, 'password'])->name('seller.profile.change.password');
-            // Route::post('change/password', [App\Http\Controllers\Dashboards\Sellers\SellersController::class, 'show'])->name('seller.profile.change.password');
-            // Route::post('picture/update', [App\Http\Controllers\Dashboards\Sellers\SellersController::class, 'picture_update'])->name('change-profile.picture');
+            Route::get('change/password', [App\Http\Controllers\Dashboards\Sellers\SellersController::class, 'password'])->name('seller.change.password');
+            Route::post('change/password', [App\Http\Controllers\Dashboards\Sellers\SellersController::class, 'show'])->name('seller.change.password');
         });
     });    
 });

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('detail_page_title', 500);
             $table->string('slug', 255)->nullable();
             $table->integer('price')->nullable();
-            $table->integer('min_advance_price ')->nullable();
+            $table->integer('min_advance_price')->nullable();
             $table->string('picture')->nullable();
             $table->foreignId('category_id')->nullable()->index();
             $table->foreignId('brand_id')->nullable()->index();
