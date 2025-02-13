@@ -21,8 +21,8 @@ class ShopController extends Controller
             $products->whereBetween('price', [request()->min ?? 0, request()->max ?? 500000000]);
         }
         $products = $products->paginate(20)->appends(request()->query());
-        $categories = Category::orderBy('title','asc')->select('id','title','slug')->get();
-        $brands = Brand::orderBy('title','asc')->select('id','title','slug')->get();
+        $categories = Category::orderBy('title','asc')->select('id','title','slug','pr_count')->get();
+        $brands = Brand::orderBy('title','asc')->select('id','title','slug','pr_count')->get();
         return view('website.shop.index', compact('products', 'categories', 'brands'));
     }
 }

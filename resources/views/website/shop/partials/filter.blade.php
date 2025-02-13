@@ -31,7 +31,7 @@
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between filter mb-1">
                         <input type="checkbox" class="custom-control-input" name="category[]" value="{{ $item->id ?? '' }}" {{ in_array($item->id, $cat_filters) ? 'checked' : '' }} id="category-{{ $item->id ?? '' }}">
                         <label class="custom-control-label" for="category-{{ $item->id ?? '' }}">{{ $item->title ?? '' }}</label>
-                        <span class="badge border font-weight-normal">{{ $item->id ?? '' }}</span>
+                        <span class="badge border font-weight-normal">{{ $item->pr_count ?? '0' }}</span>
                     </div>
                 @endforeach
             @endif
@@ -52,7 +52,7 @@
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between filter mb-1">
                         <input type="checkbox" class="custom-control-input" name="brand[]" value="{{ $item->id ?? '' }}" {{ in_array($item->id, $brand_filters) ? 'checked' : '' }} id="brand-{{ $item->id ?? '' }}">
                         <label class="custom-control-label" for="brand-{{ $item->id ?? '' }}">{{ $item->title ?? '' }}</label>
-                        <span class="badge border font-weight-normal">{{ $item->id ?? '' }}</span>
+                        <span class="badge border font-weight-normal">{{ $item->pr_count ?? '0' }}</span>
                     </div>
                 @endforeach
             @endif
