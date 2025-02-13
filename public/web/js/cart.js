@@ -29,13 +29,14 @@ function getCart() {
                 cart.forEach(function(item, index) {
                     cartCount += item.quantity;
                     var row = '<tr>\
-                        <td class="align-middle">'+index+1+'</td>\
+                        <td class="align-middle text-center">'+index+1+'</td>\
                         <td class="align-middle">\
-                            <img src="'+item.product.picture+'" alt="" style="width: 50px;">\
-                            '+item.product.title +'\
+                            <div class="row"><div class="col-md-2"><img src="'+item.product.picture+'" alt="" style="width: 50px;"></div>\
+                            <div class="col-md-10">'+item.product.title +'</div>\
                         </td>\
-                        <td class="align-middle">Rs. '+item.product.total+'</td>\
-                        <td class="align-middle">\
+                        <td class="align-middle text-center">Rs. '+item.product_advance_price+'</td>\
+                        <td class="align-middle text-center">Rs. '+item.product.total+'</td>\
+                        <td class="align-middle text-center">\
                             <button class="btn btn-sm btn-danger remove-item" data-id="'+item.id+'">\
                                 <i class="fa fa-times"></i>\
                             </button>\

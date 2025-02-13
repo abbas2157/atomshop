@@ -20,4 +20,9 @@ class OrderController extends Controller
         $areas = Area::orderBy('id','desc')->get();
         return view('website.order.checkout', compact('cart', 'cities', 'areas'));
     }
+    public function checkout_perform(Request $request)
+    {
+        dd($request->all());
+    }
+    
 }

@@ -8,6 +8,7 @@ Route::group(['prefix' => 'cart'], function(){
 });
 Route::group(['prefix' => 'checkout'], function(){
     Route::get('/', [App\Http\Controllers\Web\Order\OrderController::class, 'index'])->name('checkout');
+    Route::post('perform', [App\Http\Controllers\Web\Order\OrderController::class, 'checkout_perform'])->name('checkout.perform');
 });
 
 Route::get('installment-calculator', [App\Http\Controllers\Web\HomeController::class, 'calculator'])->name('calculator');

@@ -46,7 +46,7 @@ class CartController extends BaseController
                     'picture' => $item->product->product_picture, 
                     'total' => number_format(($item->product->price * $item->quantity),0),
                 );
-                $cart[] = array('id' => $item->id, 'product' => $product, 'quantity' => $item->quantity);
+                $cart[] = array('id' => $item->id, 'product' => $product, 'product_advance_price' => number_format($item->product_advance_price,0), 'quantity' => $item->quantity );
                 $sub_total += ($item->product->price * $item->quantity);
                 $total += $sub_total;
             }
@@ -85,6 +85,7 @@ class CartController extends BaseController
                     $cart_item->memory_id = $request->memory_id;
                     $cart_item->color_id = $request->color_id;
                     $cart_item->product_price = $request->price;
+                    $cart_item->product_advance_price = $request->min_advance_price;
                     $cart_item->user_id = $user_id;
                     $cart_item->portal = $request->portal ?? 'Web';
                     $cart_item->status = 'Pending';
@@ -106,6 +107,7 @@ class CartController extends BaseController
                     $cart_item->memory_id = $request->memory_id;
                     $cart_item->color_id = $request->color_id;
                     $cart_item->product_price = $request->price;
+                    $cart_item->product_advance_price = $request->min_advance_price;
                     $cart_item->guest_id = $guest_id;
                     $cart_item->status = 'Pending';
                     $cart_item->save();

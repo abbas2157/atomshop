@@ -74,13 +74,14 @@
         var memory_id = $('input[name="memory"]:checked').val();
         var color_id = $('input[name="color"]:checked').val();
         var price = parseInt($('#variation-price').text().replace(',',''));
+        var min_advance_price = $('#min_advance_price').val();
         var user_type = $('#user-type').val();
         let guest_id = localStorage.getItem("guest_id");
         const user_id = document.getElementById("user_id");
         if (user_id && user_id.value) {
-            var data = { product_id: product_id, memory_id: memory_id, color_id: color_id, price: price, user_type : user_type, user_id : user_id.value };
+            var data = { product_id: product_id, memory_id: memory_id, color_id: color_id, price: price, min_advance_price: min_advance_price, user_type : user_type, user_id : user_id.value };
         } else {
-            var data = { product_id: product_id, memory_id: memory_id, color_id: color_id, price: price, user_type : user_type, guest_id : guest_id };
+            var data = { product_id: product_id, memory_id: memory_id, color_id: color_id, price: price, min_advance_price: min_advance_price, user_type : user_type, guest_id : guest_id };
         }
         $.ajax({
             url: API_URL + "/cart/add",

@@ -10,12 +10,13 @@
         <div class="row px-xl-5">
             <div class="col-lg-8 table-responsive mb-5">
                 <meta name="csrf-token" content="{{ csrf_token() }}">
-                <table class="table table-light table-borderless table-hover text-center mb-0">
+                <table class="table table-bordered mb-0">
                     <thead class="thead-dark">
                         <tr>
-                            <th>Product No</th>
+                            <th>PR No</th>
                             <th>Product Title</th>
-                            <th>Total Deal Value</th>
+                            <th>Advance Amount</th>
+                            <th>Total Deal Amount</th>
                             <th>Remove</th>
                         </tr>
                     </thead>
