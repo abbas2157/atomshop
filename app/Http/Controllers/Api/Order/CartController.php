@@ -29,7 +29,23 @@ class CartController extends BaseController
             $sub_total = 0;
             $total = 0;
             foreach($cart_items as $item) {
-                $product = array('id' => $item->product->id, 'title' => $item->product->title, 'price' => $item->product->formatted_price, 'picture' => $item->product->product_picture, 'total' => number_format(($item->product->price * $item->quantity),0));
+               
+                if(!is_null($item->memory_id) && !is_null($item->memory)) {
+                    $item->product->title = $item->product->title . " - Storage " . $item->memory->title;
+                }
+                if(!is_null($item->color_id) && !is_null($item->color)) {
+                    $item->product->title = $item->product->title . " - Color " . $item->color->title;
+                }
+                if(!is_null($item->size_id) && !is_null($item->size)) {
+                    $item->product->title = $item->product->title . " - Size " . $item->size->title . ' ' . $item->size->unit ;
+                }
+                $product = array(
+                    'id' => $item->product->id, 
+                    'title' => $item->product->title ,
+                    'price' => $item->product->formatted_price, 
+                    'picture' => $item->product->product_picture, 
+                    'total' => number_format(($item->product->price * $item->quantity),0),
+                );
                 $cart[] = array('id' => $item->id, 'product' => $product, 'quantity' => $item->quantity);
                 $sub_total += ($item->product->price * $item->quantity);
                 $total += $sub_total;

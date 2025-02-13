@@ -51,7 +51,7 @@
                     <h3 class="font-weight-semi-bold mb-3 mt-3">Rs. <span class="variation-price" id="variation-price">{{ number_format($product['variation_price']) }}</span></h3>
                     <p class="mb-3 mt-3">{!! nl2br($product['short_description']) ?? '' !!}</p>
                     @if(!empty($product['memories']))
-                    <div class="d-flex mb-3">
+                    <div class="d-flex mb-2">
                         <strong class="text-dark mr-3">Choose Storage :</strong>
                         @foreach ($product['memories'] as $item)
                             <div class="custom-control custom-radio custom-control-inline">
@@ -62,7 +62,7 @@
                     </div>
                     @endif
                     @if(!empty($product['colors']))
-                    <div class="d-flex mb-4">
+                    <div class="d-flex mb-3">
                         <strong class="text-dark mr-3">Choose Color :</strong>
                         @foreach ($product['colors'] as $item)
                             <div class="custom-control custom-radio custom-control-inline">
@@ -72,7 +72,7 @@
                         @endforeach
                     </div>
                     @endif
-                    <div class="d-flex align-items-center mb-4 pt-2">
+                    <div class="d-flex align-items-center pt-2">
                         <div class="input-group quantity mr-3" style="width: 130px;">
                             <div class="input-group-btn">
                                 <button class="btn btn-primary btn-minus">
@@ -89,9 +89,7 @@
                         <div class="loader-btn">
                             <button class="btn btn-primary px-3 w-25" ><img  src="{{ asset('web/img/loader.gif') }}" class="w-25" alt="Loader"></button>
                         </div>
-                        <div class="checkout-btn" >
-                            
-                        </div>
+                        <div class="checkout-btn"></div>
                         <div class="cart-btn d-none" >
                             <button class="btn btn-primary px-3 add-to-cart" data-id="{{ $product['id'] ?? '' }}" ><i class="fa fa-shopping-cart mr-1"> </i> Add to Cart</button>
                         </div>

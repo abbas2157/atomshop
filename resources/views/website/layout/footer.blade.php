@@ -45,7 +45,7 @@
                         <a class="btn btn-primary btn-square mr-2" href="#"><i class="fab fa-twitter"></i></a>
                         <a class="btn btn-primary btn-square mr-2" href="{{ config('website.social.facebook') ?? '' }}"><i class="fab fa-facebook-f"></i></a>
                         <a class="btn btn-primary btn-square mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a class="btn btn-primary btn-square" href="#"><i class="fab fa-instagram"></i></a>
+                        <a class="btn btn-primary btn-square" href="{{ config('website.social.instagram') ?? '' }}"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
             </div>

@@ -26,17 +26,14 @@ function getCart() {
             if (response.success == true) {
                 var cart = response.data.cart;
                 var cartCount = 0;
-                cart.forEach(function(item) {
+                cart.forEach(function(item, index) {
                     cartCount += item.quantity;
                     var row = '<tr>\
+                        <td class="align-middle">'+index+1+'</td>\
                         <td class="align-middle">\
                             <img src="'+item.product.picture+'" alt="" style="width: 50px;">\
-                            '+item.product.title+'\
+                            '+item.product.title +'\
                         </td>\
-                        <td class="align-middle">\
-                            Rs. '+item.product.price+'\
-                        </td>\
-                        <td class="align-middle">'+item.quantity+'</td>\
                         <td class="align-middle">Rs. '+item.product.total+'</td>\
                         <td class="align-middle">\
                             <button class="btn btn-sm btn-danger remove-item" data-id="'+item.id+'">\

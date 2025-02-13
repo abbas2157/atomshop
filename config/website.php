@@ -14,7 +14,8 @@ return [
     'email' => 'atomshoppk@gmail.com',
     'address' => 'Lahore, Punjab, Pakistan',
     'social' => [
-        'facebook' => 'https://www.facebook.com/atomshoppk'
+        'facebook' => 'https://www.facebook.com/atomshoppk',
+        'instagram' => 'https://www.instagram.com/atomshop.pk/'
     ],
     /*
     |--------------------------------------------------------------------------

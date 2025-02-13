@@ -18,5 +18,10 @@ Route::get('/', function(){
 })->name('home');
 Route::get('home', [App\Http\Controllers\Web\HomeController::class, 'home'])->name('website');
 Route::get('shop', [App\Http\Controllers\Web\ShopController::class, 'index'])->name('shop');
+
+// Other Pages
+Route::get('about-us', [App\Http\Controllers\Web\PageController::class, 'about'])->name('about-us');
+
+
 Route::get('/{slug}', [App\Http\Controllers\Web\HomeController::class, 'product_detail'])->name('website.product.detail');
 

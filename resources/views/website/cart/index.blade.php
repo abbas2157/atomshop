@@ -13,10 +13,9 @@
                 <table class="table table-light table-borderless table-hover text-center mb-0">
                     <thead class="thead-dark">
                         <tr>
+                            <th>Product No</th>
                             <th>Product Title</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
-                            <th>Total</th>
+                            <th>Total Deal Value</th>
                             <th>Remove</th>
                         </tr>
                     </thead>
