@@ -19,6 +19,7 @@ Route::group(['middleware' => ['auth']], function() {
             Route::resource('categories', App\Http\Controllers\Dashboards\Admin\Components\CategoryController::class,['as' => 'admin']);
             Route::resource('brands', App\Http\Controllers\Dashboards\Admin\Components\BrandController::class,['as' => 'admin']);
             Route::resource('colors', App\Http\Controllers\Dashboards\Admin\Components\ColorController::class,['as' => 'admin']);
+            Route::resource('sizes', App\Http\Controllers\Dashboards\Admin\Components\SizeController::class,['as' => 'admin']);
             Route::resource('memory', App\Http\Controllers\Dashboards\Admin\Components\MemoryController::class,['as' => 'admin']);
             Route::resource('sliders', App\Http\Controllers\Dashboards\Admin\Components\SliderController::class,['as' => 'admin']);
 

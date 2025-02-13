@@ -42,6 +42,11 @@
                                     <a href="{{ route('admin.sliders.index') }}" class="nav-link">Sliders List</a>
                                     <a href="{{ route('admin.sliders.create') }}" class="nav-link">Create new</a>
                                 </nav>
+                                <nav class="nav">
+                                    <span>Sizes</span>
+                                    <a href="{{ route('admin.sizes.index') }}" class="nav-link"> All Sizes</a>
+                                    <a href="{{ route('admin.sizes.create') }}" class="nav-link">Create new</a>
+                                </nav>
                             </div>
                             <div>
                                 <nav class="nav">

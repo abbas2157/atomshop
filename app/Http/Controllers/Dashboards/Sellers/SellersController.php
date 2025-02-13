@@ -34,17 +34,48 @@ class SellersController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-        public function store(Request $request)
+
+        public function password(Request $request)
         {
-           //
+            return view('dashboards.sellers.sellers.password');
         }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request)
     {
-        //
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required',
+            'confirm_new_password' => 'required'
+        ]);
+        if ($request->get('new_password') !== $request->get('confirm_new_password'))
+        {
+            $validator['confirm_new_password'] = 'Please Confirm Password Correctly.';
+            return redirect('seller/profile?password')->withErrors($validator);
+        }
+        $auth = Auth::user();
+        // The passwords matches
+        if (!Hash::check($request->get('current_password'), $auth->password))
+        {
+            $validator['current_password'] = 'Current Password is Invalid';
+            return redirect('seller/profile?password')->withErrors($validator);
+        }
+
+        // Current password and new password same
+        if (strcmp($request->get('current_password'), $request->new_password) == 0)
+        {
+            $validator['new_password'] = 'New Password cannot be same as your current password.';
+            return redirect('seller/profile?password')->withErrors($validator);
+        }
+
+        $user =  User::find($auth->id);
+        $user->password =  Hash::make($request->new_password);
+        $user->save();
+
+        $validator['success'] = 'Password Changed Successfully';
+        return back()->withErrors($validator);
     }
 
     /**
