@@ -14,7 +14,7 @@
                 </div>
                 <h2 class="az-content-title">Sizes</h2>
                 <div class="az-content-label mg-b-5">Create new</div>
-                <p class="mg-b-20">Using this form you can add new Sizes</p>
+                <p class="mg-b-20">Using this form you can add new Size</p>
                 <form method="POST" action="{{ route('admin.sizes.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="row row-sm">
@@ -53,7 +53,7 @@
                             </select>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-success mt-3">Create Color</button>
+                    <button type="submit" class="btn btn-success mt-3">Create Size</button>
                 </form>
             </div>
         </div>

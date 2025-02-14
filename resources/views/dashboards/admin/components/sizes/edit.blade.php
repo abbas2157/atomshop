@@ -15,7 +15,7 @@
                 </div>
                 <h2 class="az-content-title">sizes</h2>
                 <div class="az-content-label mg-b-5">Create new</div>
-                <p class="mg-b-20">Using this form you can edit this sizes</p>
+                <p class="mg-b-20">Using this form you can edit this size</p>
                 <form method="POST" action="{{ route('admin.sizes.update', $sizes->id) }}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
