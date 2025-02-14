@@ -91,6 +91,7 @@
                                     <p>{{ $item->product->title ?? '' }}</p>
                                     <p>Rs. {{ number_format(($item->product->price * $item->quantity),0) }}</p>
                                 </div>
+                                <input type="hidden" name="cart_id[]" value="{{ $item->id ?? '' }}">
                                 @php
                                     $total +=$item->product->price * $item->quantity;
                                 @endphp
@@ -113,7 +114,9 @@
                             <h5>Rs. {{ number_format(($total),0) }}</h5>
                         </div>
                     </div>
-                    <button class="btn btn-block btn-primary font-weight-bold py-3" type="submit">Place Order</button>
+                    @if($cart->isNotEmpty())
+                        <button class="btn btn-block btn-primary font-weight-bold py-3" type="submit">Place Order</button>
+                    @endif
                 </div>
             </div>
         </div>
