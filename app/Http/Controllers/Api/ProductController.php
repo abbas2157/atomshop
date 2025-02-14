@@ -44,9 +44,8 @@ class ProductController extends BaseController
                 ->select('id', 'title', 'detail_page_title', 'picture', 'price', 'min_advance_price', 'category_id', 'brand_id')
                 ->first();
             if (is_null($product)) {
-                return $this->sendError($request->all(),'Product not found.', 200);
+                return $this->sendResponse(['id' => $id], 'Product not found.', 200);
             }
-            return $this->sendError($product,'Product not found.', 200);
             $product_deatil = [];
 
             $product_deatil['id'] = $product->id;
