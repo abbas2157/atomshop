@@ -22,7 +22,6 @@ Route::group(['middleware' => ['auth']], function() {
             Route::resource('sizes', App\Http\Controllers\Dashboards\Admin\Components\SizeController::class,['as' => 'admin']);
             Route::resource('memory', App\Http\Controllers\Dashboards\Admin\Components\MemoryController::class,['as' => 'admin']);
             Route::resource('sliders', App\Http\Controllers\Dashboards\Admin\Components\SliderController::class,['as' => 'admin']);
-            Route::resource('contacts', App\Http\Controllers\Dashboards\Admin\Components\ContactsController::class,['as' => 'admin']);
 
             //Zone Management
             Route::resource('cities', App\Http\Controllers\Dashboards\Admin\Components\CitiesController::class,['as' => 'admin']);
