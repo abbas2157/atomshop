@@ -51,7 +51,6 @@ class OrderController extends Controller
                 $cart = Cart::where('id', $cart_ids[$i])->first();
                 $cart->status = 'Purchased';
                 $cart->save();
-
             }
             return redirect('order/success');
         } catch (\Exception $e) {
