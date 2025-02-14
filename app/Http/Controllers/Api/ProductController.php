@@ -117,7 +117,7 @@ class ProductController extends BaseController
 
             return $this->sendResponse($product_deatil, 'Product deatil is here.', 200);
         } catch (Exception $e) {
-            return $this->sendError('Something Went Wrong.', $e->getMessage(), 200);
+            return $this->sendError($e->getMessage(), 'Somehting Went Wrong.', 200);
         }
     }
 }
