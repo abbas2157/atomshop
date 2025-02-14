@@ -5,6 +5,47 @@
 @endsection
 @section('content')
 <div class="container-fluid">
+    <div class="login__signup__wrapper d-none">
+      <div class="row d-flex align-items-center justify-content-center">
+        <div class="col-lg-4">
+          <form class="login-form" action="">
+            <h2>Create new account</h2>
+            <div class="input-floating-label">
+              <input
+                class="input"
+                type="text"
+                id="input"
+                name="input"
+                placeholder="username"
+                value=""
+              />
+              <label for="input">Username</label>
+              <span class="focus-bg"></span>
+            </div>
+            <div class="input-floating-label">
+              <input
+                class="input"
+                type="password"
+                id="input"
+                name="input"
+                placeholder="password"
+              />
+              <label for="input">Password</label>
+              <span class="focus-bg"></span>
+            </div>
+            <a href="" class="forgot__link">Forgot password?</a>
+            <button class="btn__submit">Sign up</button>
+            <p class="other__link">
+              Already have an account?
+              <a href="login.html">Log in</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+
     <div class="row px-xl-5">
         <div class="col-12">
             <nav class="breadcrumb bg-light mb-30">

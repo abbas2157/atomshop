@@ -43,7 +43,7 @@
                             <select class="custom-select" name="city_id" required>
                                 @if($cities->isNotEmpty())
                                     @foreach($cities as $item)
-                                        <option value="{{ $item->id ?? '' }}" {{ (is_null(Auth::user()->customer) && Auth::user()->customer->city_id == $item->id) ? 'selected' : '' }}>{{ $item->title ?? '' }}</option>
+                                        <option value="{{ $item->id ?? '' }}" {{ (!is_null(Auth::user()->customer) && Auth::user()->customer->city_id == $item->id) ? 'selected' : '' }}>{{ $item->title ?? '' }}</option>
                                     @endforeach
                                 @else
                                     <option value="0">No City Found</option>
@@ -55,7 +55,7 @@
                             <select class="custom-select" name="area_id" required>
                                 @if($areas->isNotEmpty())
                                     @foreach($areas as $item)
-                                        <option value="{{ $item->id ?? '' }}" {{ (is_null(Auth::user()->customer) && Auth::user()->customer->area_id == $item->id) ? 'selected' : '' }}>{{ $item->title ?? '' }}</option>
+                                        <option value="{{ $item->id ?? '' }}" {{ (!is_null(Auth::user()->customer) && Auth::user()->customer->area_id == $item->id) ? 'selected' : '' }}>{{ $item->title ?? '' }}</option>
                                     @endforeach
                                 @else
                                     <option value="0">No Area Found</option>
@@ -91,6 +91,7 @@
                                     <p>{{ $item->product->title ?? '' }}</p>
                                     <p>Rs. {{ number_format(($item->product->price * $item->quantity),0) }}</p>
                                 </div>
+                                <input type="hidden" name="cart_id[]" value="{{ $item->id ?? '' }}">
                                 @php
                                     $total +=$item->product->price * $item->quantity;
                                 @endphp
@@ -113,7 +114,9 @@
                             <h5>Rs. {{ number_format(($total),0) }}</h5>
                         </div>
                     </div>
-                    <button class="btn btn-block btn-primary font-weight-bold py-3" type="submit">Place Order</button>
+                    @if($cart->isNotEmpty())
+                        <button class="btn btn-block btn-primary font-weight-bold py-3" type="submit">Place Order</button>
+                    @endif
                 </div>
             </div>
         </div>

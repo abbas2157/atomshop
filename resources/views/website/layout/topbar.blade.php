@@ -12,8 +12,13 @@
                 <div class="btn-group mx-2">
                     <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">My Account</button>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <button class="dropdown-item" type="button">Sign in</button>
-                        <button class="dropdown-item" type="button">Sign up</button>
+                        @guest
+                            <a href="{{ route('website.login') }}" class="dropdown-item">Sign in</a>
+                            <a href="{{ route('website.register') }}" class="dropdown-item">Sign up</a>
+                        @endguest
+                        @auth
+                            <a href="{{ route('logout') }}" class="dropdown-item">Logout</a>
+                        @endauth
                     </div>
                 </div>
                 <div class="btn-group">

@@ -44,9 +44,8 @@ class ProductController extends BaseController
                 ->select('id', 'title', 'detail_page_title', 'picture', 'price', 'min_advance_price', 'category_id', 'brand_id')
                 ->first();
             if (is_null($product)) {
-                return abort(404);
+                return $this->sendResponse(['id' => $id], 'Product not found.', 200);
             }
-
             $product_deatil = [];
 
             $product_deatil['id'] = $product->id;
@@ -101,7 +100,7 @@ class ProductController extends BaseController
 
             if ($product->gallery->isNotEmpty()) {
                 foreach ($product->gallery as $img) {
-                    $product_deatil['gallery'][] = array('id' => $img->id, 'url' => $img->url);
+                    $product_deatil['gallery'][] = array('id' => $img->id, 'url' => asset($img->url));
                 }
             } else {
                 $product_deatil['gallery'] = [];
@@ -117,7 +116,7 @@ class ProductController extends BaseController
 
             return $this->sendResponse($product_deatil, 'Product deatil is here.', 200);
         } catch (Exception $e) {
-            return $this->sendError('Something Went Wrong.', $e->getMessage(), 200);
+            return $this->sendError($e->getMessage(), 'Somehting Went Wrong.', 200);
         }
     }
 }

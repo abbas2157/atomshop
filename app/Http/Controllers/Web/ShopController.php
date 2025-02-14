@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\{Product, Category, Brand};
+use Illuminate\Support\Facades\{Auth, DB, Session};
 
 class ShopController extends Controller
 {

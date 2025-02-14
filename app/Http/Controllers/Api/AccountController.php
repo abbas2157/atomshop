@@ -7,8 +7,8 @@ use Carbon\Carbon;
 use App\Models\Customer;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Models\{User, VerifyCode};
 use App\Http\Controllers\Controller;
+use App\Models\{User, VerifyCode, Cart};
 use App\Http\Controllers\Api\BaseController as BaseController;
 use Illuminate\Support\Facades\{Auth, Validator, DB, Password, Hash, Mail};
 class AccountController extends BaseController
@@ -65,11 +65,20 @@ class AccountController extends BaseController
                 'password' => 'required',
             ]);
             if ($validator->fails()) {
-                return $this->sendError('Validation Error.', $validator->errors(), 200);
+                return $this->sendError('Please fill all the fields.', $validator->errors(), 200);
             }
             $credentials = $request->only('email', 'password');
             if (!Auth::attempt($credentials)) {
                 return $this->sendError('Invalid login credentials', $credentials, 200);
+            }
+            $guest_id = $request->guest_id;
+            $cart = Cart::where('guest_id', $guest_id)->where('status', 'Pending')->get();
+            
+            if($cart->isNotEmpty()) {
+                foreach($cart as $item) {
+                    $item->user_id = Auth::user()->id;
+                    $item->save();
+                }
             }
             $success['user'] = Auth::user();
             $success['token'] =  $success['user']->createToken('MyApp')->plainTextToken;
