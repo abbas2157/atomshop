@@ -25,7 +25,6 @@
                         <a class="text-secondary mb-2" href="{{ route('privacy-policy') }}"><i class="fa fa-angle-right mr-2"></i> Privacy Policy</a>
                         <a class="text-secondary mb-2" href="{{ route('return-refund-policy') }}"><i class="fa fa-angle-right mr-2"></i> Return Policy</a>
                         <a class="text-secondary mb-2" href="{{ route('return-refund-policy') }}"><i class="fa fa-angle-right mr-2"></i> Refund Policy</a>
-                        <a class="text-secondary mb-2" href="{{ route('website') }}"><i class="fa fa-angle-right mr-2"></i> Help</a>
                         <a class="text-secondary mb-2" href="{{ route('faqs') }}"><i class="fa fa-angle-right mr-2"></i> FAQs</a>
                     </div>
                 </div>
