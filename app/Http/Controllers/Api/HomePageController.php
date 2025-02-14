@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
-use App\Models\{Category, Brand, Product};
+use App\Models\{Category, Brand, Product, AppSetup};
 use Illuminate\Support\Facades\{Auth, DB};
 
 class HomePageController extends BaseController
@@ -49,7 +49,20 @@ class HomePageController extends BaseController
     /**
      * Get Products For Home Page App
      */
-
+    public function sliders(Request $request)
+    {
+        try {
+            $app = AppSetup::first();
+            $sliders = [];
+            if (!is_null($sliders)) {
+                $sliders = json_decode($app->sliders);
+            }
+            return $this->sendResponse($sliders, 'Here is the list of slider.', 200);
+        } catch (Exception $e) {
+            DB::rollBack();
+            return $this->sendError('Something went wrong.', $e->getMessage(), 500);
+        }
+    }
     /**
      * Get Products For Home Page App
      */
