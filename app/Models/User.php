@@ -54,7 +54,7 @@ class User extends Authenticatable
 
     public function customer()
     {
-        return $this->belongsTo(Customer::class,'id','user_id')->select('id','user_id','city_id','area_id','address');
+        return $this->hasOne(Customer::class, 'user_id')->select('id','user_id','city_id','area_id','address');
     }
 
     public function seller(): HasOne
