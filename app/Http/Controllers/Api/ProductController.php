@@ -44,7 +44,7 @@ class ProductController extends BaseController
                 ->select('id', 'title', 'detail_page_title', 'picture', 'price', 'min_advance_price', 'category_id', 'brand_id')
                 ->first();
             if (is_null($product)) {
-                return abort(404);
+                return $this->sendError('Something Went Wrong.', $request->all(), 200);
             }
 
             $product_deatil = [];
