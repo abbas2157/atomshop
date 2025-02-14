@@ -10158,8 +10158,11 @@ h6 {
 .login__signup__wrapper {
     margin-bottom: 2rem;
 }
-.login__signup__wrapper h2 {
-    margin-bottom: 2rem;
+.login__signup__wrapper .heading {
+    text-align: center;
+    color: white;
+}
+.login__signup__wrapper .sub-text {
     text-align: center;
     color: white;
 }
@@ -10180,11 +10183,10 @@ h6 {
     display: block;
     border: 0;
     border: 2px solid #ccc;
-    border-radius: 5px;
     outline: 0;
     font-size: 1rem;
     color: #fff;
-    padding: 18px 12px;
+    padding: 0.375rem 0.75rem;
     background: transparent;
     transition: border-color 0.2s;
 }
@@ -10210,14 +10212,14 @@ h6 {
     ~ label {
     font-size: 1rem;
     cursor: text;
-    transform: translatey(19px);
+    transform: translatey(8px);
     padding: 0px 0px;
     color: hsl(230, 15%, 75%);
 }
 .login__signup__wrapper .input-floating-label .input:placeholder-shown ~ label {
     font-size: 1rem;
     cursor: text;
-    transform: translatey(19px);
+    transform: translatey(8px);
     padding: 0px 0px;
     color: hsl(230, 15%, 75%);
 }
@@ -10245,19 +10247,17 @@ h6 {
     font-size: 0.75rem;
 }
 .login__signup__wrapper .btn__submit {
-    padding: 15px 20px;
-    border-radius: 5px;
+    padding: 0.375rem 0.75rem;
     width: 100%;
     border: none;
     background: #ffd333;
     font-family: sans-serif;
-    font-size: 20px;
-    line-height: 1;
+    font-size: 1rem;
+    line-height: 1.5;
     transition: 0.2s;
     cursor: pointer;
     color: #080d17;
     text-transform: uppercase;
-    font-weight: 700;
     margin-bottom: 1rem;
 }
 .login__signup__wrapper .btn__submit:hover {

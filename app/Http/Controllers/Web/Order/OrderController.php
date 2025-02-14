@@ -7,12 +7,16 @@ use Illuminate\Http\Request;
 use App\Models\{User, Cart, Order, City, Area};
 use Illuminate\Support\Facades\{Auth, DB, Session};
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Cookie;
+
 
 class OrderController extends Controller
 {
     public function index()
     {
-        
+        // Cookie::forget('redirect_to');
+        // Cookie::queue('redirect_to', url('checkout'), 60);
+        // dd(request()->cookie('redirect_to'));
         if(!Auth::check()) {
             return redirect('login');
         }

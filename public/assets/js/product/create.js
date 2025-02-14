@@ -81,7 +81,6 @@ $(function() {
             isSubmitting = true;
 
             $('.actions a[href="#finish"]').text('Publishing...').addClass('disabled').css('pointer-events', 'none');
-            console.log('Finishing... Current Index:', currentIndex);
             var formData = new FormData(document.getElementById('product-form-name'));
             $.ajax({
                 url: APP_URL + "/admin/products",

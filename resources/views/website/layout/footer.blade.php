@@ -1,6 +1,6 @@
 <div class="container-fluid bg-dark text-secondary mt-5">
     <div class="row px-xl-5 pt-4">
-        <div class="col-lg-4 col-md-12 mb-3 pr-3 pr-xl-5">
+        <div class="col-lg-4 col-md-12 col-sm-12 mb-3 pr-3 pr-xl-5">
             <h5 class="text-secondary text-uppercase mb-2">Get In Touch</h5>
             <p class="mb-4">Online shop with easy installment facility in Lahore, Pakistan. {{ config('website.tagline') ?? 'No Email' }}</p>
             <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i> {{ config('website.address') ?? 'No Address' }}</p>
@@ -9,7 +9,7 @@
         </div>
         <div class="col-lg-8 col-md-12">
             <div class="row">
-                <div class="col-md-4 mb-3">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 mb-3">
                     <h5 class="text-secondary text-uppercase mb-2">Quick Shop</h5>
                     <div class="d-flex flex-column justify-content-start">
                         <a class="text-secondary mb-2" href="{{ route('website') }}"><i class="fa fa-angle-right mr-2"></i> Home</a>
@@ -19,7 +19,7 @@
                         <a class="text-secondary mb-2" href="{{ route('calculator') }}"><i class="fa fa-angle-right mr-2"></i> Installment Calculator</a>
                     </div>
                 </div>
-                <div class="col-md-4 mb-3">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 mb-3">
                     <h5 class="text-secondary text-uppercase mb-2">Our Policies</h5>
                     <div class="d-flex flex-column justify-content-start">
                         <a class="text-secondary mb-2" href="{{ route('privacy-policy') }}"><i class="fa fa-angle-right mr-2"></i> Privacy Policy</a>
@@ -28,7 +28,7 @@
                         <a class="text-secondary mb-2" href="{{ route('faqs') }}"><i class="fa fa-angle-right mr-2"></i> FAQs</a>
                     </div>
                 </div>
-                <div class="col-md-4 mb-3">
+                <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
                     <h5 class="text-secondary text-uppercase mb-2">Newsletter</h5>
                     <p>Online shop with easy installment facility in Lahore, Pakistan.</p>
                     <form action="">
