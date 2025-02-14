@@ -47,6 +47,13 @@
                                     <a href="{{ route('admin.sizes.index') }}" class="nav-link"> All Sizes</a>
                                     <a href="{{ route('admin.sizes.create') }}" class="nav-link">Create new</a>
                                 </nav>
+
+                                <nav class="nav">
+                                    <span>Contacts</span>
+                                    <a href="{{ route('admin.contacts.index') }}" class="nav-link"> All Contacts</a>
+                                    <a href="{{ route('admin.contacts.create') }}" class="nav-link">Create new</a>
+                                </nav>
+
                             </div>
                             <div>
                                 <nav class="nav">

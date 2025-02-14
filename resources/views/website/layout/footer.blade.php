@@ -22,11 +22,10 @@
                 <div class="col-md-4 mb-3">
                     <h5 class="text-secondary text-uppercase mb-2">Our Policies</h5>
                     <div class="d-flex flex-column justify-content-start">
-                        <a class="text-secondary mb-2" href="{{ route('website') }}"><i class="fa fa-angle-right mr-2"></i> Privacy Policy</a>
-                        <a class="text-secondary mb-2" href="{{ route('website') }}"><i class="fa fa-angle-right mr-2"></i> Return Policy</a>
-                        <a class="text-secondary mb-2" href="{{ route('website') }}"><i class="fa fa-angle-right mr-2"></i> Refund Policy</a>
-                        <a class="text-secondary mb-2" href="{{ route('website') }}"><i class="fa fa-angle-right mr-2"></i> Help</a>
-                        <a class="text-secondary mb-2" href="{{ route('website') }}"><i class="fa fa-angle-right mr-2"></i> FAQs</a>
+                        <a class="text-secondary mb-2" href="{{ route('privacy-policy') }}"><i class="fa fa-angle-right mr-2"></i> Privacy Policy</a>
+                        <a class="text-secondary mb-2" href="{{ route('return-refund-policy') }}"><i class="fa fa-angle-right mr-2"></i> Return Policy</a>
+                        <a class="text-secondary mb-2" href="{{ route('return-refund-policy') }}"><i class="fa fa-angle-right mr-2"></i> Refund Policy</a>
+                        <a class="text-secondary mb-2" href="{{ route('faqs') }}"><i class="fa fa-angle-right mr-2"></i> FAQs</a>
                     </div>
                 </div>
                 <div class="col-md-4 mb-3">

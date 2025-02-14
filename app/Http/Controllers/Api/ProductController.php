@@ -101,7 +101,7 @@ class ProductController extends BaseController
 
             if ($product->gallery->isNotEmpty()) {
                 foreach ($product->gallery as $img) {
-                    $product_deatil['gallery'][] = array('id' => $img->id, 'url' => $img->url);
+                    $product_deatil['gallery'][] = array('id' => $img->id, 'url' => asset($img->url));
                 }
             } else {
                 $product_deatil['gallery'] = [];

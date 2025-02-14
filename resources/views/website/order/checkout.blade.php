@@ -43,7 +43,7 @@
                             <select class="custom-select" name="city_id" required>
                                 @if($cities->isNotEmpty())
                                     @foreach($cities as $item)
-                                        <option value="{{ $item->id ?? '' }}" {{ (is_null(Auth::user()->customer) && Auth::user()->customer->city_id == $item->id) ? 'selected' : '' }}>{{ $item->title ?? '' }}</option>
+                                        <option value="{{ $item->id ?? '' }}" {{ (!is_null(Auth::user()->customer) && Auth::user()->customer->city_id == $item->id) ? 'selected' : '' }}>{{ $item->title ?? '' }}</option>
                                     @endforeach
                                 @else
                                     <option value="0">No City Found</option>
@@ -55,7 +55,7 @@
                             <select class="custom-select" name="area_id" required>
                                 @if($areas->isNotEmpty())
                                     @foreach($areas as $item)
-                                        <option value="{{ $item->id ?? '' }}" {{ (is_null(Auth::user()->customer) && Auth::user()->customer->area_id == $item->id) ? 'selected' : '' }}>{{ $item->title ?? '' }}</option>
+                                        <option value="{{ $item->id ?? '' }}" {{ (!is_null(Auth::user()->customer) && Auth::user()->customer->area_id == $item->id) ? 'selected' : '' }}>{{ $item->title ?? '' }}</option>
                                     @endforeach
                                 @else
                                     <option value="0">No Area Found</option>

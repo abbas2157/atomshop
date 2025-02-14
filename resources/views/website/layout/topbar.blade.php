@@ -4,8 +4,7 @@
             <div class="d-inline-flex align-items-center h-100">
                 <a class="text-body mr-3" href="{{ route('about-us') }}">About</a>
                 <a class="text-body mr-3" href="">Contact</a>
-                <a class="text-body mr-3" href="">Help</a>
-                <a class="text-body mr-3" href="">FAQs</a>
+                <a class="text-body mr-3" href="{{ route('faqs') }}">FAQs</a>
             </div>
         </div>
         <div class="col-lg-6 text-center text-lg-right">

@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-//Cart Management 
+//Cart Management
 Route::group(['prefix' => 'cart'], function(){
     Route::get('/', [App\Http\Controllers\Web\Order\CartController::class, 'index'])->name('cart');
 });
@@ -22,6 +22,9 @@ Route::get('shop', [App\Http\Controllers\Web\ShopController::class, 'index'])->n
 
 // Other Pages
 Route::get('about-us', [App\Http\Controllers\Web\PageController::class, 'about'])->name('about-us');
+Route::get('privacy-policy', [App\Http\Controllers\Web\PageController::class, 'privacypolicy'])->name('privacy-policy');
+Route::get('return-refund-policy', [App\Http\Controllers\Web\PageController::class, 'returnrefundpolicy'])->name('return-refund-policy');
+Route::get('faqs', [App\Http\Controllers\Web\PageController::class, 'faqs'])->name('faqs');
 
 
 Route::get('/{slug}', [App\Http\Controllers\Web\HomeController::class, 'product_detail'])->name('website.product.detail');
