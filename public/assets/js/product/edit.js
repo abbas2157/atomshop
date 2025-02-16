@@ -1,7 +1,11 @@
 $(function () {
     "use strict";
     let isSubmitting = false;
-
+    var categoryId = $("#category_id").val();
+    if (categoryId != 1 && categoryId != 2) {
+        $(".memory-price").addClass("d-none");
+        $(".size-price").addClass("d-none");
+    }
     $("#product-form").steps({
         headerTag: "h3",
         bodyTag: "section",
@@ -32,35 +36,28 @@ $(function () {
                         brandId.validate();
                         status.validate();
                     }
-                } 
-                else if (currentIndex === 1) {
-                    var price = $('#price').parsley();
-                    var min_advance_price = $('#min_advance_price').parsley();
+                } else if (currentIndex === 1) {
+                    var price = $("#price").parsley();
+                    var min_advance_price = $("#min_advance_price").parsley();
                     if (price.isValid() && min_advance_price.isValid()) {
                         return true;
-                    } 
-                    else {
+                    } else {
                         price.validate();
                         min_advance_price.validate();
                     }
-                }
-                else if (currentIndex === 2) {
-                    var short = $('#short_description').parsley();
+                } else if (currentIndex === 2) {
+                    var short = $("#short_description").parsley();
                     if (short.isValid()) {
                         return true;
-                    } 
-                    else {
+                    } else {
                         short.validate();
                     }
-                    
-                }
-                else if (currentIndex === 3) { 
+                } else if (currentIndex === 3) {
                     return true;
-                    var picture = $('#picture').parsley();
+                    var picture = $("#picture").parsley();
                     if (picture.isValid()) {
                         return true;
-                    } 
-                    else {
+                    } else {
                         picture.validate();
                     }
                 }
@@ -73,18 +70,22 @@ $(function () {
                 return false;
             }
             isSubmitting = true;
-            var formData = new FormData(document.getElementById('product-form-name'));
+            var formData = new FormData(
+                document.getElementById("product-form-name")
+            );
             $.ajax({
-                url: APP_URL + "/admin/products/" + $('#product-id').val(),
-                type: 'POST',
+                url: APP_URL + "/admin/products/" + $("#product-id").val(),
+                type: "POST",
                 data: formData,
                 contentType: false,
                 processData: false,
                 headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                        "content"
+                    ),
                 },
                 success: function (response) {
-                    if(response.success) {
+                    if (response.success) {
                         alert(response.message);
                         location.reload();
                     } else {
@@ -92,7 +93,7 @@ $(function () {
                     }
                 },
                 error: function (xhr, status, error) {
-                    alert('An error occurred. Please try again.');
+                    alert("An error occurred. Please try again.");
                     console.error(xhr.responseText);
                     isSubmitting = false;
 
@@ -100,14 +101,15 @@ $(function () {
                         .text("Publish Product")
                         .removeClass("disabled")
                         .css("pointer-events", "auto");
-                }
+                },
             });
-        }
+        },
     });
     $("#title").attr("data-parsley-required", "true");
     $("#category_id").attr("data-parsley-required", "true");
     $("#brand_id").attr("data-parsley-required", "true");
     $("#memory_id").attr("data-parsley-required", "true");
+    $("#size_id").attr("data-parsley-required", "true");
     $("#color_id").attr("data-parsley-required", "true");
     $("#status").attr("data-parsley-required", "true");
     $("#customFile").attr("data-parsley-required", "true");
@@ -123,6 +125,11 @@ $(function () {
             $(".memory-price").removeClass("d-none");
         } else {
             $(".memory-price").addClass("d-none");
+        }
+        if (category_id == 1 || category_id == 2) {
+            $(".size-price").removeClass("d-none");
+        } else {
+            $(".size-price").addClass("d-none");
         }
         $("#brand_id").html("");
         $.ajax({
