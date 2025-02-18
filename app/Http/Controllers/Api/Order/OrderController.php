@@ -23,16 +23,37 @@ class OrderController extends BaseController
                 return $this->sendError($request->all(), 'User not found.', 200);
             }
 
-            $cart = Cart::where('user_id', $user->id)->where('status', 'Pending')->get();
-            if ($cart->isEmpty()) {
+            $cart_items = Cart::where('user_id', $user->id)->where('status', 'Pending')->get();
+            if ($cart_items->isEmpty()) {
                 return $this->sendError($request->all(), 'Cart is Empty.', 200);
             }
             
-            foreach($cart as $item) {
-
+            $cart = [];
+            $sub_total = 0;
+            $total = 0;
+            foreach($cart_items as $item) {
+               
+                if(!is_null($item->memory_id) && !is_null($item->memory)) {
+                    $item->product->title = $item->product->title . " - Storage " . $item->memory->title;
+                }
+                if(!is_null($item->color_id) && !is_null($item->color)) {
+                    $item->product->title = $item->product->title . " - Color " . $item->color->title;
+                }
+                if(!is_null($item->size_id) && !is_null($item->size)) {
+                    $item->product->title = $item->product->title . " - Size " . $item->size->title . ' ' . $item->size->unit ;
+                }
+                $product = array(
+                    'id' => $item->product->id, 
+                    'title' => $item->product->title ,
+                    'price' => $item->product->formatted_price, 
+                    'picture' => $item->product->product_picture, 
+                    'total' => number_format(($item->product->price * $item->quantity),0),
+                );
+                $cart[] = array('id' => $item->id, 'product' => $product, 'product_advance_price' => number_format($item->product_advance_price,0), 'product_price' => number_format($item->product_price,0), 'quantity' => $item->quantity );
+                $sub_total += ($item->product_price * $item->quantity);
+                $total += $sub_total;
             }
-
-            $data = ['cart' => $cart];
+            $data = ['cart' => $cart, 'sub_total' => number_format($sub_total,0), 'total' => number_format($total,0)];
             return $this->sendResponse($data, 'Cart get successfully', 200);
         } catch (\Exception $e) {
             return $this->sendError('Something went wrong.', $e->getMessage(), 500);
