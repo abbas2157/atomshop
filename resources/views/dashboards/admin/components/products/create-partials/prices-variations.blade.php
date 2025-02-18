@@ -16,7 +16,8 @@
             @endif
         </div>
     </div>
-    <div class="mt-3 memory-price">
+    <h5 class="mt-2"><span class="text-decoration-underline memory-price">Memories</span></h5>
+    <div class="mt-2 memory-price">
         @foreach ($memories as $memory)
             <div class="row row-sm">
                 <div class="col-lg-6 mt-2">
@@ -31,5 +32,20 @@
             </div>
         @endforeach
     </div>
-    
+    <h5 class="mt-2"><span class="text-decoration-underline size-price">Sizes</span></h5>
+    <div class="mt-2 size-price">
+        @foreach ($sizes as $size)
+            <div class="row row-sm">
+                <div class="col-lg-6 mt-2">
+                    <label class="form-control-label">Variation Price ({{ $size->title ?? '' }})</label>
+                    <input type="number" class="form-control" name="sizes[price_{{ $size->id ?? '' }}]" placeholder="Enter product price" value="0">
+                </div>
+                <div class="col-lg-3 mt-2 pt-4">
+                    <label class="ckbox mt-1">
+                        <input type="checkbox" name="sizes[name][]" value="{{ $size->id ?? '' }}"><span> {{ $size->title ?? '' }}</span>
+                    </label>
+                </div>
+            </div>
+        @endforeach
+    </div>
 </section>

@@ -28,6 +28,10 @@ class Product extends Model
     {
         return $this->hasMany(ProductMemory::class, 'product_id', 'id')->with('memory');
     }
+    public function sizes()
+    {
+        return $this->hasMany(ProductSize::class, 'product_id', 'id')->with('size');
+    }
     public function gallery()
     {
         return $this->hasMany(ProductImage::class,'product_id','id')->select('id','url','product_id');
