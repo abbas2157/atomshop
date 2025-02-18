@@ -31,13 +31,14 @@ Route::get('brands', [App\Http\Controllers\Api\HomePageController::class, 'brand
 Route::get('sliders', [App\Http\Controllers\Api\HomePageController::class, 'sliders']);
 Route::group(['prefix' => 'products'], function(){
     Route::get('/', [App\Http\Controllers\Api\ProductController::class, 'products']);
-    Route::get('{id}', [App\Http\Controllers\Api\ProductController::class, 'product_detail']);
 
     Route::get('home', [App\Http\Controllers\Api\HomePageController::class, 'home_products']);
     Route::get('feature', [App\Http\Controllers\Api\HomePageController::class, 'feature_products']);
 
     Route::get('category/{id}', [App\Http\Controllers\Api\HomePageController::class, 'category_products']);
     Route::get('brand/{id}', [App\Http\Controllers\Api\HomePageController::class, 'brand_products']);
+
+    Route::get('{id}', [App\Http\Controllers\Api\ProductController::class, 'product_detail']);
 });
 
 Route::group(['prefix' => 'cart'], function(){
