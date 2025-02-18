@@ -20,6 +20,10 @@ Route::group(['prefix' => 'account'], function(){
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+    Route::group(['prefix' => 'checkout'], function(){
+        Route::get('/', [App\Http\Controllers\Api\Order\OrderController::class, 'index'])->name('checkout');
+        Route::post('perform', [App\Http\Controllers\Web\Order\OrderController::class, 'checkout_perform'])->name('checkout.perform');
+    });
 });
 
 Route::get('categories', [App\Http\Controllers\Api\HomePageController::class, 'categories']);

@@ -15,7 +15,7 @@ Route::group(['prefix' => 'cart'], function(){
 
 //Auth Routes
 Route::group(['middleware' => ['auth']], function(){
-    Route::group(['prefix' => 'checkout', 'middleware' => ['auth']], function(){
+    Route::group(['prefix' => 'checkout'], function(){
         Route::get('/', [App\Http\Controllers\Web\Order\OrderController::class, 'index'])->name('checkout');
         Route::post('perform', [App\Http\Controllers\Web\Order\OrderController::class, 'checkout_perform'])->name('checkout.perform');
     });
@@ -40,7 +40,7 @@ Route::get('return-refund-policy', [App\Http\Controllers\Web\PageController::cla
 Route::get('faqs', [App\Http\Controllers\Web\PageController::class, 'faqs'])->name('faqs');
 
 Route::get('contact-us', [App\Http\Controllers\Web\ContactController::class, 'contact'])->name('contact-us');
-Route::post('contact/send', [App\Http\Controllers\Web\ContactController::class, 'store'])->name('contact.send');
+Route::post('contact-us', [App\Http\Controllers\Web\ContactController::class, 'contact_perform'])->name('contact.send');
 
 Route::get('/{slug}', [App\Http\Controllers\Web\HomeController::class, 'product_detail'])->name('website.product.detail');
 
