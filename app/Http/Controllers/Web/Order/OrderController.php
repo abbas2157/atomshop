@@ -64,10 +64,26 @@ class OrderController extends Controller
                 $cart->status = 'Purchased';
                 $cart->save();
             }
-            return redirect('order/success');
+            return redirect('order/success?order='.$order->uuid);
         } catch (\Exception $e) {
             return abort(505, $e->getMessage());
         }
     }
-    
+    public function success()
+    {
+        if(!request()->has('order')) {
+            return redirect()->route('website');
+        }
+        $order_uuid = request()->order;
+        $order = Order::where('uuid', request()->order)->with('cart')->first();
+        if(is_null($order)) {
+            return redirect()->route('website');
+        }
+        // dd($order->toArray());
+        return view('website.order.success', compact('order'));
+    }
+    public function failed()
+    {
+        return view('website.order.failed');
+    }
 }

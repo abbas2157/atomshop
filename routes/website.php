@@ -9,9 +9,17 @@ Route::get('register', [App\Http\Controllers\Web\AuthController::class, 'registe
 Route::group(['prefix' => 'cart'], function(){
     Route::get('/', [App\Http\Controllers\Web\Order\CartController::class, 'index'])->name('cart');
 });
-Route::group(['prefix' => 'checkout'], function(){
-    Route::get('/', [App\Http\Controllers\Web\Order\OrderController::class, 'index'])->name('checkout');
-    Route::post('perform', [App\Http\Controllers\Web\Order\OrderController::class, 'checkout_perform'])->name('checkout.perform');
+
+//Auth Routes
+Route::group(['middleware' => ['auth']], function(){
+    Route::group(['prefix' => 'checkout', 'middleware' => ['auth']], function(){
+        Route::get('/', [App\Http\Controllers\Web\Order\OrderController::class, 'index'])->name('checkout');
+        Route::post('perform', [App\Http\Controllers\Web\Order\OrderController::class, 'checkout_perform'])->name('checkout.perform');
+    });
+    Route::group(['prefix' => 'order'], function(){
+        Route::get('success', [App\Http\Controllers\Web\Order\OrderController::class, 'success'])->name('order.success');
+        Route::get('failed', [App\Http\Controllers\Web\Order\OrderController::class, 'failed'])->name('order.failed');
+    });
 });
 Route::get('installment-calculator', [App\Http\Controllers\Web\HomeController::class, 'calculator'])->name('calculator');
 
