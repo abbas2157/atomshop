@@ -24,17 +24,21 @@
                     <h4>Contact Us – AtomShop.pk</h4>
                 </div>
                 <div>
-                    <h4>Contact Directly</h4>
-                    <p><b>Mobile:</b> 0300 8622866</p>
-
-                    <h4>Head Office</h4>
-                    <p>206- Nasheman Iqbal Cooperative Housing Society, Phase 1, Lahore</p>
-
-                    <h4>Email</h4>
-                    <p>Atomshop.pk Team is always available for their customers, suppliers, and sellers.
+                    <h4>Contact Atomshop</h4>
+                    <p class="mb-5 mt-2">
+                        Atomshop.pk Team is always available for their customers, suppliers, and sellers. <br> <br>
+                        <b>Mobile Number : </b> <a href="tel:+923008622866" class="text-decoration-none">+923008622866</a> <br>
+                        <b>For Customers:</b> <a href="mailto:support@atomshop.pk" class="text-decoration-none">support@atomshop.pk</a> <br>
+                        <b>For Sellers:</b> <a href="mailto:sellers@atomshop.pk" class="text-decoration-none"> sellers@atomshop.pk </a> <br> <br>
+                        <b>Office Address : </b> 206- Nasheman Iqbal Cooperative Housing Society, Phase 1, Lahore, Pakistan</p>
                     </p>
-                    <p><b>For Customers:</b> support@atomshop.pk</p>
-                    <p><b>For Sellers:</b> sellers@atomshop.pk</p>
+                    <h6 class="text-uppercase mt-5 mb-3">Follow Us</h6>
+                    <div class="d-flex mb-4">
+                        <a class="btn btn-primary btn-square mr-2" href="#"><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-primary btn-square mr-2" href="https://www.facebook.com/atomshoppk"><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-primary btn-square mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a class="btn btn-primary btn-square" href=""><i class="fab fa-instagram"></i></a>
+                    </div>
                 </div>
             </div>
         </div>
