@@ -49,4 +49,19 @@ class AuthController extends BaseController
     {
         return view('website.auth.register');
     }
+    public function register_perform(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'name' => 'required',
+                'email' => 'required',
+                'password' => 'required'
+            ]);
+            dd($reques->all());
+
+        } catch (Exception $e) {
+            DB::rollBack();
+            return $this->sendError('Something Went Wrong.', $e->getMessage(), 200);
+        }
+    }
 }

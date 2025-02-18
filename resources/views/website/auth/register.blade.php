@@ -12,16 +12,16 @@
             <div class="login__signup__wrapper">
                 <div class="row d-flex align-items-center justify-content-center">
                     <div class="col-lg-4">
-                        <form class="register-form" id="register-form" action="" autocomplete="off" onsubmit="return false;">
+                        <form class="login-form" id="register-form" action="" autocomplete="off" onsubmit="return false;">
                             @csrf
                             <h2>Create new account</h2>
                             <div class="input-floating-label">
-                                <input class="input" type="text" id="input-name" name="input-name" placeholder="Name" />
+                                <input class="input" type="text" id="input-name" name="name" placeholder="Name" />
                                 <label for="input-name">Full Name</label>
                                 <span class="focus-bg"></span>
                             </div>
                             <div class="input-floating-label">
-                                <input class="input" type="text" id="input-email" name="input-email" placeholder="Enter Email" />
+                                <input class="input" type="text" id="input-email" name="email" placeholder="Enter Email" />
                                 <label for="input-email">Email</label>
                                 <span class="focus-bg"></span>
                             </div>
@@ -31,7 +31,7 @@
                                 <span class="focus-bg"></span>
                             </div>
                             <a href="" class="forgot__link">Forgot password?</a>
-                            <button class="btn__submit">Sign up</button>
+                            <button class="btn__submit register" type="button">Sign up</button>
                             <p class="other__link"> Already have an account? <a href="{{ route('website.login') }}">Log in</a> </p>
                         </form>
                       </div>

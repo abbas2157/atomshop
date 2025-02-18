@@ -5,10 +5,10 @@
         $(this).prop('disabled', true);
         $(this).html('<img src="'+ASSET_URL+'/web/img/loader.gif" class="w-10" alt="Loader">');
         let guest_id = localStorage.getItem("guest_id");
-        var formData = new FormData(document.getElementById('login-form'));
+        var formData = new FormData(document.getElementById('register-form'));
         formData.append('guest_id', guest_id); 
         $.ajax({
-            url: APP_URL + "/login",
+            url: APP_URL + "/register",
             method: "POST",
             data: formData,
             contentType: false,
