@@ -17,15 +17,18 @@ class OrderController extends BaseController
                 return $this->sendError(request()->all(), 'Send user uuid in request.', 200);
             }
             $user_uuid = request()->uuid;
+
             $user = User::where('uuid', $user_uuid)->where('status', 'active')->first();
             if (is_null($user)) {
                 return $this->sendError($request->all(), 'User not found.', 200);
             }
-            $cart = Cart::where('user_id', $user_id)->where('status', 'Pending')->get();
 
+            $cart = Cart::where('user_id', $user->id)->where('status', 'Pending')->get();
             if ($cart->isEmpty()) {
-                return redirect('cart');
+                return $this->sendError($request->all(), 'Cart is Empty.', 200);
             }
+
+            
 
             $cities = City::orderBy('id', 'desc')->get();
             $areas = Area::orderBy('id', 'desc')->get();

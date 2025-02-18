@@ -19,9 +19,11 @@ class HomePageController extends BaseController
     public function categories(Request $request)
     {
         try {
-            $categories = Category::where('status', 'active')
-                ->orderBy($request->order_by ?? 'title', $request->order_type ?? 'desc')
-                ->select('id', 'title', 'picture')->get();
+            $app = AppSetup::first();
+            $categories = [];
+            if (!is_null($categories)) {
+                $categories = json_decode($app->categories);
+            }
 
             return $this->sendResponse($categories, 'Here is the list of categories.', 200);
         } catch (Exception $e) {
