@@ -16,6 +16,7 @@
             @endif
         </div>
     </div>
+    @if($memories->isNotEmpty())
     <h5 class="mt-2"><span class="text-decoration-underline memory-price">Memories</span></h5>
     <div class="mt-2 memory-price">
         @foreach ($memories as $memory)
@@ -32,6 +33,8 @@
             </div>
         @endforeach
     </div>
+    @endif
+    @if($sizes->isNotEmpty())
     <h5 class="mt-2"><span class="text-decoration-underline size-price">Sizes</span></h5>
     <div class="mt-2 size-price">
         @foreach ($sizes as $size)
@@ -48,4 +51,5 @@
             </div>
         @endforeach
     </div>
+    @endif
 </section>

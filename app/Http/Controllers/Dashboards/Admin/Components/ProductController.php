@@ -49,7 +49,6 @@ class ProductController extends Controller
         $colors = Color::orderBy('id', 'asc')->where('status', 'active')->get();
         $memories = Memory::orderBy('id', 'asc')->where('status', 'active')->get();
         $sizes = Size::orderBy('id', 'asc')->where('status', 'active')->get();
-
         return view('dashboards.admin.components.products.create', compact('categories', 'brands', 'colors', 'memories', 'sizes'));
     }
 
@@ -254,7 +253,7 @@ class ProductController extends Controller
             }
             if ($request->category_id == 1 || $request->category_id == 2) {
                 ProductMemory::where('product_id', $id)->delete();
-                if ($request->has('memories')) {
+                if ($request->has('memories.name')) {
                     $names = $request->input('memories.name');
                     $memories = $request->input('memories');
                     foreach ($names as $index => $memory_id) {
