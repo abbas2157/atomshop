@@ -18,6 +18,15 @@ class EnsureUserIsSeller
     {
         if(Auth::user()->role == 'seller')
         {
+            if(!(request()->segment(1) == 'seller' && (request()->segment(2) == 'profile') && ((request()->segment(3) == 'seller-info') || (request()->segment(3) == 'business-info')))) {
+                if(is_null(Auth::user()->seller) || empty(Auth::user()->seller->name)) {
+                    return redirect('seller/profile/seller-info');
+                }
+                if(is_null(Auth::user()->seller) || empty(Auth::user()->seller->area_id)) {
+                    return redirect('seller/profile/business-info');
+                }
+            }
+            
             return $next($request);
         }
         Auth::logout();

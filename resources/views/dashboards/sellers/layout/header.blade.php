@@ -14,12 +14,12 @@
                     <a href="{{ route('seller') }}" class="nav-link"><i class="typcn typcn-chart-area-outline"></i> Dashboard</a>
                 </li>
                 <li class="nav-item {{ (request()->segment(1) == 'seller' && (in_array(request()->segment(2), ['users', 'sellers', 'customers']))) ? 'active show' : '' }}">
-                    <a href="" class="nav-link with-sub"><i class="typcn typcn-group-outline"></i> Accounts</a>
+                    <a href="" class="nav-link with-sub"><i class="typcn typcn-group-outline"></i>Customers</a>
                     <div class="az-menu-sub">
                         <div class="container">
                             <div>
                                 <nav class="nav">
-                                    <a href="{{ route('seller.profile.business-info') }}" class="nav-link">Sellers</a>
+                                    <a href="{{ route('seller.customers') }}" class="nav-link">All Customers</a>
                                 </nav>
                             </div>
                         </div>

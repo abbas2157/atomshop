@@ -20,6 +20,9 @@ Route::group(['middleware' => ['auth']], function() {
                 Route::get('business-info', [App\Http\Controllers\Dashboards\Sellers\ProfileController::class, 'business_info'])->name('seller.profile.business-info');
                 Route::post('business-info', [App\Http\Controllers\Dashboards\Sellers\ProfileController::class, 'business_info_perform'])->name('seller.profile.business-info.perform');
             });
+            Route::group(['prefix' => 'customers'], function(){
+                Route::get('/', [App\Http\Controllers\Dashboards\Sellers\CustomerController::class, 'index'])->name('seller.customers');
+            });
         });
     });    
 });

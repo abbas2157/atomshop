@@ -112,15 +112,26 @@ class HomePageController extends BaseController
     public function category_products(Request $request, $category_id)
     {
         try {
-            $products = Product::where(['status' => 'Published', 'category_id' => $category_id])
+            $product_items = Product::where(['status' => 'Published', 'category_id' => $category_id])
                 ->with('category', 'brand')
                 ->when($request->min_price, fn($q) => $q->where('price', '>=', $request->min_price))
                 ->when($request->max_price, fn($q) => $q->where('price', '<=', $request->max_price))
                 ->when($request->brand_id, fn($q) => $q->where('brand_id', $request->brand_id))
                 ->orderBy($request->order_by ?? 'title', $request->order_type ?? 'desc')
                 ->select('id', 'title', 'picture', 'price', 'category_id', 'brand_id')
-                ->paginate(10);
-
+                ->get();
+            $products = [];
+            foreach($product_items as $product) {
+                $products[] =array(
+                    'id' => $product->id,
+                    'title' => $product->title,
+                    'slug' => $product->slug,
+                    'price' => $product->formatted_advance_price,
+                    'picture' => $product->product_picture,
+                    'category' => $product->category->title,
+                    'brand' => $product->brand->title
+                );
+            }
             return $this->sendResponse($products, 'Here is the list of category products.', 200);
         } catch (Exception $e) {
             DB::rollBack();

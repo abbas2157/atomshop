@@ -15,6 +15,14 @@
                 <h2 class="az-content-title">Business Information</h2>
                 <div class="az-content-label mg-b-5">Personal Details</div>
                 <p class="mg-b-20">Using this form you can update your details</p>
+                @if(is_null(Auth::user()->seller) || empty(Auth::user()->seller->city_id)) 
+                <div class="alert alert-warning" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                    </button>
+                    <strong>Note !</strong> Pleease Fill Seller's business detail first to move another features
+                </div>
+                @endif
                 <form method="POST" action="{{ route('seller.profile.business-info.perform') }}">
                     @csrf
                     <div class="row row-sm">
