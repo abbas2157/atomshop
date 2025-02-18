@@ -32,12 +32,5 @@
             <a href="{{ route('admin.sizes.index') }}" class="nav-link {{ (request()->segment(2) == 'sizes' && (request()->segment(3) !== 'create')) ? 'active' : '' }}">View & Edit</a>
             <a href="{{ route('admin.sizes.create') }}" class="nav-link {{ (request()->segment(2) == 'sizes' && (request()->segment(3) == 'create')) ? 'active' : '' }}">Create new</a>
         </nav>
-
-        <label>Contacts</label>
-        <nav class="nav flex-column">
-            <a href="{{ route('admin.contacts.index') }}" class="nav-link {{ (request()->segment(2) == 'contacts' && (request()->segment(3) !== 'create')) ? 'active' : '' }}">View & Edit</a>
-            <a href="{{ route('admin.contacts.create') }}" class="nav-link {{ (request()->segment(2) == 'contacts' && (request()->segment(3) == 'create')) ? 'active' : '' }}">Create new</a>
-        </nav>
-
     </div>
 </div>

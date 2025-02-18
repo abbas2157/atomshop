@@ -41,8 +41,9 @@
                         <a href="{{ route('calculator') }}"
                             class="nav-item nav-link {{ request()->segment(1) == 'installment-calculator' ? 'active' : '' }}">Installment
                             Calculator</a>
-                        <a href="" class="nav-item nav-link">Contact</a>
-                    </div>
+                            <a href="{{ route('contact-us') }}"
+                            class="nav-item nav-link {{ request()->segment(1) == 'contact-us' ? 'active' : '' }}">
+                            Contact</a>                    </div>
                     <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
                         <a href="" class="btn px-0">
                             <i class="fas fa-heart text-primary"></i>
