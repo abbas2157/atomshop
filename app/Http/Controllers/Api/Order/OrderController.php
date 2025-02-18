@@ -27,15 +27,15 @@ class OrderController extends BaseController
             if ($cart->isEmpty()) {
                 return $this->sendError($request->all(), 'Cart is Empty.', 200);
             }
-
             
+            foreach($cart as $item) {
 
-            $cities = City::orderBy('id', 'desc')->get();
-            $areas = Area::orderBy('id', 'desc')->get();
+            }
 
-            return view('website.order.checkout', compact('cart', 'cities', 'areas'));
+            $data = ['cart' => $cart];
+            return $this->sendResponse($data, 'Cart get successfully', 200);
         } catch (\Exception $e) {
-            
+            return $this->sendError('Something went wrong.', $e->getMessage(), 500);
         }
     }
 }
