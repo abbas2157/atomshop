@@ -21,7 +21,7 @@ class HomePageController extends BaseController
         try {
             $app = AppSetup::first();
             $categories = [];
-            if (!is_null($categories)) {
+            if (!is_null($app)) {
                 $categories = json_decode($app->categories);
             }
 
@@ -39,7 +39,7 @@ class HomePageController extends BaseController
         try {
             $app = AppSetup::first();
             $brands = [];
-            if (!is_null($brands)) {
+            if (!is_null($app)) {
                 $brands = json_decode($app->brands);
             }
             return $this->sendResponse($brands, 'Here is the list of brands.', 200);
@@ -56,7 +56,7 @@ class HomePageController extends BaseController
         try {
             $app = AppSetup::first();
             $sliders = [];
-            if (!is_null($sliders)) {
+            if (!is_null($app)) {
                 $sliders = json_decode($app->sliders);
             }
             return $this->sendResponse($sliders, 'Here is the list of slider.', 200);
@@ -94,15 +94,11 @@ class HomePageController extends BaseController
     public function feature_products(Request $request)
     {
         try {
-            $products = Product::where(['status' => 'Published', 'feature' => '1'])
-                ->with('category', 'brand')
-                ->when($request->min_price, fn($q) => $q->where('price', '>=', $request->min_price))
-                ->when($request->max_price, fn($q) => $q->where('price', '<=', $request->max_price))
-                ->when($request->category_id, fn($q) => $q->where('category_id', $request->category_id))
-                ->when($request->brand_id, fn($q) => $q->where('brand_id', $request->brand_id))
-                ->orderBy($request->order_by ?? 'title', $request->order_type ?? 'desc')
-                ->select('id', 'title', 'picture', 'price', 'category_id', 'brand_id')
-                ->paginate(10);
+            $app = AppSetup::first();
+            $products = [];
+            if (!is_null($app)) {
+                $products = json_decode($app->feature_products);
+            }
 
             return $this->sendResponse($products, 'Here is the list of feature products.', 200);
         } catch (Exception $e) {
