@@ -110,7 +110,7 @@ class ProductController extends BaseController
             $product_deatil['long_description'] = '';
             if (!is_null($product->description)) {
                 $product_deatil['short_description'] = $product->description->short;
-                $product_deatil['long_description'] = preg_replace("/<\/p>\s*/i", "\r\n", $product->description->long);
+                $product_deatil['long_description'] = strip_tags(preg_replace("/<\/p>\s*/i", "\r\n", $product->description->long));
             }
             $product = $product_deatil;
 
