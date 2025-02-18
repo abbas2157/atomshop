@@ -120,7 +120,7 @@ class ProductController extends Controller
                     $memories = $request->input('memories');
                     foreach ($names as $index => $memory_id) {
                         $product_memory = new ProductMemory;
-                        $product_memory->product_id = $id;
+                        $product_memory->product_id = $product->id;
                         $product_memory->memory_id = $memory_id;
                         $product_memory->price = $memories['price_' . $memory_id];
                         $product_memory->save();
@@ -133,7 +133,7 @@ class ProductController extends Controller
                     $sizes = $request->input('sizes');
                     foreach ($names as $index => $size_id) {
                         $product_size = new ProductSize;
-                        $product_size->product_id = $id;
+                        $product_size->product_id = $product->id;
                         $product_size->size_id = $size_id;
                         $product_size->price = $sizes['price_' . $size_id];
                         $product_size->save();
