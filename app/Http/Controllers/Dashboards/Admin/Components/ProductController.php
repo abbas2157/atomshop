@@ -115,26 +115,28 @@ class ProductController extends Controller
                 }
             }
             if ($request->category_id == 1 || $request->category_id == 2) {
-                if ($request->has('memories')) {
+                if ($request->has('memories.name')) {
+                    $names = $request->input('memories.name');
                     $memories = $request->input('memories');
-                    foreach ($memories['name'] as $index => $memory_id) {
-                        $productMemory = new ProductMemory;
-                        $productMemory->product_id = $product->id;
-                        $productMemory->memory_id = $memory_id;
-                        $productMemory->price = $memories['price_' . $memory_id];
-                        $productMemory->save();
+                    foreach ($names as $index => $memory_id) {
+                        $product_memory = new ProductMemory;
+                        $product_memory->product_id = $id;
+                        $product_memory->memory_id = $memory_id;
+                        $product_memory->price = $memories['price_' . $memory_id];
+                        $product_memory->save();
                     }
                 }
             }
-            if ($request->category_id == 1 || $request->category_id == 2) {
-                if ($request->has('sizes')) {
+            if ($request->category_id == 4) {
+                if ($request->has('sizes.name')) {
+                    $names = $request->input('sizes.name');
                     $sizes = $request->input('sizes');
-                    foreach ($sizes['name'] as $index => $size_id) {
-                        $productSize = new ProductSize;
-                        $productSize->product_id = $product->id;
-                        $productSize->size_id = $size_id;
-                        $productSize->price = $sizes['price_' . $size_id];
-                        $productSize->save();
+                    foreach ($names as $index => $size_id) {
+                        $product_size = new ProductSize;
+                        $product_size->product_id = $id;
+                        $product_size->size_id = $size_id;
+                        $product_size->price = $sizes['price_' . $size_id];
+                        $product_size->save();
                     }
                 }
             }
@@ -265,17 +267,17 @@ class ProductController extends Controller
                     }
                 }
             }
-            if ($request->category_id == 1 || $request->category_id == 2) {
-                ProductSize::where('product_id', $id)->delete();
-                if ($request->has('sizes')) {
+            if ($request->category_id == 4) {
+                if ($request->has('sizes.name')) {
+                    ProductSize::where('product_id', $id)->delete();
                     $names = $request->input('sizes.name');
                     $sizes = $request->input('sizes');
                     foreach ($names as $index => $size_id) {
-                        $productSize = new ProductSize;
-                        $productSize->product_id = $id;
-                        $productSize->size_id = $size_id;
-                        $productSize->price = $sizes['price_' . $size_id];
-                        $productSize->save();
+                        $product_size = new ProductSize;
+                        $product_size->product_id = $id;
+                        $product_size->size_id = $size_id;
+                        $product_size->price = $sizes['price_' . $size_id];
+                        $product_size->save();
                     }
                 }
             }
