@@ -17,6 +17,7 @@ class CustomerController extends Controller
         if($customers->isNotEmpty()) {
             $customer_ids =  $customers->toArray();
         }
-        return view('dashboards.sellers.customers.index');
+        $users = User::whereIn('id', $customer_ids)->paginate(10);
+        return view('dashboards.sellers.customers.index', compact('users'));
     }
 }
