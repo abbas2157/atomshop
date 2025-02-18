@@ -16,7 +16,7 @@ class ProductController extends BaseController
     public function products(Request $request)
     {
         try {
-            $products = Product::query()
+            $product_items = Product::query()
                 ->where('status', 'Published')
                 ->orderBy($request->input('order_by', 'title'), strtoupper($request->input('order_type', 'ASC')))
                 ->when($request->min_price, fn($q) => $q->where('price', '>=', $request->min_price))
@@ -26,8 +26,19 @@ class ProductController extends BaseController
                 ->when($request->color_id, fn($q) => $q->whereHas('colors', fn($q) => $q->where('color_id', $request->color_id)))
                 ->when($request->memory_id, fn($q) => $q->whereHas('memories', fn($q) => $q->where('memory_id', $request->memory_id)))
                 ->with(['category:id,title', 'brand:id,title'])
-                ->select('id', 'title', 'price', 'picture', 'category_id', 'brand_id');
-                $products = $products->paginate(10);
+                ->select('id', 'title', 'price', 'picture', 'category_id', 'brand_id')
+                ->get();
+                $products = [];
+                foreach($product_items as $product) {
+                    $products[] =array(
+                        'id' => $product->id,
+                        'title' => $product->title,
+                        'price' => $product->formatted_advance_price,
+                        'picture' => $product->product_picture,
+                        'category' => $product->category->title,
+                        'brand' => $product->brand->title
+                    );
+                }
             return $this->sendResponse($products, 'Here is the list of products.', 200);
         } catch (Exception $e) {
             DB::rollBack();
