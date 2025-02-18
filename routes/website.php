@@ -6,6 +6,8 @@ Route::get('login', [App\Http\Controllers\Web\AuthController::class, 'login'])->
 Route::post('login', [App\Http\Controllers\Web\AuthController::class, 'login_perform'])->name('website.login.perform');
 Route::get('register', [App\Http\Controllers\Web\AuthController::class, 'register'])->name('website.register');
 Route::post('register', [App\Http\Controllers\Web\AuthController::class, 'register_perform'])->name('website.register.perform');
+Route::get('register/verification', [App\Http\Controllers\Web\AuthController::class, 'verification'])->name('website.register.verification');
+Route::post('register/verification', [App\Http\Controllers\Web\AuthController::class, 'verification_perform'])->name('website.register.verification.perform');
 //Cart Management
 Route::group(['prefix' => 'cart'], function(){
     Route::get('/', [App\Http\Controllers\Web\Order\CartController::class, 'index'])->name('cart');

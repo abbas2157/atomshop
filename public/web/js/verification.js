@@ -1,12 +1,14 @@
 (function ($) {
     "use strict";
-    $(".register").click(function(e) {
+    $(".verification").click(function(e) {
         e.preventDefault();
         $(this).prop('disabled', true);
         $(this).html('<img src="'+ASSET_URL+'/web/img/loader.gif" class="w-10" alt="Loader">');
-        var formData = new FormData(document.getElementById('register-form'));
+        let guest_id = localStorage.getItem("guest_id");
+        var formData = new FormData(document.getElementById('verification-form'));
+        formData.append('guest_id', guest_id); 
         $.ajax({
-            url: APP_URL + "/register",
+            url: APP_URL + "/register/verification",
             method: "POST",
             data: formData,
             contentType: false,
@@ -22,11 +24,11 @@
                         escapeMarkup: false,
                         backgroundColor: "linear-gradient(to right, #FFD333, #3D464D)",
                     }).showToast();
-                    window.location.href = APP_URL + '/register/verification?user='+response.data.user_id;
+                    window.location.href = APP_URL + '/home';
                 } 
                 else {
-                    $(".register").prop('disabled', false);
-                    $(".register").html('Login');
+                    $(".verification").prop('disabled', false);
+                    $(".verification").html('Login');
                     Toastify({
                         text: "<i class='fas fa-times-circle'></i> <b> Error </b>! " + response.message,
                         duration: 3000,
