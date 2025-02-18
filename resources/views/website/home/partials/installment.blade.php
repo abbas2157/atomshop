@@ -1,4 +1,19 @@
 
+@php
+    $total = (int) $product['variation_price'];
+    $advance = (int) $product['min_advance_price'];
+    $remaining_amount = $total - $advance;
+    if(is_null($calculator)) {
+        $total_tenure_percentage = 4 * 3;
+    }
+    else {
+        $total_tenure_percentage = ((int) $calculator->per_month_percentage) * 3;
+    }
+    $total_percentage_amount = round(($total_tenure_percentage / 100) * $remaining_amount);
+    $total_amount_with_percentage = $total_percentage_amount + $remaining_amount;
+    $per_installment_price   =  number_format(round($total_amount_with_percentage / 3));
+    $months = ['1st','2nd','3rd'];
+@endphp
 <div class="container">
     <div class="row px-xl-5">
         <div class="col-lg-12 table-responsive mb-5">
@@ -33,7 +48,7 @@
                             </div>
                         </td>
                         <td class="align-middle">{{ $calculator->per_month_percentage ?? 4 }}%</td>
-                        <td class="align-middle">Rs. <span class="variation-price">{{ number_format($product['variation_price']) }}</span></td>
+                        <td class="align-middle">Rs. <span class="variation-price-calculator">{{ number_format($product['variation_price'] + $total_percentage_amount) }}</span></td>
                         
                         <td class="align-middle">
                             <button class="btn btn-sm btn-danger make-installment">Make Installments</button>
@@ -43,21 +58,7 @@
             </table>
         </div>
     </div>
-    @php
-        $total = (int) $product['variation_price'];
-        $advance = (int) $product['min_advance_price'];
-        $remaining_amount = $total - $advance;
-        if(is_null($calculator)) {
-            $total_tenure_percentage = 4 * 3;
-        }
-        else {
-            $total_tenure_percentage = ((int) $calculator->per_month_percentage) * 3;
-        }
-        $total_percentage_amount = round(($total_tenure_percentage / 100) * $remaining_amount);
-        $total_amount_with_percentage = $total_percentage_amount + $remaining_amount;
-        $per_installment_price   =  number_format(round($total_amount_with_percentage / 3));
-        $months = ['1st','2nd','3rd'];
-    @endphp
+    
     <div class="row px-xl-5">
         <div class="col-lg-12 table-responsive mb-5">
             <table class="table table-bordered text-center mb-0">
