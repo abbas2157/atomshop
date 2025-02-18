@@ -59,4 +59,51 @@ class OrderController extends BaseController
             return $this->sendError('Something went wrong.', $e->getMessage(), 500);
         }
     }
+    public function checkout_perform(Request $request)
+    {
+        if(!$request->has('cart_id') && empty($request->cart_id)) {
+            return $this->sendError(request()->all(), 'Send Cart IDs in request.', 200);
+        }
+        
+        try {
+            $cart_ids = $request->cart_id;
+            $cart = Cart::whereIn('id', $cart_ids)->where('status', 'Pending')->get();
+            if(!$cart->isNotEmpty()) {
+                return $this->sendError(request()->all(), 'Cart is Empty.', 200);
+            }
+            for($i = 0; $i < count($cart_ids); $i++) {
+                $order = new Order;
+                $order->uuid = Str::uuid();
+                $order->user_id = Auth::user()->id;
+                $order->cart_id = $cart_ids[$i];
+                $order->portal  = 'Web';
+                $order->save();
+
+                $cart = Cart::where('id', $cart_ids[$i])->first();
+                $cart->status = 'Purchased';
+                $cart->save();
+            }
+            return $this->sendResponse($data, 'Order created successfully', 200);
+        } catch (\Exception $e) {
+            return $this->sendError('Something went wrong.', $e->getMessage(), 500);
+        }
+    }
+    public function success()
+    {
+        if(!request()->has('order')) {
+            return $this->sendError(request()->all(), 'Send order UUID in request.', 200);
+        }
+        $order_uuid = request()->order;
+        $order = Order::where('uuid', request()->order)->with('cart')->first();
+        if(is_null($order)) {
+            return $this->sendError(request()->all(), 'Order not found.', 200);
+        }
+        $data = ['text' => 'Order has been submitted successfully.', 'icon' => asset('order/success.png')];
+        return $this->sendResponse($data, 'Order created successfully', 200);
+    }
+    public function failed()
+    {
+        $data = ['text' => 'Order has not been submitted. Something Went wrong.', 'icon' => asset('order/failed.png')];
+        return $this->sendResponse($data, 'Order created successfully', 200);
+    }
 }

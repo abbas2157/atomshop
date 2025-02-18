@@ -21,8 +21,10 @@ Route::group(['prefix' => 'account'], function(){
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
     Route::group(['prefix' => 'checkout'], function(){
-        Route::get('/', [App\Http\Controllers\Api\Order\OrderController::class, 'index'])->name('checkout');
-        Route::post('perform', [App\Http\Controllers\Web\Order\OrderController::class, 'checkout_perform'])->name('checkout.perform');
+        Route::get('/', [App\Http\Controllers\Api\Order\OrderController::class, 'index']);
+        Route::post('perform', [App\Http\Controllers\Api\Order\OrderController::class, 'checkout_perform']);
+        Route::get('success', [App\Http\Controllers\Api\Order\OrderController::class, 'success']);
+        Route::get('failed', [App\Http\Controllers\Api\Order\OrderController::class, 'faileds']);
     });
 });
 
@@ -46,8 +48,7 @@ Route::group(['prefix' => 'cart'], function(){
     Route::post('add', [App\Http\Controllers\Api\Order\CartController::class, 'add_to_cart']);
     Route::post('update', [App\Http\Controllers\Api\Order\CartController::class, 'update_cart']);
     Route::post('remove', [App\Http\Controllers\Api\Order\CartController::class, 'remove_from_cart']);
-    Route::post('/count', [App\Http\Controllers\Api\Order\CartController::class, 'cart_count']);
-
+    Route::post('count', [App\Http\Controllers\Api\Order\CartController::class, 'cart_count']);
 });
 
 
