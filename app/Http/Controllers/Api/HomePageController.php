@@ -37,11 +37,11 @@ class HomePageController extends BaseController
     public function brands(Request $request)
     {
         try {
-            $brands = Brand::where('status', 'active')->orderBy($request->order_by ?? 'title', $request->order_type ?? 'desc');
-            if($request->has('category_id')) {
-                $brands->where('category_id', $request->category_id);
+            $app = AppSetup::first();
+            $brands = [];
+            if (!is_null($brands)) {
+                $brands = json_decode($app->brands);
             }
-            $brands = $brands->select('id', 'title', 'picture')->get();
             return $this->sendResponse($brands, 'Here is the list of brands.', 200);
         } catch (Exception $e) {
             DB::rollBack();
