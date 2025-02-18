@@ -71,7 +71,7 @@
         var product_id = $(this).data("id");
         var memory_id = $('input[name="memory"]:checked').val();
         var color_id = $('input[name="color"]:checked').val();
-        var price = parseInt($('#variation-price').text().replace(',',''));
+        var price = parseInt($('#variation-price-calculator').text().replace(',',''));
         var min_advance_price = $('#min_advance_price').val();
         var user_type = $('#user-type').val();
         let guest_id = localStorage.getItem("guest_id");

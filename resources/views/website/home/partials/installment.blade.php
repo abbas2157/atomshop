@@ -48,7 +48,7 @@
                             </div>
                         </td>
                         <td class="align-middle">{{ $calculator->per_month_percentage ?? 4 }}%</td>
-                        <td class="align-middle">Rs. <span class="variation-price-calculator">{{ number_format($product['variation_price'] + $total_percentage_amount) }}</span></td>
+                        <td class="align-middle">Rs. <span class="variation-price-calculator" id="variation-price-calculator">{{ number_format($product['variation_price'] + $total_percentage_amount) }}</span></td>
                         
                         <td class="align-middle">
                             <button class="btn btn-sm btn-danger make-installment">Make Installments</button>

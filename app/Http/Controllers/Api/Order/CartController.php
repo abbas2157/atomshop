@@ -46,8 +46,8 @@ class CartController extends BaseController
                     'picture' => $item->product->product_picture, 
                     'total' => number_format(($item->product->price * $item->quantity),0),
                 );
-                $cart[] = array('id' => $item->id, 'product' => $product, 'product_advance_price' => number_format($item->product_advance_price,0), 'quantity' => $item->quantity );
-                $sub_total += ($item->product->price * $item->quantity);
+                $cart[] = array('id' => $item->id, 'product' => $product, 'product_advance_price' => number_format($item->product_advance_price,0), 'product_price' => number_format($item->product_price,0), 'quantity' => $item->quantity );
+                $sub_total += ($item->product_price * $item->quantity);
                 $total += $sub_total;
             }
             $data = ['cart' => $cart, 'sub_total' => number_format($sub_total,0), 'total' => number_format($total,0)];
