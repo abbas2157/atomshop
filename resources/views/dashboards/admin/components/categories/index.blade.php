@@ -48,6 +48,7 @@
                     <thead>
                         <tr>
                             <th width="40px">ID</th>
+                            <th>Picture</th>
                             <th>Title</th>
                             <th width="60px">Status</th>
                             <th width="120px">Created On</th>
@@ -60,6 +61,7 @@
                                 <tr>
                                 <tr>
                                     <th >{{ $item->id ?? '' }}</th>
+                                    <td><img src="{{ asset($item->picture) }}" alt="" width="20px"></td>
                                     <td>{{ $item->title ?? '' }}</td>
                                     <td>{{ $item->status ?? '' }}</td>
                                     <td>{{ $item->created_at->format('M d, Y') ?? '' }}</td>
