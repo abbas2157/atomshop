@@ -19,22 +19,7 @@
                         <div class="container">
                             <div>
                                 <nav class="nav">
-                                    <a href="{{ route('seller.index') }}" class="nav-link">Sellers</a>
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="nav-item {{ (request()->segment(1) == 'seller' && (in_array(request()->segment(2), ['website','installment-calculator','sliders']))) ? 'active show' : '' }}">
-                    <a href="" class="nav-link with-sub"><i class="typcn typcn-device-phone"></i>Web & App</a>
-                    <div class="az-menu-sub">
-                        <div class="container">
-                            <div>
-                                <nav class="nav">
-                                    <a href="{{ route('admin.website.categories') }}" class="nav-link">Website</a>
-                                    <a href="{{ route('admin.app.categories') }}" class="nav-link">Mobile App</a>
-                                    <a href="{{ route('admin.installment-calculator') }}" class="nav-link">Installment Calculator</a>
-                                    <a href="{{ route('admin.sliders.index') }}" class="nav-link">Sliders</a>
+                                    <a href="{{ route('seller.profile.business-info') }}" class="nav-link">Sellers</a>
                                 </nav>
                             </div>
                         </div>

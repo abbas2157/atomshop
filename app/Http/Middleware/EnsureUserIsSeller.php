@@ -21,6 +21,6 @@ class EnsureUserIsSeller
             return $next($request);
         }
         Auth::logout();
-        return redirect('login');
+        return redirect('portal/login');
     }
 }

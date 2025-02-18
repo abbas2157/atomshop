@@ -2,23 +2,13 @@
 
 namespace App\Http\Controllers\Dashboards\Sellers;
 
-use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\{Auth, Hash, DB};
+use App\Models\{User, Seller, City, Area};
 
 class ProfileController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-
     /**
      * Show the form for creating a new resource.
      */
@@ -90,9 +80,58 @@ class ProfileController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function business_info()
     {
-        //
+        $cities = City::orderBy('id','desc')->where('status', 'active')->get();
+        $areas = [];
+        if($cities->isNotEmpty()) {
+            $areas = Area::orderBy('id','desc')->where('status', 'active')->where('city_id', $cities[0]->id)->get();
+        }
+        return view('dashboards.sellers.profile.business-info', compact('cities', 'areas'));
+    }
+    public function business_info_perform(Request $request)
+    {
+        $user = User::where('id', Auth::user()->id)->first();
+        $seller = Seller::where('user_id', Auth::user()->id)->first();
+        if(is_null($seller)) {
+            $seller = new Seller;
+        }
+        $seller->business_name = $request->business_name;
+        $seller->investment_capacity = $request->investment_capacity;
+        $seller->previous_experience = $request->previous_experience;
+        $seller->city_id = $request->city_id;
+        $seller->area_id = $request->area_id;
+        $seller->address = $request->address;
+        $seller->user_id =  Auth::user()->id;
+        $seller->save();
+
+        $validator['success'] = 'Business Information Updated Successfully.';
+        return back()->withErrors($validator);
+    }
+    public function seller_info()
+    {
+        $cities = City::orderBy('id','desc')->where('status', 'active')->get();
+        $areas = [];
+        if($cities->isNotEmpty()) {
+            $areas = Area::orderBy('id','desc')->where('status', 'active')->where('city_id', $cities[0]->id)->get();
+        }
+        return view('dashboards.sellers.profile.seller-info', compact('cities', 'areas'));
+    }
+    public function seller_info_perform(Request $request)
+    {
+        $user = User::where('id', Auth::user()->id)->first();
+        $seller = Seller::where('user_id', Auth::user()->id)->first();
+        if(is_null($seller)) {
+            $seller = new Seller;
+        }
+        $seller->name = $request->name;
+        $seller->cnic_number = $request->cnic_number;
+        $seller->website = $request->website;
+        $seller->user_id =  Auth::user()->id;
+        $seller->save();
+
+        $validator['success'] = 'Seller Information Updated Successfully.';
+        return back()->withErrors($validator);
     }
 
     /**
@@ -103,17 +142,10 @@ class ProfileController extends Controller
         $user = User::where('id',Auth::user()->id)->first();
         $user->name  = $request->name;
         $user->email = $request->email;
+        $user->phone = $request->phone;
         $user->save();
         $validator['success'] = 'Profile Updated Successfully.';
         return back()->withErrors($validator);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 
 }
