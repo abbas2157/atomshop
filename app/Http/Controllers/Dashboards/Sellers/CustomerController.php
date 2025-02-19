@@ -11,6 +11,10 @@ class CustomerController extends Controller
 {
     public function index()
     {
+        Mail::raw('Test email from Laravel using msmtp!', function ($message) {
+            $message->to('abbas8156@gmail.com')
+                    ->subject('Test Email');
+        });
         $area_id = Auth::user()->seller->area_id;
         $customers = Customer::where('area_id', $area_id)->pluck('user_id');
         $customer_ids = [];
