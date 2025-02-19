@@ -42,7 +42,7 @@ class AuthController extends BaseController
             $success['user'] = Auth::user();
 
             return $this->sendResponse($success, 'User Login successfully.');
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             return $this->sendError('Something Went Wrong.', $e->getMessage(), 200);
         }
@@ -86,7 +86,7 @@ class AuthController extends BaseController
             DB::commit();
             return $this->sendResponse(['user_id' => $user->uuid, 'code' => $verificationCode], 'User registered successfully!');
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             return $this->sendError('Something Went Wrong.', $e->getMessage(), 200);
         }
@@ -147,7 +147,7 @@ class AuthController extends BaseController
             DB::commit();
 
             return $this->sendResponse('Code matched successfully.', $request->all(), 200);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             return $this->sendError('Something Went Wrong.', $e->getMessage(), 200);
         }

@@ -20,11 +20,13 @@
                                 <input class="input" type="text" id="email-input" name="email" placeholder="Enter email" autofocus autocomplete="off"/>
                                 <label for="email-input">Email</label>
                                 <span class="focus-bg"></span>
+                                <span class="text-danger error" id="error-email"></span>
                             </div>
                             <div class="input-floating-label">
                                 <input class="input" type="password" id="input-password" name="password" placeholder="password" autocomplete="new-password"/>
                                 <label for="input-password">Password</label>
                                 <span class="focus-bg"></span>
+                                <span class="text-danger error" id="error-password"></span>
                             </div>
                             <a href="" class="forgot__link">Forgot password?</a>
                             <button class="btn__submit login" type="button">Login</button>
@@ -39,6 +41,9 @@
 </div>
 @endsection
 @section('js')
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation/dist/jquery.validate.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 <script src="{!! asset('web/js/login.js') !!}"></script>
 @endsection
