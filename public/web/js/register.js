@@ -2,6 +2,7 @@
     "use strict";
 
     $(document).ready(function () {
+        // Initialize jQuery Validation
         $("#register-form").validate({
             rules: {
                 name: {
@@ -14,7 +15,7 @@
                 },
                 password: {
                     required: true,
-                    minlength: 4
+                    minlength: 6
                 }
             },
             messages: {
@@ -28,19 +29,13 @@
                 },
                 password: {
                     required: "Please enter your password",
-                    minlength: "Password must be at least 4 characters long"
+                    minlength: "Password must be at least 6 characters long"
                 }
             },
+            errorElement: "div",
             errorPlacement: function (error, element) {
-                // Display errors using Toastify
-                Toastify({
-                    text: "<i class='fas fa-exclamation-circle'></i> " + error.text(),
-                    duration: 3000,
-                    gravity: "top",
-                    position: "right",
-                    escapeMarkup: false,
-                    backgroundColor: "linear-gradient(to right, #FF0000, #000000)",
-                }).showToast();
+                error.addClass("invalid-feedback");
+                element.closest(".input-floating-label").append(error);
             },
             highlight: function (element) {
                 $(element).addClass("is-invalid");
