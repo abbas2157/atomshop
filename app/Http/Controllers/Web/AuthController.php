@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\{Auth, Validator, DB, Password, Hash, Mail};
 use Illuminate\Support\Str;
 use App\Jobs\Web\SendVerificationCode;
 
+use App\Mail\Web\VerificationCode;
+
 class AuthController extends BaseController
 {
     public function login()
@@ -106,11 +108,15 @@ class AuthController extends BaseController
     public function verification_perform(Request $request)
     {
         try {
-            DB::beginTransaction();
-
-            if(!request()->has('user_id')) {
-                return $this->sendError('User not found.', $request->all(), 200);
+            $validator = Validator::make($request->all(), [
+                'code' => 'required',
+                'user_id' => 'required'
+            ]);
+    
+            if ($validator->fails()) {
+                return $this->sendError('Validation Error', $validator->errors()->first(), 422);
             }
+    
             $user_uuid = request()->user_id;
             $user = User::where('uuid', $user_uuid)->where('status', 'pending')->first();
             if(is_null($user)) {
@@ -119,7 +125,7 @@ class AuthController extends BaseController
             $user_id = $user->id;
             $verification_code = $request->input('code');
             $code = VerifyCode::where('user_id', $user_id)->where('verify_code', $verification_code)->first();
-
+    
             if (is_null($code)) {
                 return $this->sendError('Code is invalid', $request->all(), 200);
             }
@@ -128,30 +134,19 @@ class AuthController extends BaseController
             } else {
                 $code->used = '1';
                 $code->save();
-
+    
                 $user->status = 'active';
                 $user->email_verified_at = now();
                 $user->save();
             }
-            $success['user'] = $user;
-
-            $guest_id = $request->guest_id;
-            $cart = Cart::where('guest_id', $guest_id)->where('status', 'Pending')->get();
-            
-            if($cart->isNotEmpty()) {
-                foreach($cart as $item) {
-                    $item->user_id = $user->id;
-                    $item->save();
-                }
+            try {
+                Mail::to($user->email)->send(new VerificationCode($user, $verification_code));
+            } catch (\Exception $mailException) {
+                return $this->sendError('Email sending failed.', $mailException->getMessage(), 500);
             }
-            DB::commit();
-            
-            Auth::loginUsingId($user->id);
-            
             return $this->sendResponse('Code matched successfully.', $request->all(), 200);
         } catch (\Exception $e) {
-            DB::rollBack();
-            return $this->sendError('Something Went Wrong.', $e->getMessage(), 200);
+            return $this->sendError('Something Went Wrong.', $e->getMessage(), 500);
         }
     }
 }
