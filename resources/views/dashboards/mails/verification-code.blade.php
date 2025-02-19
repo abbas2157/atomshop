@@ -77,8 +77,8 @@
             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
             <tr>
                 <td align="center" valign="top" style="padding: 36px 24px;">
-                <a href="https://sops.pk" target="_blank" style="display: inline-block;">
-                    <img src="https://sops.pk/wp-content/uploads/2021/09/SOPS_Logo-1.png" alt="Logo" border="0" width="150" style="display: block; width: 150px; max-width: 150px; min-width: 48px;">
+                <a href="{{ route('website') }}" target="_blank" style="display: inline-block;">
+                    <img src="https://atomshop.pk/public/web/img/logo.png" alt="Logo" border="0" width="150" style="display: block; width: 150px; max-width: 150px; min-width: 48px;">
                 </a>
                 </td>
             </tr>
@@ -88,11 +88,11 @@
         <tr>
         <td align="center" bgcolor="#e9ecef">
             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
-            <tr>
-                <td align="left" bgcolor="#ffffff" style="padding: 36px 24px 0; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; border-top: 3px solid #d4dadf;">
-                <h1 style="margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -1px; line-height: 48px;">Hi {{ $data->name ?? ''}},</h1>
-                </td>
-            </tr>
+                <tr>
+                    <td align="left" bgcolor="#ffffff" style="padding: 36px 24px 0; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; border-top: 3px solid #d4dadf;">
+                    <h1 style="margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -1px; line-height: 48px;">Hi {{ $data->name ?? ''}},</h1>
+                    </td>
+                </tr>
             </table>
         </td>
         </tr>
@@ -106,7 +106,7 @@
                     <br>
                     
                     <p style="margin: 0;"> All the best, <br />
-                    The School of Professioal Skills Team </p>
+                        {{ config('website.name') ?? '' }} Team </p>
                 </td>
             </tr>
             <tr>

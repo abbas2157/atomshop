@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Http\Controllers\Api\BaseController as BaseController;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\{User, VerifyCode, Cart};
-use App\Http\Controllers\Api\BaseController as BaseController;
 use Illuminate\Support\Facades\{Auth, Validator, DB, Password, Hash, Mail};
 use Illuminate\Support\Str;
+use App\Jobs\Web\SendVerificationCode;
 
 class AuthController extends BaseController
 {
@@ -78,8 +79,10 @@ class AuthController extends BaseController
                 'user_id' => $user->id,
                 'verify_code' => $verificationCode
             ]);
+            $user->verify_code = $verificationCode;
 
-            // Mail::to($request->email)->send(new RegisterEmail($user, $verificationCode));
+            SendVerificationCode::dispatch($user);
+            
             DB::commit();
             return $this->sendResponse(['user_id' => $user->uuid, 'code' => $verificationCode], 'User registered successfully!');
 
