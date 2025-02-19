@@ -41,6 +41,11 @@ Route::group(['middleware' => ['auth']], function() {
                         Route::get('sync', [App\Http\Controllers\Dashboards\Admin\WebApp\WebsiteController::class, 'feature_products_sync'])->name('admin.website.products.feature.sync');
                         Route::post('update', [App\Http\Controllers\Dashboards\Admin\WebApp\WebsiteController::class, 'feature_products_update'])->name('admin.website.products.feature.update');
                     });
+                    Route::group(['prefix' => 'web'], function(){
+                        Route::get('/', [App\Http\Controllers\Dashboards\Admin\WebApp\WebsiteController::class, 'web_products'])->name('admin.website.products.web');
+                        Route::get('sync', [App\Http\Controllers\Dashboards\Admin\WebApp\WebsiteController::class, 'web_products_sync'])->name('admin.website.products.web.sync');
+                        Route::post('update', [App\Http\Controllers\Dashboards\Admin\WebApp\WebsiteController::class, 'web_products_update'])->name('admin.website.products.web.update');
+                    });
                 });
                 Route::group(['prefix' => 'categories'], function(){
                     Route::get('/', [App\Http\Controllers\Dashboards\Admin\WebApp\WebsiteController::class, 'categories'])->name('admin.website.categories');
@@ -68,6 +73,11 @@ Route::group(['middleware' => ['auth']], function() {
                         Route::get('/', [App\Http\Controllers\Dashboards\Admin\WebApp\AppSetupController::class, 'feature_products'])->name('admin.app.products.feature');
                         Route::get('sync', [App\Http\Controllers\Dashboards\Admin\WebApp\AppSetupController::class, 'feature_products_sync'])->name('admin.app.products.feature.sync');
                         Route::post('update', [App\Http\Controllers\Dashboards\Admin\WebApp\AppSetupController::class, 'feature_products_update'])->name('admin.app.products.feature.update');
+                    });
+                    Route::group(['prefix' => 'app'], function(){
+                        Route::get('/', [App\Http\Controllers\Dashboards\Admin\WebApp\AppSetupController::class, 'app_products'])->name('admin.app.products.app');
+                        Route::get('sync', [App\Http\Controllers\Dashboards\Admin\WebApp\AppSetupController::class, 'app_products_sync'])->name('admin.app.products.app.sync');
+                        Route::post('update', [App\Http\Controllers\Dashboards\Admin\WebApp\AppSetupController::class, 'app_products_update'])->name('admin.app.products.app.update');
                     });
                 });
                 Route::group(['prefix' => 'categories'], function(){
