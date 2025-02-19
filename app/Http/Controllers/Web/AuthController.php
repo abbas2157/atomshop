@@ -140,12 +140,14 @@ class AuthController extends BaseController
             
             if($cart->isNotEmpty()) {
                 foreach($cart as $item) {
-                    $item->user_id = Auth::user()->id;
+                    $item->user_id = $user->id;
                     $item->save();
                 }
             }
             DB::commit();
-
+            
+            Auth::loginUsingId($user->id);
+            
             return $this->sendResponse('Code matched successfully.', $request->all(), 200);
         } catch (\Exception $e) {
             DB::rollBack();
