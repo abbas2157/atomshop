@@ -2,6 +2,7 @@
     "use strict";
 
     $(document).ready(function () {
+        // Initialize jQuery Validation
         $("#login-form").validate({
             rules: {
                 email: {
@@ -10,7 +11,7 @@
                 },
                 password: {
                     required: true,
-                    minlength: 4
+                    minlength: 6
                 }
             },
             messages: {
@@ -20,18 +21,13 @@
                 },
                 password: {
                     required: "Please enter your password",
-                    minlength: "Password must be at least 4 characters long"
+                    minlength: "Password must be at least 6 characters long"
                 }
             },
+            errorElement: "div",
             errorPlacement: function (error, element) {
-                Toastify({
-                    text: "<i class='fas fa-exclamation-circle'></i> " + error.text(),
-                    duration: 3000,
-                    gravity: "top",
-                    position: "right",
-                    escapeMarkup: false,
-                    backgroundColor: "linear-gradient(to right, #FF0000, #000000)",
-                }).showToast();
+                error.addClass("invalid-feedback");
+                element.closest(".input-floating-label").append(error);
             },
             highlight: function (element) {
                 $(element).addClass("is-invalid");
@@ -58,7 +54,7 @@
                         if (response.success == true) {
                             Toastify({
                                 text: "<i class='fas fa-check-circle'></i> <b> Success </b>! Redirecting...",
-                                duration: 2000,
+                                duration: 3000,
                                 gravity: "top",
                                 position: "right",
                                 escapeMarkup: false,
@@ -70,7 +66,7 @@
                             $(".login").html('Login');
                             Toastify({
                                 text: "<i class='fas fa-times-circle'></i> <b> Error </b>! " + response.message,
-                                duration: 2000,
+                                duration: 3000,
                                 gravity: "top",
                                 position: "right",
                                 escapeMarkup: false,
@@ -81,7 +77,7 @@
                     error: function () {
                         Toastify({
                             text: "<i class='fas fa-times-circle'></i> <b> Error </b>! Something went wrong.",
-                            duration: 2000,
+                            duration: 3000,
                             gravity: "top",
                             position: "right",
                             escapeMarkup: false,
