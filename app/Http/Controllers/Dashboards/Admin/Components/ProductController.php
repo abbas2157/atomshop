@@ -30,6 +30,9 @@ class ProductController extends Controller
         if (request()->has('status') && !empty(request()->status)) {
             $products->where('status', request()->status);
         }
+        if (request()->has('feature') && !empty(request()->feature)) {
+            $products->where('feature', request()->feature);
+        }
         $products = $products->paginate(10);
         $categories = Category::orderBy('id', 'desc')->get();
         $brands = Brand::orderBy('id', 'desc')->get();
