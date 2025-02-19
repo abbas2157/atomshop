@@ -12,7 +12,7 @@ class CustomerController extends Controller
     public function index()
     {
         Mail::raw('Test email from Laravel using msmtp!', function ($message) {
-            $message->to('abbas8156@gmail.com')
+            $message->to('letmobilepk@gmail.com')
                     ->subject('Test Email');
         });
         $area_id = Auth::user()->seller->area_id;
