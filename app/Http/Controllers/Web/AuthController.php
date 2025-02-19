@@ -79,9 +79,9 @@ class AuthController extends BaseController
                 'user_id' => $user->id,
                 'verify_code' => $verificationCode
             ]);
-            $user->verify_code = $verificationCode;
+            $verify_code = $verificationCode;
 
-            SendVerificationCode::dispatch($user);
+            SendVerificationCode::dispatch($user,$verify_code);
             
             DB::commit();
             return $this->sendResponse(['user_id' => $user->uuid, 'code' => $verificationCode], 'User registered successfully!');

@@ -15,9 +15,11 @@ class SendVerificationCode implements ShouldQueue
      * Create a new job instance.
      */
     private $user;
-    public function __construct($user)
+    private $verify_code;
+    public function __construct($user, $verify_code)
     {
         $this->user = $user;
+        $this->verify_code = $verify_code;
     }
 
     /**
@@ -25,6 +27,6 @@ class SendVerificationCode implements ShouldQueue
      */
     public function handle(): void
     {
-        Mail::to($this->user->email)->send(new VerificationCode($this->user));
+        Mail::to($this->user->email)->send(new VerificationCode($this->user, $this->verify_code));
     }
 }

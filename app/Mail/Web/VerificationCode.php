@@ -17,9 +17,11 @@ class VerificationCode extends Mailable
      * Create a new message instance.
      */
     public $user;
-    public function __construct($user)
+    public $verify_code;
+    public function __construct($user, $verify_code)
     {
         $this->user = $user;
+        $this->verify_code = $verify_code;
     }
 
     /**
@@ -28,7 +30,7 @@ class VerificationCode extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Verification Code',
+            subject: 'Verify Your Email to Complete Your Registration',
         );
     }
 
@@ -40,7 +42,8 @@ class VerificationCode extends Mailable
         return new Content(
             view: 'dashboards.mails.verification-code',
             with: [
-                'data' => $this->user
+                'data' => $this->user,
+                'verify_code' => $this->verify_code
             ]
         );
     }

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Welcome Email</title>
+    <title>Verify Your Email to Complete Your Registration</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style type="text/css">
         @media screen {
@@ -69,52 +69,46 @@
 </head>
 <body style="background-color: #e9ecef;">
     <div class="preheader" style="display: none; max-width: 0; max-height: 0; overflow: hidden; font-size: 1px; line-height: 1px; color: #fff; opacity: 0;">
-        Verification Code | {{ config('website.name') ?? '' }} - {{ config('website.tagline') ?? '' }}
+        Verify Your Email to Complete Your Registration
     </div>
     <table border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
-        <td align="center" bgcolor="#e9ecef">
-            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
-            <tr>
-                <td align="center" valign="top" style="padding: 36px 24px;">
-                <a href="{{ route('website') }}" target="_blank" style="display: inline-block;">
-                    <img src="https://atomshop.pk/public/web/img/logo.png" alt="Logo" border="0" width="150" style="display: block; width: 150px; max-width: 150px; min-width: 48px;">
-                </a>
-                </td>
-            </tr>
-            </table>
-        </td>
+            <td align="center" bgcolor="#e9ecef">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+                    <tr>
+                        <td align="left" bgcolor="#ffffff" style="padding: 36px 24px 0; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; border-top: 3px solid #d4dadf;">
+                        <h1 style="margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -1px; line-height: 48px;">Dear {{ $data->name ?? ''}},</h1>
+                        </td>
+                    </tr>
+                </table>
+            </td>
         </tr>
         <tr>
-        <td align="center" bgcolor="#e9ecef">
-            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+            <td align="center" bgcolor="#e9ecef">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                 <tr>
-                    <td align="left" bgcolor="#ffffff" style="padding: 36px 24px 0; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; border-top: 3px solid #d4dadf;">
-                    <h1 style="margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -1px; line-height: 48px;">Hi {{ $data->name ?? ''}},</h1>
+                    <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
+                        <p style="margin: 0;">Welcome to <b>Atomshop.pk!</b> 🎉 To complete your registration and unlock your account, please verify your email by providing the code below:</p>
+
+                        <p>The code is  : <b>{{ $verify_code ?? '' }}</b></p>
+                        <p>Why is email verification important?</p>
+                        <ul>
+                            <li>Secure your account and personal information.</li>
+                            <li>Get important updates about your orders, payments, and offers.</li>
+                            <li>Ensure smooth communication with our support team.</li>
+                        </ul>
+                        <p>
+                            If you didn’t sign up for an account on Atomshop.pk, please ignore this email. For any assistance, feel free to reach out at <a href="mailto:atomshoppk@gmail.com">atomshoppk@gmail.com</a>.
+                        </p>
+                        <p> Looking forward to having you on board! 😊 </p>
+                        <p style="margin: 0;"> <b>Best Regards</b>, <br /> {{ config('website.name') ?? '' }} Team </p>
+                        <a href="{{ route('website') }}" target="_blank" style="display: inline-block;">
+                            <img src="https://atomshop.pk/public/web/img/logo.png" alt="Logo" width="100" style="display: block; width: 100px; max-width: 100px; min-width: 48px;">
+                        </a>
                     </td>
                 </tr>
-            </table>
-        </td>
-        </tr>
-        <tr>
-        <td align="center" bgcolor="#e9ecef">
-            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
-            <tr>
-                <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
-                    <p style="margin: 0;">Thank you for registering your interest in joining the School of Professional Skills (SOPS) community. We’re here to help you on your journey to a fulfilling career.
-                    </p>
-                    <br>
-                    
-                    <p style="margin: 0;"> All the best, <br />
-                        {{ config('website.name') ?? '' }} Team </p>
-                </td>
-            </tr>
-            <tr>
-                <td align="center" valign="top" style="padding: 36px 24px;">
-                </td>
-            </tr>
-            </table>
-        </td>
+                </table>
+            </td>
         </tr>
     </table>
 </body>
