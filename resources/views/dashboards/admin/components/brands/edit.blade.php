@@ -1,6 +1,6 @@
 @extends('dashboards.admin.layout.app')
 @section('title')
-    <title>Brands - {{ env('APP_NAME') ?? '' }}</title> 
+    <title>Brands - {{ env('APP_NAME') ?? '' }}</title>
 @endsection
 @section('content')
 <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
@@ -59,6 +59,14 @@
                         @if ($errors->has('picture'))
                             <span class="text-danger text-left">{{ $errors->first('picture') }}</span>
                         @endif
+                        @if ($brand->picture)
+                        <div class="row">
+                            <div class="col-md-6 mt-2">
+                                <img src="{{ asset($brand->picture) }}" alt="" class="img-fluid"
+                                    style="height: 50px; width:50px">
+                            </div>
+                        </div>
+                    @endif
                     </div>
                     <div class="col-lg mt-2">
                         <label>Select status <span class="text-danger">*</span></label>
@@ -68,6 +76,28 @@
                         </select>
                     </div>
                     <div class="col-lg"></div>
+                </div>
+                <div class="row row-sm">
+                    <div class="col-lg mt-2">
+                        <label class="form-control-label">App Home <span class="tx-danger">*</span></label>
+                        <select id="app_home" class="form-control" name="app_home" required>
+                            <option value="1" {{ old('app_home') == '1' ? 'selected' : '' }} {{ old('app_home', $brand->app_home) == '1' ? 'selected' : '' }}>Yes, Show on app homepage</option>
+                            <option value="0" {{ old('app_home') == '0' ? 'selected' : '' }} {{ old('app_home', $brand->app_home) == '0' ? 'selected' : '' }}>No, Not show on app homepage</option>
+                        </select>
+                        @if ($errors->has('app_home'))
+                            <span class="text-danger text-left">{{ $errors->first('app_home') }}</span>
+                        @endif
+                    </div>
+                    <div class="col-lg mt-2">
+                        <label class="form-control-label">Web Home <span class="tx-danger">*</span></label>
+                        <select id="web_home" class="form-control" name="web_home" required>
+                            <option value="1" {{ old('web_home') == '1'? 'selected' : '' }} {{ old('web_home', $brand->web_home) == '1' ? 'selected' : '' }}>Yes, Show on web homepage</option>
+                            <option value="0" {{ old('web_home') == '0' ? 'selected' : '' }} {{ old('web_home', $brand->web_home) == '0' ? 'selected' : '' }}>No, Not show on web homepage</option>
+                        </select>
+                        @if ($errors->has('web_home'))
+                            <span class="text-danger text-left">{{ $errors->first('web_home') }}</span>
+                        @endif
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-success mt-3">Update brand</button>
             </form>

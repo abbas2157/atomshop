@@ -1,6 +1,6 @@
 @extends('dashboards.admin.layout.app')
 @section('title')
-    <title>Categories - {{ env('APP_NAME') ?? '' }}</title> 
+    <title>Categories - {{ env('APP_NAME') ?? '' }}</title>
 @endsection
 @section('content')
 <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
@@ -50,6 +50,28 @@
                             <option value="active">Active</option>
                             <option value="inactive">Inactive</option>
                         </select>
+                    </div>
+                </div>
+                <div class="row row-sm">
+                    <div class="col-lg mt-2">
+                        <label class="form-control-label">App Home <span class="tx-danger">*</span></label>
+                        <select id="app_home" class="form-control" name="app_home" required>
+                            <option value="1" {{ old('app_home') == 1 ? 'selected' : '' }}>Yes, Show on app homepage</option>
+                            <option value="0" {{ old('app_home') == 0 ? 'selected' : '' }}>No, Not show on app homepage</option>
+                        </select>
+                        @if ($errors->has('app_home'))
+                            <span class="text-danger text-left">{{ $errors->first('app_home') }}</span>
+                        @endif
+                    </div>
+                    <div class="col-lg mt-2">
+                        <label class="form-control-label">Web Home <span class="tx-danger">*</span></label>
+                        <select id="web_home" class="form-control" name="web_home" required>
+                            <option value="1" {{ old('web_home') == 1 ? 'selected' : '' }}>Yes, Show on web homepage</option>
+                            <option value="0" {{ old('web_home') == 0 ? 'selected' : '' }}>No, Not show on web homepage</option>
+                        </select>
+                        @if ($errors->has('web_home'))
+                            <span class="text-danger text-left">{{ $errors->first('web_home') }}</span>
+                        @endif
                     </div>
                 </div>
                 <button type="submit" class="btn btn-success mt-3">Create category</button>

@@ -47,7 +47,7 @@ class BrandController extends Controller
             'title' => 'required',
             'category_id' => 'required'
         ]);
-        
+
         $brand = new Brand;
         $brand->title = $request->title;
         $brand->slug = $request->slug;
@@ -65,6 +65,8 @@ class BrandController extends Controller
             $brand->picture = 'images/brands/'.$filename;
         }
         $brand->status = $request->status;
+        $brand->app_home = $request->app_home;
+        $brand->web_home = $request->web_home;
         $brand->save();
 
         $validator['success'] = 'Brand created successfully';
@@ -115,6 +117,8 @@ class BrandController extends Controller
             $brand->picture = 'images/brands/'.$filename;
         }
         $brand->status = $request->status;
+        $brand->app_home = $request->app_home;
+        $brand->web_home = $request->web_home;
         $brand->save();
 
         $validator['success'] = 'Brand updated successfully';
