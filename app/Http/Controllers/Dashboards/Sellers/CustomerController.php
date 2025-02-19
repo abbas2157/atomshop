@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Dashboards\Sellers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\{Auth, Hash, DB};
+use Illuminate\Support\Facades\{Auth, Hash, DB, Mail};
 use App\Models\{User, Seller, Customer};
 
 class CustomerController extends Controller
