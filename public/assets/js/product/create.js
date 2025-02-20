@@ -1,7 +1,13 @@
 $(function() {
     'use strict';
     let isSubmitting = false;
-
+    var categoryId = $("#category_id").val();
+    if (categoryId != 1 && categoryId != 2) {
+        $(".memory-price").addClass("d-none");
+    }
+    if(categoryId != 4){
+        $(".size-price").addClass("d-none");
+    }
     $('#product-form').steps({
         headerTag: 'h3',
         bodyTag: 'section',
