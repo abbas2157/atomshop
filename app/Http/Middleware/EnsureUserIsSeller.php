@@ -16,6 +16,9 @@ class EnsureUserIsSeller
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if (!Auth::check()) {
+            return redirect('portal/login');
+        }
         if(Auth::user()->role == 'seller')
         {
             if(!(request()->segment(1) == 'seller' && (request()->segment(2) == 'profile') && ((request()->segment(3) == 'seller-info') || (request()->segment(3) == 'business-info')))) {

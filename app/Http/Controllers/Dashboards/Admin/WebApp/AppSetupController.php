@@ -9,6 +9,102 @@ use Illuminate\Support\Facades\{Auth, Hash, DB};
 
 class AppSetupController extends Controller
 {
+    public function app_products()
+    {
+        $website = AppSetup::first();
+        $products = [];
+        if(!is_null($website)) {
+            $products = json_decode($website->products);
+        }
+        return view('dashboards.admin.web-app.app.products.app', compact('products'));
+    }
+
+    public function app_products_update(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            $products_id = json_decode($request->products_id, true);
+            $products = [];
+            for($i = 0; $i < count($products_id); $i++) {
+                $product = Product::where('id', $products_id[$i])->first();
+                if(!is_null($product)) {
+                    $products[] = array('id' => $product->id, 'title' => $product->title, 'slug' => $product->slug, 'price' => $product->formatted_price, 'picture' => $product->product_picture, 'category' => $product->category->title, 'brand' => $product->brand->title);
+                }
+            }
+            $website = AppSetup::first();
+            $website->products = json_encode($products);
+            $website->updated_by = Auth::user()->id;
+            $website->save();
+
+            DB::commit();
+
+            $response = ['success' => true, 'message' => 'Products Updated Successfully'];
+            return response()->json($response);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $response = ['success' => false, 'message' => $e->getMessage()];
+            return response()->json($response);
+        }
+    }
+
+    public function app_products_sync()
+    {
+        // Initailize Product (Start)
+        $products = [];
+        $website_products_ids = [];
+        $website = AppSetup::first();
+        if(!empty($website->products) && !empty(json_decode($website->products,true))) {
+            $website_products_ids = array_column(json_decode($website->products,true), 'id');
+            $products = json_decode($website->products,true);
+        }
+        // Initailize Product (end)
+
+        // Remove deleted one from products (Start)
+        $products_list_ids = Product::where(['status' => 'Published', 'app_home' => '1'])->pluck('id');
+        if($products_list_ids->isNotEmpty()){
+            $products_list_ids = $products_list_ids->toArray();
+            foreach($products as $key => $product) {
+                if(!in_array($product['id'], $products_list_ids)) {
+                    unset($products[$key]);
+                }
+            }
+        }
+        // Remove deleted one from products (end)
+        // Update products in Website_Setup Table (Start)
+        $products_list = Product::where(['status' => 'Published', 'app_home' => '1'])->get();
+        foreach($products_list as $product) {
+            if(!in_array($product->id, $website_products_ids)) {
+                $products[] = array(
+                    'id' => $product->id,
+                    'title' => $product->title,
+                    'slug' => $product->slug,
+                    'price' => $product->formatted_advance_price,
+                    'picture' => $product->product_picture,
+                    'category' => $product->category->title,
+                    'brand' => $product->brand->title
+                );
+            }
+            else {
+                $index = array_search($product->id, array_column($products, 'id'));
+                $products[$index] = array(
+                    'id' => $product->id,
+                    'title' => $product->title,
+                    'slug' => $product->slug,
+                    'price' => $product->formatted_advance_price,
+                    'picture' => $product->product_picture,
+                    'category' => $product->category->title,
+                    'brand' => $product->brand->title
+                );
+            }
+        }
+        $website->products = json_encode($products);
+        $website->updated_by = Auth::user()->id;
+        $website->save();
+        // Update products in Website_Setup Table (end)
+
+        $validator['success'] = 'Products Sync successfully';
+        return back()->withErrors($validator);
+    }
     public function feature_products()
     {
         $website = AppSetup::first();
@@ -63,7 +159,7 @@ class AppSetupController extends Controller
         $feature_products_list_ids = Product::where(['status' => 'Published', 'feature' => '1'])->pluck('id');
         if($feature_products_list_ids->isNotEmpty()){
             $feature_products_list_ids = $feature_products_list_ids->toArray();
-            foreach($feature_products as $key => $product) { 
+            foreach($feature_products as $key => $product) {
                 if(!in_array($product['id'], $feature_products_list_ids)) {
                     unset($feature_products[$key]);
                 }
@@ -155,7 +251,7 @@ class AppSetupController extends Controller
             $categories = json_decode($website->categories,true);
         }
         // Initailize Category (end)
-        
+
         // Remove Category  (Start)
         $category_list_ids = Category::where('status', 'active')->pluck('id');
         if($category_list_ids->isNotEmpty()){
@@ -175,7 +271,7 @@ class AppSetupController extends Controller
             $product_count = Product::where('category_id', $category->id)->where('status', 'Published')->count();
             $category->pr_count = $product_count;
             $category->save();
-            
+
             if(!in_array($category->id, $website_categories)) {
                 $categories[] = array(
                     'id' => $category->id,
@@ -343,7 +439,7 @@ class AppSetupController extends Controller
                 }
             }
         }
-        
+
         $slider_list = Slider::where('status', 'active')->get();
         foreach($slider_list as $slider) {
             if(!in_array($slider->id, $website_sliders)) {

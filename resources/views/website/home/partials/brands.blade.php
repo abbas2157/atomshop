@@ -4,9 +4,11 @@
         <div class="col">
             <div class="owl-carousel vendor-carousel">
                 @foreach($brands as $item)
-                    <div class="bg-light p-4">
-                        <img src="{{ $item->picture ?? '' }}" alt="{{ $item->title ?? '' }}">
-                    </div>
+                    <a href="{{ route('brand', $item->slug) }}">
+                        <div class="bg-light p-4">
+                            <img src="{{ $item->picture ?? '' }}" alt="{{ $item->title ?? '' }}">
+                        </div>
+                    </a>
                 @endforeach
             </div>
         </div>

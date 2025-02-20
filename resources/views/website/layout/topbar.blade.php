@@ -13,7 +13,7 @@
                     <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">My Account</button>
                     <div class="dropdown-menu dropdown-menu-right">
                         @guest
-                            <a href="{{ route('website.login') }}" class="dropdown-item">Sign in</a>
+                            <a href="{{ route('login') }}" class="dropdown-item">Sign in</a>
                             <a href="{{ route('website.register') }}" class="dropdown-item">Sign up</a>
                         @endguest
                         @auth
@@ -34,9 +34,9 @@
                     <i class="fas fa-heart text-dark"></i>
                     <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
                 </a>
-                <a href="" class="btn px-0 ml-2">
+                <a href="{{ route('cart') }}" class="btn px-0 ml-2">
                     <i class="fas fa-shopping-cart text-dark"></i>
-                    <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
+                    <span class="badge text-dark border border-dark rounded-circle cart-count" style="padding-bottom: 2px;">0</span>
                 </a>
             </div>
         </div>

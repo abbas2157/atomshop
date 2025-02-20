@@ -6,6 +6,10 @@
             <a href="{{ route('admin.app.products.feature') }}" class="nav-link {{ (request()->segment(2) == 'app' && (request()->segment(3) == 'products') && (request()->segment(4) == 'feature')) ? 'active' : '' }}">Feature Section</a>
             <a href="{{ route('admin.app.products.feature.sync') }}" class="nav-link">Sync Section</a>
         </nav>
+        <nav class="nav flex-column">
+            <a href="{{ route('admin.app.products.app') }}" class="nav-link {{ (request()->segment(2) == 'app' && (request()->segment(3) == 'products') && (request()->segment(4) == 'app')) ? 'active' : '' }}">App Poducts Section</a>
+            <a href="{{ route('admin.app.products.app.sync') }}" class="nav-link">Sync Section</a>
+        </nav>
         <label>Categories</label>
         <nav class="nav flex-column">
             <a href="{{ route('admin.app.categories') }}" class="nav-link {{ (request()->segment(2) == 'app' && (request()->segment(3) == 'categories')) ? 'active' : '' }}">Categories Section</a>

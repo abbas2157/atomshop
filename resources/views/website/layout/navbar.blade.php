@@ -17,8 +17,7 @@
                 id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999;">
                 <div class="navbar-nav w-100">
                     @foreach ($categories as $item)
-                        <a href="{{ route('shop') }}?category[]={{ $item->id ?? '' }}"
-                            class="nav-item nav-link">{{ $item->title ?? '' }}</a>
+                        <a href="{{ route('category', $item->slug) }}" class="nav-item nav-link">{{ $item->title ?? '' }}</a>
                     @endforeach
                 </div>
             </nav>
