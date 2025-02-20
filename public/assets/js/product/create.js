@@ -137,7 +137,7 @@ $(function() {
         else {
             $('.memory-price').addClass('d-none');
         }
-        if(category_id == 1 || category_id == 2) {
+        if(category_id == 4) {
             $('.size-price').removeClass('d-none');
         }
         else {

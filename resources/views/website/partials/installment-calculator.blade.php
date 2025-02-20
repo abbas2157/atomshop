@@ -2,16 +2,106 @@
     $calculator = App\Models\InstallmentCalculator::first();
 @endphp
 <div class="container">
-    <h2 class=" text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Installment Calculator</span></h2>
+    <h5 class=" text-uppercase mx-xl-5 mb-2"><span class="bg-secondary pr-3">Choose your product</span></h5>
     <div class="row px-xl-5">
-        <div class="col-lg-12 table-responsive mb-5">
-            <table class="table table-light table-borderless table-hover text-center mb-0">
+        <div class="col-lg-12 table-responsive mb-3">
+            <table class="table table-bordered text-center mb-0">
                 <thead class="thead-dark">
                     <tr>
-                        <th>Add Amount</th>
+                        <th>Select Category</th>
+                        <th>Select Brand</th>
+                        <th>Select Product</th>
+                    </tr>
+                </thead>
+                <tbody class="align-middle">
+                    <tr>
+                        <td>
+                            <select class="form-control" id="category_id">
+                                <option selected disabled>Select category</option>
+                                @if($categories->isNotEmpty())
+                                    @foreach($categories as $item)
+                                        <option value="{{ $item->id ?? '' }}" {{ ($item->id == old('category_id')) ? 'selected' : '' }}>{{ $item->title ?? '' }}</option>
+                                    @endforeach
+                                @endif
+                            </select>
+                        </td>
+                        <td>
+                            <select class="form-control" id="brand_id">
+                                <option selected disabled>Select brand</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select class="form-control" id="product_id">
+                                <option selected disabled>Select product</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="d-none color-storage">
+        <h5 class=" text-uppercase mx-xl-5 mb-2"><span class="bg-secondary pr-3">Choose product veriation</span></h5>
+        <div class="row px-xl-5">
+            <div class="col-lg-12 table-responsive mb-3">
+                <table class="table table-bordered text-center mb-0">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Select Color</th>
+                            <th>Select Storage</th>
+                        </tr>
+                    </thead>
+                    <tbody class="align-middle">
+                        <tr>
+                            <td>
+                                <select class="form-control" id="category_id">
+                                    <option selected disabled>Select Color</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control" id="brand_id">
+                                    <option selected disabled>Select Storage</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="d-none size-price">
+        <h5 class=" text-uppercase mx-xl-5 mb-2"><span class="bg-secondary pr-3">Choose product veriation</span></h5>
+        <div class="row px-xl-5">
+            <div class="col-lg-12 table-responsive mb-3">
+                <table class="table table-bordered text-center mb-0">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Select size</th>
+                        </tr>
+                    </thead>
+                    <tbody class="align-middle">
+                        <tr>
+                            <td>
+                                <select class="form-control" id="category_id">
+                                    <option selected disabled>Select size</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <h5 class=" text-uppercase mx-xl-5 mb-2"><span class="bg-secondary pr-3">Installment Calculator</span></h5>
+    <div class="row px-xl-5">
+        <div class="col-lg-12 table-responsive mb-3">
+            <table class="table table-bordered text-center mb-0">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Minimum Advance Amount</th>
                         <th>Installment Tenure (Months)</th>
-                        <th>Pr Month Percentage</th>
-                        <th>Action</th>
+                        <th>Monthly Amount Pecentage</th>
+                        <th>Total Deal Amount</th>
                     </tr>
                 </thead>
                 <tbody class="align-middle">
@@ -35,10 +125,25 @@
                             </div>
                         </td>
                         <td class="align-middle">{{ $calculator->per_month_percentage ?? 4 }}%</td>
-                        <td class="align-middle">
-                            <button class="btn btn-sm btn-danger"><i class="fa fa-calculator"></i></button>
-                        </td>
+                        <td class="align-middle"> Rs. 00.00 </td>
                     </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <h5 class=" text-uppercase mx-xl-5 mb-2"><span class="bg-secondary pr-3">Your Installments</span></h5>
+    <div class="row px-xl-5">
+        <div class="col-lg-12 table-responsive mb-5">
+            <table class="table table-bordered text-center mb-0">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Sr No.</th>
+                        <th>Months</th>
+                        <th>Installment Price</th>
+                    </tr>
+                </thead>
+                <tbody class="align-middle" id="installment-rows">
+                    <tr><td colspan="5"><img src="{{ asset('web/img/loader.gif') }}" class="w-5" alt="Loader"></td></tr>
                 </tbody>
             </table>
         </div>

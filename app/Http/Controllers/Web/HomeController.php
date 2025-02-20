@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\{Product, WebsiteSetup, InstallmentCalculator};
+use App\Models\{Product, Category, WebsiteSetup, InstallmentCalculator,};
 use Illuminate\Support\Facades\{Auth, DB, Session};
 
 class HomeController extends Controller
@@ -118,13 +118,5 @@ class HomeController extends Controller
             return abort(505, $e->getMessage());
         }
     }
-
-    public function calculator()
-    {
-        $calculator = InstallmentCalculator::select('installment_tenure', 'per_month_percentage')->first();
-        if (is_null($calculator)) {
-            abort(404);
-        }
-        return view('website.installment-calculator', compact('calculator'));
-    }
+    
 }

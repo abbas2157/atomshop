@@ -7671,6 +7671,9 @@ button.bg-dark:focus {
 .w-10 {
     width: 10% !important;
 }
+.w-5 {
+    width: 5% !important;
+}
 .w-auto {
     width: auto !important;
 }
@@ -10282,3 +10285,27 @@ h6 {
 .login__signup__wrapper .other__link a {
     color: white;
 } /*# sourceMappingURL=style.css.map */
+.select2-container{
+    display: inline !important;
+}
+.selection{
+    text-align: left !important;
+}
+.select2-container .select2-selection--single {
+    height: calc(1.5em + 0.75rem + 2px) !important;
+}
+.select2-container--default .select2-selection--single {
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 0px !important;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #495057 !important;
+    line-height: 36px !important;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+    top: 64% !important;
+}
+.select2-search--dropdown .select2-search__field {
+    outline: none;
+}

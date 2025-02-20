@@ -8,6 +8,13 @@ Route::get('register', [App\Http\Controllers\Web\AuthController::class, 'registe
 Route::post('register', [App\Http\Controllers\Web\AuthController::class, 'register_perform'])->name('website.register.perform');
 Route::get('register/verification', [App\Http\Controllers\Web\AuthController::class, 'verification'])->name('website.register.verification');
 Route::post('register/verification', [App\Http\Controllers\Web\AuthController::class, 'verification_perform'])->name('website.register.verification.perform');
+
+//installment-calculator
+Route::group(['prefix' => 'installment-calculator'], function(){
+    Route::get('/', [App\Http\Controllers\Web\InstallmentCalculatorController::class, 'index'])->name('calculator');
+    Route::get('brands', [App\Http\Controllers\Web\InstallmentCalculatorController::class, 'brands'])->name('calculator.brands');
+    Route::get('brands/products', [App\Http\Controllers\Web\InstallmentCalculatorController::class, 'products'])->name('calculator.brands.products');
+});
 //Cart Management
 Route::group(['prefix' => 'cart'], function(){
     Route::get('/', [App\Http\Controllers\Web\Order\CartController::class, 'index'])->name('cart');
@@ -24,7 +31,7 @@ Route::group(['middleware' => ['auth']], function(){
         Route::get('failed', [App\Http\Controllers\Web\Order\OrderController::class, 'failed'])->name('order.failed');
     });
 });
-Route::get('installment-calculator', [App\Http\Controllers\Web\HomeController::class, 'calculator'])->name('calculator');
+
 
 //Home
 Route::get('/', function(){
