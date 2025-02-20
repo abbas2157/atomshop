@@ -19,7 +19,7 @@
                 <div class="az-signin-header">
                     <h2>Welcome back!</h2>
                     <h4>Please sign in to continue</h4>
-                    <form action="{{ route('login.perform') }}" method="POST">
+                    <form action="{{ route('portal.login.perform') }}" method="POST">
                         @csrf
                         <div class="form-group">
                             <label>Email</label>

@@ -36,7 +36,7 @@
                             </div>
                             <a href="" class="forgot__link">Forgot password?</a>
                             <button class="btn__submit register" type="button">Sign up</button>
-                            <p class="other__link"> Already have an account? <a href="{{ route('website.login') }}">Log in</a> </p>
+                            <p class="other__link"> Already have an account? <a href="{{ route('login') }}">Log in</a> </p>
                         </form>
                       </div>
                 </div>

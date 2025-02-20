@@ -31,8 +31,6 @@ class OrderController extends Controller
 
             return view('website.order.checkout', compact('cart', 'cities', 'areas'));
         } catch (\Exception $e) {
-            Log::error('Error in OrderController@index: ' . $e->getMessage());
-
             return redirect()->back()->with('error', 'Something went wrong! Please try again.');
         }
     }

@@ -16,6 +16,9 @@ class EnsureUserIsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if (!Auth::check()) {
+            return redirect('portal/login');
+        }
         if(Auth::user()->role == 'admin')
         {
             return $next($request);

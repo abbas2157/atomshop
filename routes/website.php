@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('login', [App\Http\Controllers\Web\AuthController::class, 'login'])->name('website.login');
-Route::post('login', [App\Http\Controllers\Web\AuthController::class, 'login_perform'])->name('website.login.perform');
+Route::get('login', [App\Http\Controllers\Web\AuthController::class, 'login'])->name('login');
+Route::post('login', [App\Http\Controllers\Web\AuthController::class, 'login_perform'])->name('login.perform');
 Route::get('register', [App\Http\Controllers\Web\AuthController::class, 'register'])->name('website.register');
 Route::post('register', [App\Http\Controllers\Web\AuthController::class, 'register_perform'])->name('website.register.perform');
 Route::get('register/verification', [App\Http\Controllers\Web\AuthController::class, 'verification'])->name('website.register.verification');

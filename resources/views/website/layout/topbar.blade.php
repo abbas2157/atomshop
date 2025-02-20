@@ -13,7 +13,7 @@
                     <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">My Account</button>
                     <div class="dropdown-menu dropdown-menu-right">
                         @guest
-                            <a href="{{ route('website.login') }}" class="dropdown-item">Sign in</a>
+                            <a href="{{ route('login') }}" class="dropdown-item">Sign in</a>
                             <a href="{{ route('website.register') }}" class="dropdown-item">Sign up</a>
                         @endguest
                         @auth

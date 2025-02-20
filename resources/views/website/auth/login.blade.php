@@ -12,7 +12,7 @@
             <div class="login__signup__wrapper">
                 <div class="row d-flex align-items-center justify-content-center">
                    <div class="col-lg-4">
-                        <form class="login-form" id="login-form" action="{{ route('website.login.perform') }}" autocomplete="off" onsubmit="return false;">
+                        <form class="login-form" id="login-form" action="{{ route('login.perform') }}" autocomplete="off" onsubmit="return false;">
                             @csrf
                             <h4 class="heading">Login</h4>
                             <p class="sub-text">Login to your atomshop.pk account</p>
