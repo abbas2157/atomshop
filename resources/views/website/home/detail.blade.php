@@ -11,8 +11,8 @@
                 <nav class="breadcrumb bg-light mb-30">
                     <a class="breadcrumb-item text-dark" href="{{ route('website') }}"> Home </a>
                     <a class="breadcrumb-item text-dark" href="{{ route('website') }}"> Shop </a>
-                    <a class="breadcrumb-item text-dark" href=""> {{ $product['category']['title'] ?? '' }} </a>
-                    <a class="breadcrumb-item text-dark" href=""> {{ $product['brand']['title'] ?? '' }} </a>
+                    <a class="breadcrumb-item text-dark" href="{{ route('category', $product['category']['slug']) }}"> {{ $product['category']['title'] ?? '' }} </a>
+                    <a class="breadcrumb-item text-dark" href="{{ route('brand', $product['brand']['slug']) }}"> {{ $product['brand']['title'] ?? '' }} </a>
                     <span class="breadcrumb-item active"> {{ $product['title'] ?? '' }}</span>
                 </nav>
             </div>

@@ -10,19 +10,18 @@
             <div class="col-12">
                 <nav class="breadcrumb bg-light mb-30">
                     <a class="breadcrumb-item text-dark" href="{{ route('website') }}">Home</a>
-                    <span class="breadcrumb-item active">Shop</span>
+                    <a class="breadcrumb-item text-dark" href="{{ route('shop') }}">Shop</a>
+                    <span class="breadcrumb-item active">{{ $category->title ?? '' }}</span>
                 </nav>
             </div>
         </div>
     </div>
     <!-- Breadcrumb End -->
-
-
     <!-- Shop Start -->
     <div class="container-fluid">
         <div class="row px-xl-5">
             <!-- Shop Sidebar Start -->
-            @include('website.shop.partials.filter')
+            @include('website.shop.partials.category-filter')
             <!-- Shop Sidebar End -->
 
             <!-- Shop Product Start -->
@@ -36,7 +35,8 @@
                             </div>
                             <div class="ml-2">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Latest</button>
+                                    <button type="button" class="btn btn-sm btn-light dropdown-toggle"
+                                        data-toggle="dropdown">Latest</button>
                                     <div class="dropdown-menu dropdown-menu-right">
                                         <a class="dropdown-item" href="#">Latest</a>
                                     </div>

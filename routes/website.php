@@ -32,6 +32,8 @@ Route::get('/', function(){
 })->name('home');
 Route::get('home', [App\Http\Controllers\Web\HomeController::class, 'home'])->name('website');
 Route::get('shop', [App\Http\Controllers\Web\ShopController::class, 'index'])->name('shop');
+Route::get('category/{slug}', [App\Http\Controllers\Web\ShopController::class, 'category'])->name('category');
+Route::get('brand/{slug}', [App\Http\Controllers\Web\ShopController::class, 'brand'])->name('brand');
 
 // Other Pages
 Route::get('about-us', [App\Http\Controllers\Web\PageController::class, 'about'])->name('about-us');
