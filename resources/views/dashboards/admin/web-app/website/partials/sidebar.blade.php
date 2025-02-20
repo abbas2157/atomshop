@@ -6,6 +6,7 @@
             <a href="{{ route('admin.website.products.feature') }}" class="nav-link {{ (request()->segment(2) == 'website' && (request()->segment(3) == 'products') && (request()->segment(4) == 'feature')) ? 'active' : '' }}">Feature Section</a>
             <a href="{{ route('admin.website.products.feature.sync') }}" class="nav-link">Sync Section</a>
         </nav>
+        <label></label>
         <nav class="nav flex-column">
             <a href="{{ route('admin.website.products.web') }}" class="nav-link {{ (request()->segment(2) == 'website' && (request()->segment(3) == 'products') && (request()->segment(4) == 'web')) ? 'active' : '' }}">Web Products Section</a>
             <a href="{{ route('admin.website.products.web.sync') }}" class="nav-link">Sync Section</a>

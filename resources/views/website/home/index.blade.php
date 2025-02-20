@@ -9,4 +9,5 @@
     @include('website.home.partials.categories')
     @include('website.home.partials.featured-products')
     @include('website.home.partials.brands')
+    @include('website.home.partials.recent-products')
 @endsection

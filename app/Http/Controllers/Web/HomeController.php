@@ -17,19 +17,23 @@ class HomeController extends Controller
         if (!is_null($sliders)) {
             $sliders = json_decode($website->sliders);
         }
-        $feature_products = [];
-        if (!is_null($website)) {
-            $feature_products = json_decode($website->feature_products);
-        }
         $categories = [];
         if (!is_null($website)) {
             $categories = json_decode($website->categories);
+        }
+        $feature_products = [];
+        if (!is_null($website)) {
+            $feature_products = json_decode($website->feature_products);
         }
         $brands = [];
         if (!is_null($website)) {
             $brands = json_decode($website->brands);
         }
-        return view('website.home.index', compact('sliders', 'categories', 'feature_products', 'brands'));
+        $products = [];
+        if (!is_null($website)) {
+            $products = json_decode($website->products);
+        }
+        return view('website.home.index', compact('sliders', 'categories', 'feature_products', 'brands', 'products'));
     }
 
     public function product_detail($slug)
