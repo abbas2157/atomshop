@@ -110,7 +110,7 @@ class HomeController extends Controller
                 $product_deatil['short_description'] = $product->description->short;
                 $product_deatil['long_description'] = $product->description->long;
             }
-            $products = Product::where(['status' => 'Published'])->orWhere('category_id', $product->category_id)->orWhere('brand_id', $product->brand_id)->limit(12)->select('id', 'title', 'slug', 'price', 'min_advance_price', 'picture','brand_id')->get();
+            $products = Product::where(['status' => 'Published'])->where('category_id', $product->category_id)->where('brand_id', $product->brand_id)->limit(12)->select('id', 'title', 'slug', 'price', 'min_advance_price', 'picture','brand_id')->get();
             $product = $product_deatil;
             return view('website.home.detail', compact('product', 'products'));
         } catch (Exception $e) {
