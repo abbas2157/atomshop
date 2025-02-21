@@ -8,6 +8,7 @@ use App\Models\Customer;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Jobs\Web\SendVerificationCode;
 use App\Models\{User, VerifyCode, Cart};
 use App\Http\Controllers\Api\BaseController as BaseController;
 use Illuminate\Support\Facades\{Auth, Validator, DB, Password, Hash, Mail};
@@ -46,7 +47,8 @@ class AccountController extends BaseController
                 'verify_code' => $verificationCode
             ]);
 
-            // Mail::to($request->email)->send(new RegisterEmail($user, $verificationCode));
+            SendVerificationCode::dispatch($user,$verificationCode);
+
             DB::commit();
             return $this->sendResponse(['user_id' => $user->uuid, 'code' => $verificationCode], 'User registered successfully!');
         } catch (Exception $e) {
@@ -221,12 +223,20 @@ class AccountController extends BaseController
                 ->with('city', 'area')
                 ->first();
             if (is_null($customer)) {
-                return $this->sendError('Customer not found.', [], 200);
+                $customer = [];
             }
 
-            $success['user'] = $user;
-            $success['customer'] = $customer;
-            return $this->sendResponse('Profile retrieved successfully.', $success, 200);
+            $data['user']['id'] = $user->id;
+            $data['user']['uuid'] = $user->uuid;
+            $data['user']['name'] = $user->name;
+            $data['user']['email'] = $user->email;
+            $data['user']['phone'] = $user->phone;
+            $data['user']['role'] = $user->role;
+            $data['user']['joined_through'] = $user->joined_through;
+            $data['user']['joined_date'] = $user->created_at->format('M d, Y');
+
+            $data['customer'] = $customer;
+            return $this->sendResponse('Profile retrieved successfully.', $data, 200);
         } catch (\Exception $e) {
             return $this->sendError('Profile not retrieved Error...', [$e->getMessage()], 500);
         }
@@ -259,6 +269,9 @@ class AccountController extends BaseController
             $user->save();
 
             $customer = Customer::where('user_id', $user->id)->first();
+            if(is_null($customer)) {
+                $customer = new Customer;
+            }
             $customer->city_id = $request->city_id;
             $customer->area_id = $request->area_id;
             $customer->address = $request->address;
@@ -272,9 +285,17 @@ class AccountController extends BaseController
             }
             $customer->save();
 
-            $success['user'] = $user;
-            $success['customer'] = $customer;
-            return $this->sendResponse('Profile updated successfully.', $success, 200);
+            $data['user']['id'] = $user->id;
+            $data['user']['uuid'] = $user->uuid;
+            $data['user']['name'] = $user->name;
+            $data['user']['email'] = $user->email;
+            $data['user']['phone'] = $user->phone;
+            $data['user']['role'] = $user->role;
+            $data['user']['joined_through'] = $user->joined_through;
+            $data['user']['joined_date'] = $user->created_at->format('M d, Y');
+            
+            $data['customer'] = $customer;
+            return $this->sendResponse('Profile updated successfully.', $data, 200);
         } catch (\Exception $e) {
             return $this->sendError('Profile not updated Error...', [$e->getMessage()], 500);
         }

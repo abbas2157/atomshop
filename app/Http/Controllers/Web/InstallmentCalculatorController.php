@@ -17,7 +17,7 @@ class InstallmentCalculatorController extends BaseController
             abort(404);
         }
         $categories = Category::orderBy('title','asc')->select('id','title','slug','pr_count')->get();
-        return view('website.installment-calculator', compact('calculator', 'categories'));
+        return view('website.calculator.index', compact('calculator', 'categories'));
     }
     public function brands(Request $request)
     {
@@ -45,6 +45,61 @@ class InstallmentCalculatorController extends BaseController
             return $this->sendResponse($products, 'Here is the list of products.', 200);
         } catch (Exception $e) {
             DB::rollBack();
+            return $this->sendError('Something went wrong.', $e->getMessage(), 500);
+        }
+    }
+    public function product_detail(Request $request)
+    {
+        try {
+            $product = Product::with('colors', 'memories')
+                ->where('id', request()->product_id)
+                ->where(['status' => 'Published'])
+                ->select('id', 'title', 'detail_page_title', 'picture', 'price', 'min_advance_price')
+                ->first();
+            if (is_null($product)) {
+                return $this->sendError('Product is not found', request()->all(), 200);
+            }
+
+            $product_deatil = [];
+
+            $product_deatil['id'] = $product->id;
+            $product_deatil['price'] = $product->formatted_price;
+            $product_deatil['variation_price'] = $product->price;
+            $product_deatil['min_advance_price'] = $product->min_advance_price;
+            $product_deatil['colors'] = [];
+
+            if ($product->colors->isNotEmpty()) {
+                $first = true;
+                foreach ($product->colors as $item) {
+                    if (!is_null($item->color)) {
+                        if ($first) {
+                            $product_deatil['colors'][] = array('id' => $item->color_id, 'title' => $item->color->title, 'active' => true);
+                            $first = false;
+                        } 
+                        else {
+                            $product_deatil['colors'][] = array('id' => $item->color_id, 'title' => $item->color->title, 'active' => false);
+                        }
+                    }
+                }
+            }
+            $product_deatil['memories'] = [];
+            if ($product->memories->isNotEmpty()) {
+                $first = true;
+                foreach ($product->memories as $item) {
+                    if (!is_null($item->memory)) {
+                        if ($first) {
+                            $product_deatil['memories'][] = array('id' => $item->memory_id, 'title' => $item->memory->title, 'variation_price' => $item->price, 'active' => true);
+                            $first = false;
+                            $product_deatil['variation_price'] = $item->price;
+                        } 
+                        else {
+                            $product_deatil['memories'][] = array('id' => $item->memory_id, 'title' => $item->memory->title,  'variation_price' => $item->price, 'active' => false);
+                        }
+                    }
+                }
+            }
+            return $this->sendResponse($product_deatil, 'Here is the list of products.', 200);
+        } catch (Exception $e) {
             return $this->sendError('Something went wrong.', $e->getMessage(), 500);
         }
     }
