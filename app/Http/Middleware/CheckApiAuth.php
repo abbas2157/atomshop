@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Http\JsonResponse;
 
 class CheckApiAuth
 {
@@ -14,14 +15,14 @@ class CheckApiAuth
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next): JsonResponse
     {
         try {
             return $next($request);
         } 
         catch (AuthenticationException $e) {
             return response()->json([
-                'message' => 'Unauthorized request'
+                'message' => 'Unauthorized. Please log in.'
             ], 401);
         }
     }
