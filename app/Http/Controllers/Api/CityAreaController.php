@@ -16,7 +16,7 @@ class CityAreaController extends BaseController
     public function cities(Request $request)
     {
         try {
-            $cities = City::where('status', 'active')->get();
+            $cities = City::where('status', 'active')->select('id','title','slug','provice','country')->get();
             return $this->sendResponse($cities, 'Here is the list of cities.', 200);
         } catch (Exception $e) {
             return $this->sendError('Something went wrong.', $e->getMessage(), 500);
@@ -25,7 +25,7 @@ class CityAreaController extends BaseController
     public function areas(Request $request)
     {
         try {
-            $areas = Area::where('status', 'active')->get();
+            $areas = Area::where('status', 'active')->select('id','title','slug','lat','lng','city_id')->get();
             return $this->sendResponse($areas, 'Here is the list of areas.', 200);
         } catch (Exception $e) {
             return $this->sendError('Something went wrong.', $e->getMessage(), 500);
@@ -34,7 +34,7 @@ class CityAreaController extends BaseController
     public function areas_with_city_id(Request $request, $city_id)
     {
         try {
-            $areas = Area::where('status', 'active')->where('city', $city_id)->get();
+            $areas = Area::where('status', 'active')->select('id','title','slug','lat','lng','city_id')->where('city', $city_id)->get();
             return $this->sendResponse($areas, 'Here is the list of areas.', 200);
         } catch (Exception $e) {
             return $this->sendError('Something went wrong.', $e->getMessage(), 500);
