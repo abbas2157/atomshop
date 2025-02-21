@@ -11,21 +11,22 @@ Route::group(['prefix' => 'account'], function(){
     Route::post('send/code/verify', [App\Http\Controllers\Api\AccountController::class, 'verify_code']);
     Route::post('send/code/reset/password', [App\Http\Controllers\Api\AccountController::class, 'reset_password']);
 
-    Route::post('profile/upload', [App\Http\Controllers\Api\AccountController::class, 'profile_upload']);
-    Route::get('profile/{uuid}', [App\Http\Controllers\Api\AccountController::class, 'profile']);
-    Route::post('profile/update', [App\Http\Controllers\Api\AccountController::class, 'profile_update']);
+    Route::middleware('auth:sanctum')->post('profile/upload', [App\Http\Controllers\Api\AccountController::class, 'profile_upload']);
+    Route::middleware('auth:sanctum')->get('profile/{uuid}', [App\Http\Controllers\Api\AccountController::class, 'profile']);
+    Route::middleware('auth:sanctum')->post('profile/update', [App\Http\Controllers\Api\AccountController::class, 'profile_update']);
 
     Route::post('change/password', [App\Http\Controllers\Api\AccountController::class, 'change_password']);
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
-    Route::group(['prefix' => 'checkout'], function(){
-        Route::get('/', [App\Http\Controllers\Api\Order\OrderController::class, 'index']);
-        Route::post('perform', [App\Http\Controllers\Api\Order\OrderController::class, 'checkout_perform']);
-        Route::get('success', [App\Http\Controllers\Api\Order\OrderController::class, 'success']);
-        Route::get('failed', [App\Http\Controllers\Api\Order\OrderController::class, 'faileds']);
-    });
+});
+
+Route::group(['prefix' => 'checkout'], function(){
+    Route::get('/', [App\Http\Controllers\Api\Order\OrderController::class, 'index']);
+    Route::post('perform', [App\Http\Controllers\Api\Order\OrderController::class, 'checkout_perform']);
+    Route::get('success', [App\Http\Controllers\Api\Order\OrderController::class, 'success']);
+    Route::get('failed', [App\Http\Controllers\Api\Order\OrderController::class, 'faileds']);
 });
 
 Route::get('categories', [App\Http\Controllers\Api\HomePageController::class, 'categories']);
