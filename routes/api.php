@@ -18,7 +18,7 @@ Route::group(['prefix' => 'account'], function(){
     Route::post('change/password', [App\Http\Controllers\Api\AccountController::class, 'change_password']);
 });
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware([App\Http\Middleware\CheckApiAuth::class])->group(function () {
     return $request->user();
 });
 
