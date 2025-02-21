@@ -31,6 +31,9 @@ Route::group(['prefix' => 'checkout'], function(){
 
 Route::get('categories', [App\Http\Controllers\Api\HomePageController::class, 'categories']);
 Route::get('brands', [App\Http\Controllers\Api\HomePageController::class, 'brands']);
+Route::get('cities', [App\Http\Controllers\Api\CityAreaController::class, 'cities']);
+Route::get('areas', [App\Http\Controllers\Api\CityAreaController::class, 'areas']);
+Route::get('areas/{city_id}', [App\Http\Controllers\Api\CityAreaController::class, 'areas_with_city_id']);
 Route::get('sliders', [App\Http\Controllers\Api\HomePageController::class, 'sliders']);
 Route::group(['prefix' => 'products'], function(){
     Route::get('/', [App\Http\Controllers\Api\ProductController::class, 'products']);

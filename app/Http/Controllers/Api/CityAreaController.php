@@ -31,10 +31,10 @@ class CityAreaController extends BaseController
             return $this->sendError('Something went wrong.', $e->getMessage(), 500);
         }
     }
-    public function areas_with_city_id(Request $request)
+    public function areas_with_city_id(Request $request, $city_id)
     {
         try {
-            $areas = Area::where('status', 'active')->where('city', request()->city_id)->get();
+            $areas = Area::where('status', 'active')->where('city', $city_id)->get();
             return $this->sendResponse($areas, 'Here is the list of areas.', 200);
         } catch (Exception $e) {
             return $this->sendError('Something went wrong.', $e->getMessage(), 500);
