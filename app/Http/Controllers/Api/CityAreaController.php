@@ -34,7 +34,7 @@ class CityAreaController extends BaseController
     public function areas_with_city_id(Request $request, $city_id)
     {
         try {
-            $areas = Area::where('status', 'active')->select('id','title','slug','lat','lng','city_id')->where('city', $city_id)->get();
+            $areas = Area::where('status', 'active')->select('id','title','slug','lat','lng','city_id')->where('city_id', $city_id)->get();
             return $this->sendResponse($areas, 'Here is the list of areas.', 200);
         } catch (Exception $e) {
             return $this->sendError('Something went wrong.', $e->getMessage(), 500);
