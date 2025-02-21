@@ -269,6 +269,9 @@ class AccountController extends BaseController
             $user->save();
 
             $customer = Customer::where('user_id', $user->id)->first();
+            if(is_null($customer)) {
+                $customer = new Customer;
+            }
             $customer->city_id = $request->city_id;
             $customer->area_id = $request->area_id;
             $customer->address = $request->address;
@@ -282,9 +285,17 @@ class AccountController extends BaseController
             }
             $customer->save();
 
-            $success['user'] = $user;
-            $success['customer'] = $customer;
-            return $this->sendResponse('Profile updated successfully.', $success, 200);
+            $data['user']['id'] = $user->id;
+            $data['user']['uuid'] = $user->uuid;
+            $data['user']['name'] = $user->name;
+            $data['user']['email'] = $user->email;
+            $data['user']['phone'] = $user->phone;
+            $data['user']['role'] = $user->role;
+            $data['user']['joined_through'] = $user->joined_through;
+            $data['user']['joined_date'] = $user->created_at->format('M d, Y');
+            
+            $data['customer'] = $customer;
+            return $this->sendResponse('Profile updated successfully.', $data, 200);
         } catch (\Exception $e) {
             return $this->sendError('Profile not updated Error...', [$e->getMessage()], 500);
         }
