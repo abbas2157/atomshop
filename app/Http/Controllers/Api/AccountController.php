@@ -226,7 +226,15 @@ class AccountController extends BaseController
                 $customer = [];
             }
 
-            $data['user'] = $user;
+            $data['user']['id'] = $user->id;
+            $data['user']['uuid'] = $user->uuid;
+            $data['user']['name'] = $user->name;
+            $data['user']['email'] = $user->email;
+            $data['user']['phone'] = $user->phone;
+            $data['user']['role'] = $user->role;
+            $data['user']['joined_through'] = $user->joined_through;
+            $data['user']['joined_date'] = $user->created_at->format('M d, Y');
+
             $data['customer'] = $customer;
             return $this->sendResponse('Profile retrieved successfully.', $data, 200);
         } catch (\Exception $e) {
