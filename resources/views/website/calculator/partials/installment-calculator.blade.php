@@ -34,6 +34,7 @@
                             <select class="form-control" id="product_id">
                                 <option selected disabled>Select product</option>
                             </select>
+                            <input type="hidden" id="variation_price">
                         </td>
                     </tr>
                 </tbody>
@@ -47,19 +48,19 @@
                 <table class="table table-bordered text-center mb-0">
                     <thead class="thead-dark">
                         <tr>
-                            <th>Select Color</th>
+                            <th >Select Color</th>
                             <th>Select Storage</th>
                         </tr>
                     </thead>
                     <tbody class="align-middle">
                         <tr>
                             <td>
-                                <select class="form-control" id="category_id">
+                                <select class="form-control" id="color_id">
                                     <option selected disabled>Select Color</option>
                                 </select>
                             </td>
                             <td>
-                                <select class="form-control" id="brand_id">
+                                <select class="form-control" id="memory_id">
                                     <option selected disabled>Select Storage</option>
                                 </select>
                             </td>
@@ -86,6 +87,7 @@
                                     <option selected disabled>Select size</option>
                                 </select>
                             </td>
+                            
                         </tr>
                     </tbody>
                 </table>
@@ -102,21 +104,22 @@
                         <th>Installment Tenure (Months)</th>
                         <th>Monthly Amount Pecentage</th>
                         <th>Total Deal Amount</th>
+                        <th width="250px">Add to Cart</th>
                     </tr>
                 </thead>
                 <tbody class="align-middle">
                     <tr>
                         <td class="align-middle">
-                            <input type="text" class="form-control" id="installment_total_amount" placeholder="Enter Amount" required="required"/>
+                            <input type="text" class="form-control" id="min_advance_price" placeholder="Enter Amount" required="required"/>
                         </td>
                         <td class="align-middle">
-                            <div class="input-group installment-calculator mx-auto" style="width: 100px;">
+                            <div class="input-group installment-calculator-page mx-auto" style="width: 100px;">
                                 <div class="input-group-btn">
                                     <button class="btn btn-sm btn-primary btn-minus" >
                                     <i class="fa fa-minus"></i>
                                     </button>
                                 </div>
-                                <input type="text" min="3" max="12" class="form-control form-control-sm bg-secondary border-0 text-center" value="3">
+                                <input type="text" min="3" max="12" class="form-control form-control-sm bg-secondary border-0 text-center" id="tenure_months" value="3">
                                 <div class="input-group-btn">
                                     <button class="btn btn-sm btn-primary btn-plus">
                                         <i class="fa fa-plus"></i>
@@ -125,7 +128,16 @@
                             </div>
                         </td>
                         <td class="align-middle">{{ $calculator->per_month_percentage ?? 4 }}%</td>
-                        <td class="align-middle"> Rs. 00.00 </td>
+                        <td class="align-middle"> Rs. <span class="variation-price-calculator" id="variation-price-calculator">00.00</span> </td>
+                        <td width="250px">
+                            <div class="loader-btn">
+                                <button class="btn btn-primary px-3 w-50" ><img  src="{{ asset('web/img/loader.gif') }}" class="w-25" alt="Loader"></button>
+                            </div>
+                            <div class="checkout-btn"></div>
+                            <div class="cart-btn d-none" >
+                                <button class="btn btn-primary px-3 add-to-cart"><i class="fa fa-shopping-cart mr-1"> </i> Add to Cart</button>
+                            </div>
+                        </td>
                     </tr>
                 </tbody>
             </table>

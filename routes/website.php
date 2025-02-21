@@ -14,6 +14,7 @@ Route::group(['prefix' => 'installment-calculator'], function(){
     Route::get('/', [App\Http\Controllers\Web\InstallmentCalculatorController::class, 'index'])->name('calculator');
     Route::get('brands', [App\Http\Controllers\Web\InstallmentCalculatorController::class, 'brands'])->name('calculator.brands');
     Route::get('brands/products', [App\Http\Controllers\Web\InstallmentCalculatorController::class, 'products'])->name('calculator.brands.products');
+    Route::get('products/detail', [App\Http\Controllers\Web\InstallmentCalculatorController::class, 'product_detail'])->name('calculator.products.detail');
 });
 //Cart Management
 Route::group(['prefix' => 'cart'], function(){
