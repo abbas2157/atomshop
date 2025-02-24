@@ -19,7 +19,7 @@
                         <div class="container">
                             <div>
                                 <nav class="nav">
-                                    <a href="{{ route('seller.customers') }}" class="nav-link">All Customers</a>
+                                    <a href="{{ route('seller.customers.index') }}" class="nav-link">All Customers</a>
                                 </nav>
                             </div>
                         </div>

@@ -36,7 +36,7 @@
                                 <button class="btn btn-primary" type="submit" style="padding: 8px 20px; color:white;"><i class="fa fa-search"></i></button>
                             </span>
                             <span class="input-group-btn" title="Clear Search">
-                                <a href="{{ route('seller.customers') }}" class="btn btn-warning" type="submit" style="padding: 8px 20px; color:white;"><i class="far fa-arrow-alt-circle-left"></i></a>
+                                <a href="{{ route('seller.customers.create') }}" class="btn btn-warning" type="submit" style="padding: 8px 20px; color:white;"><i class="far fa-arrow-alt-circle-left"></i></a>
                             </span>
                         </div>
                     </div>
@@ -85,7 +85,7 @@
                 </table>
             </div>
             <div class="mt-2">
-                {!! $customers->withQueryString()->links('pagination::bootstrap-5') !!} 
+                {!! $customers->withQueryString()->links('pagination::bootstrap-5') !!}
             </div>
         </div>
     </div>
