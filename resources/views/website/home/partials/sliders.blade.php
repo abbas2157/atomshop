@@ -10,10 +10,10 @@
                 </ol>
                 <div class="carousel-inner">
                     @foreach($sliders as $slide)
-                        <div class="carousel-item position-relative @if($loop->first) active @endif" style="height: 430px;">
-                            <img class="position-absolute w-100 h-100" src="{{ $slide->picture ?? '' }}" style="object-fit: cover;">
+                        <div class="carousel-item position-relative @if($loop->first) active @endif p--6" >
+                            <img class="position-absolute w-100 h-100 p--7" src="{{ $slide->picture ?? '' }}">
                             <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                                <div class="p-3" style="max-width: 700px;">
+                                <div class="p-3 p--8">
                                     <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">{{ $slide->title ?? 'Atomshop' }}</h1>
                                     <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="#">Shop Now</a>
                                 </div>
@@ -24,7 +24,7 @@
             </div>
         </div>
         <div class="col-lg-4">
-            <div class="product-offer mb-30" style="height: 200px;">
+            <div class="product-offer mb-30 p--9">
                 <img class="img-fluid" src="{{ asset('sliders/Special-offer-2.jpg') }}" alt="Atomshop - Pay in steps">
                 <div class="offer-text">
                     <h6 class="text-white text-uppercase">Pay in Steps</h6>
@@ -32,7 +32,7 @@
                     {{-- <a href="" class="btn btn-primary">Shop Now</a> --}}
                 </div>
             </div>
-            <div class="product-offer mb-30" style="height: 200px;">
+            <div class="product-offer mb-30 p--10">
                 <img class="img-fluid" src="{{ asset('sliders/Special-offer.jpg') }}" alt="Atomshop - Pay in steps">
                 <div class="offer-text">
                     <h6 class="text-white text-uppercase">Pay in Steps</h6>

@@ -1,6 +1,6 @@
 <div class="product-item bg-light mb-4">
     <div class="product-img position-relative overflow-hidden">
-        <img class="img-fluid w-100" style="height: 300px; object-fit: cover;"
+        <img class="img-fluid w-100 p--20"
             src="{{ asset($item->picture) }}" alt="{{ $item->title ?? '' }}">
         <div class="product-action">
             <a class="btn btn-outline-dark btn-square" href=""><i

@@ -20,7 +20,7 @@
                             <input type="text" class="form-control" id="installment_total_amount" placeholder="Enter Amount" required="required"/>
                         </td>
                         <td class="align-middle">
-                            <div class="input-group installment-calculator mx-auto" style="width: 100px;">
+                            <div class="input-group installment-calculator mx-auto p--19">
                                 <div class="input-group-btn">
                                     <button class="btn btn-sm btn-primary btn-minus" >
                                     <i class="fa fa-minus"></i>

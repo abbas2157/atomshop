@@ -73,7 +73,7 @@
                     </div>
                     @endif
                     <div class="d-flex align-items-center mb-4 pt-2">
-                        <div class="input-group quantity mr-3" style="width: 130px;">
+                        <div class="input-group quantity mr-3 p--11">
                             <div class="input-group-btn">
                                 <button class="btn btn-primary btn-minus">
                                     <i class="fa fa-minus"></i>
@@ -90,14 +90,14 @@
                             <button class="btn btn-primary px-3 w-25" ><img  src="{{ asset('web/img/loader.gif') }}" class="w-25" alt="Loader"></button>
                         </div>
                         <div class="checkout-btn" >
-                            
+
                         </div>
                         <div class="cart-btn d-none" >
                             <button class="btn btn-primary px-3 add-to-cart" data-id="{{ $product['id'] ?? '' }}" ><i class="fa fa-shopping-cart mr-1"> </i> Add to Cart</button>
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         </div>
         <div class="row px-xl-5">
@@ -142,9 +142,9 @@
 <script>
     var product_id = parseInt("{{ $product['id'] ?? 0 }}");
     var total = parseInt("{{ $product['variation_price'] ?? 0 }}");
-    @if(is_null($calculator)) 
+    @if(is_null($calculator))
         var total_tenure_percentage = 4;
-    @else 
+    @else
         var total_tenure_percentage = parseInt('{{ $calculator->per_month_percentage?? 0 }}');
     @endif
     var memories = [];
