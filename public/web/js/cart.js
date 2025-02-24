@@ -32,7 +32,7 @@ function getCart() {
                         <td class="align-middle text-center">'+index+1+'</td>\
                         <td class="align-middle">\
                             <div class="row"><div class="col-md-2"><img src="'+item.product.picture+'" alt="" style="width: 50px;"></div>\
-                            <div class="col-md-10">'+item.product.title +'</div>\
+                            <div class="col-md-10">'+item.product.title +'</div></div>\
                         </td>\
                         <td class="align-middle text-center">Rs. '+item.product_advance_price+'</td>\
                         <td class="align-middle text-center">Rs. '+item.product_price+'</td>\

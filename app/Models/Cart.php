@@ -18,7 +18,7 @@ class Cart extends Model
     }
 
     public function product() {
-        return $this->belongsTo(Product::class, 'product_id')->select('id', 'title', 'price', 'picture');
+        return $this->belongsTo(Product::class, 'product_id')->select('id', 'pr_number', 'title', 'price', 'picture');
     }
     public function color()
     {
@@ -28,7 +28,6 @@ class Cart extends Model
     {
         return $this->belongsTo(Memory::class, 'memory_id', 'id')->select('id', 'title');
     }
-
     public function size()
     {
         return $this->belongsTo(Size::class, 'size_id', 'id')->select('id', 'title','unit');

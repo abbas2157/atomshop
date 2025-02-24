@@ -17,6 +17,9 @@
                             <a href="{{ route('website.register') }}" class="dropdown-item">Sign up</a>
                         @endguest
                         @auth
+                            <a href="{{ route('profile') }}" class="dropdown-item"> My Profile</a>
+                            <a href="{{ route('profile.password') }}" class="dropdown-item"> Change Password</a>
+                            <a href="{{ route('orders') }}" class="dropdown-item"> My Orders</a>
                             <a href="{{ route('logout') }}" class="dropdown-item">Logout</a>
                         @endauth
                     </div>

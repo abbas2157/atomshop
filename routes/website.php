@@ -31,6 +31,15 @@ Route::group(['middleware' => ['auth']], function(){
         Route::get('success', [App\Http\Controllers\Web\Order\OrderController::class, 'success'])->name('order.success');
         Route::get('failed', [App\Http\Controllers\Web\Order\OrderController::class, 'failed'])->name('order.failed');
     });
+    Route::group(['prefix' => 'profile'], function(){
+        Route::get('/', [App\Http\Controllers\Web\Profile\ProfileController::class, 'index'])->name('profile');
+        Route::post('/', [App\Http\Controllers\Web\Profile\ProfileController::class, 'profile_update'])->name('profile.update');
+        Route::get('password', [App\Http\Controllers\Web\Profile\ProfileController::class, 'password'])->name('profile.password');
+        Route::post('password', [App\Http\Controllers\Web\Profile\ProfileController::class, 'password_update'])->name('profile.password.update');
+    });
+    Route::group(['prefix' => 'orders'], function(){
+        Route::get('/', [App\Http\Controllers\Web\Profile\OrderController::class, 'index'])->name('orders');
+    });
 });
 
 
