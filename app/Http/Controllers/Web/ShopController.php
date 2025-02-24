@@ -21,6 +21,20 @@ class ShopController extends Controller
         if(request()->has('min') || request()->has('max')) {
             $products->whereBetween('price', [request()->min ?? 0, request()->max ?? 500000000]);
         }
+        if(request()->has('q')) {
+            $search = request()->q;
+            
+            $products->where('title', 'LIKE', "%{$search}%");
+            $products->orWhere('detail_page_title', 'LIKE', "%{$search}%");
+            $products->orWhere('pr_number', 'LIKE', "%{$search}%");
+
+            $products->orWhereHas('category', function ($query) use ($search) {
+                $query->where('title', 'LIKE', "%$search%");
+            })
+            ->orWhereHas('brand', function ($query) use ($search) {
+                $query->where('title', 'LIKE', "%$search%");
+            });
+        }
         $products = $products->paginate(18)->appends(request()->query());
         $categories = Category::orderBy('title','asc')->select('id','title','slug','pr_count')->get();
         $brands = Brand::orderBy('title','asc')->select('id','title','slug','pr_count')->get();

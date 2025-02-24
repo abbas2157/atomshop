@@ -32,7 +32,7 @@
                         <b>For Sellers:</b> <a href="mailto:sellers@atomshop.pk" class="text-decoration-none"> sellers@atomshop.pk </a> <br> <br>
                         <b>Office Address : </b> 206- Nasheman Iqbal Cooperative Housing Society, Phase 1, Lahore, Pakistan</p>
                     </p>
-                    <h6 class="text-secondary text-uppercase mt-4 mb-3">Follow Us</h6>
+                    <h6 class="text-uppercase mt-4 mb-3">Follow Us</h6>
                     <div class="d-flex">
                         <a class="btn btn-primary btn-square mr-2" href="#"><i class="fab fa-twitter"></i></a>
                         <a class="btn btn-primary btn-square mr-2" href="{{ config('website.social.facebook') ?? '' }}"><i class="fab fa-facebook-f"></i></a>

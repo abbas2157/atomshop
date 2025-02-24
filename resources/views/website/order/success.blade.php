@@ -24,7 +24,7 @@
             <div class="bg-light p-30 mb-5">
                 <div class="text-center">
                     <img class="w-10" src="{{ asset('order/success.png') }}" alt="Order Success">
-                    <h4>Order has been submitted successfully.</h4>
+                    <h4>Order has been placed successfully.</h4>
                     <a href="{{ route('website') }}" class="btn btn-primary px-3" > Go to home</a>
                 </div>
             </div>

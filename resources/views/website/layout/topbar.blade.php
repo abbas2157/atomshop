@@ -49,10 +49,10 @@
             </a>
         </div>
         <div class="col-lg-4 col-6 text-left">
-            <form action="">
+            <form action="{{ route('shop') }}" class="search-form">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for products">
-                    <div class="input-group-append">
+                    <input type="text" class="form-control" name="q" placeholder="Search for products" value="{{ request()->q ?? '' }}">
+                    <div class="input-group-append search-click">
                         <span class="input-group-text bg-transparent text-primary">
                             <i class="fa fa-search"></i>
                         </span>
