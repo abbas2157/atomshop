@@ -114,7 +114,7 @@ class AccountController extends BaseController
             'verify_code' => $code
         ]);
 
-        // Mail::to($request->email)->send(new RegisterEmail($user, $code));
+        SendVerificationCode::dispatch($user,$code);
 
         $success['user'] = $user;
         $success['code'] = $code;
