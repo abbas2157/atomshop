@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Dashboards\Sellers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{User, Seller, Customer};
+use App\Models\{User, Seller, Customer, Cart};
 use Illuminate\Support\Facades\{Auth, Hash, DB, Mail};
 
 
@@ -16,14 +16,23 @@ class SellerController extends Controller
     public function index()
     {
         $area_id = Auth::user()->seller->area_id;
-        $sellers = Seller::where('area_id', $area_id)->pluck('user_id');
-        $customer_ids = [];
-        if($sellers->isNotEmpty()) {
-            $customer_ids =  $sellers->toArray();
+        $sellers = Seller::with('city', 'area', 'user')->where('area_id', $area_id)->get();
+        
+        $orders = [];
+        foreach ($sellers as $seller) {
+            $sellerOrders = Cart::where('user_id', $seller->user->id)->get();
+            foreach ($sellerOrders as $order) {
+                $customer = Customer::where('user_id', $order->user_id)->first();
+                $orders[] = [
+                    'seller' => $seller,
+                    'order' => $order,
+                    'customer' => $customer,
+                ];
+            }
         }
-        $sellers = User::whereIn('id', $customer_ids)->paginate(10);
-        return view('dashboards.sellers.sellers.index', compact('sellers'));
+        return view('dashboards.sellers.sellers.index', compact('orders'));
     }
+    
 
     /**
      * Show the form for creating a new resource.

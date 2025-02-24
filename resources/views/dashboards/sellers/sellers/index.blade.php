@@ -48,32 +48,29 @@
                         <tr>
                             <th>Name</th>
                             <th>Email</th>
-                            <th>Phone</th>
+                            <th>Area</th>
+                            <th>City</th>
                             <th>Address</th>
                             <th width="60px">Status</th>
-                            <th width="120px">Joined On</th>
+                            {{-- <th width="120px">Joined On</th> --}}
                         </tr>
                     </thead>
                     <tbody>
-                        @if($sellers->isNotEmpty())
-                            @foreach($sellers as $item)
+                        @if(!empty($orders))
+                        @foreach($orders as $item)
                                 <tr>
-                                    <td>{{ $item->name ?? '' }}</td>
-                                    <td>{{ $item->email ?? '' }}</td>
-                                    <td>{{ $item->phone ?? '' }}</td>
-                                    <td>{{ $item->customer->address ?? '' }}, {{ $item->customer->area->title ?? '' }}, {{ $item->customer->city->title ?? '' }}</td>
+                                    <td>{{ $item['seller']->user->name ?? '' }}</td>
+                                    <td>{{ $item['seller']->user->email ?? '' }}</td>
+                                    <td>{{ $item['seller']->area->title ?? '' }}</td>
+                                    <td>{{ $item['seller']->city->title ?? '' }}</td>
+                                    <td>{{ $item['seller']->address ?? '' }}</td>
                                     <td>
-                                        @if($item->status == 'support')
-                                            <label class="badge badge-info">{{ $item->status ?? '' }}</label>
-                                        @elseif($item->status == 'block')
-                                            <label class="badge badge-danger">{{ $item->status ?? '' }}</label>
-                                        @elseif($item->status == 'pending')
-                                            <label class="badge badge-warning">{{ $item->status ?? '' }}</label>
-                                        @elseif($item->status == 'active')
-                                            <label class="badge badge-success">{{ $item->status ?? '' }}</label>
+                                        @if($item['order']->status == 'Pending')
+                                            <label class="badge badge-warning">{{ $item['order']->status ?? '' }}</label>
+                                        @elseif($item['order']->status == 'Purchased')
+                                            <label class="badge badge-success">{{ $item['order']->status ?? '' }}</label>
                                         @endif
                                     </td>
-                                    <td>{{ $item->created_at->format('M d, Y') ?? '' }}</td>
                                 </tr>
                             @endforeach
                         @else
@@ -84,9 +81,9 @@
                     </tbody>
                 </table>
             </div>
-            <div class="mt-2">
-                {!! $sellers->withQueryString()->links('pagination::bootstrap-5') !!} 
-            </div>
+            {{-- <div class="mt-2">
+                {!! $orders->withQueryString()->links('pagination::bootstrap-5') !!} 
+            </div>             --}}
         </div>
     </div>
 </div>
