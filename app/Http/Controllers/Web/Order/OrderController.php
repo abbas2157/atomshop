@@ -8,6 +8,8 @@ use App\Models\{User, Cart, Order, City, Area};
 use Illuminate\Support\Facades\{Auth, DB, Session, Log};
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\OrderConfirmationMail;
 
 
 class OrderController extends Controller
@@ -62,6 +64,10 @@ class OrderController extends Controller
                 $cart->status = 'Purchased';
                 $cart->save();
             }
+            $user = Auth::user();
+            $order = Order::where('uuid', $order->uuid)->with('cart')->first();
+            Mail::to($user->email)->send(new OrderConfirmationMail($order, $user));
+    
             return redirect('order/success?order='.$order->uuid);
         } catch (\Exception $e) {
             return abort(505, $e->getMessage());

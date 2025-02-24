@@ -22,5 +22,9 @@ Route::middleware([App\Http\Middleware\EnsureUserIsSeller::class])->group(functi
         Route::group(['prefix' => 'customers'], function(){
             Route::get('/', [App\Http\Controllers\Dashboards\Sellers\CustomerController::class, 'index'])->name('seller.customers');
         });
+
+        Route::group(['prefix' => 'sellers'], function(){
+            Route::get('/', [App\Http\Controllers\Dashboards\Sellers\SellerController::class, 'index'])->name('seller.sellers');
+        });
     });
 });
