@@ -20,7 +20,9 @@ Route::middleware([App\Http\Middleware\EnsureUserIsSeller::class])->group(functi
             Route::post('business-info', [App\Http\Controllers\Dashboards\Sellers\ProfileController::class, 'business_info_perform'])->name('seller.profile.business-info.perform');
         });
         Route::group(['prefix' => 'customers'], function(){
-            Route::get('/', [App\Http\Controllers\Dashboards\Sellers\CustomerController::class, 'index'])->name('seller.customers');
+            Route::get('/', [App\Http\Controllers\Dashboards\Sellers\CustomerController::class, 'index'])->name('seller.customers.index');
+            Route::get('/create', [App\Http\Controllers\Dashboards\Sellers\CustomerController::class, 'create'])->name('seller.customers.create');
+            Route::post('/', [App\Http\Controllers\Dashboards\Sellers\CustomerController::class, 'store'])->name('seller.customers.store');
         });
 
         Route::group(['prefix' => 'sellers'], function(){
