@@ -64,7 +64,7 @@
                 <li>✔ اپنے Orders کو Track کریں اور اپنی خریداری کو آسانی سے Manage کریں۔</li>
                 <li>✔ خصوصی Deals اور آفرز سے فائدہ اٹھائیں جو صرف آپ کے لیے ہیں۔</li>
             </ul>
-            <p>🚀 اپنے Account میں لاگ ان کرنے کے لیے <a href="{{ route('website.login') }}">یہاں کلک کریں</a></p>
+            <p>🚀 اپنے Account میں لاگ ان کرنے کے لیے <a href="{{ route('login') }}">یہاں کلک کریں</a></p>
             <p>📧 support@atomshop.pk | 📞 0300-8622866</p>
             <p>🛍️ Happy Shopping!</p>
         </div>
