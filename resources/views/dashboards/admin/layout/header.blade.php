@@ -13,7 +13,7 @@
                 <li class="nav-item {{ (request()->segment(1) == 'admin' && (request()->segment(2) == '')) ? 'active show' : '' }}">
                     <a href="{{ route('admin') }}" class="nav-link"><i class="typcn typcn-chart-area-outline"></i> Dashboard</a>
                 </li>
-                <li class="nav-item {{ (request()->segment(1) == 'admin' && (in_array(request()->segment(2), ['categories', 'brands', 'cities', 'areas', 'colors', 'memory']))) ? 'active show' : '' }}">
+                <li class="nav-item {{ (request()->segment(1) == 'admin' && (in_array(request()->segment(2), ['products', 'categories', 'brands', 'cities', 'areas', 'colors', 'memory']))) ? 'active show' : '' }}">
                     <a href="" class="nav-link with-sub"><i class="typcn typcn-th-large-outline"></i> Products</a>
                     <div class="az-menu-sub az-menu-sub-mega">
                         <div class="container">
@@ -21,11 +21,11 @@
                                 <nav class="nav">
                                     <span>Products Management</span>
                                     <span>Products</span>
-                                    <a href="{{ route('admin.products.index') }}" class="nav-link">All Products</a>
-                                    <a href="{{ route('admin.products.create') }}" class="nav-link"> Create Product</a>
+                                    <a href="{{ route('admin.products.index') }}" class="nav-link {{ (request()->segment(1) == 'admin' && request()->segment(2) == 'products' && request()->segment(3) == '') ? 'active show' : '' }}">All Products</a>
+                                    <a href="{{ route('admin.products.create') }}" class="nav-link {{ (request()->segment(1) == 'admin' && request()->segment(2) == 'products' && request()->segment(3) == 'create') ? 'active show' : '' }}"> Create Product</a>
                                     <span class="mt-3">Categories</span>
-                                    <a href="{{ route('admin.categories.index') }}" class="nav-link"> All Categories</a>
-                                    <a href="{{ route('admin.categories.create') }}" class="nav-link">Create new</a>
+                                    <a href="{{ route('admin.categories.index') }}" class="nav-link {{ (request()->segment(1) == 'admin' && request()->segment(2) == 'categories' && request()->segment(3) == '') ? 'active show' : '' }}"> All Categories</a>
+                                    <a href="{{ route('admin.categories.create') }}" class="nav-link {{ (request()->segment(1) == 'admin' && request()->segment(2) == 'categories' && request()->segment(3) == 'create') ? 'active show' : '' }}">Create new</a>
                                     <span class="mt-3">Brands</span>
                                     <a href="{{ route('admin.brands.index') }}" class="nav-link">All Brands</a>
                                     <a href="{{ route('admin.brands.create') }}" class="nav-link">Create new</a>
@@ -57,6 +57,18 @@
                                     <span class="mt-3">Areas</span>
                                     <a href="{{ route('admin.areas.index') }}" class="nav-link"> All Areas</a>
                                     <a href="{{ route('admin.areas.create') }}" class="nav-link">Create new</a>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item {{ (request()->segment(1) == 'admin' && (in_array(request()->segment(2), ['orders']))) ? 'active show' : '' }}">
+                    <a href="" class="nav-link with-sub"><i class="typcn typcn-th-list-outline"></i> Orders</a>
+                    <div class="az-menu-sub">
+                        <div class="container">
+                            <div>
+                                <nav class="nav">
+                                    <a href="{{ route('admin.orders.index') }}" class="nav-link  {{ (request()->segment(1) == 'admin' && request()->segment(2) == 'orders' && request()->segment(3) == '') ? 'active show' : '' }}">All Orders</a>
                                 </nav>
                             </div>
                         </div>

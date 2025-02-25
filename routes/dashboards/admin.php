@@ -22,6 +22,9 @@ Route::middleware([App\Http\Middleware\EnsureUserIsAdmin::class])->group(functio
         Route::resource('memory', App\Http\Controllers\Dashboards\Admin\Components\MemoryController::class,['as' => 'admin']);
         Route::resource('sliders', App\Http\Controllers\Dashboards\Admin\Components\SliderController::class,['as' => 'admin']);
 
+        //Product Management
+        Route::resource('orders', App\Http\Controllers\Dashboards\Admin\Orders\OrderController::class,['as' => 'admin']);
+
         //Zone Management
         Route::resource('cities', App\Http\Controllers\Dashboards\Admin\Components\CitiesController::class,['as' => 'admin']);
         Route::resource('areas', App\Http\Controllers\Dashboards\Admin\Components\AreaController::class,['as' => 'admin']);

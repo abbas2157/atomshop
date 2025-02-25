@@ -42,7 +42,9 @@
                                         <td class="align-middle text-center">{{ $item->cart->product->pr_number ?? '' }}</td>
                                         <td>
                                             <div class="row">
-                                                <div class="col-md-2"><img src="{{ asset($item->cart->product->picture) }}" alt="" style="width: 50px;"></div>
+                                                <div class="col-md-2">
+                                                    <img src="{{ asset($item->cart->product->picture) }}" alt="" style="width: 50px;">
+                                                </div>
                                                 <div class="col-md-10">
                                                     {{ $item->cart->product->title ?? '' }} <br>
                                                     @if(!is_null($item->cart->memory))
@@ -60,6 +62,7 @@
                                         <td>
                                             <b>Advance Amount : </b>Rs. {{ number_format($item->cart->product_advance_price, 0) }} <br>
                                             <b>Total Deal Amount : </b>Rs. {{ number_format($item->cart->product_price,0) }} <br>
+                                            <b>Installment Tenure (Months) : </b> {{ $item->cart->tenure ?? '' }} <br>
                                         </td>
                                         <td class="align-middle text-center">{{ $item->portal ?? '' }}</td>
                                         <td class="align-middle text-center">{{ $item->status ?? '' }}</td>
@@ -67,7 +70,7 @@
                                 @endforeach
                             @else
                                 <tr>
-                                    <td colspan="7" class="align-middle text-center">
+                                    <td colspan="8" class="align-middle text-center">
                                         <div class="text-center py-3">
                                             <img src="{{ asset('web/img/loader.gif') }}" class="w-10" alt="Loader">
                                         </div>

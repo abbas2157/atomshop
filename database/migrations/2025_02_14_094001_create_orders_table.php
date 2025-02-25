@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('cart_id');
             $table->enum('portal',['Web', 'App'])->default('Web');
             $table->enum('status',['Pending', 'Varification', 'Processing', 'Delivered', 'Instalments', 'Completed'])->default('Pending');
+            $table->foreignId('updated_by')->nullable();
             $table->timestamps();
         });
     }

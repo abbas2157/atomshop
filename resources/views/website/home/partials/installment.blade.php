@@ -39,7 +39,7 @@
                                     <i class="fa fa-minus"></i>
                                     </button>
                                 </div>
-                                <input type="text" id="tenure_months" min="3" max="12" class="form-control form-control-sm bg-secondary border-0 text-center" value="3">
+                                <input type="text" id="tenure_months" min="3" max="12" class="form-control form-control-sm bg-secondary border-0 text-center" value="3" readonly>
                                 <div class="input-group-btn">
                                     <button class="btn btn-sm btn-primary btn-plus">
                                         <i class="fa fa-plus"></i>
