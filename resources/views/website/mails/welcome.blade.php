@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Welcome to Atomshop.pk</title>
+    <title>Welcome (خوش آمدید) to Atomshop.pk.</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -54,7 +54,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h2>Welcome to Atomshop.pk</h2>
+            <h2>Welcome (خوش آمدید) to Atomshop.pk.</h2>
         </div>
         <div class="content">
             <h2>محترم {{ $user->name }},</h2>
@@ -70,8 +70,8 @@
         </div>
         <div class="footer">
             <p>
-              <strong>Best regards,</strong>
-              <br> Customer Support Team, Atomshop.pk
+                <strong>Best regards,</strong>
+                <br> Customer Support Team, Atomshop.pk
             </p>
             <img src="https://atomshop.pk/public/web/img/logo.png" alt="Logo" width="100" style="display: block; width: 100px; max-width: 100px; min-width: 48px;">
         </div>

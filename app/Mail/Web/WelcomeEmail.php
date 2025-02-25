@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class VerificationCode extends Mailable
+class WelcomeEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -17,11 +17,9 @@ class VerificationCode extends Mailable
      * Create a new message instance.
      */
     public $user;
-    public $verify_code;
-    public function __construct($user, $verify_code)
+    public function __construct($user)
     {
         $this->user = $user;
-        $this->verify_code = $verify_code;
     }
 
     /**
@@ -30,7 +28,7 @@ class VerificationCode extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Verify Your Email to Complete Your Registration',
+            subject: 'Welcome (خوش آمدید) to Atomshop.pk.',
         );
     }
 
@@ -40,10 +38,9 @@ class VerificationCode extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'website.mails.verification-code',
+            view: 'website.mails.welcome',
             with: [
-                'data' => $this->user,
-                'verify_code' => $this->verify_code
+                'data' => $this->user
             ]
         );
     }

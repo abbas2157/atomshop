@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use App\Models\Customer;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Jobs\Web\WelcomeEmailJob;
 use App\Http\Controllers\Controller;
 use App\Jobs\Web\SendVerificationCode;
 use App\Models\{User, VerifyCode, Cart};
@@ -149,6 +150,10 @@ class AccountController extends BaseController
         } else {
             $code->used = '1';
             $code->save();
+
+            if(is_null($user->email_verified_at)) {
+                WelcomeEmailJob::dispatch($user);
+            }
 
             $user->status = 'active';
             $user->email_verified_at = now();
