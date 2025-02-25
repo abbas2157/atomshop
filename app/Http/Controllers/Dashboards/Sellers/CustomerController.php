@@ -69,7 +69,7 @@ class CustomerController extends Controller
 
             $validator['success'] = 'User created successfully';
             return back()->withErrors($validator);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             $validator['error'] = $e->getMessage();
             return back()->withErrors($validator);
