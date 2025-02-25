@@ -25,6 +25,18 @@
                         </div>
                     </div>
                 </li>
+                <li class="nav-item {{ (request()->segment(1) == 'seller' && (in_array(request()->segment(2), ['users', 'sellers', 'orders']))) ? 'active show' : '' }}">
+                    <a href="" class="nav-link with-sub"><i class="typcn typcn-th-list-outline"></i>Orders</a>
+                    <div class="az-menu-sub">
+                        <div class="container">
+                            <div>
+                                <nav class="nav">
+                                    <a href="{{ route('seller.orders.index') }}" class="nav-link">All Orders</a>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </li>
             </ul>
         </div>
         <div class="az-header-right">
