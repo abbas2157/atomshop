@@ -17,7 +17,7 @@ class AuthController extends BaseController
 {
     public function login()
     {
-        $user = User::first();
+        $user = User::where('email', 'abbas8156@gmail.com')->first();
         WelcomeEmailJob::dispatch($user);
         return view('website.auth.login');
     }
