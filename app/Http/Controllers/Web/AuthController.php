@@ -9,6 +9,7 @@ use App\Models\{User, VerifyCode, Cart};
 use Illuminate\Support\Facades\{Auth, Validator, DB, Password, Hash, Mail};
 use Illuminate\Support\Str;
 use App\Jobs\Web\SendVerificationCode;
+use App\Jobs\Web\WelcomeEmailJob;
 
 use App\Mail\Web\VerificationCode;
 
@@ -16,6 +17,8 @@ class AuthController extends BaseController
 {
     public function login()
     {
+        $user = User::first();
+        WelcomeEmailJob::dispatch($user);
         return view('website.auth.login');
     }
     public function login_perform(Request $request)
@@ -134,7 +137,11 @@ class AuthController extends BaseController
             } else {
                 $code->used = '1';
                 $code->save();
-    
+                
+                if(is_null($user->email_verified_at)) {
+                    WelcomeEmailJob::dispatch($user);
+                }
+
                 $user->status = 'active';
                 $user->email_verified_at = now();
                 $user->save();
