@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mail;
+namespace App\Mail\Web;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -16,12 +16,14 @@ class OrderConfirmationMail extends Mailable
     use Queueable, SerializesModels;
 
     public $order;
+    public $user;
 
     /**
      * Create a new message instance.
      */
-    public function __construct(Order $order)
+    public function __construct($user, $order)
     {
+        $this->user = $user;
         $this->order = $order;
     }
 
@@ -31,7 +33,7 @@ class OrderConfirmationMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Order Confirmation Mail',
+            subject: 'Order Confirmation - Atomshop',
         );
     }
 
@@ -42,7 +44,7 @@ class OrderConfirmationMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'dashboards.mails.order-submission',
+            view: 'website.mails.order-submission',
         );
     }
 

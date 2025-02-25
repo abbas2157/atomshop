@@ -41,7 +41,6 @@ class ProductController extends BaseController
                 }
             return $this->sendResponse($products, 'Here is the list of products.', 200);
         } catch (Exception $e) {
-            DB::rollBack();
             return $this->sendError('Something went wrong.', $e->getMessage(), 500);
         }
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Order;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Jobs\Web\OrderConfirmationJob;
 use App\Models\{User, Product, Cart};
 use Illuminate\Support\Facades\{Auth, DB, Session};
 use App\Http\Controllers\Api\BaseController as BaseController;
@@ -82,6 +83,8 @@ class OrderController extends BaseController
                 $cart = Cart::where('id', $cart_ids[$i])->first();
                 $cart->status = 'Purchased';
                 $cart->save();
+
+                OrderConfirmationJob::dispatch($user);
             }
             return $this->sendResponse($data, 'Order created successfully', 200);
         } catch (\Exception $e) {

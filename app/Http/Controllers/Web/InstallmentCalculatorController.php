@@ -29,7 +29,6 @@ class InstallmentCalculatorController extends BaseController
             $brands = $brands->get();
             return $this->sendResponse($brands, 'Here is the list of brands.', 200);
         } catch (Exception $e) {
-            DB::rollBack();
             return $this->sendError('Something went wrong.', $e->getMessage(), 500);
         }
     }
@@ -44,7 +43,6 @@ class InstallmentCalculatorController extends BaseController
             $products = $products->get();
             return $this->sendResponse($products, 'Here is the list of products.', 200);
         } catch (Exception $e) {
-            DB::rollBack();
             return $this->sendError('Something went wrong.', $e->getMessage(), 500);
         }
     }

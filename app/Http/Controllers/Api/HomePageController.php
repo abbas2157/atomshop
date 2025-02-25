@@ -44,7 +44,6 @@ class HomePageController extends BaseController
             }
             return $this->sendResponse($brands, 'Here is the list of brands.', 200);
         } catch (Exception $e) {
-            DB::rollBack();
             return $this->sendError('Something went wrong.', $e->getMessage(), 500);
         }
     }

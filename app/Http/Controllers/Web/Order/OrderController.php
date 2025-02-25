@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\{Auth, DB, Session, Log};
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\OrderConfirmationMail;
+use App\Jobs\Web\OrderConfirmationJob;
 
 
 class OrderController extends Controller
@@ -47,11 +47,14 @@ class OrderController extends Controller
         }
        
         try {
+            DB::beginTransaction();
+
             $cart_ids = $request->cart_id;
             $cart = Cart::whereIn('id', $cart_ids)->where('status', 'Pending')->get();
             if(!$cart->isNotEmpty()) {
                 return redirect('cart');
             }
+            $user = Auth::user();
             for($i = 0; $i < count($cart_ids); $i++) {
                 $order = new Order;
                 $order->uuid = Str::uuid();
@@ -63,13 +66,14 @@ class OrderController extends Controller
                 $cart = Cart::where('id', $cart_ids[$i])->first();
                 $cart->status = 'Purchased';
                 $cart->save();
+
+                OrderConfirmationJob::dispatch($user, $order);
             }
             $user = Auth::user();
-            $order = Order::where('uuid', $order->uuid)->with('cart')->first();
-            Mail::to($user->email)->send(new OrderConfirmationMail($order, $user));
-    
+            DB::commit();
             return redirect('order/success?order='.$order->uuid);
         } catch (\Exception $e) {
+            DB::rollBack();
             return abort(505, $e->getMessage());
         }
     }
