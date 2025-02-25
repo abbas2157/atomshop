@@ -5,7 +5,9 @@
     <title>Welcome (خوش آمدید) to Atomshop.pk.</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', Arial, sans-serif;
+            direction: rtl;
+            text-align: right;
             background-color: #f4f4f4;
             padding: 20px;
         }
@@ -67,13 +69,13 @@
             <p>🚀 اپنے Account میں لاگ ان کرنے کے لیے <a href="{{ route('login') }}">یہاں کلک کریں</a></p>
             <p>📧 support@atomshop.pk | 📞 0300-8622866</p>
             <p>🛍️ Happy Shopping!</p>
+            <img src="https://atomshop.pk/public/web/img/logo.png" alt="Logo" width="100" style="display: block; width: 100px; max-width: 100px; min-width: 48px;">
         </div>
         <div class="footer">
             <p>
                 <strong>Best regards,</strong>
                 <br> Customer Support Team, Atomshop.pk
             </p>
-            <img src="https://atomshop.pk/public/web/img/logo.png" alt="Logo" width="100" style="display: block; width: 100px; max-width: 100px; min-width: 48px;">
         </div>
     </div>
 </body>
