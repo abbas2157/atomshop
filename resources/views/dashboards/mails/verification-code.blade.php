@@ -77,7 +77,10 @@
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                     <tr>
                         <td align="left" bgcolor="#ffffff" style="padding: 36px 24px 0; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; border-top: 3px solid #d4dadf;">
-                        <h1 style="margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -1px; line-height: 48px;">Dear {{ $data->name ?? ''}},</h1>
+                            <div style="background-color: #333; color: #fff; padding: 10px; text-align: center;">
+                                <h2>Welcome to Atomshop.pk</h2>
+                            </div>
+                            <h1 style="margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -1px; line-height: 48px;">Dear {{ $data->name ?? ''}},</h1>
                         </td>
                     </tr>
                 </table>
@@ -86,27 +89,32 @@
         <tr>
             <td align="center" bgcolor="#e9ecef">
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
-                <tr>
-                    <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
-                        <p style="margin: 0;">Welcome to <b>Atomshop.pk!</b> 🎉 To complete your registration and unlock your account, please verify your email by providing the code below:</p>
+                    <tr>
+                        <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
+                            <p style="margin: 0;">Welcome to <b>Atomshop.pk!</b> 🎉 To complete your registration and unlock your account, please verify your email by providing the code below:</p>
 
-                        <p>The code is  : <b>{{ $verify_code ?? '' }}</b></p>
-                        <p>Why is email verification important?</p>
-                        <ul>
-                            <li>Secure your account and personal information.</li>
-                            <li>Get important updates about your orders, payments, and offers.</li>
-                            <li>Ensure smooth communication with our support team.</li>
-                        </ul>
-                        <p>
-                            If you didn’t sign up for an account on Atomshop.pk, please ignore this email. For any assistance, feel free to reach out at <a href="mailto:atomshoppk@gmail.com">atomshoppk@gmail.com</a>.
-                        </p>
-                        <p> Looking forward to having you on board! 😊 </p>
-                        <p style="margin: 0;"> <b>Best Regards</b>, <br /> {{ config('website.name') ?? '' }} Team </p>
-                        <a href="{{ route('website') }}" target="_blank" style="display: inline-block;">
-                            <img src="https://atomshop.pk/public/web/img/logo.png" alt="Logo" width="100" style="display: block; width: 100px; max-width: 100px; min-width: 48px;">
-                        </a>
-                    </td>
-                </tr>
+                            <p>The code is  : <b>{{ $verify_code ?? '' }}</b></p>
+                            <p>Why is email verification important?</p>
+                            <ul>
+                                <li>Secure your account and personal information.</li>
+                                <li>Get important updates about your orders, payments, and offers.</li>
+                                <li>Ensure smooth communication with our support team.</li>
+                            </ul>
+                            <p>
+                                If you didn’t sign up for an account on Atomshop.pk, please ignore this email. For any assistance, feel free to reach out at <a href="mailto:atomshoppk@gmail.com">atomshoppk@gmail.com</a>.
+                            </p>
+                            <p> Looking forward to having you on board! 😊 </p>
+                            <p>📧 support@atomshop.pk | 📞 0300-8622866</p>
+                            <p>🛍️ Happy Shopping!</p>
+                            <p style="margin: 0;"> <b>Best Regards</b>, <br /> {{ config('website.name') ?? '' }} Team </p>
+                            <a href="{{ route('website') }}" target="_blank" style="display: inline-block;">
+                                <img src="https://atomshop.pk/public/web/img/logo.png" alt="Logo" width="100" style="display: block; width: 100px; max-width: 100px; min-width: 48px;">
+                            </a>
+                            <div style="background-color: #333; color: #fff; padding: 10px; text-align: center; clear: both;">
+                                <p><strong>Best regards,</strong><br>Customer Support Team, Atomshop.pk</p>
+                            </div>
+                        </td>
+                    </tr>
                 </table>
             </td>
         </tr>
