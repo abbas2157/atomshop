@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
-use App\Models\{Category, Brand, Product};
+use App\Models\{Category, Brand, Product, AppSetup};
 use Illuminate\Support\Facades\{Auth, DB};
 
 class HomePageController extends BaseController
@@ -19,9 +19,11 @@ class HomePageController extends BaseController
     public function categories(Request $request)
     {
         try {
-            $categories = Category::where('status', 'active')
-                ->orderBy($request->order_by ?? 'title', $request->order_type ?? 'desc')
-                ->select('id', 'title', 'picture')->get();
+            $app = AppSetup::first();
+            $categories = [];
+            if (!is_null($app)) {
+                $categories = json_decode($app->categories);
+            }
 
             return $this->sendResponse($categories, 'Here is the list of categories.', 200);
         } catch (Exception $e) {
@@ -35,21 +37,33 @@ class HomePageController extends BaseController
     public function brands(Request $request)
     {
         try {
-            $brands = Brand::where('status', 'active')->orderBy($request->order_by ?? 'title', $request->order_type ?? 'desc');
-            if($request->has('category_id')) {
-                $brands->where('category_id', $request->category_id);
+            $app = AppSetup::first();
+            $brands = [];
+            if (!is_null($app)) {
+                $brands = json_decode($app->brands);
             }
-            $brands = $brands->select('id', 'title', 'picture')->get();
             return $this->sendResponse($brands, 'Here is the list of brands.', 200);
         } catch (Exception $e) {
-            DB::rollBack();
             return $this->sendError('Something went wrong.', $e->getMessage(), 500);
         }
     }
     /**
      * Get Products For Home Page App
      */
-
+    public function sliders(Request $request)
+    {
+        try {
+            $app = AppSetup::first();
+            $sliders = [];
+            if (!is_null($app)) {
+                $sliders = json_decode($app->sliders);
+            }
+            return $this->sendResponse($sliders, 'Here is the list of slider.', 200);
+        } catch (Exception $e) {
+            DB::rollBack();
+            return $this->sendError('Something went wrong.', $e->getMessage(), 500);
+        }
+    }
     /**
      * Get Products For Home Page App
      */
@@ -79,15 +93,11 @@ class HomePageController extends BaseController
     public function feature_products(Request $request)
     {
         try {
-            $products = Product::where(['status' => 'Published', 'feature' => '1'])
-                ->with('category', 'brand')
-                ->when($request->min_price, fn($q) => $q->where('price', '>=', $request->min_price))
-                ->when($request->max_price, fn($q) => $q->where('price', '<=', $request->max_price))
-                ->when($request->category_id, fn($q) => $q->where('category_id', $request->category_id))
-                ->when($request->brand_id, fn($q) => $q->where('brand_id', $request->brand_id))
-                ->orderBy($request->order_by ?? 'title', $request->order_type ?? 'desc')
-                ->select('id', 'title', 'picture', 'price', 'category_id', 'brand_id')
-                ->paginate(10);
+            $app = AppSetup::first();
+            $products = [];
+            if (!is_null($app)) {
+                $products = json_decode($app->feature_products);
+            }
 
             return $this->sendResponse($products, 'Here is the list of feature products.', 200);
         } catch (Exception $e) {
@@ -101,15 +111,25 @@ class HomePageController extends BaseController
     public function category_products(Request $request, $category_id)
     {
         try {
-            $products = Product::where(['status' => 'Published', 'category_id' => $category_id])
+            $product_items = Product::where(['status' => 'Published', 'category_id' => $category_id])
                 ->with('category', 'brand')
                 ->when($request->min_price, fn($q) => $q->where('price', '>=', $request->min_price))
                 ->when($request->max_price, fn($q) => $q->where('price', '<=', $request->max_price))
                 ->when($request->brand_id, fn($q) => $q->where('brand_id', $request->brand_id))
                 ->orderBy($request->order_by ?? 'title', $request->order_type ?? 'desc')
                 ->select('id', 'title', 'picture', 'price', 'category_id', 'brand_id')
-                ->paginate(10);
-
+                ->get();
+            $products = [];
+            foreach($product_items as $product) {
+                $products[] =array(
+                    'id' => $product->id,
+                    'title' => $product->title,
+                    'price' => $product->formatted_advance_price,
+                    'picture' => $product->product_picture,
+                    'category' => $product->category->title,
+                    'brand' => $product->brand->title
+                );
+            }
             return $this->sendResponse($products, 'Here is the list of category products.', 200);
         } catch (Exception $e) {
             DB::rollBack();
@@ -122,14 +142,25 @@ class HomePageController extends BaseController
     public function brand_products(Request $request, $brand_id)
     {
         try {
-            $products = Product::where(['status' => 'Published', 'brand_id' => $brand_id])
+            $product_items = Product::where(['status' => 'Published', 'brand_id' => $brand_id])
                 ->with('category', 'brand')
                 ->when($request->min_price, fn($q) => $q->where('price', '>=', $request->min_price))
                 ->when($request->max_price, fn($q) => $q->where('price', '<=', $request->max_price))
                 ->when($request->category_id, fn($q) => $q->where('category_id', $request->category_id))
                 ->orderBy($request->order_by ?? 'title', $request->order_type ?? 'desc')
                 ->select('id', 'title', 'picture', 'price', 'category_id', 'brand_id')
-                ->paginate(10);
+                ->get();
+            $products = [];
+            foreach($product_items as $product) {
+                $products[] =array(
+                    'id' => $product->id,
+                    'title' => $product->title,
+                    'price' => $product->formatted_advance_price,
+                    'picture' => $product->product_picture,
+                    'category' => $product->category->title,
+                    'brand' => $product->brand->title
+                );
+            }
 
             return $this->sendResponse($products, 'Here is the list of brand products.', 200);
         } catch (Exception $e) {

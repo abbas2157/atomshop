@@ -8,7 +8,8 @@
 
         <label>Seller</label>
         <nav class="nav flex-column">
-            <a href="{{ route('seller.index') }}" class="nav-link {{ (request()->segment(2) == 'sellers' && (request()->segment(3) == '')) ? 'active' : '' }}">View & Edit</a>
+            <a href="{{ route('seller.profile.seller-info') }}" class="nav-link {{ (request()->segment(1) == 'seller' && (request()->segment(2) == 'profile') && (request()->segment(3) == 'seller-info')) ? 'active' : '' }}">Seller Info</a>
+            <a href="{{ route('seller.profile.business-info') }}" class="nav-link {{ (request()->segment(1) == 'seller' && (request()->segment(2) == 'profile') && (request()->segment(3) == 'business-info')) ? 'active' : '' }}">Business Info</a>
         </nav>
         <label>Activity Logs</label>
         <nav class="nav flex-column">

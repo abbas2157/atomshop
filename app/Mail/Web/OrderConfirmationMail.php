@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mail;
+namespace App\Mail\Web;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -8,17 +8,23 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use App\Models\Order;
 
-class WelcomeEmail extends Mailable
+
+class OrderConfirmationMail extends Mailable
 {
     use Queueable, SerializesModels;
-    private $data;
+
+    public $order;
+    public $user;
+
     /**
      * Create a new message instance.
      */
-    public function __construct($data)
+    public function __construct($user, $order)
     {
-        $this->data = $data;
+        $this->user = $user;
+        $this->order = $order;
     }
 
     /**
@@ -27,9 +33,10 @@ class WelcomeEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: ($this->data['type'] == 'trainer') ? 'Welcome to the Team!' :'Welcome to SOPS',
+            subject: 'Order Confirmation - Atomshop',
         );
     }
+
 
     /**
      * Get the message content definition.
@@ -37,10 +44,7 @@ class WelcomeEmail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: ($this->data['type'] == 'trainer') ? 'mails.welcome-trainer' :'mails.welcome',
-            with: [
-                'data' => $this->data,
-            ]
+            view: 'website.mails.order-submission',
         );
     }
 

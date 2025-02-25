@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->nullable()->index();
             $table->string('picture')->nullable();
+            $table->string('alternate_phone')->nullable();
             $table->string('address', 255)->nullable();
             $table->foreignId('city_id')->nullable()->index();
             $table->foreignId('area_id')->nullable()->index();

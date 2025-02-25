@@ -65,6 +65,7 @@ class CustomerController extends Controller
             $user->password = 'Atom@shop!';
             $user->role = 'customer';
             $user->status = $request->status;
+            $user->joined_through = 'Admin';
             $user->save();
 
             $customer = new Customer;
@@ -79,7 +80,7 @@ class CustomerController extends Controller
             $validator['success'] = 'User created successfully';
             return back()->withErrors($validator);
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             $validator['error'] = $e->getMessage();
             return back()->withErrors($validator);
@@ -136,7 +137,7 @@ class CustomerController extends Controller
                 $customer = new Customer;
                 $customer->user_id  = $user->id;
             }
-            
+
             $customer->city_id = $request->city_id;
             $customer->area_id = $request->area_id;
             $customer->address = $request->address;
@@ -146,7 +147,7 @@ class CustomerController extends Controller
 
             $validator['success'] = 'User updated successfully';
             return back()->withErrors($validator);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             $validator['error'] = $e->getMessage();
             return back()->withErrors($validator);

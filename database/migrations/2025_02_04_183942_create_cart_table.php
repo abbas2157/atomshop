@@ -16,8 +16,10 @@ return new class extends Migration
             $table->integer('user_id')->nullable();
             $table->string('guest_id')->nullable();
             $table->integer('product_id')->nullable();
-            $table->integer('product_price')->nullable();
+            $table->integer('product_price')->default(0);
+            $table->integer('product_advance_price')->default(0);
             $table->integer('quantity')->default(1);
+            $table->integer('tenure')->default(3);
             $table->integer('color_id')->nullable();
             $table->integer('memory_id')->nullable();
             $table->integer('size_id')->nullable();

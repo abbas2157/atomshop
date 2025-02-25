@@ -4,8 +4,8 @@
         <nav class="nav flex-column">
             <a href="{{ route('admin.products.create') }}" class="nav-link {{ (request()->segment(2) == 'products' && (request()->segment(3) == 'create')) ? 'active' : '' }}">Create new</a>
             <a href="{{ route('admin.products.index') }}" class="nav-link {{ (request()->segment(2) == 'products' && (request()->segment(3) !== 'create')) ? 'active' : '' }}">View & Edit</a>
-            <a href="{{ route('admin.products.index') }}" class="nav-link">All Feature Products</a>
-            <a href="{{ route('admin.products.index') }}" class="nav-link">All Published Products</a>
+            <a href="{{ route('admin.products.index') }}?feature=1" class="nav-link">All Feature Products</a>
+            <a href="{{ route('admin.products.index') }}?status=Published" class="nav-link">All Published Products</a>
         </nav>
         <label>Categories</label>
         <nav class="nav flex-column">
@@ -27,6 +27,10 @@
             <a href="{{ route('admin.memory.index') }}" class="nav-link {{ (request()->segment(2) == 'memory' && (request()->segment(3) !== 'create')) ? 'active' : '' }}">View & Edit</a>
             <a href="{{ route('admin.memory.create') }}" class="nav-link {{ (request()->segment(2) == 'memory' && (request()->segment(3) == 'create')) ? 'active' : '' }}">Create new</a>
         </nav>
-        
+        <label>Sizes</label>
+        <nav class="nav flex-column">
+            <a href="{{ route('admin.sizes.index') }}" class="nav-link {{ (request()->segment(2) == 'sizes' && (request()->segment(3) !== 'create')) ? 'active' : '' }}">View & Edit</a>
+            <a href="{{ route('admin.sizes.create') }}" class="nav-link {{ (request()->segment(2) == 'sizes' && (request()->segment(3) == 'create')) ? 'active' : '' }}">Create new</a>
+        </nav>
     </div>
 </div>

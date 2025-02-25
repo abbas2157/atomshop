@@ -2,6 +2,9 @@
     "use strict";
     // Dropdown on mouse hover
     $(document).ready(function () {
+        $(".search-click").click(function(e) {
+            $(".search-form").submit();
+        });
         getCartCount();
         function toggleNavbarMethod() {
             if ($(window).width() > 992) {

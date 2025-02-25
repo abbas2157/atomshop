@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mail;
+namespace App\Mail\Web;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -9,21 +9,19 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class RegisterEmail extends Mailable implements ShouldQueue
+class VerificationCode extends Mailable
 {
     use Queueable, SerializesModels;
-    public $user;
-    public $verificationCode;
 
     /**
      * Create a new message instance.
-     *
-     * @return void
      */
-    public function __construct($user, $verificationCode)
+    public $user;
+    public $verify_code;
+    public function __construct($user, $verify_code)
     {
         $this->user = $user;
-        $this->verificationCode = $verificationCode;
+        $this->verify_code = $verify_code;
     }
 
     /**
@@ -32,7 +30,7 @@ class RegisterEmail extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Register Email',
+            subject: 'Verify Your Email to Complete Your Registration',
         );
     }
 
@@ -42,11 +40,11 @@ class RegisterEmail extends Mailable implements ShouldQueue
     public function content(): Content
     {
         return new Content(
-            view: 'api.mail.register-mail',
+            view: 'website.mails.verification-code',
             with: [
-                'user' => $this->user,
-                'verificationCode' => $this->verificationCode,
-            ],
+                'data' => $this->user,
+                'verify_code' => $this->verify_code
+            ]
         );
     }
 

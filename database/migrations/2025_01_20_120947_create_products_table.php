@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('detail_page_title', 500);
             $table->string('slug', 255)->nullable();
             $table->integer('price')->nullable();
-            $table->integer('min_advance_price ')->nullable();
+            $table->integer('min_advance_price')->nullable();
             $table->string('picture')->nullable();
             $table->foreignId('category_id')->nullable()->index();
             $table->foreignId('brand_id')->nullable()->index();
@@ -56,6 +56,13 @@ return new class extends Migration
             $table->integer('product_id')->nullable();
             $table->integer('price')->nullable();
         });
+
+        Schema::create('product_sizes', function (Blueprint $table) {
+            $table->id();
+            $table->integer('size_id')->nullable();
+            $table->integer('product_id')->nullable();
+            $table->integer('price')->nullable();
+        });
     }
 
     /**
@@ -68,5 +75,6 @@ return new class extends Migration
         Schema::dropIfExists('product_images');
         Schema::dropIfExists('product_colors');
         Schema::dropIfExists('product_memories');
+        Schema::dropIfExists('product_sizes');
     }
 };

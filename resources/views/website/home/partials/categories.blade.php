@@ -4,7 +4,7 @@
     <div class="row px-xl-5 pb-1">
         @foreach($categories as $item)
             <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="{{ route('shop') }}?category[]={{ $item->id ?? '' }}">
+                <a class="text-decoration-none" href="{{ route('category', $item->slug) }}">
                     <div class="cat-item d-flex align-items-center mb-4">
                         <div class="overflow-hidden category--img">
                             <img class="img-fluid" src="{{ $item->picture ?? ''}}" alt="{{ $item->title ?? '' }}">

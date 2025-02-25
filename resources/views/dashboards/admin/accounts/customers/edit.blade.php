@@ -61,7 +61,7 @@
                         <select class="form-control" name="city_id" id="select-city">
                             @if($cities->isNotEmpty())
                                 @foreach($cities as $item)
-                                    <option value="{{ $item->id ?? '' }}" {{ ($item->id == $user->customer->city_id) ? 'selected' : '' }}>{{ $item->title ?? '' }}</option>
+                                    <option value="{{ $item->id ?? '' }}" {{ (!is_null($user->customer) && $item->id == $user->customer->city_id) ? 'selected' : '' }}>{{ $item->title ?? '' }}</option>
                                 @endforeach
                             @endif
                         </select>
@@ -74,7 +74,7 @@
                         <select class="form-control" name="area_id" id="area_id" id="select-area">
                             @if($areas->isNotEmpty())
                                 @foreach($areas as $item)
-                                    <option value="{{ $item->id ?? '' }}" {{ ($item->id == $user->customer->area_id) ? 'selected' : '' }}>{{ $item->title ?? '' }}</option>
+                                    <option value="{{ $item->id ?? '' }}" {{ (!is_null($user->customer) && $item->id == $user->customer->area_id) ? 'selected' : '' }}>{{ $item->title ?? '' }}</option>
                                 @endforeach
                             @endif
                         </select>

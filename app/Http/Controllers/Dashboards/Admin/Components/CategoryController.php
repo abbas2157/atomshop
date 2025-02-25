@@ -55,6 +55,8 @@ class CategoryController extends Controller
             $category->picture = 'images/categories/'.$filename;
         }
         $category->status = $request->status;
+        $category->app_home = $request->app_home;
+        $category->web_home = $request->web_home;
         $category->save();
 
         $validator['success'] = 'Category created successfully';
@@ -100,6 +102,8 @@ class CategoryController extends Controller
             $category->picture = 'images/categories/'.$filename;
         }
         $category->status = $request->status;
+        $category->app_home = $request->app_home;
+        $category->web_home = $request->web_home;
         $category->save();
 
         $validator['success'] = 'Category updated successfully';

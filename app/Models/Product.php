@@ -10,11 +10,11 @@ class Product extends Model
     protected $appends = ['product_picture', 'formatted_price'];
     public function category()
     {
-        return $this->belongsTo(Category::class, 'category_id', 'id')->select('id', 'title', 'picture');
+        return $this->belongsTo(Category::class, 'category_id', 'id')->select('id', 'title', 'slug', 'picture');
     }
     public function brand()
     {
-        return $this->belongsTo(Brand::class, 'brand_id', 'id')->select('id', 'title', 'picture');
+        return $this->belongsTo(Brand::class, 'brand_id', 'id')->select('id', 'title', 'slug', 'picture');
     }
     public function description()
     {
@@ -27,6 +27,10 @@ class Product extends Model
     public function memories()
     {
         return $this->hasMany(ProductMemory::class, 'product_id', 'id')->with('memory');
+    }
+    public function sizes()
+    {
+        return $this->hasMany(ProductSize::class, 'product_id', 'id')->with('size');
     }
     public function gallery()
     {

@@ -1,4 +1,19 @@
 
+@php
+    $total = (int) $product['variation_price'];
+    $advance = (int) $product['min_advance_price'];
+    $remaining_amount = $total - $advance;
+    if(is_null($calculator)) {
+        $total_tenure_percentage = 4 * 3;
+    }
+    else {
+        $total_tenure_percentage = ((int) $calculator->per_month_percentage) * 3;
+    }
+    $total_percentage_amount = round(($total_tenure_percentage / 100) * $remaining_amount);
+    $total_amount_with_percentage = $total_percentage_amount + $remaining_amount;
+    $per_installment_price   =  number_format(round($total_amount_with_percentage / 3));
+    $months = ['1st','2nd','3rd'];
+@endphp
 <div class="container">
     <div class="row px-xl-5">
         <div class="col-lg-12 table-responsive mb-5">
@@ -24,7 +39,7 @@
                                     <i class="fa fa-minus"></i>
                                     </button>
                                 </div>
-                                <input type="text" id="tenure_months" min="3" max="12" class="form-control form-control-sm bg-secondary border-0 text-center" value="3">
+                                <input type="text" id="tenure_months" min="3" max="12" class="form-control form-control-sm bg-secondary border-0 text-center" value="3" readonly>
                                 <div class="input-group-btn">
                                     <button class="btn btn-sm btn-primary btn-plus">
                                         <i class="fa fa-plus"></i>
@@ -33,8 +48,13 @@
                             </div>
                         </td>
                         <td class="align-middle">{{ $calculator->per_month_percentage ?? 4 }}%</td>
+<<<<<<< HEAD
                         <td class="align-middle">Rs. <span class="variation-price">{{ number_format($product['variation_price']) }}</span></td>
 
+=======
+                        <td class="align-middle">Rs. <span class="variation-price-calculator" id="variation-price-calculator">{{ number_format($product['variation_price'] + $total_percentage_amount) }}</span></td>
+                        
+>>>>>>> 6cf189ff3012ba536e10140eee4eb8b168d51c58
                         <td class="align-middle">
                             <button class="btn btn-sm btn-danger make-installment">Make Installments</button>
                         </td>
@@ -43,21 +63,7 @@
             </table>
         </div>
     </div>
-    @php
-        $total = (int) $product['variation_price'];
-        $advance = (int) $product['min_advance_price'];
-        $remaining_amount = $total - $advance;
-        if(is_null($calculator)) {
-            $total_tenure_percentage = 4 * 3;
-        }
-        else {
-            $total_tenure_percentage = ((int) $calculator->per_month_percentage) * 3;
-        }
-        $total_percentage_amount = round(($total_tenure_percentage / 100) * $remaining_amount);
-        $total_amount_with_percentage = $total_percentage_amount + $remaining_amount;
-        $per_installment_price   =  number_format(round($total_amount_with_percentage / 3));
-        $months = ['1st','2nd','3rd'];
-    @endphp
+    
     <div class="row px-xl-5">
         <div class="col-lg-12 table-responsive mb-5">
             <table class="table table-bordered text-center mb-0">
