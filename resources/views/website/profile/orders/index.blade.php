@@ -66,9 +66,13 @@
                                     </tr>
                                 @endforeach
                             @else
-                                <div class="text-center py-3">
-                                    <img src="{{ asset('web/img/loader.gif') }}" class="w-10" alt="Loader">
-                                </div>
+                                <tr>
+                                    <td colspan="7" class="align-middle text-center">
+                                        <div class="text-center py-3">
+                                            <img src="{{ asset('web/img/loader.gif') }}" class="w-10" alt="Loader">
+                                        </div>
+                                    </td>
+                                </tr>
                             @endif
                         </tbody>
                     </table>
