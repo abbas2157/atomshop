@@ -10154,12 +10154,7 @@ h6 {
         transform: translateY(-15px);
     }
 }
-<<<<<<< HEAD
-.category--img
-{
-  width: 100px;
-  height: 100px;
-}
+
 /* website css */
 
 .p--1{
@@ -10225,9 +10220,6 @@ h6 {
     height: 300px;
     object-fit: cover;
 }
-
-
-=======
 .category--img {
     width: 100px;
     height: 100px;
@@ -10384,4 +10376,3 @@ h6 {
 .select2-search--dropdown .select2-search__field {
     outline: none;
 }
->>>>>>> 6cf189ff3012ba536e10140eee4eb8b168d51c58
