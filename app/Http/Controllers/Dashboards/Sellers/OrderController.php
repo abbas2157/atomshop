@@ -15,7 +15,13 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::select('id','uuid', 'cart_id', 'user_id', 'portal', 'status', 'created_at') ->where('user_id', Auth::id());
+        $area_id = Auth::user()->seller->area_id;
+        $customers = Customer::where('area_id', $area_id)->pluck('user_id');
+        $customer_ids = [];
+        if ($customers->isNotEmpty()) {
+            $customer_ids =  $customers->toArray();
+        }
+        $orders = Order::whereIn('user_id', $customer_ids)->select('id','uuid', 'cart_id', 'user_id', 'portal', 'status', 'created_at');
         if(request()->has('status') && !empty(request()->status)) {
             $orders->where('status', request()->status);
         }
@@ -24,22 +30,6 @@ class OrderController extends Controller
         }
         $orders = $orders->paginate(10);
         return view('dashboards.sellers.orders.index',compact('orders'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -58,24 +48,23 @@ class OrderController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function status(Request $request, string $id)
     {
-        //
-    }
+        $order = Order::where('uuid', $id)->first();
+        if(is_null($order)) {
+            $response = ['success' => false, 'message' => "Order Not Found"];
+            return response()->json($response);
+        }
+        $status = $request->status;
+        if(in_array($status, ['Pending', 'Varification', 'Processing'])) {
+            $order->status = $status;
+            $order->save();
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
+            $response = ['success' => true, 'message' => "Order status changed to ".$status];
+            return response()->json($response);
+        }
+        $response = ['success' => false, 'message' => "Code not completed"];
+        return response()->json($response);
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
+    
 }

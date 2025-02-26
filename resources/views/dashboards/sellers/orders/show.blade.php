@@ -13,8 +13,32 @@
                 <span>{{ $order->uuid ?? '' }}</span>
             </div>
             <h2 class="az-content-title">Orders</h2>
-            <div class="az-content-label mg-b-5">All Order Details</div>
-            <p class="mg-b-20">All Orders list here to view, edit & delete</p>
+            <div class="row mb-3">
+                <div class="col-md-9">
+                    <div class="az-content-label mg-b-5 pt-3">All Order Details</div>
+                    <p class="mg-b-20">All Orders list here to view, edit & delete</p>
+                </div>
+                <div class="col-md-3">
+                    <label>Change Status {{ ($user->customer->verified == '0') ? 'disabled' : '' }}</label> 
+                    <select class="form-control" id="change_status" style="cursor: pointer" >
+                        <option selected disabled>Change Status</option>
+                        <option value="Pending" {{ ('Pending' == $order->status) ? 'selected' : '' }} {{ (in_array($order->status, ['Delivered','Instalments','Completed'])) ? 'disabled' : '' }}>Pending</option>
+                        <option value="Varification" {{ ('Varification' == $order->status) ? 'selected' : '' }} {{ (in_array($order->status, ['Delivered','Instalments','Completed'])) ? 'disabled' : '' }}>Varification</option>
+                        <option value="Processing" {{ ('Processing' == $order->status) ? 'selected' : '' }} {{ (in_array($order->status, ['Delivered','Instalments','Completed'])) ? 'disabled' : '' }}>Processing</option>
+                        <option value="Delivered" {{ ('Delivered' == $order->status) ? 'selected' : '' }} {{ (in_array($order->status, ['Instalments','Completed'])) ? 'disabled' : '' }}>Delivered</option>
+                        <option value="Instalments" {{ ('Instalments' == $order->status) ? 'selected' : '' }} {{ (in_array($order->status, ['Completed'])) ? 'disabled' : '' }}>Instalments</option>
+                        <option value="Completed" {{ ('Completed' == $order->status) ? 'selected' : '' }} >Completed</option>
+                    </select>
+                </div>
+            </div>
+            @if($user->customer->verified == '0') 
+                <div class="alert alert-warning" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <strong>Note !</strong> Until Customer is not verified. You can't change order status.
+                </div>
+            @endif
             <div class="table-responsive">
                 <table class="table table-bordered mg-b-0">
                     <thead>
@@ -47,7 +71,21 @@
                             </div>
                         </td>
                         <td class="align-middle text-center"> {{ $order->portal ?? '' }} </td>
-                        <td class="align-middle text-center"> {{ $order->status ?? '' }} </td>
+                        <td class="align-middle text-center"> 
+                            @if($order->status == 'Pending')
+                                <label class="badge badge-danger">Pending</label>
+                            @elseif($order->status == 'Varification')
+                                <label class="badge badge-warning">Varification</label>
+                            @elseif($order->status == 'Processing')
+                                <label class="badge badge-info">Processing</label>
+                            @elseif($order->status == 'Delivered')
+                                <label class="badge badge-primary">Delivered</label>
+                            @elseif($order->status == 'Instalments')
+                                <label class="badge badge-dark">Instalments</label>
+                            @elseif($order->status == 'Completed')
+                                <label class="badge badge-success">Completed</label>
+                            @endif
+                        </td>
                     </tbody>
                 </table>
             </div>
@@ -100,14 +138,10 @@
                                 {{ $user->customer->city->title ?? '' }}
                             </td>
                             <td class="align-middle">
-                                @if($user->status == 'support')
-                                    <label class="badge badge-info">{{ $user->status ?? '' }}</label>
-                                @elseif($user->status == 'block')
-                                    <label class="badge badge-danger">{{ $user->status ?? '' }}</label>
-                                @elseif($user->status == 'pending')
-                                    <label class="badge badge-warning">{{ $user->status ?? '' }}</label>
-                                @elseif($user->status == 'active')
-                                    <label class="badge badge-success">{{ $user->status ?? '' }}</label>
+                                @if($user->customer->verified == '1')
+                                    <label class="badge badge-info">Verified</label>
+                                @elseif($user->customer->verified == '0')
+                                    <label class="badge badge-danger">No Verified</label>
                                 @endif
                             </td>
                             <td class="align-middle">{{ $user->created_at->format('M d, Y') ?? '' }}</td>
@@ -139,6 +173,8 @@
 @endsection
 @section('js')
 <script>
-    
+    var ORDER_ID = "{{ $order->uuid ?? '' }}";
+    var CURRENT_STATUS = "{{ $order->status ?? '' }}";
 </script>
+<script src="{!! asset('assets/js/seller/order.js') !!}"></script>
 @endsection
