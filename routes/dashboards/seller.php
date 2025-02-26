@@ -24,6 +24,10 @@ Route::middleware([App\Http\Middleware\EnsureUserIsSeller::class])->group(functi
             Route::get('/create', [App\Http\Controllers\Dashboards\Sellers\CustomerController::class, 'create'])->name('seller.customers.create');
             Route::post('/', [App\Http\Controllers\Dashboards\Sellers\CustomerController::class, 'store'])->name('seller.customers.store');
         });
+        Route::group(['prefix' => 'orders'], function(){
+            Route::get('/', [App\Http\Controllers\Dashboards\Sellers\OrderController::class, 'index'])->name('seller.orders.index');
+            Route::get('/show/{id}', [App\Http\Controllers\Dashboards\Sellers\OrderController::class, 'show'])->name('seller.orders.show');
+        });
 
         Route::resource('customers', App\Http\Controllers\Dashboards\Sellers\CustomerController::class,['as' => 'seller']);    });
 });
