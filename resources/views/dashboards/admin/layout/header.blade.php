@@ -27,36 +27,36 @@
                                     <a href="{{ route('admin.categories.index') }}" class="nav-link {{ (request()->segment(1) == 'admin' && request()->segment(2) == 'categories' && request()->segment(3) == '') ? 'active show' : '' }}"> All Categories</a>
                                     <a href="{{ route('admin.categories.create') }}" class="nav-link {{ (request()->segment(1) == 'admin' && request()->segment(2) == 'categories' && request()->segment(3) == 'create') ? 'active show' : '' }}">Create new</a>
                                     <span class="mt-3">Brands</span>
-                                    <a href="{{ route('admin.brands.index') }}" class="nav-link">All Brands</a>
-                                    <a href="{{ route('admin.brands.create') }}" class="nav-link">Create new</a>
+                                    <a href="{{ route('admin.brands.index') }}" class="nav-link {{ (request()->segment(1) == 'admin' && request()->segment(2) == 'brands' && request()->segment(3) == '') ? 'active show' : '' }}">All Brands</a>
+                                    <a href="{{ route('admin.brands.create') }}" class="nav-link {{ (request()->segment(1) == 'admin' && request()->segment(2) == 'brands' && request()->segment(3) == 'create') ? 'active show' : '' }}">Create new</a>
                                 </nav>
                                 <nav class="nav">
                                     <span>Colors</span>
-                                    <a href="{{ route('admin.colors.index') }}" class="nav-link"> All Colors</a>
-                                    <a href="{{ route('admin.colors.create') }}" class="nav-link">Create new</a>
+                                    <a href="{{ route('admin.colors.index') }}" class="nav-link {{ (request()->segment(1) == 'admin' && request()->segment(2) == 'colors' && request()->segment(3) == '') ? 'active show' : '' }}"> All Colors</a>
+                                    <a href="{{ route('admin.colors.create') }}" class="nav-link {{ (request()->segment(1) == 'admin' && request()->segment(2) == 'colors' && request()->segment(3) == 'create') ? 'active show' : '' }}">Create new</a>
                                     <span class="mt-3">Memory</span>
-                                    <a href="{{ route('admin.memory.index') }}" class="nav-link">Memory List</a>
-                                    <a href="{{ route('admin.memory.create') }}" class="nav-link">Create new</a>
+                                    <a href="{{ route('admin.memory.index') }}" class="nav-link {{ (request()->segment(1) == 'admin' && request()->segment(2) == 'memory' && request()->segment(3) == '') ? 'active show' : '' }}">Memory List</a>
+                                    <a href="{{ route('admin.memory.create') }}" class="nav-link {{ (request()->segment(1) == 'admin' && request()->segment(2) == 'memory' && request()->segment(3) == 'create') ? 'active show' : '' }}">Create new</a>
 
                                     <span class="mt-3">Sliders</span>
-                                    <a href="{{ route('admin.sliders.index') }}" class="nav-link">Sliders List</a>
-                                    <a href="{{ route('admin.sliders.create') }}" class="nav-link">Create new</a>
+                                    <a href="{{ route('admin.sliders.index') }} {{ (request()->segment(1) == 'admin' && request()->segment(2) == 'sliders' && request()->segment(3) == '') ? 'active show' : '' }}" class="nav-link">Sliders List</a>
+                                    <a href="{{ route('admin.sliders.create') }}" class="nav-link {{ (request()->segment(1) == 'admin' && request()->segment(2) == 'sliders' && request()->segment(3) == 'create') ? 'active show' : '' }}">Create new</a>
                                 </nav>
                                 <nav class="nav">
                                     <span>Sizes</span>
-                                    <a href="{{ route('admin.sizes.index') }}" class="nav-link"> All Sizes</a>
-                                    <a href="{{ route('admin.sizes.create') }}" class="nav-link">Create new</a>
+                                    <a href="{{ route('admin.sizes.index') }} {{ (request()->segment(1) == 'admin' && request()->segment(2) == 'sizes' && request()->segment(3) == '') ? 'active show' : '' }}" class="nav-link"> All Sizes</a>
+                                    <a href="{{ route('admin.sizes.create') }} {{ (request()->segment(1) == 'admin' && request()->segment(2) == 'sizes' && request()->segment(3) == 'create') ? 'active show' : '' }}" class="nav-link">Create new</a>
                                 </nav>
                             </div>
                             <div>
                                 <nav class="nav">
                                     <span>Zone Management</span>
                                     <span>Cities</span>
-                                    <a href="{{ route('admin.cities.index') }}" class="nav-link"> All Cities</a>
-                                    <a href="{{ route('admin.cities.create') }}" class="nav-link">Create new</a>
+                                    <a href="{{ route('admin.cities.index') }}" class="nav-link {{ (request()->segment(1) == 'admin' && request()->segment(2) == 'cities' && request()->segment(3) == '') ? 'active show' : '' }}"> All Cities</a>
+                                    <a href="{{ route('admin.cities.create') }}" class="nav-link {{ (request()->segment(1) == 'admin' && request()->segment(2) == 'cities' && request()->segment(3) == 'create') ? 'active show' : '' }}">Create new</a>
                                     <span class="mt-3">Areas</span>
-                                    <a href="{{ route('admin.areas.index') }}" class="nav-link"> All Areas</a>
-                                    <a href="{{ route('admin.areas.create') }}" class="nav-link">Create new</a>
+                                    <a href="{{ route('admin.areas.index') }}" class="nav-link {{ (request()->segment(1) == 'admin' && request()->segment(2) == 'areas' && request()->segment(3) == '') ? 'active show' : '' }}"> All Areas</a>
+                                    <a href="{{ route('admin.areas.create') }}" class="nav-link {{ (request()->segment(1) == 'admin' && request()->segment(2) == 'areas' && request()->segment(3) == 'create') ? 'active show' : '' }}">Create new</a>
                                 </nav>
                             </div>
                         </div>
@@ -80,9 +80,9 @@
                         <div class="container">
                             <div>
                                 <nav class="nav">
-                                    <a href="{{ route('admin.users.index') }}" class="nav-link">All Users</a>
-                                    <a href="{{ route('admin.customers.index') }}" class="nav-link">Customers</a>
-                                    <a href="{{ route('admin.sellers.index') }}" class="nav-link">Sellers</a>
+                                    <a href="{{ route('admin.users.index') }}" class="nav-link {{ (request()->segment(1) == 'admin' && request()->segment(2) == 'users' && request()->segment(3) == '') ? 'active show' : '' }}">All Users</a>
+                                    <a href="{{ route('admin.customers.index') }}" class="nav-link {{ (request()->segment(1) == 'admin' && request()->segment(2) == 'customers' && request()->segment(3) == '') ? 'active show' : '' }}">Customers</a>
+                                    <a href="{{ route('admin.sellers.index') }}" class="nav-link {{ (request()->segment(1) == 'admin' && request()->segment(2) == 'sellers' && request()->segment(3) == '') ? 'active show' : '' }}">Sellers</a>
                                 </nav>
                             </div>
                         </div>
@@ -94,10 +94,10 @@
                         <div class="container">
                             <div>
                                 <nav class="nav">
-                                    <a href="{{ route('admin.website.categories') }}" class="nav-link">Website</a>
-                                    <a href="{{ route('admin.app.categories') }}" class="nav-link">Mobile App</a>
-                                    <a href="{{ route('admin.installment-calculator') }}" class="nav-link">Installment Calculator</a>
-                                    <a href="{{ route('admin.sliders.index') }}" class="nav-link">Sliders</a>
+                                    <a href="{{ route('admin.website.categories') }}" class="nav-link {{ (request()->segment(1) == 'admin' && (in_array(request()->segment(2), ['website']))) ? 'active show' : '' }}">Website</a>
+                                    <a href="{{ route('admin.app.categories') }}" class="nav-link {{ (request()->segment(1) == 'admin' && (in_array(request()->segment(2), ['app']))) ? 'active show' : '' }}">Mobile App</a>
+                                    <a href="{{ route('admin.installment-calculator') }}" class="nav-link {{ (request()->segment(1) == 'admin' && (in_array(request()->segment(2), ['installment-calculator']))) ? 'active show' : '' }}">Installment Calculator</a>
+                                    <a href="{{ route('admin.sliders.index') }}" class="nav-link {{ (request()->segment(1) == 'admin' && (in_array(request()->segment(2), ['sliders']))) ? 'active show' : '' }}">Sliders</a>
                                 </nav>
                             </div>
                         </div>

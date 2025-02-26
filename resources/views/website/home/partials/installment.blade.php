@@ -33,7 +33,7 @@
                             <input type="number" class="form-control" value="{{ $product['min_advance_price'] ?? 0 }}" id="min_advance_price" placeholder="Enter Amount" required="required"/>
                         </td>
                         <td class="align-middle">
-                            <div class="input-group installment-calculator-detail mx-auto" style="width: 100px;">
+                            <div class="input-group installment-calculator-detail mx-auto p--5" >
                                 <div class="input-group-btn">
                                     <button class="btn btn-sm btn-primary btn-minus" >
                                     <i class="fa fa-minus"></i>
@@ -48,8 +48,13 @@
                             </div>
                         </td>
                         <td class="align-middle">{{ $calculator->per_month_percentage ?? 4 }}%</td>
+<<<<<<< HEAD
+                        <td class="align-middle">Rs. <span class="variation-price">{{ number_format($product['variation_price']) }}</span></td>
+
+=======
                         <td class="align-middle">Rs. <span class="variation-price-calculator" id="variation-price-calculator">{{ number_format($product['variation_price'] + $total_percentage_amount) }}</span></td>
                         
+>>>>>>> 6cf189ff3012ba536e10140eee4eb8b168d51c58
                         <td class="align-middle">
                             <button class="btn btn-sm btn-danger make-installment">Make Installments</button>
                         </td>
@@ -70,7 +75,7 @@
                     </tr>
                 </thead>
                 <tbody class="align-middle" id="installment-rows">
-                    @for($i = 0; $i < 3; $i++) 
+                    @for($i = 0; $i < 3; $i++)
                         <tr>
                             <td>{{ $i+1 }}</td>
                             <td>{{ $months[$i] ?? 0 }} Month</td>
