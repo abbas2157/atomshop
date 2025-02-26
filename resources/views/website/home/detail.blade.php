@@ -142,9 +142,9 @@
     var product_id = parseInt("{{ $product['id'] ?? 0 }}");
     var total = parseInt("{{ $product['variation_price'] ?? 0 }}");
     @if(is_null($calculator))
-        var total_tenure_percentage = 4;
+        var tenure_percentage = 4;
     @else
-        var total_tenure_percentage = parseInt('{{ $calculator->per_month_percentage?? 0 }}');
+        var tenure_percentage = parseInt('{{ $calculator->per_month_percentage?? 0 }}');
     @endif
     var memories = [];
     @if(!empty($product['memories']))
