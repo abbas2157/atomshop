@@ -2145,8 +2145,6 @@
                 }
             ],
             "time": "2025-02-13T21:05:24+00:00"
-<<<<<<< HEAD
-=======
         },
         {
             "name": "masterminds/html5",
@@ -2210,7 +2208,6 @@
                 "xml"
             ],
             "time": "2024-03-31T07:05:07+00:00"
->>>>>>> 6cf189ff3012ba536e10140eee4eb8b168d51c58
         },
         {
             "name": "monolog/monolog",
@@ -8773,5 +8770,5 @@
         "php": "^8.2"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }
