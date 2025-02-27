@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Dashboards\Sellers;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\{User, Customer, Cart, Order, OrderChangeHsitory, City, Area};
-use Illuminate\Support\Facades\{Auth, DB, Password, Hash, Mail};
+use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\InstallmentCalculator;
+use Illuminate\Support\Facades\{Auth, DB, Password, Hash, Mail};
+use App\Models\{User, Customer, Cart, Order, OrderChangeHsitory, City, Area};
 
 class OrderController extends Controller
 {
@@ -75,5 +78,59 @@ class OrderController extends Controller
         $response = ['success' => false, 'message' => "Code not completed"];
         return response()->json($response);
     }
-    
+
+    public function create()
+    {
+        try {
+            $calculator = InstallmentCalculator::select('installment_tenure', 'per_month_percentage')->first();
+            $area_id = Auth::user()->seller->area_id;
+            $customers = Customer::where('area_id', $area_id)->join('users', 'customers.user_id', '=', 'users.id')->where('users.joined_through', 'Seller')
+            ->where('customers.verified', '1')->select('customers.id','customers.user_id')->get();
+            $categories = Category::orderBy('title','asc')->select('id','title','slug','pr_count')->get();
+
+            return view('dashboards.sellers.orders.create', compact('customers','calculator','categories'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Something went wrong! Please try again.');
+        }
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        // dd($request->all());
+        try {
+            $product = Product::find($request->product_id);
+            $price = $product->price;
+            $cart = new Cart;
+            $cart->user_id = $request->customer_id;
+            $cart->product_id = $request->product_id;
+            $cart->product_price = $price;
+            $cart->product_advance_price =$request->min_advance_price;
+            $cart->color_id = $request->color_id;
+            if (isset($request->memory_id)) {
+                $cart->memory_id = $request->memory_id;
+            }
+            if (isset($request->size_id)) {
+                $cart->size_id = $request->size_id;
+            }
+            if (isset($request->tenure_months)) {
+                $cart->tenure = $request->tenure_months;
+            }
+            $cart->status = 'Purchased';
+            $cart->save();
+
+            $order = new Order;
+            $order->uuid = Str::uuid();
+            $order->user_id = $request->customer_id;
+            $order->cart_id = $cart->id;
+            $order->save();
+
+            return redirect()->route('seller.orders.index')->with('success', 'Order created successfully!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Something went wrong! Please try again.');
+        }
+    }
+
 }
