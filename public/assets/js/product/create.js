@@ -1,7 +1,13 @@
 $(function() {
     'use strict';
-    let isSubmitting = false; 
-    
+    let isSubmitting = false;
+    var categoryId = $("#category_id").val();
+    if (categoryId != 1 && categoryId != 2) {
+        $(".memory-price").addClass("d-none");
+    }
+    if(categoryId != 4){
+        $(".size-price").addClass("d-none");
+    }
     $('#product-form').steps({
         headerTag: 'h3',
         bodyTag: 'section',
@@ -11,9 +17,9 @@ $(function() {
             finish: "Publish Product",
         },
         onStepChanging: function(event, currentIndex, newIndex) {
-            
+
             if (currentIndex < newIndex) {
-                
+
                 if (currentIndex === 0) {
                     var title = $('#title').parsley();
                     var categoryId = $('#category_id').parsley();
@@ -27,22 +33,23 @@ $(function() {
                         status.isValid()
                     ) {
                         return true;
-                    } 
+                    }
                     else {
                         title.validate();
                         categoryId.validate();
                         brandId.validate();
                         memoryId.validate();
+                        sizeId.validate();
                         colorId.validate();
                         status.validate();
                     }
-                } 
+                }
                 else if (currentIndex === 1) {
                     var price = $('#price').parsley();
                     var min_advance_price = $('#min_advance_price').parsley();
                     if (price.isValid() && min_advance_price.isValid()) {
                         return true;
-                    } 
+                    }
                     else {
                         price.validate();
                         min_advance_price.validate();
@@ -52,23 +59,23 @@ $(function() {
                     var short = $('#short_description').parsley();
                     if (short.isValid()) {
                         return true;
-                    } 
+                    }
                     else {
                         short.validate();
                     }
-                    
+
                 }
-                else if (currentIndex === 3) { 
+                else if (currentIndex === 3) {
                     return true;
                     var picture = $('#picture').parsley();
                     if (picture.isValid()) {
                         return true;
-                    } 
+                    }
                     else {
                         picture.validate();
                     }
                 }
-            } 
+            }
             else {
                 return true;
             }
@@ -81,7 +88,6 @@ $(function() {
             isSubmitting = true;
 
             $('.actions a[href="#finish"]').text('Publishing...').addClass('disabled').css('pointer-events', 'none');
-            console.log('Finishing... Current Index:', currentIndex);
             var formData = new FormData(document.getElementById('product-form-name'));
             $.ajax({
                 url: APP_URL + "/admin/products",
@@ -136,6 +142,12 @@ $(function() {
         }
         else {
             $('.memory-price').addClass('d-none');
+        }
+        if(category_id == 4) {
+            $('.size-price').removeClass('d-none');
+        }
+        else {
+            $('.size-price').addClass('d-none');
         }
         $('#brand_id').html('');
         $.ajax({

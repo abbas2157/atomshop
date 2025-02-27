@@ -58,6 +58,7 @@
                     <thead>
                         <tr>
                             <th width="40px">ID</th>
+                            <th>Picture</th>
                             <th>Title</th>
                             <th>Category</th>
                             <th width="60px">Status</th>
@@ -70,6 +71,7 @@
                             @foreach($brands as $item)
                                 <tr>
                                     <th>{{ $item->id ?? '' }}</th>
+                                    <td><img src="{{ asset($item->picture) }}" alt="" width="20px"></td>
                                     <td>{{ $item->title ?? '' }}</td>
                                     <td>{{ $item->category->title ?? '' }}</td>
                                     <td>{{ $item->status ?? '' }}</td>

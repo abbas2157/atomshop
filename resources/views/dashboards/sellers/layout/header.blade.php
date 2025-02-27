@@ -14,27 +14,24 @@
                     <a href="{{ route('seller') }}" class="nav-link"><i class="typcn typcn-chart-area-outline"></i> Dashboard</a>
                 </li>
                 <li class="nav-item {{ (request()->segment(1) == 'seller' && (in_array(request()->segment(2), ['users', 'sellers', 'customers']))) ? 'active show' : '' }}">
-                    <a href="" class="nav-link with-sub"><i class="typcn typcn-group-outline"></i> Accounts</a>
+                    <a href="" class="nav-link with-sub"><i class="typcn typcn-group-outline"></i>Customers</a>
                     <div class="az-menu-sub">
                         <div class="container">
                             <div>
                                 <nav class="nav">
-                                    <a href="{{ route('seller.index') }}" class="nav-link">Sellers</a>
+                                    <a href="{{ route('seller.customers.index') }}" class="nav-link">All Customers</a>
                                 </nav>
                             </div>
                         </div>
                     </div>
                 </li>
-                <li class="nav-item {{ (request()->segment(1) == 'seller' && (in_array(request()->segment(2), ['website','installment-calculator','sliders']))) ? 'active show' : '' }}">
-                    <a href="" class="nav-link with-sub"><i class="typcn typcn-device-phone"></i>Web & App</a>
+                <li class="nav-item {{ (request()->segment(1) == 'seller' && (in_array(request()->segment(2), ['users', 'sellers', 'orders']))) ? 'active show' : '' }}">
+                    <a href="" class="nav-link with-sub"><i class="typcn typcn-th-list-outline"></i>Orders</a>
                     <div class="az-menu-sub">
                         <div class="container">
                             <div>
                                 <nav class="nav">
-                                    <a href="{{ route('admin.website.categories') }}" class="nav-link">Website</a>
-                                    <a href="{{ route('admin.app.categories') }}" class="nav-link">Mobile App</a>
-                                    <a href="{{ route('admin.installment-calculator') }}" class="nav-link">Installment Calculator</a>
-                                    <a href="{{ route('admin.sliders.index') }}" class="nav-link">Sliders</a>
+                                    <a href="{{ route('seller.orders.index') }}" class="nav-link">All Orders</a>
                                 </nav>
                             </div>
                         </div>

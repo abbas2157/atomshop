@@ -17,8 +17,7 @@
                 id="navbar-vertical" >
                 <div class="navbar-nav w-100">
                     @foreach ($categories as $item)
-                        <a href="{{ route('shop') }}?category[]={{ $item->id ?? '' }}"
-                            class="nav-item nav-link">{{ $item->title ?? '' }}</a>
+                        <a href="{{ route('category', $item->slug) }}" class="nav-item nav-link">{{ $item->title ?? '' }}</a>
                     @endforeach
                 </div>
             </nav>
@@ -26,7 +25,7 @@
         <div class="col-lg-9">
             <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-0">
                 <a href="" class="text-decoration-none d-block d-lg-none">
-                    <span class="h1 text-uppercase text-dark bg-light px-2">Multi</span>
+                    <span class="h1 text-uppercase text-dark bg-light px-2">Atom</span>
                     <span class="h1 text-uppercase text-light bg-primary px-2 ml-n1">Shop</span>
                 </a>
                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
@@ -41,8 +40,9 @@
                         <a href="{{ route('calculator') }}"
                             class="nav-item nav-link {{ request()->segment(1) == 'installment-calculator' ? 'active' : '' }}">Installment
                             Calculator</a>
-                        <a href="" class="nav-item nav-link">Contact</a>
-                    </div>
+                            <a href="{{ route('contact-us') }}"
+                            class="nav-item nav-link {{ request()->segment(1) == 'contact-us' ? 'active' : '' }}">
+                            Contact</a>                    </div>
                     <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
                         <a href="" class="btn px-0">
                             <i class="fas fa-heart text-primary"></i>

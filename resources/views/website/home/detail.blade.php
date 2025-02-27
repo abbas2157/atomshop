@@ -11,8 +11,8 @@
                 <nav class="breadcrumb bg-light mb-30">
                     <a class="breadcrumb-item text-dark" href="{{ route('website') }}"> Home </a>
                     <a class="breadcrumb-item text-dark" href="{{ route('website') }}"> Shop </a>
-                    <a class="breadcrumb-item text-dark" href=""> {{ $product['category']['title'] ?? '' }} </a>
-                    <a class="breadcrumb-item text-dark" href=""> {{ $product['brand']['title'] ?? '' }} </a>
+                    <a class="breadcrumb-item text-dark" href="{{ route('category', $product['category']['slug']) }}"> {{ $product['category']['title'] ?? '' }} </a>
+                    <a class="breadcrumb-item text-dark" href="{{ route('brand', $product['brand']['slug']) }}"> {{ $product['brand']['title'] ?? '' }} </a>
                     <span class="breadcrumb-item active"> {{ $product['title'] ?? '' }}</span>
                 </nav>
             </div>
@@ -51,7 +51,7 @@
                     <h3 class="font-weight-semi-bold mb-3 mt-3">Rs. <span class="variation-price" id="variation-price">{{ number_format($product['variation_price']) }}</span></h3>
                     <p class="mb-3 mt-3">{!! nl2br($product['short_description']) ?? '' !!}</p>
                     @if(!empty($product['memories']))
-                    <div class="d-flex mb-3">
+                    <div class="d-flex mb-2">
                         <strong class="text-dark mr-3">Choose Storage :</strong>
                         @foreach ($product['memories'] as $item)
                             <div class="custom-control custom-radio custom-control-inline">
@@ -62,7 +62,7 @@
                     </div>
                     @endif
                     @if(!empty($product['colors']))
-                    <div class="d-flex mb-4">
+                    <div class="d-flex mb-3">
                         <strong class="text-dark mr-3">Choose Color :</strong>
                         @foreach ($product['colors'] as $item)
                             <div class="custom-control custom-radio custom-control-inline">
@@ -97,7 +97,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
         <div class="row px-xl-5">
@@ -143,9 +142,9 @@
     var product_id = parseInt("{{ $product['id'] ?? 0 }}");
     var total = parseInt("{{ $product['variation_price'] ?? 0 }}");
     @if(is_null($calculator))
-        var total_tenure_percentage = 4;
+        var tenure_percentage = 4;
     @else
-        var total_tenure_percentage = parseInt('{{ $calculator->per_month_percentage?? 0 }}');
+        var tenure_percentage = parseInt('{{ $calculator->per_month_percentage?? 0 }}');
     @endif
     var memories = [];
     @if(!empty($product['memories']))

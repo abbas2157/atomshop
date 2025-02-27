@@ -2,9 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::group(['prefix' => 'login', 'middleware' => ['guest']], function(){
-    Route::get('/', [App\Http\Controllers\Auth\LoginController::class, 'create'])->name('login');
-    Route::post('perform', [App\Http\Controllers\Auth\LoginController::class, 'store'])->name('login.perform');
+Route::group(['prefix' => 'portal/login', 'middleware' => ['guest']], function(){
+    Route::get('/', [App\Http\Controllers\Auth\LoginController::class, 'create'])->name('portal.login');
+    Route::post('perform', [App\Http\Controllers\Auth\LoginController::class, 'store'])->name('portal.login.perform');
 });
 
 Route::group(['prefix' => 'password', 'middleware' => ['guest']], function(){

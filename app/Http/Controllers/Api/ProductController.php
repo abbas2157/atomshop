@@ -16,7 +16,7 @@ class ProductController extends BaseController
     public function products(Request $request)
     {
         try {
-            $products = Product::query()
+            $product_items = Product::query()
                 ->where('status', 'Published')
                 ->orderBy($request->input('order_by', 'title'), strtoupper($request->input('order_type', 'ASC')))
                 ->when($request->min_price, fn($q) => $q->where('price', '>=', $request->min_price))
@@ -26,11 +26,21 @@ class ProductController extends BaseController
                 ->when($request->color_id, fn($q) => $q->whereHas('colors', fn($q) => $q->where('color_id', $request->color_id)))
                 ->when($request->memory_id, fn($q) => $q->whereHas('memories', fn($q) => $q->where('memory_id', $request->memory_id)))
                 ->with(['category:id,title', 'brand:id,title'])
-                ->select('id', 'title', 'price', 'picture', 'category_id', 'brand_id');
-                $products = $products->paginate(10);
+                ->select('id', 'title', 'price', 'picture', 'category_id', 'brand_id')
+                ->get();
+                $products = [];
+                foreach($product_items as $product) {
+                    $products[] =array(
+                        'id' => $product->id,
+                        'title' => $product->title,
+                        'price' => $product->formatted_advance_price,
+                        'picture' => $product->product_picture,
+                        'category' => $product->category->title,
+                        'brand' => $product->brand->title
+                    );
+                }
             return $this->sendResponse($products, 'Here is the list of products.', 200);
         } catch (Exception $e) {
-            DB::rollBack();
             return $this->sendError('Something went wrong.', $e->getMessage(), 500);
         }
     }
@@ -39,18 +49,21 @@ class ProductController extends BaseController
     {
         try {
             $product = Product::with('category', 'brand', 'colors', 'memories', 'gallery', 'description')
+                ->where('id', $id)
                 ->where(['status' => 'Published'])
-                ->select('id', 'title', 'picture', 'price', 'category_id', 'brand_id')
+                ->select('id', 'title', 'detail_page_title', 'picture', 'price', 'min_advance_price', 'category_id', 'brand_id')
                 ->first();
-
-            $product_deatil = [];
             if (is_null($product)) {
-                $product_deatil['product_id'] = $id;
-                return $this->sendError($product_deatil, 'Product not found .', 404);
+                return $this->sendResponse(['id' => $id], 'Product not found.', 200);
             }
+            $product_deatil = [];
 
+            $product_deatil['id'] = $product->id;
             $product_deatil['title'] = $product->title;
+            $product_deatil['detail_page_title'] = $product->detail_page_title;
             $product_deatil['price'] = $product->formatted_price;
+            $product_deatil['variation_price'] = $product->price;
+            $product_deatil['min_advance_price'] = $product->min_advance_price;
             $product_deatil['picture'] = $product->product_picture;
             $product_deatil['category'] = $product->category;
             if (!is_null($product->category)) {
@@ -62,18 +75,33 @@ class ProductController extends BaseController
             }
 
             if ($product->colors->isNotEmpty()) {
+                $first = true;
                 foreach ($product->colors as $item) {
                     if (!is_null($item->color)) {
-                        $product_deatil['colors'][] = array('id' => $item->color_id, 'title' => $item->color->title);
+                        if ($first) {
+                            $product_deatil['colors'][] = array('id' => $item->color_id, 'title' => $item->color->title, 'active' => true);
+                            $first = false;
+                        } 
+                        else {
+                            $product_deatil['colors'][] = array('id' => $item->color_id, 'title' => $item->color->title, 'active' => false);
+                        }
                     }
                 }
             } else {
                 $product_deatil['colors'] = [];
             }
             if ($product->memories->isNotEmpty()) {
-                foreach ($product->memories as $mem) {
+                $first = true;
+                foreach ($product->memories as $item) {
                     if (!is_null($item->memory)) {
-                        $product_deatil['memories'][] = array('id' => $item->memory_id, 'title' => $item->memory->title);
+                        if ($first) {
+                            $product_deatil['memories'][] = array('id' => $item->memory_id, 'title' => $item->memory->title, 'variation_price' => $item->price, 'active' => true);
+                            $first = false;
+                            $product_deatil['variation_price'] = $item->price;
+                        } 
+                        else {
+                            $product_deatil['memories'][] = array('id' => $item->memory_id, 'title' => $item->memory->title,  'variation_price' => $item->price, 'active' => false);
+                        }
                     }
                 }
             } else {
@@ -81,8 +109,8 @@ class ProductController extends BaseController
             }
 
             if ($product->gallery->isNotEmpty()) {
-                foreach ($product->gallery as $item) {
-                    $product_deatil['gallery'][] = array('id' => $item->id, 'url' => $item->url);
+                foreach ($product->gallery as $img) {
+                    $product_deatil['gallery'][] = array('id' => $img->id, 'url' => asset($img->url));
                 }
             } else {
                 $product_deatil['gallery'] = [];
@@ -92,12 +120,13 @@ class ProductController extends BaseController
             $product_deatil['long_description'] = '';
             if (!is_null($product->description)) {
                 $product_deatil['short_description'] = $product->description->short;
-                $product_deatil['long_description'] = $product->description->long;
+                $product_deatil['long_description'] = strip_tags(preg_replace("/<\/p>\s*/i", "\r\n", $product->description->long));
             }
+            $product = $product_deatil;
 
-            return $this->sendResponse($product_deatil, 'Product deatil is here .', 200);
+            return $this->sendResponse($product_deatil, 'Product deatil is here.', 200);
         } catch (Exception $e) {
-            return $this->sendError('Something Went Wrong.', $e->getMessage(), 200);
+            return $this->sendError($e->getMessage(), 'Somehting Went Wrong.', 200);
         }
     }
 }

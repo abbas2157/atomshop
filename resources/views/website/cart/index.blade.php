@@ -8,26 +8,27 @@
     <!-- Cart Start -->
     <div class="container-fluid">
         <div class="row px-xl-5">
-            <div class="col-lg-8 table-responsive mb-5">
-                <meta name="csrf-token" content="{{ csrf_token() }}">
-                <table class="table table-light table-borderless table-hover text-center mb-0">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>Product Title</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
-                            <th>Total</th>
-                            <th>Remove</th>
-                        </tr>
-                    </thead>
-                    <tbody class="align-middle cart-table">
-                       <tr>
-                            <td colspan="5">
-                                <img  src="{{ asset('web/img/loader.gif') }}" class="w-10" alt="Loader">
-                            </td>
-                       </tr>
-                    </tbody>
-                </table>
+            <div class="col-lg-8 mb-5">
+                <div class="table-responsive">
+                    <table class="table table-bordered mb-0">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>PR No</th>
+                                <th>Product Title</th>
+                                <th>Advance Amount</th>
+                                <th>Total Deal Amount</th>
+                                <th>Remove</th>
+                            </tr>
+                        </thead>
+                        <tbody class="align-middle cart-table">
+                           <tr>
+                                <td colspan="5">
+                                    <img  src="{{ asset('web/img/loader.gif') }}" class="w-10" alt="Loader">
+                                </td>
+                           </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div class="col-lg-4">
                 <form class="mb-30">

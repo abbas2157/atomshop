@@ -67,7 +67,11 @@
                                     <td>{{ $item->name ?? '' }}</td>
                                     <td>{{ $item->email ?? '' }}</td>
                                     <td>{{ $item->phone ?? '' }}</td>
-                                    <td>{{ $item->customer->address ?? '' }}, {{ $item->customer->area->title ?? '' }}, {{ $item->customer->city->title ?? '' }}</td>
+                                    <td>
+                                        {{ $item->customer->address ?? 'Not Found' }},
+                                        {{ $item->customer->area->title ?? '' }},
+                                        {{ $item->customer->city->title ?? '' }}
+                                    </td>
                                     <td>
                                         @if($item->status == 'support')
                                             <label class="badge badge-info">{{ $item->status ?? '' }}</label>

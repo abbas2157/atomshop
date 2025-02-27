@@ -14,12 +14,22 @@ class Cart extends Model
     ];
 
     public function user() {
-        return $this->belongsTo(User::class, 'user_id')->select('id', 'name');
+        return $this->belongsTo(User::class, 'user_id')->select('id', 'name','phone');
     }
-
     public function product() {
-        return $this->belongsTo(Product::class, 'product_id')->select('id', 'title', 'price', 'picture');
+        return $this->belongsTo(Product::class, 'product_id')->select('id', 'pr_number', 'title', 'price', 'picture');
     }
-
+    public function color()
+    {
+        return $this->belongsTo(Color::class, 'color_id', 'id')->select('id', 'title');
+    }
+    public function memory()
+    {
+        return $this->belongsTo(Memory::class, 'memory_id', 'id')->select('id', 'title');
+    }
+    public function size()
+    {
+        return $this->belongsTo(Size::class, 'size_id', 'id')->select('id', 'title','unit');
+    }
 }
 

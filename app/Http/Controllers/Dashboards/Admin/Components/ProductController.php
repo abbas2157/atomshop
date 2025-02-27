@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Dashboards\Admin\Components;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\{Product, Category, Brand, Color, Memory};
+use App\Models\{Product, Category, Brand, Color, Memory, ProductSize, Size};
 use App\Models\{ProductDescription, ProductImage, ProductColor, ProductMemory};
 use Illuminate\Support\Facades\{Auth, Hash, DB};
 use Illuminate\Support\Str;
@@ -30,6 +30,9 @@ class ProductController extends Controller
         if (request()->has('status') && !empty(request()->status)) {
             $products->where('status', request()->status);
         }
+        if (request()->has('feature') && !empty(request()->feature)) {
+            $products->where('feature', request()->feature);
+        }
         $products = $products->paginate(10);
         $categories = Category::orderBy('id', 'desc')->get();
         $brands = Brand::orderBy('id', 'desc')->get();
@@ -48,8 +51,8 @@ class ProductController extends Controller
         }
         $colors = Color::orderBy('id', 'asc')->where('status', 'active')->get();
         $memories = Memory::orderBy('id', 'asc')->where('status', 'active')->get();
-
-        return view('dashboards.admin.components.products.create', compact('categories', 'brands', 'colors', 'memories'));
+        $sizes = Size::orderBy('id', 'asc')->where('status', 'active')->get();
+        return view('dashboards.admin.components.products.create', compact('categories', 'brands', 'colors', 'memories', 'sizes'));
     }
 
     /**
@@ -75,7 +78,7 @@ class ProductController extends Controller
                 $extension = pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
                 $filename  = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', strtolower($request->title))) . '.' . $extension;
                 $file->move(public_path('images/products'), $filename);
-                $product->picture = 'images/products/'.$filename;
+                $product->picture = 'images/products/' . $filename;
             }
             $product->feature = $request->feature;
             $product->app_home = $request->app_home;
@@ -114,16 +117,29 @@ class ProductController extends Controller
                     $color->save();
                 }
             }
-            if($request->category_id == 1 && $request->category_id == 2) {
-                if ($request->has('memories')) {
+            if ($request->category_id == 1 || $request->category_id == 2) {
+                if ($request->has('memories.name')) {
                     $names = $request->input('memories.name');
                     $memories = $request->input('memories');
                     foreach ($names as $index => $memory_id) {
-                        $productMemory = new ProductMemory;
-                        $productMemory->product_id = $id;
-                        $productMemory->memory_id = $memory_id;
-                        $productMemory->price = $memories['price_'.$memory_id];
-                        $productMemory->save();
+                        $product_memory = new ProductMemory;
+                        $product_memory->product_id = $product->id;
+                        $product_memory->memory_id = $memory_id;
+                        $product_memory->price = $memories['price_' . $memory_id];
+                        $product_memory->save();
+                    }
+                }
+            }
+            if ($request->category_id == 4) {
+                if ($request->has('sizes.name')) {
+                    $names = $request->input('sizes.name');
+                    $sizes = $request->input('sizes');
+                    foreach ($names as $index => $size_id) {
+                        $product_size = new ProductSize;
+                        $product_size->product_id = $product->id;
+                        $product_size->size_id = $size_id;
+                        $product_size->price = $sizes['price_' . $size_id];
+                        $product_size->save();
                     }
                 }
             }
@@ -156,12 +172,14 @@ class ProductController extends Controller
         $brands = Brand::orderBy('id', 'desc')->where('category_id', $product->category_id)->get();
         $colors = Color::orderBy('id', 'desc')->where('status', 'active')->get();
         $memories = Memory::orderBy('id', 'desc')->where('status', 'active')->get();
+        $sizes = Size::orderBy('id', 'desc')->where('status', 'active')->get();
         $productColor = ProductColor::where('product_id', $product->id)->pluck('color_id')->toArray();
         $productmemory = ProductMemory::where('product_id', $product->id)->pluck('memory_id')->toArray();
+        $productSize = ProductSize::where('product_id', $product->id)->pluck('size_id')->toArray();
         $productdescription = ProductDescription::where('product_id', $product->id)->first();
         $galleryImages = ProductImage::where('product_id', $product->id)->where('type', 'Gallery')->get();
 
-        return view('dashboards.admin.components.products.edit', compact('product', 'categories', 'brands', 'colors', 'memories', 'productColor', 'productmemory', 'productdescription', 'galleryImages'));
+        return view('dashboards.admin.components.products.edit', compact('product', 'categories', 'brands', 'colors', 'memories', 'sizes', 'productColor', 'productmemory', 'productSize', 'productdescription', 'galleryImages'));
     }
 
     public function deleteGalleryImage(Product $product, $id)
@@ -201,7 +219,7 @@ class ProductController extends Controller
                 $extension = pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
                 $filename = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', strtolower($request->title))) . '.' . $extension;
                 $file->move(public_path('images/products'), $filename);
-                $product->picture = 'images/products/'.$filename;
+                $product->picture = 'images/products/' . $filename;
             }
             $product->feature = $request->feature;
             $product->app_home = $request->app_home;
@@ -238,17 +256,31 @@ class ProductController extends Controller
                     $productColor->save();
                 }
             }
-            if($request->category_id == 1 || $request->category_id == 2) {
+            if ($request->category_id == 1 || $request->category_id == 2) {
                 ProductMemory::where('product_id', $id)->delete();
-                if ($request->has('memories')) {
+                if ($request->has('memories.name')) {
                     $names = $request->input('memories.name');
                     $memories = $request->input('memories');
                     foreach ($names as $index => $memory_id) {
                         $productMemory = new ProductMemory;
                         $productMemory->product_id = $id;
                         $productMemory->memory_id = $memory_id;
-                        $productMemory->price = $memories['price_'.$memory_id];
+                        $productMemory->price = $memories['price_' . $memory_id];
                         $productMemory->save();
+                    }
+                }
+            }
+            if ($request->category_id == 4) {
+                if ($request->has('sizes.name')) {
+                    ProductSize::where('product_id', $id)->delete();
+                    $names = $request->input('sizes.name');
+                    $sizes = $request->input('sizes');
+                    foreach ($names as $index => $size_id) {
+                        $product_size = new ProductSize;
+                        $product_size->product_id = $id;
+                        $product_size->size_id = $size_id;
+                        $product_size->price = $sizes['price_' . $size_id];
+                        $product_size->save();
                     }
                 }
             }

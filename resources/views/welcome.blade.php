@@ -3,9 +3,8 @@
    <head>
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	  <meta name="robots" content="noindex,nofollow">
       <title>Atomshop - Pay in Steps</title>
-	  <meta name="description" content="">
+	  <meta name="description" content="Online Installment Portal For Pakistan. Buy mobiles, laptops, motorbikes, home appliances on easy installments. For details: 0300-8622866">
       <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/img/favicon.png') }}">
       <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,500,600,700,700i,800,800i,900,900i" rel="stylesheet">
       <link href="{{ asset('coming/css/style.css') }}" rel="stylesheet">

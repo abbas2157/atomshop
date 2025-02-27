@@ -85,6 +85,9 @@ class LoginController extends Controller
             if($user->role == 'admin') {
                 return redirect()->route('admin');
             }
+            if($user->role == 'seller') {
+                return redirect()->route('seller');
+            }
         }
         $validator['error'] = 'Your details are incorrect.';
         return redirect("login")->withErrors($validator);

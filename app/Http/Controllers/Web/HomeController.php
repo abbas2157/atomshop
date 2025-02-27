@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Web;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use App\Models\{Product, WebsiteSetup, InstallmentCalculator};
+use App\Models\{Product, Category, WebsiteSetup, InstallmentCalculator,};
+use Illuminate\Support\Facades\{Auth, DB, Session};
 
 class HomeController extends Controller
 {
@@ -17,19 +17,23 @@ class HomeController extends Controller
         if (!is_null($sliders)) {
             $sliders = json_decode($website->sliders);
         }
-        $feature_products = [];
-        if (!is_null($website)) {
-            $feature_products = json_decode($website->feature_products);
-        }
         $categories = [];
         if (!is_null($website)) {
             $categories = json_decode($website->categories);
+        }
+        $feature_products = [];
+        if (!is_null($website)) {
+            $feature_products = json_decode($website->feature_products);
         }
         $brands = [];
         if (!is_null($website)) {
             $brands = json_decode($website->brands);
         }
-        return view('website.home.index', compact('sliders', 'categories', 'feature_products', 'brands'));
+        $products = [];
+        if (!is_null($website)) {
+            $products = json_decode($website->products);
+        }
+        return view('website.home.index', compact('sliders', 'categories', 'feature_products', 'brands', 'products'));
     }
 
     public function product_detail($slug)
@@ -110,21 +114,12 @@ class HomeController extends Controller
                 $product_deatil['short_description'] = $product->description->short;
                 $product_deatil['long_description'] = $product->description->long;
             }
+            $products = Product::where(['status' => 'Published'])->where('category_id', $product->category_id)->where('brand_id', $product->brand_id)->limit(12)->select('id', 'title', 'slug', 'price', 'min_advance_price', 'picture','brand_id')->get();
             $product = $product_deatil;
-            
-            $products = Product::where(['status' => 'Published'])->select('id', 'title', 'slug', 'price', 'min_advance_price', 'picture','brand_id')->get();
             return view('website.home.detail', compact('product', 'products'));
         } catch (Exception $e) {
             return abort(505, $e->getMessage());
         }
     }
-
-    public function calculator()
-    {
-        $calculator = InstallmentCalculator::select('installment_tenure', 'per_month_percentage')->first();
-        if (is_null($calculator)) {
-            abort(404);
-        }
-        return view('website.installment-calculator', compact('calculator'));
-    }
+    
 }

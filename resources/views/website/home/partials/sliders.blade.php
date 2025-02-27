@@ -2,7 +2,7 @@
 <div class="container-fluid mb-3">
     <div class="row px-xl-5">
         <div class="col-lg-8">
-            <div id="header-carousel" class="carousel slide carousel-fade mb-30 mb-lg-0" data-ride="carousel">
+            <div id="header-carousel" class="carousel slide carousel-fade mb-30 mb-lg-0 d-none d-lg-block" data-ride="carousel">
                 <ol class="carousel-indicators">
                     <li data-target="#header-carousel" data-slide-to="0" class="active"></li>
                     <li data-target="#header-carousel" data-slide-to="1"></li>
@@ -11,7 +11,7 @@
                 <div class="carousel-inner">
                     @foreach($sliders as $slide)
                         <div class="carousel-item position-relative @if($loop->first) active @endif p--6" >
-                            <img class="position-absolute w-100 h-100 p--7" src="{{ $slide->picture ?? '' }}">
+                            <img class="position-absolute w-100 h-100 p--7" src="{{ $slide->picture ?? '' }}"  alt="{{ $slide->title ?? 'Atomshop' }}">
                             <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                                 <div class="p-3 p--8">
                                     <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">{{ $slide->title ?? 'Atomshop' }}</h1>

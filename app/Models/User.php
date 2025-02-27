@@ -54,7 +54,13 @@ class User extends Authenticatable
 
     public function customer()
     {
-        return $this->belongsTo(Customer::class,'id','user_id')->select('id','user_id','city_id','area_id','address');
+        return $this->hasOne(Customer::class, 'user_id')->select('id', 'user_id', 'city_id', 'area_id', 'address','verified');
+    }
+
+    public function customerVerification(): HasOne
+    {
+        return $this->hasOne(CustomerVerification::class, 'user_id')
+            ->select('id', 'user_id', 'customer_id', 'id_card_front_side', 'id_card_back_side', 'selfie_with_customer', 'address_found', 'house', 'customer_physical_meet', 'work');
     }
 
     public function seller(): HasOne
