@@ -13,7 +13,7 @@
                 <span>{{ $order->uuid ?? '' }}</span>
             </div>
             <h2 class="az-content-title">Orders</h2>
-            <div class="row mb-3">
+            <div class="row">
                 <div class="col-md-9">
                     <div class="az-content-label mg-b-5 pt-3">All Order Details</div>
                     <p class="mg-b-20">All Orders list here to view, edit & delete</p>
@@ -40,7 +40,7 @@
                 </div>
             @endif
             <div class="table-responsive">
-                <table class="table table-bordered mg-b-0">
+                <table class="table az-table-reference mg-b-0">
                     <thead>
                         <tr>
                             <th>Order No</th>
@@ -90,7 +90,7 @@
                 </table>
             </div>
             <div class="table-responsive mt-3">
-                <table class="table table-bordered mg-b-0">
+                <table class="table az-table-reference mg-b-0">
                     <thead>
                         <tr>
                             <th>Total Deal Amount</th>
@@ -116,7 +116,7 @@
             <div class="az-content-label mg-b-5 mt-4">Customer Details</div>
             <p class="mg-b-20">All Customer Details related to this order </p>
             <div class="table-responsive">
-                <table class="table table-bordered mg-b-0" >
+                <table class="table az-table-reference mg-b-0" >
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -149,24 +149,8 @@
                     </tbody>
                 </table>
             </div>
-            <div class="az-content-label mg-b-5 mt-4">Installments Detail</div>
-            <p class="mg-b-20">All Installments Details related to this order </p>
-            <div class="table-responsive">
-                <table class="table table-bordered mg-b-0" >
-                    <thead>
-                        <tr>
-                            <th>Sr No.</th>
-                            <th>Installment Date</th>
-                            <th>Amount</th>
-                            <th width="120px">Payment Date</th>
-                            <th width="60px">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr> <td colspan="5"  class="align-middle text-center"> No Date Found</td></tr>
-                    </tbody>
-                </table>
-            </div>
+            @include('dashboards/sellers/orders/partials/instalment')
+            @include('dashboards/sellers/orders/partials/change-history')
         </div>
     </div>
 </div>

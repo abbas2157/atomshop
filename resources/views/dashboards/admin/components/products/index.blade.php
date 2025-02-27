@@ -67,7 +67,7 @@
                 </div>
             </form>
             <div class="table-responsive">
-                <table class="table table-bordered mg-b-0" style="width: 100%">
+                <table class="table az-table-reference mg-b-0" style="width: 100%">
                     <thead>
                         <tr>
                             <th width="70px">PR No</th>

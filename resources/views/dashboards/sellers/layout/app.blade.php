@@ -21,9 +21,16 @@
         @include('dashboards/sellers/layout/header')
         <!-- at-header end-->
         @yield('content')
-         <!-- at-footer start-->
-         @include('dashboards/sellers/layout/footer')
-         <!-- at-footer end-->
+        <!-- at-footer start-->
+        @include('dashboards/sellers/layout/footer')
+        <!-- at-footer end-->
+
+        <!-- at-modals start-->
+        @include('dashboards/sellers/partials/success')
+        @include('dashboards/sellers/partials/failer')
+        <!-- at-modals end-->
+
+
         <script type="text/javascript">
             var APP_URL = {!! json_encode(url('/')) !!}
             var ASSET_URL = {!! json_encode(asset('/')) !!}
@@ -49,5 +56,16 @@
                 });
             </script>
         @endif
+        <script>
+            $(function(){
+                'use strict'
+                $('#success-modal').on('hidden.bs.modal', function () {
+                    window.location.reload();
+                });
+                $('#failer-modal').on('hidden.bs.modal', function () {
+                    window.location.reload();
+                });
+            });
+        </script>
     </body>
 </html>

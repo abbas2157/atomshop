@@ -50,7 +50,7 @@
                 </div>
             </form>
             <div class="table-responsive">
-                <table class="table table-bordered mg-b-0">
+                <table class="table az-table-reference mg-b-0">
                     <thead>
                         <tr>
                             <th width="300px">Product Detail</th>

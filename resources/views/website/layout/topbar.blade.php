@@ -18,7 +18,6 @@
                         @endguest
                         @auth
                             <a href="{{ route('profile') }}" class="dropdown-item"> My Profile</a>
-                            <a href="{{ route('profile.password') }}" class="dropdown-item"> Change Password</a>
                             <a href="{{ route('profile.orders') }}" class="dropdown-item"> My Orders</a>
                             <a href="{{ route('logout') }}" class="dropdown-item">Logout</a>
                         @endauth

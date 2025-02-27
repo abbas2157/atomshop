@@ -16,7 +16,7 @@
             <div class="az-content-label mg-b-5">All Order Details</div>
             <p class="mg-b-20">All Orders list here to view, edit & delete</p>
             <div class="table-responsive">
-                <table class="table table-bordered mg-b-0">
+                <table class="table az-table-reference mg-b-0">
                     <thead>
                         <tr>
                             <th>Order No</th>
@@ -52,7 +52,7 @@
                 </table>
             </div>
             <div class="table-responsive mt-3">
-                <table class="table table-bordered mg-b-0">
+                <table class="table az-table-reference mg-b-0">
                     <thead>
                         <tr>
                             <th>Total Deal Amount</th>
@@ -78,7 +78,7 @@
             <div class="az-content-label mg-b-5 mt-4">Customer Details</div>
             <p class="mg-b-20">All Customer Details related to this order </p>
             <div class="table-responsive">
-                <table class="table table-bordered mg-b-0" >
+                <table class="table az-table-reference mg-b-0" >
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -118,7 +118,7 @@
             <div class="az-content-label mg-b-5 mt-4">Installments Detail</div>
             <p class="mg-b-20">All Installments Details related to this order </p>
             <div class="table-responsive">
-                <table class="table table-bordered mg-b-0" >
+                <table class="table az-table-reference mg-b-0" >
                     <thead>
                         <tr>
                             <th>Sr No.</th>
