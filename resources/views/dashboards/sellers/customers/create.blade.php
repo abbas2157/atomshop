@@ -91,6 +91,77 @@
                     </div>
                     <div class="col-lg mt-2"></div>
                 </div>
+                <div class="az-content-label mg-b-5 mg-t-30">Customer Verification</div>
+                <p class="mg-b-10">Using this form you can Verify customer details </p>
+                <div class="row row-sm">
+                    <div class="col-lg mt-2">
+                        <label>ID Card Front Side</label>
+                        <input type="file" class="form-control" name="id_card_front_side">
+                        @if ($errors->has('id_card_front_side'))
+                            <span class="text-danger text-left">{{ $errors->first('id_card_front_side') }}</span>
+                        @endif
+                    </div>
+                    <div class="col-lg mt-2">
+                        <label>ID Card Back Side</label>
+                        <input type="file" class="form-control" name="id_card_back_side">
+                        @if ($errors->has('id_card_back_side'))
+                            <span class="text-danger text-left">{{ $errors->first('id_card_back_side') }}</span>
+                        @endif
+                    </div>
+                </div>
+                <div class="row row-sm">
+                    <div class="col-lg mt-2">
+                        <label>Selfie with Customer</label>
+                        <input type="file" class="form-control" name="selfie_with_customer">
+                        @if ($errors->has('selfie_with_customer'))
+                            <span class="text-danger text-left">{{ $errors->first('selfie_with_customer') }}</span>
+                        @endif
+                    </div>
+                    <div class="col-lg mt-2">
+                        <label>Address Found</label>
+                        <select class="form-control" name="address_found">
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
+                        </select>
+                        @if ($errors->has('address_found'))
+                            <span class="text-danger text-left">{{ $errors->first('address_found') }}</span>
+                        @endif
+                    </div>
+                </div>
+                <div class="row row-sm">
+                    <div class="col-lg mt-2">
+                        <label>House</label>
+                        <select class="form-control" name="house">
+                            <option value="rent">Rent</option>
+                            <option value="self">Self</option>
+                        </select>
+                        @if ($errors->has('house'))
+                            <span class="text-danger text-left">{{ $errors->first('house') }}</span>
+                        @endif
+                    </div>
+                    <div class="col-lg mt-2">
+                        <label>Customer Physical Meet</label>
+                        <select class="form-control" name="customer_physical_meet">
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
+                        </select>
+                        @if ($errors->has('customer_physical_meet'))
+                            <span class="text-danger text-left">{{ $errors->first('customer_physical_meet') }}</span>
+                        @endif
+                    </div>
+                </div>
+                <div class="row row-sm">
+                    <div class="col-lg mt-2">
+                        <label>Work</label>
+                        <select class="form-control" name="work">
+                            <option value="job">Job</option>
+                            <option value="bussiness">Bussiness</option>
+                        </select>
+                        @if ($errors->has('work'))
+                            <span class="text-danger text-left">{{ $errors->first('work') }}</span>
+                        @endif
+                    </div>
+                </div>
                 <button type="submit" class="btn btn-success mt-3">Create customer</button>
             </form>
             <p class="mg-t-20"><b>Note : </b> Password will be (Atom@shop!) for every customer created by this form.</p>
