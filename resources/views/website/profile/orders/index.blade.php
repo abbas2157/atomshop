@@ -23,6 +23,14 @@
         </div>
         <div class="col-lg-9 col-md-8">
             <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">All Orders</span></h5>
+            @if(is_null(Auth::user()->customer) || Auth::user()->customer->verified == '0') 
+                <div class="alert alert-warning" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <strong>Note !</strong> Get verified yourself immediately. Our agent will visite you soon.
+                </div>
+            @endif
             <div class="bg-light mb-30">
                 <div class="table-responsive mb-3">
                     <table class="table table-bordered mb-0">
@@ -42,7 +50,7 @@
                                         <td class="align-middle text-center">{{ $item->cart->product->pr_number ?? '' }}</td>
                                         <td>
                                             <div class="row">
-                                                <div class="col-md-2">
+                                                <div class="col-md-2 pt-2">
                                                     <img src="{{ asset($item->cart->product->picture) }}" alt="" style="width: 50px;">
                                                 </div>
                                                 <div class="col-md-10">
@@ -65,7 +73,9 @@
                                             <b>Installment Tenure (Months) : </b> {{ $item->cart->tenure ?? '' }} <br>
                                         </td>
                                         <td class="align-middle text-center">{{ $item->portal ?? '' }}</td>
-                                        <td class="align-middle text-center">{{ $item->status ?? '' }}</td>
+                                        <td class="align-middle text-center">
+                                            {{ $item->status ?? '' }}
+                                        </td>
                                     </tr>
                                 @endforeach
                             @else

@@ -13,13 +13,14 @@
                 <li class="nav-item {{ (request()->segment(1) == 'seller' && (request()->segment(2) == '')) ? 'active show' : '' }}">
                     <a href="{{ route('seller') }}" class="nav-link"><i class="typcn typcn-chart-area-outline"></i> Dashboard</a>
                 </li>
-                <li class="nav-item {{ (request()->segment(1) == 'seller' && (in_array(request()->segment(2), ['users', 'sellers', 'customers']))) ? 'active show' : '' }}">
+                <li class="nav-item {{ (request()->segment(1) == 'seller' && (in_array(request()->segment(2), ['customers']))) ? 'active show' : '' }}">
                     <a href="" class="nav-link with-sub"><i class="typcn typcn-group-outline"></i>Customers</a>
                     <div class="az-menu-sub">
                         <div class="container">
                             <div>
                                 <nav class="nav">
-                                    <a href="{{ route('seller.customers.index') }}" class="nav-link">All Customers</a>
+                                    <a href="{{ route('seller.customers.index') }}" class="nav-link {{ (request()->segment(1) == 'seller' && (in_array(request()->segment(2), ['customers'])) && request()->segment(3) == '') ? 'active show' : '' }}">All Customers</a>
+                                    <a href="{{ route('seller.customers.create') }}" class="nav-link {{ (request()->segment(1) == 'seller' && (in_array(request()->segment(2), ['customers'])) && request()->segment(3) == 'create') ? 'active show' : '' }}">Create Customer</a>
                                 </nav>
                             </div>
                         </div>

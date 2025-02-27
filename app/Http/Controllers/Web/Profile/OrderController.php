@@ -12,7 +12,7 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::where('user_id', Auth::user()->id)->select('id', 'cart_id', 'portal', 'status', 'created_at')->paginate(10);
+        $orders = Order::where('user_id', Auth::user()->id)->select('id', 'cart_id', 'portal', 'status', 'created_at')->orderBy('id','desc')->paginate(10);
         // dd($orders[0]->cart);
         return view('website.profile.orders.index',compact('orders'));
     }

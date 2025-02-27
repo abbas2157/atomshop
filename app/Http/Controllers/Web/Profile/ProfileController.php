@@ -55,7 +55,6 @@ class ProfileController extends Controller
     }
     public function password()
     {
-        
         return view('website.profile.password');
     }
     public function password_update(Request $request)
@@ -76,5 +75,13 @@ class ProfileController extends Controller
             $validator['error'] = 'Password not updated Error...';
             return back()->withErrors($validator);
         }
+    }
+    public function verification()
+    {
+        return view('website.profile.verification');
+    }
+    public function favorite()
+    {
+        return view('website.profile.favorite');
     }
 }

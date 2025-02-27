@@ -36,10 +36,19 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/', [App\Http\Controllers\Web\Profile\ProfileController::class, 'profile_update'])->name('profile.update');
         Route::get('password', [App\Http\Controllers\Web\Profile\ProfileController::class, 'password'])->name('profile.password');
         Route::post('password', [App\Http\Controllers\Web\Profile\ProfileController::class, 'password_update'])->name('profile.password.update');
+        Route::get('verification', [App\Http\Controllers\Web\Profile\ProfileController::class, 'verification'])->name('profile.verification');
+        Route::get('favorite', [App\Http\Controllers\Web\Profile\ProfileController::class, 'favorite'])->name('profile.favorite');
+        Route::group(['prefix' => 'orders'], function(){
+            Route::get('/', [App\Http\Controllers\Web\Profile\OrderController::class, 'index'])->name('profile.orders');
+        });
+        Route::group(['prefix' => 'payments'], function(){
+            Route::get('history', [App\Http\Controllers\Web\Profile\PaymentController::class, 'history'])->name('profile.payments.history');
+        });
+        Route::group(['prefix' => 'installments'], function(){
+            Route::get('/', [App\Http\Controllers\Web\Profile\PaymentController::class, 'installments'])->name('profile.installments');
+        });
     });
-    Route::group(['prefix' => 'orders'], function(){
-        Route::get('/', [App\Http\Controllers\Web\Profile\OrderController::class, 'index'])->name('orders');
-    });
+    
 });
 
 

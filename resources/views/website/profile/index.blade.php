@@ -22,6 +22,14 @@
         </div>
         <div class="col-lg-9 col-md-8">
             <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Change Information</span></h5>
+            @if(is_null(Auth::user()->customer) || Auth::user()->customer->verified == '0') 
+                <div class="alert alert-warning" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <strong>Note !</strong> Get verified yourself immediately. Our agent will visite you soon.
+                </div>
+            @endif
             <div class="bg-light px-4 py-2 mb-30">
                 <form action="{{ route('profile.update') }}" method="POST">
                     @csrf
