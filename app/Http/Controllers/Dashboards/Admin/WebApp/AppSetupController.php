@@ -63,7 +63,7 @@ class AppSetupController extends Controller
         $feature_products_list_ids = Product::where(['status' => 'Published', 'feature' => '1'])->pluck('id');
         if($feature_products_list_ids->isNotEmpty()){
             $feature_products_list_ids = $feature_products_list_ids->toArray();
-            foreach($feature_products as $key => $product) { 
+            foreach($feature_products as $key => $product) {
                 if(!in_array($product['id'], $feature_products_list_ids)) {
                     unset($feature_products[$key]);
                 }
@@ -155,9 +155,9 @@ class AppSetupController extends Controller
             $categories = json_decode($website->categories,true);
         }
         // Initailize Category (end)
-        
+
         // Remove Category  (Start)
-        $category_list_ids = Category::where('status', 'active')->pluck('id');
+        $category_list_ids = Category::where('status', 'active')->where('app_home','1')->pluck('id');
         if($category_list_ids->isNotEmpty()){
             $category_list_ids = $category_list_ids->toArray();
             foreach($categories as $key => $category) {
@@ -175,7 +175,7 @@ class AppSetupController extends Controller
             $product_count = Product::where('category_id', $category->id)->where('status', 'Published')->count();
             $category->pr_count = $product_count;
             $category->save();
-            
+
             if(!in_array($category->id, $website_categories)) {
                 $categories[] = array(
                     'id' => $category->id,
@@ -254,7 +254,7 @@ class AppSetupController extends Controller
             $brands = json_decode($website->brands, true);
         }
 
-        $website_brands_ids = Brand::where('status', 'active')->pluck('id');
+        $website_brands_ids = Brand::where('status', 'active')->where('app_home','1')->pluck('id');
         if($website_brands_ids->isNotEmpty()){
             $website_brands_ids = $website_brands_ids->toArray();
             foreach($brands as $key => $brand) {
@@ -334,7 +334,7 @@ class AppSetupController extends Controller
             $website_sliders = array_column(json_decode($website->sliders, true), 'id');
             $sliders = json_decode($website->sliders, true);
         }
-        $slider_list_ids = Slider::where('status', 'active')->pluck('id');
+        $slider_list_ids = Slider::where('status', 'active')->where('app_home','1')->pluck('id');
         if($slider_list_ids->isNotEmpty()){
             $slider_list_ids = $slider_list_ids->toArray();
             foreach($sliders as $key => $slider) {
@@ -343,7 +343,7 @@ class AppSetupController extends Controller
                 }
             }
         }
-        
+
         $slider_list = Slider::where('status', 'active')->get();
         foreach($slider_list as $slider) {
             if(!in_array($slider->id, $website_sliders)) {
