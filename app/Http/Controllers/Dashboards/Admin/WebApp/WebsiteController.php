@@ -253,7 +253,7 @@ class WebsiteController extends Controller
         // Initailize Category (end)
 
         // Remove Category  (Start)
-        $category_list_ids = Category::where('status', 'active')->pluck('id');
+        $category_list_ids = Category::where('status', 'active')->where('web_home','1')->pluck('id');
         if($category_list_ids->isNotEmpty()){
             $category_list_ids = $category_list_ids->toArray();
             foreach($categories as $key => $category) {
@@ -350,7 +350,7 @@ class WebsiteController extends Controller
             $brands = json_decode($website->brands, true);
         }
 
-        $website_brands_ids = Brand::where('status', 'active')->pluck('id');
+        $website_brands_ids = Brand::where('status', 'active')->where('web_home','1')->pluck('id');
         if($website_brands_ids->isNotEmpty()){
             $website_brands_ids = $website_brands_ids->toArray();
             foreach($brands as $key => $brand) {
@@ -430,7 +430,7 @@ class WebsiteController extends Controller
             $website_sliders = array_column(json_decode($website->sliders, true), 'id');
             $sliders = json_decode($website->sliders, true);
         }
-        $slider_list_ids = Slider::where('status', 'active')->pluck('id');
+        $slider_list_ids = Slider::where('status', 'active')->where('web_home','1')->pluck('id');
         if($slider_list_ids->isNotEmpty()){
             $slider_list_ids = $slider_list_ids->toArray();
             foreach($sliders as $key => $slider) {
