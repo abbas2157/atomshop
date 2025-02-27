@@ -35,7 +35,7 @@ class OrderController extends Controller
     {
         try {
             $calculator = InstallmentCalculator::select('installment_tenure', 'per_month_percentage')->first();
-            $customers = User::orderBy('id', 'desc')->where('role', 'customer')->get();
+            $customers = Customer::with('user')->where('verified', '1')->select('id','user_id')->get();
             $categories = Category::orderBy('title','asc')->select('id','title','slug','pr_count')->get();
 
             return view('dashboards.admin.orders.create', compact('customers','calculator','categories'));

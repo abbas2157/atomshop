@@ -1,6 +1,3 @@
-@php
-    $calculator = App\Models\InstallmentCalculator::first();
-@endphp
 <h5 class=" text-uppercase mx-xl-6 mb-2"><span class="bg-secondry pr-3">Choose your product</span></h5>
 <div class="row px-xl-6">
     <div class="col-lg-12 table-responsive mb-3">
@@ -19,9 +16,9 @@
                         <select class="form-control" id="customer_id" name="customer_id" required>
                             @if ($customers->isNotEmpty())
                                 @foreach ($customers as $item)
-                                    <option value="{{ $item->id ?? '' }}"
-                                        {{ $item->id == old('customer_id') ? 'selected' : '' }}>
-                                        {{ $item->name ?? '' }}</option>
+                                    <option value="{{ $item->user_id ?? '' }}"
+                                        {{ $item->user_id == old('customer_id') ? 'selected' : '' }}>
+                                        {{ $item->user->name ?? '' }}</option>
                                 @endforeach
                             @endif
                         </select>
@@ -121,7 +118,7 @@
                     <th>Installment Tenure (Months)</th>
                     <th>Monthly Amount Percentage</th>
                     <th>Total Deal Amount</th>
-                    <th width="250px">Create Order</th>
+                    <th>Create Order</th>
                 </tr>
             </thead>
             <tbody class="align-middle">
@@ -133,16 +130,16 @@
                     <td class="align-middle">
                         <div class="input-group installment-calculator-page mx-auto" style="width: 100px;">
                             <div class="input-group-btn">
-                                <button type="button" class="btn btn-sm btn-primary btn-minus"
+                                <button type="button" class="btn btn-sm btn-dark btn-minus"
                                     style="padding: 5px 10px">
                                     <i class="fa fa-minus"></i>
                                 </button>
                             </div>
                             <input type="text" min="3" max="12"
                                 class="form-control form-control-sm bg-secondary border-0 text-center"
-                                id="tenure_months" name="tenure_months" value="3">
+                                id="tenure_months" name="tenure_months" readonly value="3">
                             <div class="input-group-btn">
-                                <button type="button" class="btn btn-sm btn-primary btn-plus"
+                                <button type="button" class="btn btn-sm btn-dark btn-plus"
                                     style="padding: 5px 10px">
                                     <i class="fa fa-plus"></i>
                                 </button>
@@ -152,12 +149,11 @@
                     <td class="align-middle">{{ $calculator->per_month_percentage ?? 4 }}%</td>
                     <td class="align-middle"> Rs. <span class="variation-price-calculator"
                             id="variation-price-calculator">00.00</span> </td>
-                    <td width="250px">
+                    <td>
                         <div class="loader-btn">
                             <button class="btn btn-primary px-3 w-50"><img src="{{ asset('web/img/loader.gif') }}"
                                     class="w-25" alt="Loader"></button>
                         </div>
-                        <div class="checkout-btn"></div>
                         <div class="cart-btn d-none">
                             <button type="submit" class="btn btn-primary px-3">
                                 <i class="fa fa-shopping-cart mr-1"></i> Create Order
@@ -183,8 +179,9 @@
             </thead>
             <tbody class="align-middle" id="installment-rows">
                 <tr>
-                    <td colspan="5"><img src="{{ asset('web/img/loader.gif') }}" class="w-5" alt="Loader"
-                            style="height: 20px;width:20px"></td>
+                    <td colspan="5">
+                        <img src="{{ asset('web/img/loader.gif') }}" alt="Loader" style="width:10%">
+                    </td>
                 </tr>
             </tbody>
         </table>
