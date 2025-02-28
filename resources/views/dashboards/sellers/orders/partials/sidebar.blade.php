@@ -3,7 +3,8 @@
         <label>Orders Management</label>
         <label></label>
         <nav class="nav flex-column">
-            <a href="{{ route('seller.orders.index') }}" class="nav-link {{ (request()->segment(2) == 'orders' && (request()->segment(3) !== 'create')) ? 'active' : '' }}">All Orders</a>
+            <a href="{{ route('seller.orders.index') }}" class="nav-link {{ (request()->segment(1) == 'seller' && request()->segment(2) == 'orders' && request()->segment(3) == '') ? 'active show' : '' }}">View & Edit</a>
+            <a href="{{ route('seller.orders.create') }}" class="nav-link {{ (request()->segment(1) == 'seller' && request()->segment(2) == 'orders' && request()->segment(3) == 'create') ? 'active show' : '' }}">Create new</a>
         </nav>
     </div>
 </div>
