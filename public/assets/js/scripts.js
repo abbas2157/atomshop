@@ -1,6 +1,5 @@
 $(function(){
   'use strict'
-
   // This template is mobile first so active menu in navbar
   // has submenu displayed by default but not in desktop
   // so the code below will hide the active menu if it's in desktop
@@ -117,8 +116,18 @@ $(function(){
     e.preventDefault();
     $('body').removeClass('az-header-menu-show');
   })
-
-  $('#select-city').on('change', function(e){
-    console.log($(this).val());
-  })
+  $('#success-modal').on('hidden.bs.modal', function () {
+      window.location.reload();
+  });
+  $('#failer-modal').on('hidden.bs.modal', function () {
+      window.location.reload();
+  });
 });
+function showErrorModal(message) {
+  $(".failer-text").text(message);
+  $("#failer-modal").modal('show');
+}
+function showSuccessModal(message) {
+  $(".success-text").text(message);
+  $("#failer-modal").modal('show');
+}

@@ -2,18 +2,32 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content modal-content-demo">
         <div class="modal-header">
-          <h6 class="modal-title">Message Preview</h6>
-          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+          <h6 class="modal-title">Delivery Detail</h6>
         </div>
         <div class="modal-body">
-          <h6>Why We Use Electoral College, Not Popular Vote</h6>
-          <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. </p>
+          <form method="POST" id="delivered-form" onsumit="return false;" enctype="multipart/form-data">
+            @csrf
+            <div class="row">
+              <input type="hidden" name="status" class="status">
+              <div class="col-lg mt-2">
+                <label>Upload Picture </label>
+                <input type="file" class="form-control" name="delivered_pictrue">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg mt-2">
+                <label>Recieved by </label>
+                <select class="form-control" name="recieved_by">
+                    <option value="By Himself">By Himself</option>
+                    <option value="By Someone else">By Someone else</option>
+                </select>
+              </div>
+            </div>
+          </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-indigo">Save changes</button>
-          <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-indigo delivered-btn">Save changes</button>
+          <a href="" class="btn btn-outline-light">Close</a>
         </div>
       </div>
     </div>

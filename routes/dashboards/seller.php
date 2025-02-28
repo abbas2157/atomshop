@@ -30,6 +30,7 @@ Route::middleware([App\Http\Middleware\EnsureUserIsSeller::class])->group(functi
             Route::post('/store', [App\Http\Controllers\Dashboards\Sellers\OrderController::class, 'store'])->name('seller.orders.store');
             Route::get('show/{id}', [App\Http\Controllers\Dashboards\Sellers\OrderController::class, 'show'])->name('seller.orders.show');
             Route::get('status/{id}', [App\Http\Controllers\Dashboards\Sellers\OrderController::class, 'status'])->name('seller.orders.status');
+            Route::post('status/{id}', [App\Http\Controllers\Dashboards\Sellers\OrderController::class, 'status'])->name('seller.orders.status.post');
         });
 
         Route::resource('customers', App\Http\Controllers\Dashboards\Sellers\CustomerController::class,['as' => 'seller']);    });

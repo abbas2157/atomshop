@@ -101,13 +101,13 @@
                     </thead>
                     <tbody>
                         <td class="align-middle  "> 
-                            Rs. {{ number_format($order->cart->product_advance_price, 0) }}
+                            Rs. {{ number_format($order->total_deal_price, 0) }}
                         </td>
                         <td class="align-middle "> 
-                            Rs. {{ number_format($order->cart->product_price, 0) }}
+                            Rs. {{ number_format($order->advance_price, 0) }}
                         </td>
                         <td class="align-middle "> 
-                            {{ number_format($order->cart->tenure, 0) }} Months
+                            {{ number_format($order->instalment_tenure, 0) }} Months
                         </td>
                         <td>{{ $order->created_at->format('M d, Y') ?? '' }}</td>
                     </tbody>
@@ -154,11 +154,13 @@
         </div>
     </div>
 </div>
+@include('dashboards/sellers/orders/partials/modal/delivered')
+@include('dashboards/sellers/orders/partials/modal/instalment')
 @endsection
 @section('js')
 <script>
     var ORDER_ID = "{{ $order->uuid ?? '' }}";
     var CURRENT_STATUS = "{{ $order->status ?? '' }}";
 </script>
-<script src="{!! asset('assets/js/seller/order.js') !!}"></script>
+<script src="{!! asset('assets/js/seller/order/order.js') !!}"></script>
 @endsection

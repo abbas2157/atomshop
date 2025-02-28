@@ -50,20 +50,22 @@ class OrderController extends Controller
             DB::beginTransaction();
 
             $cart_ids = $request->cart_id;
-            $cart = Cart::whereIn('id', $cart_ids)->where('status', 'Pending')->get();
-            if(!$cart->isNotEmpty()) {
+            $carts = Cart::whereIn('id', $cart_ids)->where('status', 'Pending')->get();
+            if(!$carts->isNotEmpty()) {
                 return redirect('cart');
             }
             $user = Auth::user();
-            for($i = 0; $i < count($cart_ids); $i++) {
+            foreach($carts as $cart) {
                 $order = new Order;
                 $order->uuid = Str::uuid();
                 $order->user_id = Auth::user()->id;
-                $order->cart_id = $cart_ids[$i];
+                $order->cart_id = $cart->id;
+                $order->total_deal_price = $cart->product_price;
+                $order->advance_price = $cart->product_advance_price;
+                $order->instalment_tenure = $cart->tenure;
                 $order->portal  = 'Web';
                 $order->save();
 
-                $cart = Cart::where('id', $cart_ids[$i])->first();
                 $cart->status = 'Purchased';
                 $cart->save();
 

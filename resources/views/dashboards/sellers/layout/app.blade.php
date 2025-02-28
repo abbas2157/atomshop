@@ -59,12 +59,7 @@
         <script>
             $(function(){
                 'use strict'
-                $('#success-modal').on('hidden.bs.modal', function () {
-                    window.location.reload();
-                });
-                $('#failer-modal').on('hidden.bs.modal', function () {
-                    window.location.reload();
-                });
+                
             });
         </script>
     </body>
