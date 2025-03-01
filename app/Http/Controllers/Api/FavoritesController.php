@@ -18,11 +18,11 @@ class FavoritesController extends BaseController
             if (is_null($user)) {
                 return $this->sendError($request->all(), 'User not found.', 200);
             }
-            $favorites = Favorite::where('user_id', $user_id)->get();
+            $favorites = Favorite::where('user_id', $user_id)->with('product', 'color', 'memory')->get();
         }
         if ($request->has('guest_id') && $request->user_type != 'auth') {
             $guest_id = $request->guest_id;
-            $favorites = Favorite::where('guest_id', $guest_id)->get();
+            $favorites = Favorite::where('guest_id', $guest_id)->with('product', 'color', 'memory')->get();
         }
         if (isset($favorites) && $favorites->isNotEmpty()) {
             $data = [];
@@ -34,6 +34,9 @@ class FavoritesController extends BaseController
                         'title' => $favorite->product->title,
                         'picture' => $favorite->product->product_picture,
                         'price' => $favorite->product->price,
+                        'min_advance_price' => $favorite->product->min_advance_price,
+                        'memory_id' => $favorite->memory->id ?? null,
+                        'color_id' => $favorite->color->id ?? null,
                     ],
                 ];
             }

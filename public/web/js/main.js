@@ -290,7 +290,7 @@
                         '<td class="align-middle"><div class="row"><div class="col-md-2"><img src="' + item.product.picture + '" alt="" style="width: 50px;"></div><div class="col-md-10">' + item.product.title + '</div></div></td>' +
                         '<td class="align-middle text-center">Rs. ' + item.product.price + '</td>' +
                         '<td class="align-middle text-center"><button class="btn btn-sm btn-danger remove-favorite" data-id="' + item.id + '"><i class="fa fa-times"></i></button></td>' +
-                        '<td class="align-middle text-center"><button class="btn btn-sm btn-primary add-to-cart" data-id="' + item.product.id + '" data-price="' + item.product.price + '"><i class="fa fa-shopping-cart mr-1"> </i> Add to Cart</button></td>' +
+                        '<td class="align-middle text-center"><button class="btn btn-sm btn-primary add-to-cart-favorite" data-id="' + item.product.id + '" data-price="' + item.product.price + '" data-product-memory-id="' + item.product.memory_id + '" data-product-color-id="' + item.product.color_id + '" data-advance-price="' + item.product.min_advance_price + '"><i class="fa fa-shopping-cart mr-1"> </i> Add to Cart</button></td>' +
                         '</tr>';
                         $(".favorites-table").append(row);
                     });
@@ -338,5 +338,95 @@
             },
         });
     });
-    // End Add to Favorites
+    
+     //  Add to Cart Favorites
+    $(document).on("click", ".add-to-cart-favorite", function (e) {
+        e.preventDefault();
+
+        $(".cart-btn").addClass("d-none");
+        $(".loader-btn").removeClass("d-none");
+
+        var product_id = $(this).data("id");
+        var price = $(this).data("price");
+        var memory_id = $(this).data("memory-id");
+        var color_id = $(this).data("color-id");
+        var min_advance_price = $(this).data("advance-price");
+        var user_type = $("#user-type").val();
+        let guest_id = localStorage.getItem("guest_id");
+        const user_id = document.getElementById("user_id");
+        if (user_id && user_id.value) {
+            var data = {
+                product_id: product_id,
+                memory_id: memory_id,
+                color_id: color_id,
+                price: price,
+                min_advance_price: min_advance_price,
+                user_type: user_type,
+                user_id: user_id.value,
+            };
+        } else {
+            var data = {
+                product_id: product_id,
+                memory_id: memory_id,
+                color_id: color_id,
+                price: price,
+                min_advance_price: min_advance_price,
+                user_type: user_type,
+                guest_id: guest_id,
+            };
+        }
+        $.ajax({
+            url: API_URL + "/cart/add",
+            method: "POST",
+            data: data,
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            success: function (response) {
+                if (response.success) {
+                    $(".loader-btn").addClass("d-none");
+                    $(".checkout-btn").html(
+                        '<a href="' +
+                            APP_URL +
+                            '/checkout" class="btn btn-block btn-primary px-3">Proceed To Checkout</a>'
+                    );
+                    Toastify({
+                        text: "<i class='fas fa-check-circle'></i> <b> Success </b> ! Product added into cart.",
+                        duration: 3000,
+                        gravity: "top",
+                        position: "right",
+                        escapeMarkup: false,
+                        backgroundColor:
+                            "linear-gradient(to right, #FFD333, #3D464D)",
+                    }).showToast();
+                    getCartCount();
+                } else {
+                    $(".loader-btn").addClass("d-none");
+                    $(".cart-btn").removeClass("d-none");
+                    Toastify({
+                        text: "<i class='fas fa-times-circle'></i> <b> Error </b> ! Product not added into cart.",
+                        duration: 3000,
+                        gravity: "top",
+                        position: "right",
+                        escapeMarkup: false,
+                        backgroundColor:
+                            "linear-gradient(to right, #FF0000, #000000)",
+                    }).showToast();
+                }
+            },
+            error: function () {
+                $(".loader-btn").addClass("d-none");
+                $(".cart-btn").removeClass("d-none");
+                Toastify({
+                    text: "<i class='fas fa-times-circle'></i> <b> Error </b> ! Product not added into cart.",
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    escapeMarkup: false,
+                    backgroundColor:
+                        "linear-gradient(to right, #FF0000, #000000)",
+                }).showToast();
+            },
+        });
+    });
 })(jQuery);

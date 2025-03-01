@@ -14,22 +14,20 @@ class Favorite extends Model
         'product_id',
     ];
 
-    public function user() {
-        return $this->belongsTo(User::class, 'user_id')->select('id', 'name','phone');
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id')->select('id', 'name', 'phone');
     }
-    public function product() {
-        return $this->belongsTo(Product::class, 'product_id')->select('id', 'pr_number', 'title', 'price', 'picture');
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id')->select('id', 'min_advance_price', 'pr_number', 'title', 'price', 'picture');
     }
     public function color()
     {
-        return $this->belongsTo(Color::class, 'color_id', 'id')->select('id', 'title');
+        return $this->hasOneThrough(Color::class,ProductColor::class,'product_id','id','product_id','color_id');
     }
     public function memory()
     {
-        return $this->belongsTo(Memory::class, 'memory_id', 'id')->select('id', 'title');
-    }
-    public function size()
-    {
-        return $this->belongsTo(Size::class, 'size_id', 'id')->select('id', 'title','unit');
+        return $this->hasOneThrough(Memory::class,ProductMemory::class,'product_id','id','product_id','memory_id');
     }
 }

@@ -32,5 +32,4 @@
     </div>
 @endsection
 @section('js')
-<script src="{!! asset('web/js/shop.js') !!}"></script>
 @endsection
