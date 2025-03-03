@@ -18,11 +18,11 @@ class FavoritesController extends BaseController
             if (is_null($user)) {
                 return $this->sendError($request->all(), 'User not found.', 200);
             }
-            $favorites = Favorite::where('user_id', $user_id)->with('product', 'color', 'memory')->get();
+            $favorites = Favorite::where('user_id', $user_id)->get();
         }
         if ($request->has('guest_id') && $request->user_type != 'auth') {
             $guest_id = $request->guest_id;
-            $favorites = Favorite::where('guest_id', $guest_id)->with('product')->get();
+            $favorites = Favorite::where('guest_id', $guest_id)->get();
         }
         if (isset($favorites) && $favorites->isNotEmpty()) {
             $data = [];
