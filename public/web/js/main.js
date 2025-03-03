@@ -287,10 +287,10 @@
                         var row =
                         '<tr>' +
                         '<td class="align-middle text-center">' + (index + 1) + '</td>' +
-                        '<td class="align-middle"><div class="row"><div class="col-md-2"><img src="' + item.product.picture + '" alt="" style="width: 50px;"></div><div class="col-md-10">' + item.product.title + '</div></div></td>' +
-                        '<td class="align-middle text-center">Rs. ' + item.product.price + '</td>' +
+                        '<td class="align-middle"><div class="row"><div class="col-md-2"><img src="' + item.picture + '" alt="" style="width: 50px;"></div><div class="col-md-10">' + item.title + ' - '+item.brand+'</div></div></td>' +
+                        '<td class="align-middle ">Rs. ' + item.price + '</td>' +
                         '<td class="align-middle text-center"><button class="btn btn-sm btn-danger remove-favorite" data-id="' + item.id + '"><i class="fa fa-times"></i></button></td>' +
-                        '<td class="align-middle text-center"><button class="btn btn-sm btn-primary add-to-cart-favorite" data-id="' + item.product.id + '" data-price="' + item.product.price + '" data-product-memory-id="' + item.product.memory_id + '" data-product-color-id="' + item.product.color_id + '" data-advance-price="' + item.product.min_advance_price + '"><i class="fa fa-shopping-cart mr-1"> </i> Add to Cart</button></td>' +
+                        '<td class="align-middle text-center"><a href="'+APP_URL+'/'+item.slug+'" class="btn btn-sm btn-primary p-2"><i class="fa fa-shopping-cart mr-1"> </i> View Detail</a></td>' +
                         '</tr>';
                         $(".favorites-table").append(row);
                     });
@@ -304,11 +304,27 @@
     }
     $(document).on("click", ".remove-favorite", function (event) {
         event.preventDefault();
-        var favorite_id = $(this).data("id");
+        var productId = $(this).data("id");
+        var user_type = $("#user-type").val();
+        let guest_id = localStorage.getItem("guest_id");
+        const user_id = document.getElementById("user_id");
+
+        var data =
+            user_id && user_id.value
+                ? {
+                      user_type: user_type,
+                      user_id: user_id.value,
+                      product_id: productId,
+                  }
+                : {
+                      user_type: user_type,
+                      guest_id: guest_id,
+                      product_id: productId,
+                  };
         $.ajax({
             url: API_URL + "/favorites/remove",
             type: "POST",
-            data: { favorite_id: favorite_id },
+            data: data,
             headers: {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
             },

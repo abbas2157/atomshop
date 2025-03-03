@@ -6,7 +6,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="row px-xl-5">
-            <div class="col-lg-8 mb-5">
+            <div class="col-lg-12 mb-5">
                 <div class="table-responsive">
                     <table class="table table-bordered mb-0">
                         <thead class="thead-dark">

@@ -20,6 +20,6 @@ class Favorite extends Model
     }
     public function product()
     {
-        return $this->belongsTo(Product::class, 'product_id')->select('id', 'pr_number', 'title', 'price', 'min_advance_price', 'picture', 'category_id', 'brand_id');
+        return $this->belongsTo(Product::class, 'product_id')->select('id', 'pr_number', 'title', 'slug', 'price', 'min_advance_price', 'picture', 'category_id', 'brand_id');
     }
 }

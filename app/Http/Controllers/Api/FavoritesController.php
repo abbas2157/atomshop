@@ -30,6 +30,7 @@ class FavoritesController extends BaseController
                 $data[] = [
                     'id' => $favorite->product->id,
                     'title' => $favorite->product->title,
+                    'slug' => $favorite->product->slug,
                     'picture' => $favorite->product->product_picture,
                     'price' => $favorite->product->formatted_advance_price,
                     'category' => $favorite->product->category->title ?? null,
@@ -46,8 +47,14 @@ class FavoritesController extends BaseController
     {
         try {
             DB::beginTransaction();
-            $favorite_id = $request->favorite_id;
-            Favorite::where('id', $favorite_id)->delete();
+            if ($request->has('user_type') && $request->user_type == 'auth') {
+                $user_id = $request->user_id;
+                $favorite_item = Favorite::where('user_id', $user_id)->where('product_id', $request->product_id)->delete();
+            }
+            if ($request->has('guest_id') && $request->user_type != 'auth') {
+                $guest_id = $request->guest_id;
+                $favorite_item = Favorite::where('guest_id', $guest_id)->where('product_id', $request->product_id)->delete();
+            }
             DB::commit();
             return response()->json($this->sendResponse($request->all(), 'Item removed from favorites successfully!', 200));
         } catch (Exception $e) {
