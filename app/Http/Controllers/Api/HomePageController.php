@@ -48,7 +48,7 @@ class HomePageController extends BaseController
         }
     }
     /**
-     * Get Products For Home Page App
+     * Get Sliders For Home Page App
      */
     public function sliders(Request $request)
     {
@@ -59,6 +59,22 @@ class HomePageController extends BaseController
                 $sliders = json_decode($app->sliders);
             }
             return $this->sendResponse($sliders, 'Here is the list of slider.', 200);
+        } catch (Exception $e) {
+            DB::rollBack();
+            return $this->sendError('Something went wrong.', $e->getMessage(), 500);
+        }
+    }
+    /**
+     * Get Sliders For Home Page App
+     */
+    public function promotions(Request $request)
+    {
+        try {
+            $app = AppSetup::first();
+            $sliders = [];
+            $sliders[] = array('picture' => asset('sliders/apple.png'));
+            $sliders[] = array('picture' => asset('sliders/android.png'));
+            return $this->sendResponse($sliders, 'Here is the list of promotions.', 200);
         } catch (Exception $e) {
             DB::rollBack();
             return $this->sendError('Something went wrong.', $e->getMessage(), 500);
