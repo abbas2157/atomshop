@@ -70,17 +70,13 @@ class HomePageController extends BaseController
     public function home_products(Request $request)
     {
         try {
-            $products = Product::where(['status' => 'Published', 'app_home' => '1'])
-                ->with('category', 'brand')
-                ->when($request->min_price, fn($q) => $q->where('price', '>=', $request->min_price))
-                ->when($request->max_price, fn($q) => $q->where('price', '<=', $request->max_price))
-                ->when($request->category_id, fn($q) => $q->where('category_id', $request->category_id))
-                ->when($request->brand_id, fn($q) => $q->where('brand_id', $request->brand_id))
-                ->orderBy($request->order_by ?? 'title', $request->order_type ?? 'desc')
-                ->select('id', 'title', 'picture', 'price', 'category_id', 'brand_id')
-                ->paginate(10);
+            $app = AppSetup::first();
+            $products = [];
+            if (!is_null($app)) {
+                $products = json_decode($app->products);
+            }
 
-            return $this->sendResponse($products, 'Here is the list of products.', 200);
+            return $this->sendResponse($products, 'Here is the list of toprated products.', 200);
         } catch (Exception $e) {
             DB::rollBack();
             return $this->sendError('Something went wrong.', $e->getMessage(), 500);
