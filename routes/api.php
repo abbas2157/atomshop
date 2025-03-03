@@ -63,7 +63,7 @@ Route::group(['prefix' => 'favorites'], function(){
     Route::post('/', [App\Http\Controllers\Api\FavoritesController::class, 'get_favorites']);
     Route::post('add', [App\Http\Controllers\Api\FavoritesController::class, 'add_to_favorite']);
     Route::post('remove', [App\Http\Controllers\Api\FavoritesController::class, 'remove_from_favorite']);
-    Route::post('/count', [App\Http\Controllers\Api\FavoritesController::class, 'favorite_count']);
+    Route::post('count', [App\Http\Controllers\Api\FavoritesController::class, 'favorite_count']);
 });
 
 

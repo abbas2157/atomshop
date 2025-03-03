@@ -33,10 +33,9 @@ class FavoritesController extends BaseController
                         'id' => $favorite->product->id,
                         'title' => $favorite->product->title,
                         'picture' => $favorite->product->product_picture,
-                        'price' => $favorite->product->price,
-                        'min_advance_price' => $favorite->product->min_advance_price,
-                        'memory_id' => $favorite->memory->id ?? null,
-                        'color_id' => $favorite->color->id ?? null,
+                        'price' => $favorite->product->formatted_advance_price,
+                        'category' => $favorite->product->title ?? null,
+                        'brand' => $favorite->brand->title ?? null,
                     ],
                 ];
             }
