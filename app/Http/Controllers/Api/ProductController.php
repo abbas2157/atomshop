@@ -25,9 +25,22 @@ class ProductController extends BaseController
                 ->when($request->category_id, fn($q) => $q->where('category_id', $request->category_id))
                 ->when($request->color_id, fn($q) => $q->whereHas('colors', fn($q) => $q->where('color_id', $request->color_id)))
                 ->when($request->memory_id, fn($q) => $q->whereHas('memories', fn($q) => $q->where('memory_id', $request->memory_id)))
-                ->with(['category:id,title', 'brand:id,title'])
-                ->select('id', 'title', 'price', 'picture', 'category_id', 'brand_id')
-                ->get();
+                ->with(['category:id,title', 'brand:id,title']);
+                if(request()->has('q')) {
+                    $search = request()->q;
+                    
+                    $product_items->where('title', 'LIKE', "%{$search}%");
+                    $product_items->orWhere('detail_page_title', 'LIKE', "%{$search}%");
+                    $product_items->orWhere('pr_number', 'LIKE', "%{$search}%");
+        
+                    $product_items->orWhereHas('category', function ($query) use ($search) {
+                        $query->where('title', 'LIKE', "%$search%");
+                    })
+                    ->orWhereHas('brand', function ($query) use ($search) {
+                        $query->where('title', 'LIKE', "%$search%");
+                    });
+                }
+                $product_items = $product_items->select('id', 'title', 'price', 'picture', 'category_id', 'brand_id')->get();
                 $products = [];
                 foreach($product_items as $product) {
                     $products[] =array(
