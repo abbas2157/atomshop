@@ -29,7 +29,7 @@
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
-                        <strong>Note !</strong>ismail Get verified yourself immediately. Our agent will visite you soon.
+                        <strong>Note !</strong>Get verified yourself immediately. Our agent will visite you soon.
                     </div>
                 @else
                     <div class="bg-light mb-30">
