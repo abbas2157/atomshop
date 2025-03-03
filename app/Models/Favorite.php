@@ -20,14 +20,6 @@ class Favorite extends Model
     }
     public function product()
     {
-        return $this->belongsTo(Product::class, 'product_id')->select('id', 'min_advance_price', 'pr_number', 'title', 'price', 'picture');
-    }
-    public function color()
-    {
-        return $this->hasOneThrough(Color::class,ProductColor::class,'product_id','id','product_id','color_id');
-    }
-    public function memory()
-    {
-        return $this->hasOneThrough(Memory::class,ProductMemory::class,'product_id','id','product_id','memory_id');
+        return $this->belongsTo(Product::class, 'product_id')->select('id', 'pr_number', 'title', 'price', 'min_advance_price', 'picture', 'category_id', 'brand_id');
     }
 }
