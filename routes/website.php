@@ -20,6 +20,9 @@ Route::group(['prefix' => 'installment-calculator'], function(){
 Route::group(['prefix' => 'cart'], function(){
     Route::get('/', [App\Http\Controllers\Web\Order\CartController::class, 'index'])->name('cart');
 });
+Route::group(['prefix' => 'favorite'], function(){
+    Route::get('/', [App\Http\Controllers\Web\FavoritesController::class, 'index'])->name('favorite');
+});
 
 //Auth Routes
 Route::group(['middleware' => ['auth']], function(){
@@ -48,7 +51,7 @@ Route::group(['middleware' => ['auth']], function(){
             Route::get('/', [App\Http\Controllers\Web\Profile\PaymentController::class, 'installments'])->name('profile.installments');
         });
     });
-    
+
 });
 
 

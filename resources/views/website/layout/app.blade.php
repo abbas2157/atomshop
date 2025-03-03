@@ -9,6 +9,7 @@
 
    <!-- Google Web Fonts -->
    <link rel="preconnect" href="https://fonts.gstatic.com">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
    <!-- Font Awesome -->
@@ -51,6 +52,7 @@
         var ASSET_URL = {!! json_encode(asset('/')) !!}
         var API_URL = {!! json_encode(url('api')) !!}
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="{!! asset('web/js/jquery-3.4.1.min.js') !!}"></script>
     <script src="{!! asset('web/js/bootstrap.bundle.min.js') !!}"></script>
     <script src="{!! asset('web/lib/easing/easing.min.js') !!}"></script>

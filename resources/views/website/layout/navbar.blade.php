@@ -44,9 +44,9 @@
                             class="nav-item nav-link {{ request()->segment(1) == 'contact-us' ? 'active' : '' }}">
                             Contact</a>                    </div>
                     <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
-                        <a href="" class="btn px-0">
+                        <a href="{{route('favorite')}}" class="btn px-0">
                             <i class="fas fa-heart text-primary"></i>
-                            <span class="badge text-secondary border border-secondary rounded-circle p--15"
+                            <span class="badge text-secondary border border-secondary rounded-circle favorite-count"
                                 >0</span>
                         </a>
                         <a href="{{ route('cart') }}" class="btn px-0 ml-3 p--16">
