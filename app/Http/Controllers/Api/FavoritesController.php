@@ -22,21 +22,18 @@ class FavoritesController extends BaseController
         }
         if ($request->has('guest_id') && $request->user_type != 'auth') {
             $guest_id = $request->guest_id;
-            $favorites = Favorite::where('guest_id', $guest_id)->with('product', 'color', 'memory')->get();
+            $favorites = Favorite::where('guest_id', $guest_id)->with('product')->get();
         }
         if (isset($favorites) && $favorites->isNotEmpty()) {
             $data = [];
             foreach ($favorites as $favorite) {
                 $data[] = [
-                    'id' => $favorite->id,
-                    'product' => [
-                        'id' => $favorite->product->id,
-                        'title' => $favorite->product->title,
-                        'picture' => $favorite->product->product_picture,
-                        'price' => $favorite->product->formatted_advance_price,
-                        'category' => $favorite->product->title ?? null,
-                        'brand' => $favorite->brand->title ?? null,
-                    ],
+                    'id' => $favorite->product->id,
+                    'title' => $favorite->product->title,
+                    'picture' => $favorite->product->product_picture,
+                    'price' => $favorite->product->formatted_advance_price,
+                    'category' => $favorite->product->category->title ?? null,
+                    'brand' => $favorite->product->brand->title ?? null,
                 ];
             }
             return $this->sendResponse($data, 'Favorites get successfully', 200);
