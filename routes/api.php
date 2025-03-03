@@ -40,7 +40,7 @@ Route::get('sliders', [App\Http\Controllers\Api\HomePageController::class, 'slid
 Route::group(['prefix' => 'products'], function(){
     Route::get('/', [App\Http\Controllers\Api\ProductController::class, 'products']);
 
-    Route::get('home', [App\Http\Controllers\Api\HomePageController::class, 'home_products']);
+    Route::get('toprated', [App\Http\Controllers\Api\HomePageController::class, 'home_products']);
     Route::get('feature', [App\Http\Controllers\Api\HomePageController::class, 'feature_products']);
 
     Route::get('category/{id}', [App\Http\Controllers\Api\HomePageController::class, 'category_products']);
