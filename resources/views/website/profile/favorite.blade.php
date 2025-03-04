@@ -29,7 +29,7 @@
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
-                        <strong>Note !</strong>Get verified yourself immediately. Our agent will visite you soon.
+                        <strong>Note !</strong> Get verified yourself immediately. Our agent will visite you soon.
                     </div>
                 @else
                     <div class="bg-light mb-30">
@@ -47,7 +47,9 @@
                                 <tbody class="align-middle favorites-table">
                                     <tr>
                                         <td colspan="5">
-                                            <img src="{{ asset('web/img/loader.gif') }}" class="w-10" alt="Loader">
+                                            <div class="text-center py-3">
+                                                <img  src="{{ asset('web/img/loader.gif') }}" class="w-10" alt="Loader">
+                                            </div>
                                         </td>
                                     </tr>
                                 </tbody>

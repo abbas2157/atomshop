@@ -28,14 +28,19 @@
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
-                    <strong>Note !</strong> Get verified yourself immediately. Our agent will visite you soon.
+                    <strong>Note ! </strong> Get verified yourself immediately. Our agent will visite you soon.
+                </div>
+                <div class="bg-light px-4 py-2 mb-30">
+                    <div class="text-center py-3">
+                        <img src="{{ asset('web/img/loader.gif') }}" class="w-10" alt="Loader">
+                    </div>
                 </div>
             @else
-            <div class="bg-light px-4 py-2 mb-30">
-                <div class="text-center py-3">
-                    <img src="{{ asset('web/img/loader.gif') }}" class="w-10" alt="Loader">
+                <div class="bg-light px-4 py-2 mb-30">
+                    <div class="text-center py-3">
+                        <img src="{{ asset('web/img/loader.gif') }}" class="w-10" alt="Loader">
+                    </div>
                 </div>
-            </div>
             @endif
             
         </div>

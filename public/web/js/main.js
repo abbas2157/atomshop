@@ -296,7 +296,9 @@
                     });
                 } else {
                     var row =
-                        '<tr><td class="align-middle" colspan="5">No favorites found.</td></tr>';
+                        '<tr><td class="align-middle" colspan="5"><div class="text-center py-3">\
+                        <img src="'+ASSET_URL+'/web/img/loader.gif" class="w-10" alt="Loader">\
+                    </div></td></tr>';
                     $(".favorites-table").append(row);
                 }
             },
