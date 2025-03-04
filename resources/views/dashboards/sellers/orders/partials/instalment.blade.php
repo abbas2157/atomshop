@@ -23,7 +23,6 @@
             <tr>
                 <th>Instalment Month</th>
                 <th>Amount</th>
-                <th>Installment Date</th>
                 <th>Payment Date</th>
                 <th>Payment Method</th>
                 <th>Payment Receipt</th>
@@ -31,17 +30,54 @@
             </tr>
         </thead>
         <tbody>
-            @for($i = 0; $i < $order->instalment_tenure; $i++)
-                <tr>
-                    <td>{{ $months[$i] ?? 0 }} Month</td>
-                    <td>Rs. {{ $per_installment_price ?? 00.00 }}</td>
-                    <td class="text-center"> - </td>
-                    <td class="text-center"> - </td>
-                    <td class="text-center"> - </td>
-                    <td class="text-center"> - </td>
-                    <td> <label class="badge badge-danger">Unpaid</label></td>
-                </tr>
-            @endfor
+            @if(in_array($order->status, ['Instalments','Completed']))
+                @foreach($order_instalments as $item)
+                    <tr>
+                        <td>{{ $item->month ?? '' }}</td>
+                        <td>Rs. {{  number_format($item->installment_price) }}</td>
+                        <td class="text-center"> 
+                            @if($item->type == 'Advnace')
+                                {{ $item->created_at->format('M d, Y') ?? '' }}
+                            @else
+                                @if($item->status == 'Paid')
+                                    {{ $item->updated_at->format('M d, Y') ?? '' }}
+                                @else
+                                    -
+                                @endif
+                                
+                            @endif
+                        </td>
+                        <td class="text-center"> {{ $item->payment_method ?? '-' }} </td>
+                        <td class="text-center"> 
+                            @if(is_null($item->receipet))
+                                -
+                            @else
+                                <a target="_blank" href="{{ asset($item->receipet) }}">View</a>
+                            @endif
+                        </td>
+                        <td> 
+                            @if($item->status == 'Paid')
+                                <label class="badge badge-success">Paid</label>
+                            @else
+                                <label class="badge badge-danger">Unpaid</label>
+                            @endif
+                            
+                        </td>
+                    </tr>
+                @endforeach
+            @else
+                @for($i = 0; $i < $order->instalment_tenure; $i++)
+                    <tr>
+                        <td>{{ $months[$i] ?? 0 }} Month</td>
+                        <td>Rs. {{ $per_installment_price ?? 00.00 }}</td>
+                        <td class="text-center"> - </td>
+                        <td class="text-center"> - </td>
+                        <td class="text-center"> - </td>
+                        <td class="text-center"> - </td>
+                        <td> <label class="badge badge-danger">Unpaid</label></td>
+                    </tr>
+                @endfor
+            @endif
         </tbody>
     </table>
 </div>

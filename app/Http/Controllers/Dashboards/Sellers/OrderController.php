@@ -45,9 +45,10 @@ class OrderController extends Controller
         if(is_null($order)) {
             return abort(404);
         }
+        $order_instalments = OrderInstalment::where('order_id',$order->id)->get();
         $user = User::with('customer')->where('id', $order->user_id)->first();
         $order_change_status = OrderChangeHsitory::where('order_id', $order->id)->get();
-        return view('dashboards.sellers.orders.show', compact('order', 'order_change_status', 'user'));
+        return view('dashboards.sellers.orders.show', compact('order', 'order_change_status', 'order_instalments', 'user'));
     }
 
     /**
@@ -106,11 +107,39 @@ class OrderController extends Controller
             }
             $total_percentage_amount = round(($total_tenure_percentage / 100) * $remaining_amount);
             $total_amount_with_percentage = $total_percentage_amount + $remaining_amount;
+            $per_installment_price   =  round($total_amount_with_percentage / (int) $request->installment_tenure);
 
             $order->total_deal_price = $total_amount_with_percentage;
             $order->advance_price = $advance;
-            $order->installment_tenure = $request->installment_tenure;
+            $order->instalment_tenure = $request->installment_tenure;
+
         }
+
+        // First Isert Advance as installment
+        $order_instalment = new OrderInstalment;
+        $order_instalment->user_id = $order->user_id;
+        $order_instalment->order_id = $order->id;
+        $order_instalment->month = 'Advance';
+        $order_instalment->installment_price = $advance;
+        $order_instalment->receipet = $payload['img'];
+        $order_instalment->payment_method = $request->payment_method;
+        $order_instalment->type = 'Advance';
+        $order_instalment->save();
+
+        $installment_tenure = ((int) $request->installment_tenure);
+        $months = ['1st','2nd','3rd','4th','5th','6th','7th','8th','9th','10th','11th','12th'];
+
+        for($i=0; $i < $installment_tenure; $i++) {
+            $order_instalment = new OrderInstalment;
+            $order_instalment->user_id = $order->user_id;
+            $order_instalment->order_id = $order->id;
+            $order_instalment->month = $months[$i] . ' Month';
+            $order_instalment->installment_price = $per_installment_price;
+            $order_instalment->type = 'Instalment';
+            $order_instalment->status = 'Paid';
+            $order_instalment->save();
+        }
+
         $order->status = $status;
         $order->save();
 
@@ -124,8 +153,6 @@ class OrderController extends Controller
         $change_order->save();
 
         $response = ['success' => true, 'message' => "Order status changed to ".$status];
-        return response()->json($response);
-        $response = ['success' => false, 'message' => "Code not completed"];
         return response()->json($response);
     }
 

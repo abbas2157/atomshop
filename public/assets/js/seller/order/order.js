@@ -19,7 +19,7 @@ $(function () {
             showErrorModal(message);
             return false;
         }
-        if ($.inArray(status, ['Pending', 'Varification', 'Processing']) !== -1) {
+        if ($.inArray(status, ['Pending', 'Varification', 'Processing', 'Completed']) !== -1) {
             change_only_status();
         }
         if ($.inArray(status, ['Delivered']) !== -1) {
@@ -102,7 +102,8 @@ $(function () {
                 if(response.success == true) {
                     $('#instalment-status').fadeOut();
                     showSuccessModal(response.message);
-                } else {
+                } 
+                else {
                     $('#instalment-status').fadeOut();
                     showErrorModal(response.message);
                 }
