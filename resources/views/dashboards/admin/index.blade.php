@@ -113,12 +113,6 @@
                                                     </div>
                                                 </div>
                                                 <h1 class="mt-1 mb-3">{{ $customers['total'] }}</h1>
-                                                <div class="mb-0">
-                                                    <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i>
-                                                        -2.65%
-                                                    </span>
-                                                    Less sales than usual
-                                                </div>
                                             </div>
                                         </div>
                                         <div class="card mt-1">
@@ -129,12 +123,6 @@
                                                     </div>
                                                 </div>
                                                 <h1 class="mt-1 mb-3">{{ $sellers['total'] }}</h1>
-                                                <div class="mb-0">
-                                                    <span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i>
-                                                        5.50%
-                                                    </span>
-                                                    More visitors than usual
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -147,12 +135,6 @@
                                                     </div>
                                                 </div>
                                                 <h1 class="mt-1 mb-3">{{ $customers['verified'] }}</h1>
-                                                <div class="mb-0">
-                                                    <span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i>
-                                                        8.35%
-                                                    </span>
-                                                    More earnings than usual
-                                                </div>
                                             </div>
                                         </div>
                                         <div class="card mt-1">
@@ -163,12 +145,6 @@
                                                     </div>
                                                 </div>
                                                 <h1 class="mt-1 mb-3">{{ $sellers['verified'] }}</h1>
-                                                <div class="mb-0">
-                                                    <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i>
-                                                        -4.25%
-                                                    </span>
-                                                    Less orders than usual
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -177,32 +153,17 @@
                         </div>
                     </div>
                     <div class="row row-sm mg-b-20 pt-4">
-                        <div class="col-12 col-lg-6 col-xxl-9 d-flex">
-                            <div class="card flex-fill">
+                        <div class="col-12 col-lg-12 col-xxl-12 d-flex">
+                            <div class="card flex-fill mb-3">
                                 <div class="card-header">
-                                    <div class="card-actions float-end">
-                                        <a href="#" class="me-1">
-                                            <i class="align-middle" data-feather="refresh-cw"></i>
-                                        </a>
-                                        <div class="d-inline-block dropdown show">
-                                            <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-                                                <i class="align-middle" data-feather="more-vertical"></i>
-                                            </a>
-
-                                            <div class="dropdown-menu dropdown-menu-end">
-                                                <a class="dropdown-item" href="#">Action</a>
-                                                <a class="dropdown-item" href="#">Another action</a>
-                                                <a class="dropdown-item" href="#">Something else here</a>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <h5 class="card-title mb-0">Latest Customers</h5>
                                 </div>
-                                <table id="datatables-dashboard-projects" class="table table-striped my-0">
+                                <table class="table az-table-reference  my-0">
                                     <thead>
                                         <tr>
                                             <th>NAME</th>
                                             <th class="d-none d-xl-table-cell">E-MAIL</th>
+                                            <th class="d-none d-xl-table-cell">Phone</th>
                                             <th>STATUS</th>
                                             <th class="d-none d-md-table-cell">Created On</th>
                                         </tr>
@@ -212,6 +173,7 @@
                                             <tr>
                                                 <td>{{ $item->name ?? '' }}</td>
                                                 <td class="d-none d-xl-table-cell">{{ $item->email ?? '' }}</td>
+                                                <td class="d-none d-xl-table-cell">{{ $item->phone ?? '' }}</td>
                                                 <td><span class="badge bg-success">{{ $item->status ?? '' }}</span></td>
                                                 <td class="d-none d-md-table-cell">{{ $item->created_at ?? '' }}</td>
                                             </tr>
@@ -220,28 +182,12 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="col-12 col-lg-6 col-xxl-9 d-flex">
+                        <div class="col-12 col-lg-12 col-xxl-12 d-flex">
                             <div class="card flex-fill">
                                 <div class="card-header">
-                                    <div class="card-actions float-end">
-                                        <a href="#" class="me-1">
-                                            <i class="align-middle" data-feather="refresh-cw"></i>
-                                        </a>
-                                        <div class="d-inline-block dropdown show">
-                                            <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-                                                <i class="align-middle" data-feather="more-vertical"></i>
-                                            </a>
-
-                                            <div class="dropdown-menu dropdown-menu-end">
-                                                <a class="dropdown-item" href="#">Action</a>
-                                                <a class="dropdown-item" href="#">Another action</a>
-                                                <a class="dropdown-item" href="#">Something else here</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <h5 class="card-title mb-0">Latest Installments</h5>
+                                    <h5 class="card-title mb-0">Upcoming Instalments</h5>
                                 </div>
-                                <table id="datatables-dashboard-projects" class="table table-striped my-0">
+                                <table class="table az-table-reference my-0">
                                     <thead>
                                         <tr>
                                             <th>Name</th>
@@ -291,28 +237,13 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="col-12 col-lg-12 col-xxl-9 d-flex mt-2">
+                        <div class="col-12 col-lg-12 col-xxl-12 d-flex mt-2">
                             <div class="card flex-fill">
                                 <div class="card-header">
-                                    <div class="card-actions float-end">
-                                        <a href="#" class="me-1">
-                                            <i class="align-middle" data-feather="refresh-cw"></i>
-                                        </a>
-                                        <div class="d-inline-block dropdown show">
-                                            <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-                                                <i class="align-middle" data-feather="more-vertical"></i>
-                                            </a>
-
-                                            <div class="dropdown-menu dropdown-menu-end">
-                                                <a class="dropdown-item" href="#">Action</a>
-                                                <a class="dropdown-item" href="#">Another action</a>
-                                                <a class="dropdown-item" href="#">Something else here</a>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
                                     <h5 class="card-title mb-0">Latest ORDERS</h5>
                                 </div>
-                                <table id="datatables-dashboard-projects" class="table table-striped my-0">
+                                <table class="table az-table-reference my-0">
                                     <thead>
                                         <tr>
                                             <th>Product</th>
