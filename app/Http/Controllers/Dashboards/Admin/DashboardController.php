@@ -15,6 +15,8 @@ class DashboardController extends Controller
     public function index()
     {
         $customers = Customer::all();
+        $lastcustomer = User::orderBy('id', 'desc')->where('role', 'customer')->take(5)->get();
+        $lastOrders = Order::select('id','uuid', 'cart_id', 'user_id', 'portal', 'status', 'created_at')->orderBy('id', 'desc')->take(5)->get();
         $sellers = Seller::all();
         $orders = Order::all();
         $data = [];
@@ -35,6 +37,8 @@ class DashboardController extends Controller
             'instalments' => $orders->where('status','Instalments')->count(),
             'Completed' => $orders->where('status','Completed')->count()
         );
+        $data['lastcustomer'] = $lastcustomer;
+        $data['lastOrders'] = $lastOrders;
         return view('dashboards.admin.index', $data);
     }
 
