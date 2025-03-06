@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('receipet')->nullable();
             $table->string('payment_method')->nullable();
             $table->enum('type',['Advance', 'Instalment'])->default('Instalment');
-            $table->enum('status',['Paind', 'Unpaid'])->default('Unpaid');
+            $table->enum('status',['Paid', 'Unpaid'])->default('Unpaid');
             $table->timestamps();
         });
     }
