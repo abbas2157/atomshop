@@ -9,26 +9,10 @@
                 <div class="az-content-body-left">
                     <h2 class="az-content-title tx-24 mg-b-5">Hi, welcome back!</h2>
                     <p class="mg-b-20">Your product performance and management dashboard template.</p>
-                    <div class="row row-sm mg-b-20">
+                    <div class="row row-sm">
                         <div class="col-xl-6 col-xxl-7">
                             <div class="card flex-fill w-100">
                                 <div class="card-header">
-                                    <div class="card-actions float-end">
-                                        <a href="#" class="me-1">
-                                            <i class="align-middle" data-feather="refresh-cw"></i>
-                                        </a>
-                                        <div class="d-inline-block dropdown show">
-                                            <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-                                                <i class="align-middle" data-feather="more-vertical"></i>
-                                            </a>
-
-                                            <div class="dropdown-menu dropdown-menu-end">
-                                                <a class="dropdown-item" href="#">Action</a>
-                                                <a class="dropdown-item" href="#">Another action</a>
-                                                <a class="dropdown-item" href="#">Something else here</a>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <h5 class="card-title mb-0">Orders</h5>
                                 </div>
                                 <div class="card-body py-3">
@@ -102,49 +86,56 @@
                             </div>
                         </div>
                         <div class="col-xl-6 col-xxl-5 d-flex">
-                            <div class="w-100">
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col mt-0">
-                                                        <h5 class="card-title">Total Customers</h5>
+                            <div class="card flex-fill w-100">
+                                <div class="card-header">
+                                    <h5 class="card-title mb-0">Accounts</h5>
+                                </div>
+                                <div class="card-body py-3">
+                                    <div class="w-100">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col mt-0">
+                                                                <h5 class="card-title">Total Customers</h5>
+                                                            </div>
+                                                        </div>
+                                                        <h1 class="mt-1 mb-3">{{ $customers['total'] }}</h1>
                                                     </div>
                                                 </div>
-                                                <h1 class="mt-1 mb-3">{{ $customers['total'] }}</h1>
+                                                <div class="card mt-1">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col mt-0">
+                                                                <h5 class="card-title">Total Sellers</h5>
+                                                            </div>
+                                                        </div>
+                                                        <h1 class="mt-1 mb-3">{{ $sellers['total'] }}</h1>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="card mt-1">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col mt-0">
-                                                        <h5 class="card-title">Total Sellers</h5>
+                                            <div class="col-sm-6">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col mt-0">
+                                                                <h5 class="card-title">Verified Customers</h5>
+                                                            </div>
+                                                        </div>
+                                                        <h1 class="mt-1 mb-3">{{ $customers['verified'] }}</h1>
                                                     </div>
                                                 </div>
-                                                <h1 class="mt-1 mb-3">{{ $sellers['total'] }}</h1>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col mt-0">
-                                                        <h5 class="card-title">Verified Customers</h5>
+                                                <div class="card mt-1">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col mt-0">
+                                                                <h5 class="card-title">Verified Sellers</h5>
+                                                            </div>
+                                                        </div>
+                                                        <h1 class="mt-1 mb-3">{{ $sellers['verified'] }}</h1>
                                                     </div>
                                                 </div>
-                                                <h1 class="mt-1 mb-3">{{ $customers['verified'] }}</h1>
-                                            </div>
-                                        </div>
-                                        <div class="card mt-1">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col mt-0">
-                                                        <h5 class="card-title">Verified Sellers</h5>
-                                                    </div>
-                                                </div>
-                                                <h1 class="mt-1 mb-3">{{ $sellers['verified'] }}</h1>
                                             </div>
                                         </div>
                                     </div>

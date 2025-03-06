@@ -129,5 +129,5 @@ function showErrorModal(message) {
 }
 function showSuccessModal(message) {
   $(".success-text").text(message);
-  $("#failer-modal").modal('show');
+  $("#success-modal").modal('show');
 }

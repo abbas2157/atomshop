@@ -81,6 +81,13 @@ $(function () {
             }
         });
     });
+    $(".instalment-modal").on("click", function () {
+        $('#instalment-modal').modal({
+            backdrop: 'static', 
+            keyboard: false 
+        });
+        $('#instalment_price').val($(this).val());
+    });
     $(".instalment-btn").on("click", function () {
         var advance_price = $("#advance_price").val();
         if(advance_price.length == 0) {
@@ -105,6 +112,33 @@ $(function () {
                 } 
                 else {
                     $('#instalment-status').fadeOut();
+                    showErrorModal(response.message);
+                }
+            },
+            error: function (xhr, status, error) {
+                
+            }
+        });
+    });
+    $(".pay-instalment-btn").on("click", function () {
+        var formData = new FormData(document.getElementById('pay-instalment-form'));
+        $.ajax({
+            url: APP_URL + "/seller/instalment/pay",
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (response) {
+                if(response.success == true) {
+                    console.log(response.success,'true');
+                    $('#instalment-modal').fadeOut();
+                    showSuccessModal(response.message);
+                } 
+                else {
+                    $('#instalment-modal').fadeOut();
                     showErrorModal(response.message);
                 }
             },

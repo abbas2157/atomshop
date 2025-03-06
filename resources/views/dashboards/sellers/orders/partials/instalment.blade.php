@@ -1,5 +1,5 @@
-<div class="az-content-label mg-b-5 mt-4">Installments Detail</div>
-<p class="mg-b-20">All Installments Details related to this order</p>
+<div class="az-content-label mg-b-5 mt-4">Instalments Detail</div>
+<p class="mg-b-20">All Instalments Details related to this order</p>
 @php
     $calculator = App\Models\InstallmentCalculator::first();
     $total = (int) $order->total_deal_price;
@@ -33,9 +33,9 @@
             @if(in_array($order->status, ['Instalments','Completed']))
                 @foreach($order_instalments as $item)
                     <tr>
-                        <td>{{ $item->month ?? '' }}</td>
-                        <td>Rs. {{  number_format($item->installment_price) }}</td>
-                        <td class="text-center"> 
+                        <td class="align-middle ">{{ $item->month ?? '' }}</td>
+                        <td class="align-middle ">Rs. {{  number_format($item->installment_price) }}</td>
+                        <td class="text-center align-middle"> 
                             @if($item->type == 'Advnace')
                                 {{ $item->created_at->format('M d, Y') ?? '' }}
                             @else
@@ -47,10 +47,14 @@
                                 
                             @endif
                         </td>
-                        <td class="text-center"> {{ $item->payment_method ?? '-' }} </td>
-                        <td class="text-center"> 
+                        <td class="text-center align-middle "> {{ $item->payment_method ?? '-' }} </td>
+                        <td class="text-center align-middle"> 
                             @if(is_null($item->receipet))
-                                -
+                                @if($item->status == 'Paid')
+                                    -
+                                @else
+                                    <button class="btn btn-info py-1 instalment-modal" value="{{ $item->installment_price ?? '' }}" style="min-height: auto !important;">Pay</button>
+                                @endif
                             @else
                                 <a target="_blank" href="{{ asset($item->receipet) }}">View</a>
                             @endif
