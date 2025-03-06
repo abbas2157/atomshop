@@ -40,6 +40,7 @@ class ProfileController extends Controller
             $customer = Customer::where('user_id', $user->id)->first();
             if(is_null($customer)) {
                 $customer = new Customer;
+                $customer->user_id = $user->id;
             }
             $customer->city_id = $request->city_id;
             $customer->area_id = $request->area_id;
