@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Dashboards\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{Auth, Hash};
-use App\Models\{User, Customer, Seller, Order};
+use App\Models\{User, Customer, Seller, Order, OrderInstalment};
 
 class DashboardController extends Controller
 {
@@ -17,6 +17,9 @@ class DashboardController extends Controller
         $customers = Customer::all();
         $lastcustomer = User::orderBy('id', 'desc')->where('role', 'customer')->take(5)->get();
         $lastOrders = Order::select('id','uuid', 'cart_id', 'user_id', 'portal', 'status', 'created_at')->orderBy('id', 'desc')->take(5)->get();
+        $lastInstalments = OrderInstalment::withOrderDetails()
+         ->select('id', 'month', 'installment_price', 'status', 'type', 'order_id', 'user_id')
+         ->where('status', 'Unpaid')->orderBy('id', 'asc')->get()->groupBy('user_id')->take(5)->map(function ($instalments) { return $instalments->first(); });
         $sellers = Seller::all();
         $orders = Order::all();
         $data = [];
@@ -39,6 +42,7 @@ class DashboardController extends Controller
         );
         $data['lastcustomer'] = $lastcustomer;
         $data['lastOrders'] = $lastOrders;
+        $data['lastInstalments'] = $lastInstalments;
         return view('dashboards.admin.index', $data);
     }
 

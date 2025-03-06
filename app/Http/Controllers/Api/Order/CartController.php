@@ -29,7 +29,7 @@ class CartController extends BaseController
             $sub_total = 0;
             $total = 0;
             foreach($cart_items as $item) {
-               
+
                 if(!is_null($item->memory_id) && !is_null($item->memory)) {
                     $item->product->title = $item->product->title . " - Storage " . $item->memory->title;
                 }
@@ -40,13 +40,13 @@ class CartController extends BaseController
                     $item->product->title = $item->product->title . " - Size " . $item->size->title . ' ' . $item->size->unit ;
                 }
                 $product = array(
-                    'id' => $item->product->id, 
+                    'id' => $item->product->id,
                     'title' => $item->product->title ,
-                    'price' => $item->product->formatted_price, 
-                    'picture' => $item->product->product_picture, 
+                    'price' => $item->product->formatted_price,
+                    'picture' => $item->product->product_picture,
                     'total' => number_format(($item->product->price * $item->quantity),0),
                 );
-                $cart[] = array('id' => $item->id, 'product' => $product, 'product_advance_price' => number_format($item->product_advance_price,0), 'product_price' => number_format($item->product_price,0), 'quantity' => $item->quantity );
+                $cart[] = array('id' => $item->id, 'product' => $product, 'product_advance_price' => number_format($item->product_advance_price,0), 'product_price' => number_format($item->product_price,0), 'quantity' => $item->quantity,'tenure' => $item->tenure);
                 $sub_total += ($item->product_price * $item->quantity);
                 $total += $sub_total;
             }

@@ -36,6 +36,7 @@ function getCart() {
                         </td>\
                         <td class="align-middle text-center">Rs. '+item.product_advance_price+'</td>\
                         <td class="align-middle text-center">Rs. '+item.product_price+'</td>\
+                        <td class="align-middle text-center">'+item.tenure+'</td>\
                         <td class="align-middle text-center">\
                             <button class="btn btn-sm btn-danger remove-item" data-id="'+item.id+'">\
                                 <i class="fa fa-times"></i>\

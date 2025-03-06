@@ -17,6 +17,7 @@
                                 <th>Product Title</th>
                                 <th>Advance Amount</th>
                                 <th>Total Deal Amount</th>
+                                <th>Installment Tenure</th>
                                 <th>Remove</th>
                             </tr>
                         </thead>
