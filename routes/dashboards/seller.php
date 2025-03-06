@@ -32,6 +32,9 @@ Route::middleware([App\Http\Middleware\EnsureUserIsSeller::class])->group(functi
             Route::get('status/{id}', [App\Http\Controllers\Dashboards\Sellers\OrderController::class, 'status'])->name('seller.orders.status');
             Route::post('status/{id}', [App\Http\Controllers\Dashboards\Sellers\OrderController::class, 'status'])->name('seller.orders.status.post');
         });
+        Route::group(['prefix' => 'instalment'], function(){
+            Route::post('pay', [App\Http\Controllers\Dashboards\Sellers\OrderController::class, 'pay_instalment'])->name('seller.instalment.pay');
+        });
 
         Route::resource('customers', App\Http\Controllers\Dashboards\Sellers\CustomerController::class,['as' => 'seller']);    });
 });

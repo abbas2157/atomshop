@@ -156,6 +156,7 @@
 </div>
 @include('dashboards/sellers/orders/partials/modal/delivered')
 @include('dashboards/sellers/orders/partials/modal/instalment')
+@include('dashboards/sellers/orders/partials/modal/pay-instalment')
 @endsection
 @section('js')
 <script>

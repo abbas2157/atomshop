@@ -112,32 +112,31 @@ class OrderController extends Controller
             $order->total_deal_price = $total_amount_with_percentage;
             $order->advance_price = $advance;
             $order->instalment_tenure = $request->installment_tenure;
-
-        }
-
-        // First Isert Advance as installment
-        $order_instalment = new OrderInstalment;
-        $order_instalment->user_id = $order->user_id;
-        $order_instalment->order_id = $order->id;
-        $order_instalment->month = 'Advance';
-        $order_instalment->installment_price = $advance;
-        $order_instalment->receipet = $payload['img'];
-        $order_instalment->payment_method = $request->payment_method;
-        $order_instalment->type = 'Advance';
-        $order_instalment->save();
-
-        $installment_tenure = ((int) $request->installment_tenure);
-        $months = ['1st','2nd','3rd','4th','5th','6th','7th','8th','9th','10th','11th','12th'];
-
-        for($i=0; $i < $installment_tenure; $i++) {
+            
+            // First Isert Advance as installment
             $order_instalment = new OrderInstalment;
             $order_instalment->user_id = $order->user_id;
             $order_instalment->order_id = $order->id;
-            $order_instalment->month = $months[$i] . ' Month';
-            $order_instalment->installment_price = $per_installment_price;
-            $order_instalment->type = 'Instalment';
-            $order_instalment->status = 'Paid';
+            $order_instalment->month = 'Advance';
+            $order_instalment->installment_price = $advance;
+            $order_instalment->receipet = $payload['img'];
+            $order_instalment->payment_method = $request->payment_method;
+            $order_instalment->type = 'Advance';
             $order_instalment->save();
+
+            $installment_tenure = ((int) $request->installment_tenure);
+            $months = ['1st','2nd','3rd','4th','5th','6th','7th','8th','9th','10th','11th','12th'];
+
+            for($i=0; $i < $installment_tenure; $i++) {
+                $order_instalment = new OrderInstalment;
+                $order_instalment->user_id = $order->user_id;
+                $order_instalment->order_id = $order->id;
+                $order_instalment->month = $months[$i] . ' Month';
+                $order_instalment->installment_price = $per_installment_price;
+                $order_instalment->type = 'Instalment';
+                $order_instalment->status = 'Paid';
+                $order_instalment->save();
+            }
         }
 
         $order->status = $status;
@@ -208,5 +207,35 @@ class OrderController extends Controller
             return redirect()->back()->with('error', 'Something went wrong! Please try again.');
         }
     }
+    /**
+     * Pay Instalment
+     */
+    public function pay_instalment(Request $request)
+    {
+        $id = request()->order_id;
+        $order_instalment = OrderInstalment::where('order_id',$id)->where('type','Instalment')->where('status','Unpaid')->first();
+        if(is_null( $order_instalment)) {
+            $response = ['success' => false, 'message' => "Instalment Not Found"];
+            return response()->json($response);
+        }
 
+        if($request->hasFile('instalment_pictrue')) {
+            $file = $request->file('instalment_pictrue');
+            $fileName  = pathinfo($file->getClientOriginalName(),PATHINFO_FILENAME);
+            $extension = pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
+            $filename  = rand(1000,9000) .'.'.$extension;
+            $picture_path = public_path('images/orders/instalments/' . $filename);
+            if (File::exists($picture_path)) {
+                $filename = rand(1000,9000).'.'.$extension;
+            }
+            $file->move(public_path('images/orders/instalments'),$filename);
+            $order_instalment->receipet = 'images/orders/instalments/'.$filename;
+        }
+        $order_instalment->payment_method = request()->payment_method;
+        $order_instalment->status = 'Paid';
+        $order_instalment->save();
+
+        $response = ['success' => true, 'message' => "Instalment Paid Successfully."];
+        return response()->json($response);
+    }
 }
