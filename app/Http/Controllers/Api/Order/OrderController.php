@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\Order;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Jobs\Web\OrderConfirmationJob;
-use App\Models\{User, Product, Cart};
+use App\Models\{User, Product, Cart, Order};
 use Illuminate\Support\Facades\{Auth, DB, Session};
 use App\Http\Controllers\Api\BaseController as BaseController;
 
