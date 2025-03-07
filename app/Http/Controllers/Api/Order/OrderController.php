@@ -109,4 +109,56 @@ class OrderController extends BaseController
         $data = ['text' => 'Order has not been submitted. Something Went wrong.', 'icon' => asset('order/failed.png')];
         return $this->sendResponse($data, 'Order created successfully', 200);
     }
+
+    public function my_orders()
+    {
+        try {
+            if(!request()->has('uuid')) {
+                return $this->sendError(request()->all(), 'Send user uuid in request.', 200);
+            }
+            $user_uuid = request()->uuid;
+
+            $user = User::where('uuid', $user_uuid)->where('status', 'active')->first();
+            if (is_null($user)) {
+                return $this->sendError($request->all(), 'User not found.', 200);
+            }
+
+            $orders = Order::where('user_id', $user->id)->select('id', 'cart_id', 'portal', 'status', 'created_at')->orderBy('id','desc')->paginate(10);
+            if ($cart_items->isEmpty()) {
+                return $this->sendError($request->all(), 'No Order Found.', 200);
+            }
+            
+            $orders_list = [];
+            foreach($orders as $item) {
+               
+                if(!is_null($item->cart->memory_id) && !is_null($item->cart->memory)) {
+                    $item->cart->product->title = $item->product->title . " - Storage " . $item->memory->title;
+                }
+                if(!is_null($item->cart->color_id) && !is_null($item->cart->color)) {
+                    $item->cart->product->title = $item->cart->product->title . " - Color " . $item->cart->color->title;
+                }
+                if(!is_null($item->cart->size_id) && !is_null($item->cart->size)) {
+                    $item->cart->product->title = $item->cart->product->title . " - Size " . $item->cart->size->title . ' ' . $item->cart->size->unit ;
+                }
+
+                $product = array(
+                    'id' => $item->cart->product->id, 
+                    'title' => $item->cart->product->title ,
+                    'price' => $item->cart->product->formatted_price, 
+                    'picture' => $item->cart->product->product_picture, 
+                    'total' => number_format(($item->product->price * $item->quantity),0),
+                );
+                $orders_list[] = array(
+                    'id' => $item->id, 
+                    'product' => $product, 
+                    'product_advance_price' => number_format($item->advance_price,0), 
+                    'total_deal_price' => number_format($item->total_deal_price,0),
+                    'instalment_tenure' => $item->instalment_tenure
+                );
+            }
+            return $this->sendResponse($orders_list, 'Cart get successfully', 200);
+        } catch (\Exception $e) {
+            return $this->sendError('Something went wrong.', $e->getMessage(), 500);
+        }
+    }
 }
