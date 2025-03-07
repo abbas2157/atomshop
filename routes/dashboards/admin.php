@@ -24,7 +24,13 @@ Route::middleware([App\Http\Middleware\EnsureUserIsAdmin::class])->group(functio
 
         //Product Management
         Route::resource('orders', App\Http\Controllers\Dashboards\Admin\Orders\OrderController::class,['as' => 'admin']);
-
+        Route::group(['prefix' => 'orders'], function(){
+            Route::get('status/{id}', [App\Http\Controllers\Dashboards\Admin\Orders\OrderController::class, 'status'])->name('admin.orders.status');
+            Route::post('status/{id}', [App\Http\Controllers\Dashboards\Admin\Orders\OrderController::class, 'status'])->name('admin.orders.status.post');
+        });
+        Route::group(['prefix' => 'instalment'], function(){
+            Route::post('pay', [App\Http\Controllers\Dashboards\Admin\Orders\OrderController::class, 'pay_instalment'])->name('seller.instalment.pay');
+        });
         //Zone Management
         Route::resource('cities', App\Http\Controllers\Dashboards\Admin\Components\CitiesController::class,['as' => 'admin']);
         Route::resource('areas', App\Http\Controllers\Dashboards\Admin\Components\AreaController::class,['as' => 'admin']);
