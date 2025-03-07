@@ -79,7 +79,9 @@ class ProfileController extends Controller
     }
     public function verification()
     {
-        return view('website.profile.verification');
+        $user = Auth::user();
+        
+        return view('website.profile.verification', compact('user'));
     }
     public function favorite()
     {
