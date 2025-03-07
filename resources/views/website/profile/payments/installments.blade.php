@@ -30,14 +30,70 @@
                     </button>
                     <strong>Note !</strong> Get verified yourself immediately. Our agent will visite you soon.
                 </div>
-            @else
-            <div class="bg-light px-4 py-2 mb-30">
-                <div class="text-center py-3">
-                    <img src="{{ asset('web/img/loader.gif') }}" class="w-10" alt="Loader">
+            @endif
+            <div class="bg-light mb-30">
+                <div class="table-responsive mb-3">
+                    <table class="table table-bordered mb-0">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Instalment Month</th>
+                                <th>Amount</th>
+                                <th>Payment Date</th>
+                                <th>Payment Method</th>
+                                <th>Payment Receipt</th>
+                                <th width="60px">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="align-middle">
+                            @if($instalments->isNotEmpty())
+                                @foreach($instalments as $item)
+                                    <tr>
+                                        <td class="align-middle ">{{ $item->month ?? '' }}</td>
+                                        <td class="align-middle ">Rs. {{  number_format($item->installment_price) }}</td>
+                                        <td class="text-center align-middle"> 
+                                            @if($item->type == 'Advnace')
+                                                {{ $item->created_at->format('M d, Y') ?? '' }}
+                                            @else
+                                                @if($item->status == 'Paid')
+                                                    {{ $item->updated_at->format('M d, Y') ?? '' }}
+                                                @else
+                                                    -
+                                                @endif
+                                                
+                                            @endif
+                                        </td>
+                                        <td class="text-center align-middle "> {{ $item->payment_method ?? '-' }} </td>
+                                        <td class="text-center align-middle"> 
+                                            @if(is_null($item->receipet))
+                                                -
+                                            @else
+                                                <a target="_blank" href="{{ asset($item->receipet) }}">View</a>
+                                            @endif
+                                        </td>
+                                        <td class="text-center align-middle"> 
+                                            @if($item->status == 'Paid')
+                                                <i class="fas fa-check-circle text-success"></i>
+                                            @else
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @else
+                                <tr>
+                                    <td colspan="6">
+                                        <div class="bg-light px-4 py-2 mb-30">
+                                            <div class="text-center py-3">
+                                                <img src="{{ asset('web/img/loader.gif') }}" class="w-10" alt="Loader">
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endif
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            @endif
-            
         </div>
     </div>
 </div>
