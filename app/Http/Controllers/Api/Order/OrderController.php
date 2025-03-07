@@ -123,7 +123,7 @@ class OrderController extends BaseController
                 return $this->sendError($request->all(), 'User not found.', 200);
             }
 
-            $orders = Order::where('user_id', $user->id)->select('id', 'cart_id', 'portal', 'status', 'created_at')->orderBy('id','desc')->paginate(10);
+            $orders = Order::where('user_id', $user->id)->select('id', 'cart_id', 'advance_price', 'advance_price', 'instalment_tenure', 'portal', 'status', 'created_at')->orderBy('id','desc')->paginate(10);
             if ($orders->isEmpty()) {
                 return $this->sendError($request->all(), 'No Order Found.', 200);
             }
@@ -150,7 +150,7 @@ class OrderController extends BaseController
                 $orders_list[] = array(
                     'id' => $item->id, 
                     'product' => $product, 
-                    'product_advance_price' => number_format($item->advance_price,0), 
+                    'advance_price' => number_format($item->advance_price,0), 
                     'total_deal_price' => number_format($item->total_deal_price,0),
                     'instalment_tenure' => $item->instalment_tenure
                 );
