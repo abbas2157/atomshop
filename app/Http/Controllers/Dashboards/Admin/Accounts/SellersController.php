@@ -15,7 +15,7 @@ class SellersController extends Controller
      */
     public function index()
     {
-        $sellers = User::orderBy('id','desc');
+        $sellers = User::orderBy('id','desc')->where('role', 'seller');
         if(request()->has('q') && !empty(request()->q)) {
             $sellers->where('name', 'LIKE',  '%' . request()->q . '%');
         }
@@ -27,12 +27,6 @@ class SellersController extends Controller
         }
         if(request()->has('status') && !empty(request()->status)) {
             $sellers->where('status', request()->status);
-        }
-        if(request()->has('role') && !empty(request()->role)) {
-            $sellers->where('role', request()->role);
-        }
-        if(request()->has('role') && !empty(request()->role)) {
-            $sellers->where('role', request()->role);
         }
         $sellers = $sellers->paginate(10);
         return view('dashboards.admin.accounts.sellers.index',compact('sellers'));
