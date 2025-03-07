@@ -18,7 +18,7 @@ Route::group(['prefix' => 'account'], function(){
     Route::post('change/password', [App\Http\Controllers\Api\AccountController::class, 'change_password']);
 
     Route::group(['middleware' => ['auth:sanctum']], function(){
-        Route::get('my-orders', [App\Http\Controllers\Api\Order\OrderController::class, 'my_orders']);
+        Route::post('my-orders', [App\Http\Controllers\Api\Order\OrderController::class, 'my_orders']);
     });
 });
 
