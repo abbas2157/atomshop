@@ -117,11 +117,12 @@ class OrderController extends Controller
             $order_instalment = new OrderInstalment;
             $order_instalment->user_id = $order->user_id;
             $order_instalment->order_id = $order->id;
-            $order_instalment->month = 'Advance';
             $order_instalment->installment_price = $advance;
             $order_instalment->receipet = $payload['img'];
             $order_instalment->payment_method = $request->payment_method;
+            $order_instalment->month = 'Advance';
             $order_instalment->type = 'Advance';
+            $order_instalment->status = 'Paid';
             $order_instalment->save();
 
             $installment_tenure = ((int) $request->installment_tenure);
@@ -134,7 +135,6 @@ class OrderController extends Controller
                 $order_instalment->month = $months[$i] . ' Month';
                 $order_instalment->installment_price = $per_installment_price;
                 $order_instalment->type = 'Instalment';
-                $order_instalment->status = 'Paid';
                 $order_instalment->save();
             }
         }

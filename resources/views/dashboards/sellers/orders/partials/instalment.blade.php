@@ -65,7 +65,6 @@
                             @else
                                 <label class="badge badge-danger">Unpaid</label>
                             @endif
-                            
                         </td>
                     </tr>
                 @endforeach
@@ -74,7 +73,6 @@
                     <tr>
                         <td>{{ $months[$i] ?? 0 }} Month</td>
                         <td>Rs. {{ $per_installment_price ?? 00.00 }}</td>
-                        <td class="text-center"> - </td>
                         <td class="text-center"> - </td>
                         <td class="text-center"> - </td>
                         <td class="text-center"> - </td>

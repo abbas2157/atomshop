@@ -25,23 +25,23 @@
                 <input type="hidden" name="status" class="status">
                 <div class="col-lg mt-2">
                   <label>Advance Price </label>
-                  <input type="number" class="form-control" value="{{ $advance ?? '' }}" name="advance_price" id="advance_price" placeholder="Rs. 00">
+                  <input type="number" class="form-control" value="{{ $order->advance_price ?? '' }}" name="advance_price" id="advance_price" placeholder="Rs. 00">
                 </div>
             </div>
             <div class="row">
               <div class="col-lg mt-2">
                 <label>Installment Tenure</label>
                 <select class="form-control" name="installment_tenure">
-                    <option value="3" {{ ($order->cart->tenure == 3) ? 'selected' : '' }}>3 Months</option>
-                    <option value="4" {{ ($order->cart->tenure == 4) ? 'selected' : '' }}>4 Months</option>
-                    <option value="5" {{ ($order->cart->tenure == 5) ? 'selected' : '' }}>5 Months</option>
-                    <option value="6" {{ ($order->cart->tenure == 6) ? 'selected' : '' }}>6 Months</option>
-                    <option value="7" {{ ($order->cart->tenure == 7) ? 'selected' : '' }}>7 Months</option>
-                    <option value="8" {{ ($order->cart->tenure == 8) ? 'selected' : '' }}>8 Months</option>
-                    <option value="9" {{ ($order->cart->tenure == 9) ? 'selected' : '' }}>9 Months</option>
-                    <option value="10" {{ ($order->cart->tenure == 10) ? 'selected' : '' }}>10 Months</option>
-                    <option value="11" {{ ($order->cart->tenure == 11) ? 'selected' : '' }}>11 Months</option>
-                    <option value="12" {{ ($order->cart->tenure == 12) ? 'selected' : '' }}>12 Months</option>
+                    <option value="3" {{ ($order->instalment_tenure == 3) ? 'selected' : '' }}>3 Months</option>
+                    <option value="4" {{ ($order->instalment_tenure == 4) ? 'selected' : '' }}>4 Months</option>
+                    <option value="5" {{ ($order->instalment_tenure == 5) ? 'selected' : '' }}>5 Months</option>
+                    <option value="6" {{ ($order->instalment_tenure == 6) ? 'selected' : '' }}>6 Months</option>
+                    <option value="7" {{ ($order->instalment_tenure == 7) ? 'selected' : '' }}>7 Months</option>
+                    <option value="8" {{ ($order->instalment_tenure == 8) ? 'selected' : '' }}>8 Months</option>
+                    <option value="9" {{ ($order->instalment_tenure == 9) ? 'selected' : '' }}>9 Months</option>
+                    <option value="10" {{ ($order->instalment_tenure == 10) ? 'selected' : '' }}>10 Months</option>
+                    <option value="11" {{ ($order->instalment_tenure == 11) ? 'selected' : '' }}>11 Months</option>
+                    <option value="12" {{ ($order->instalment_tenure == 12) ? 'selected' : '' }}>12 Months</option>
                 </select>
               </div>
             </div>

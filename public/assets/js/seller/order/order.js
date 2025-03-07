@@ -57,6 +57,7 @@ $(function () {
         });
     }
     $(".delivered-btn").on("click", function () {
+        $(this).prop('disabled',true);
         var formData = new FormData(document.getElementById('delivered-form'));
         $.ajax({
             url: APP_URL + "/seller/orders/status/"+ORDER_ID,
@@ -77,7 +78,7 @@ $(function () {
                 }
             },
             error: function (xhr, status, error) {
-                
+                $(this).prop('disabled',false);
             }
         });
     });
@@ -95,6 +96,7 @@ $(function () {
             showErrorModal('Please add advance price. This is required.');
             return false;
         }
+        $(this).prop('disabled',true);
         var formData = new FormData(document.getElementById('instalment-form'));
         $.ajax({
             url: APP_URL + "/seller/orders/status/"+ORDER_ID,
@@ -116,11 +118,12 @@ $(function () {
                 }
             },
             error: function (xhr, status, error) {
-                
+                $(this).prop('disabled',false);
             }
         });
     });
     $(".pay-instalment-btn").on("click", function () {
+        $(this).prop('disabled',true);
         var formData = new FormData(document.getElementById('pay-instalment-form'));
         $.ajax({
             url: APP_URL + "/seller/instalment/pay",
@@ -143,7 +146,7 @@ $(function () {
                 }
             },
             error: function (xhr, status, error) {
-                
+                $(this).prop('disabled',false);
             }
         });
     });
