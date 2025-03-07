@@ -10,12 +10,6 @@ class Seller extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-
-    public function area()
-    {
-        return $this->belongsTo(Area::class, 'area_id');
-    }
-
     public function seller()
     {
         return $this->belongsTo(Seller::class);
@@ -28,7 +22,11 @@ class Seller extends Model
 
     public function city(): BelongsTo
     {
-        return $this->belongsTo(City::class);
+        return $this->belongsTo(City::class, 'city_id');
+    }
+    public function area()
+    {
+        return $this->belongsTo(Area::class, 'area_id');
     }
     
 }
