@@ -155,7 +155,7 @@ class OrderController extends BaseController
                     'instalment_tenure' => $item->instalment_tenure
                 );
             }
-            return $this->sendResponse($orders_list, 'Cart get successfully', 200);
+            return $this->sendResponse($orders_list, 'Orders get successfully', 200);
         } catch (\Exception $e) {
             return $this->sendError('Something went wrong.', $e->getMessage(), 500);
         }
