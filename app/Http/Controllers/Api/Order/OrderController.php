@@ -124,7 +124,7 @@ class OrderController extends BaseController
             }
 
             $orders = Order::where('user_id', $user->id)->select('id', 'cart_id', 'portal', 'status', 'created_at')->orderBy('id','desc')->paginate(10);
-            if ($cart_items->isEmpty()) {
+            if ($orders->isEmpty()) {
                 return $this->sendError($request->all(), 'No Order Found.', 200);
             }
             
@@ -132,7 +132,7 @@ class OrderController extends BaseController
             foreach($orders as $item) {
                
                 if(!is_null($item->cart->memory_id) && !is_null($item->cart->memory)) {
-                    $item->cart->product->title = $item->product->title . " - Storage " . $item->memory->title;
+                    $item->cart->product->title = $item->cart->product->title . " - Storage " . $item->cart->memory->title;
                 }
                 if(!is_null($item->cart->color_id) && !is_null($item->cart->color)) {
                     $item->cart->product->title = $item->cart->product->title . " - Color " . $item->cart->color->title;
