@@ -144,11 +144,7 @@ class AuthController extends BaseController
                 $user->email_verified_at = now();
                 $user->save();
             }
-            try {
-                Mail::to($user->email)->send(new VerificationCode($user, $verification_code));
-            } catch (\Exception $mailException) {
-                return $this->sendError('Email sending failed.', $mailException->getMessage(), 500);
-            }
+            
             return $this->sendResponse('Code matched successfully.', $request->all(), 200);
         } catch (\Exception $e) {
             return $this->sendError('Something Went Wrong.', $e->getMessage(), 500);

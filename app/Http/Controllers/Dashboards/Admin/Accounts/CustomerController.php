@@ -113,9 +113,13 @@ class CustomerController extends Controller
             $customerVerification->work = $request->work;
             $customerVerification->save();
 
+
+            $customer->verified = '1';
+            $customer->save();
+
             DB::commit();
 
-            $validator['success'] = 'User created successfully';
+            $validator['success'] = 'Customer created successfully';
             return back()->withErrors($validator);
         } catch (\Exception $e) {
             DB::rollBack();
@@ -219,9 +223,12 @@ class CustomerController extends Controller
             $customerVerification->work = $request->work;
             $customerVerification->save();
 
+            $customer->verified = '1';
+            $customer->save();
+
             DB::commit();
 
-            $validator['success'] = 'User updated successfully';
+            $validator['success'] = 'Customer updated successfully';
             return back()->withErrors($validator);
         } catch (\Exception $e) {
             DB::rollBack();
