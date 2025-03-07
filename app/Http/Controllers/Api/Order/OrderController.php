@@ -145,8 +145,7 @@ class OrderController extends BaseController
                     'id' => $item->cart->product->id, 
                     'title' => $item->cart->product->title ,
                     'price' => $item->cart->product->formatted_price, 
-                    'picture' => $item->cart->product->product_picture, 
-                    'total' => number_format(($item->product->price * $item->quantity),0),
+                    'picture' => $item->cart->product->product_picture
                 );
                 $orders_list[] = array(
                     'id' => $item->id, 
