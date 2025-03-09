@@ -209,4 +209,51 @@ class OrderController extends BaseController
             return $this->sendError('Something went wrong.', $e->getMessage(), 500);
         }
     }
+    public function payment_history()
+    {
+        try {
+            if(!request()->has('uuid')) {
+                return $this->sendError(request()->all(), 'Send user uuid in request.', 200);
+            }
+            $user_uuid = request()->uuid;
+
+            $user = User::where('uuid', $user_uuid)->where('status', 'active')->first();
+            if (is_null($user)) {
+                return $this->sendError(request()->all(), 'User not found.', 200);
+            }
+            $instalments = OrderInstalment::where('user_id', Auth::user()->id)->get();
+            if ($instalments->isEmpty()) {
+                return $this->sendError(request()->all(), 'No history Found.', 200);
+            }
+            
+            $instalments_list = [];
+            foreach($instalments as $item) {
+                $payment_date = '-';
+                if($item->type == 'Advnace') {
+                    $payment_date = $item->created_at->format('M d, Y');
+                }
+                else 
+                {
+                    if($item->status == 'Paid') {
+                        $payment_date = $item->updated_at->format('M d, Y');
+                    }
+                }
+                $receipet = '-';
+                if(is_null($item->receipet)) {
+                    $receipet = asset($item->receipet);
+                }
+                $instalments_list[] = array(
+                    'id' => $item->id, 
+                    'installment_price' => number_format($item->installment_price,0), 
+                    'payment_date' => $payment_date,
+                    'payment_method' => $item->payment_method,
+                    'receipet' => $receipet,
+                    'status' => $item->status
+                );
+            }
+            return $this->sendResponse($instalments_list, 'Payment history get successfully', 200);
+        } catch (\Exception $e) {
+            return $this->sendError('Something went wrong.', $e->getMessage(), 500);
+        }
+    }
 }

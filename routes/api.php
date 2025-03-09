@@ -20,6 +20,7 @@ Route::group(['prefix' => 'account'], function(){
     Route::group(['middleware' => ['auth:sanctum']], function(){
         Route::post('my-orders', [App\Http\Controllers\Api\Order\OrderController::class, 'my_orders']);
         Route::post('my-instalments', [App\Http\Controllers\Api\Order\OrderController::class, 'my_installments']);
+        Route::post('payment-history', [App\Http\Controllers\Api\Order\OrderController::class, 'payment_history']);
     });
 });
 
