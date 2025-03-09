@@ -74,6 +74,13 @@
                                         @endif
                                     </td>
                                     <td>{{ $item->created_at->format('M d, Y') ?? '' }}</td>
+
+                                    <td>
+                                        <a href="{{ route('seller.customers.edit',$item->uuid) }}">View</a> 
+                                        
+                                        <a href="{{ route('seller.customers.edit',$item->uuid) }}">Edit</a>
+                                        
+                                    </td>
                                 </tr>
                             @endforeach
                         @else
