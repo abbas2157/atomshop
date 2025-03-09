@@ -109,7 +109,6 @@ class OrderController extends BaseController
         $data = ['text' => 'Order has not been submitted. Something Went wrong.', 'icon' => asset('order/failed.png')];
         return $this->sendResponse($data, 'Order created successfully', 200);
     }
-
     public function my_orders()
     {
         try {
@@ -160,7 +159,6 @@ class OrderController extends BaseController
             return $this->sendError('Something went wrong.', $e->getMessage(), 500);
         }
     }
-
     public function my_installments()
     {
         try {
