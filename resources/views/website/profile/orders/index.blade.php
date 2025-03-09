@@ -23,7 +23,7 @@
         </div>
         <div class="col-lg-9 col-md-8">
             <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">All Orders</span></h5>
-            @if(is_null(Auth::user()->customer) || Auth::user()->customer->verified == '0') 
+            @if(is_null(Auth::user()->customer) || Auth::user()->customer->verified == '0')
                 <div class="alert alert-warning" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">×</span>
@@ -68,9 +68,10 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <b>Advance Amount : </b>Rs. {{ number_format($item->cart->product_advance_price, 0) }} <br>
-                                            <b>Total Deal Amount : </b>Rs. {{ number_format($item->cart->product_price,0) }} <br>
-                                            <b>Installment Tenure (Months) : </b> {{ $item->cart->tenure ?? '' }} <br>
+                                            <b>Advance Amount : </b>Rs. {{ number_format($item->advance_price, 0) }} <br>
+                                            <b>Total Deal Amount : </b>Rs. {{ number_format($item->total_deal_price,0) }} <br>
+                                            <b>Installment Tenure (Months) : </b> {{
+                                            $item->tenure ?? '' }} <br>
                                         </td>
                                         <td class="align-middle text-center">{{ $item->portal ?? '' }}</td>
                                         <td class="align-middle text-center">
@@ -99,6 +100,6 @@
 @section('js')
 <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 <script>
-    
+
 </script>
 @endsection
