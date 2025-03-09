@@ -161,7 +161,7 @@ class OrderController extends BaseController
         }
     }
 
-    public function installments()
+    public function my_installments()
     {
         try {
             if(!request()->has('uuid')) {
