@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\Order;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Jobs\Web\OrderConfirmationJob;
-use App\Models\{User, Product, Cart, Order};
+use App\Models\{User, Product, Cart, Order, OrderInstalment};
 use Illuminate\Support\Facades\{Auth, DB, Session};
 use App\Http\Controllers\Api\BaseController as BaseController;
 
@@ -123,7 +123,7 @@ class OrderController extends BaseController
                 return $this->sendError($request->all(), 'User not found.', 200);
             }
 
-            $orders = Order::where('user_id', $user->id)->select('id', 'cart_id', 'advance_price', 'total_deal_price', 'instalment_tenure', 'portal', 'status', 'created_at')->orderBy('id','desc')->paginate(10);
+            $orders = Order::where('user_id', $user->id)->select('id', 'cart_id', 'advance_price', 'total_deal_price', 'instalment_tenure', 'portal', 'status', 'created_at')->orderBy('id','desc')->get();
             if ($orders->isEmpty()) {
                 return $this->sendError($request->all(), 'No Order Found.', 200);
             }
@@ -156,6 +156,55 @@ class OrderController extends BaseController
                 );
             }
             return $this->sendResponse($orders_list, 'Orders get successfully', 200);
+        } catch (\Exception $e) {
+            return $this->sendError('Something went wrong.', $e->getMessage(), 500);
+        }
+    }
+
+    public function installments()
+    {
+        try {
+            if(!request()->has('uuid')) {
+                return $this->sendError(request()->all(), 'Send user uuid in request.', 200);
+            }
+            $user_uuid = request()->uuid;
+
+            $user = User::where('uuid', $user_uuid)->where('status', 'active')->first();
+            if (is_null($user)) {
+                return $this->sendError($request->all(), 'User not found.', 200);
+            }
+            $instalments = OrderInstalment::where('user_id', Auth::user()->id)->get();
+            if ($instalments->isEmpty()) {
+                return $this->sendError($request->all(), 'No instalments Found.', 200);
+            }
+            
+            $instalments_list = [];
+            foreach($instalments as $item) {
+                $payment_date = '-';
+                if($item->type == 'Advnace') {
+                    $payment_date = $item->created_at->format('M d, Y');
+                }
+                else 
+                {
+                    if($item->status == 'Paid') {
+                        $payment_date = $item->updated_at->format('M d, Y');
+                    }
+                }
+                $receipet = '-';
+                if(is_null($item->receipet)) {
+                    $receipet = asset($item->receipet);
+                }
+                $instalments_list[] = array(
+                    'id' => $item->id, 
+                    'month' => $item->month, 
+                    'installment_price' => number_format($item->installment_price,0), 
+                    'payment_date' => $payment_date,
+                    'payment_method' => $item->payment_method,
+                    'receipet' => $receipet,
+                    'status' => $item->status
+                );
+            }
+            return $this->sendResponse($instalments_list, 'Instalments get successfully', 200);
         } catch (\Exception $e) {
             return $this->sendError('Something went wrong.', $e->getMessage(), 500);
         }
