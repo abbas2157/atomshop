@@ -171,11 +171,11 @@ class OrderController extends BaseController
 
             $user = User::where('uuid', $user_uuid)->where('status', 'active')->first();
             if (is_null($user)) {
-                return $this->sendError($request->all(), 'User not found.', 200);
+                return $this->sendError(request()->all(), 'User not found.', 200);
             }
             $instalments = OrderInstalment::where('user_id', Auth::user()->id)->get();
             if ($instalments->isEmpty()) {
-                return $this->sendError($request->all(), 'No instalments Found.', 200);
+                return $this->sendError(request()->all(), 'No instalments Found.', 200);
             }
             
             $instalments_list = [];
