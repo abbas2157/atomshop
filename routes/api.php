@@ -26,7 +26,7 @@ Route::group(['prefix' => 'account'], function(){
 
 
 Route::group(['prefix' => 'checkout'], function(){
-    Route::get('/', [App\Http\Controllers\Api\Order\OrderController::class, 'index']);
+    Route::post('/', [App\Http\Controllers\Api\Order\OrderController::class, 'index']);
     Route::post('perform', [App\Http\Controllers\Api\Order\OrderController::class, 'checkout_perform']);
     Route::get('success', [App\Http\Controllers\Api\Order\OrderController::class, 'success']);
     Route::get('failed', [App\Http\Controllers\Api\Order\OrderController::class, 'faileds']);

@@ -50,7 +50,7 @@ function getCart() {
                 $(".cart-count").text(cartCount);
             }
             else {
-                var row = '<tr><td class="align-middle" colspan="5">Cart is empty.</td></tr>';
+                var row = '<tr><td class="align-middle text-center" colspan="7"><img src="'+ASSET_URL+'/web/img/loader.gif" class="w-10" alt="Loader"></td></tr>';
                 $('.cart-table').append(row);
                 $('#sub-total').text('00.00');
                 $('#total').text('00.00');
