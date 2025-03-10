@@ -23,11 +23,11 @@
                         @csrf
                         <div class="form-group">
                             <label>Email</label>
-                            <input type="email" name="email" class="form-control" required placeholder="Enter your email" value="admin@atomshop.com">
+                            <input type="email" name="email" class="form-control" required placeholder="Enter your email">
                         </div>
                         <div class="form-group">
                             <label>Password</label>
-                            <input type="password" name="password" class="form-control" required placeholder="Enter your password" value="password">
+                            <input type="password" name="password" class="form-control" required placeholder="Enter your password">
                         </div>
                         <button type="submit" class="btn btn-az-primary btn-block">Sign In</button>
                     </form>
