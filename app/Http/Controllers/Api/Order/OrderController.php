@@ -152,6 +152,7 @@ class OrderController extends BaseController
                     'advance_price' => number_format($item->advance_price,0), 
                     'total_deal_price' => number_format($item->total_deal_price,0),
                     'instalment_tenure' => $item->instalment_tenure,
+                    'portal' => $item->portal,
                     'status' => $item->status
                 );
             }
