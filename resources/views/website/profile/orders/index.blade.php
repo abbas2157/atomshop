@@ -70,8 +70,7 @@
                                         <td>
                                             <b>Advance Amount : </b>Rs. {{ number_format($item->advance_price, 0) }} <br>
                                             <b>Total Deal Amount : </b>Rs. {{ number_format($item->total_deal_price,0) }} <br>
-                                            <b>Installment Tenure (Months) : </b> {{
-                                            $item->tenure ?? '' }} <br>
+                                            <b>Installment Tenure (Months) : </b> {{ $item->instalment_tenure ?? '' }} <br>
                                         </td>
                                         <td class="align-middle text-center">{{ $item->portal ?? '' }}</td>
                                         <td class="align-middle text-center">
