@@ -107,7 +107,7 @@
                             Rs. {{ number_format($order->advance_price, 0) }}
                         </td>
                         <td class="align-middle "> 
-                            {{ number_format($order->instalment_tenure, 0) }} Months
+                            {{ number_format(floatval($order->instalment_tenure), 0) }} Months
                         </td>
                         <td>{{ $order->created_at->format('M d, Y') ?? '' }}</td>
                     </tbody>
