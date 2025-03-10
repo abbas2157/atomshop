@@ -73,7 +73,7 @@ class HomeController extends Controller
                         if ($first) {
                             $product_deatil['colors'][] = array('id' => $item->color_id, 'title' => $item->color->title, 'active' => true);
                             $first = false;
-                        } 
+                        }
                         else {
                             $product_deatil['colors'][] = array('id' => $item->color_id, 'title' => $item->color->title, 'active' => false);
                         }
@@ -90,7 +90,7 @@ class HomeController extends Controller
                             $product_deatil['memories'][] = array('id' => $item->memory_id, 'title' => $item->memory->title, 'variation_price' => $item->price, 'active' => true);
                             $first = false;
                             $product_deatil['variation_price'] = $item->price;
-                        } 
+                        }
                         else {
                             $product_deatil['memories'][] = array('id' => $item->memory_id, 'title' => $item->memory->title,  'variation_price' => $item->price, 'active' => false);
                         }
@@ -121,5 +121,8 @@ class HomeController extends Controller
             return abort(505, $e->getMessage());
         }
     }
-    
+    public function throttle()
+    {
+        return view('website.errors.404');
+    }
 }

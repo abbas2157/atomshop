@@ -10376,3 +10376,56 @@ h6 {
 .select2-search--dropdown .select2-search__field {
     outline: none;
 }
+/* error css */
+.error-container {
+    min-height: 40vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.error-box {
+    background: #343a40;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    color: #ffcc00;
+    max-width: 600px;
+    width: 160%;
+    min-height: 180px;
+}
+
+
+.error-title {
+    margin-top: 0;
+    padding-bottom: 4%;
+    font-size: 100px;
+    font-weight: bold;
+    color: #ffcc00;
+}
+
+.error-title::before {
+    content: "⚠️ ";
+}
+
+.error-text {
+    font-size: 22px;
+}
+
+.btn-custom {
+    background-color: #ffcc00;
+    color: #343a40;
+    border: none;
+    padding: 8px 16px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.btn-custom:hover {
+    background-color: #000;
+}
