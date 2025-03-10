@@ -151,7 +151,8 @@ class OrderController extends BaseController
                     'product' => $product, 
                     'advance_price' => number_format($item->advance_price,0), 
                     'total_deal_price' => number_format($item->total_deal_price,0),
-                    'instalment_tenure' => $item->instalment_tenure
+                    'instalment_tenure' => $item->instalment_tenure,
+                    'status' => $item->status
                 );
             }
             return $this->sendResponse($orders_list, 'Orders get successfully', 200);

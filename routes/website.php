@@ -56,9 +56,7 @@ Route::group(['middleware' => ['auth']], function(){
 
 
 //Home
-Route::get('/', function(){
-    return view('welcome');
-})->name('home');
+Route::get('/', function(){ return view('welcome'); })->name('home');
 Route::get('home', [App\Http\Controllers\Web\HomeController::class, 'home'])->name('website');
 Route::get('shop', [App\Http\Controllers\Web\ShopController::class, 'index'])->name('shop');
 Route::get('category/{slug}', [App\Http\Controllers\Web\ShopController::class, 'category'])->name('category');
