@@ -54,8 +54,9 @@ class OrderController extends BaseController
                 $sub_total += ($item->product_price * $item->quantity);
                 $total += $sub_total;
             }
-            $data = ['cart' => $cart, 'sub_total' => number_format($sub_total,0), 'total' => number_format($total,0)];
-            return $this->sendResponse($data, 'Cart get successfully', 200);
+
+            $data = ['items' => $cart, 'sub_total' => number_format($sub_total,0), 'total' => number_format($total,0)];
+            return $this->sendResponse($data, 'Checkout get successfully', 200);
         } catch (\Exception $e) {
             return $this->sendError('Something went wrong.', $e->getMessage(), 500);
         }
