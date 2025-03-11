@@ -9,11 +9,11 @@ use Illuminate\Support\Facades\Redirect;
 
 class CustomThrottle
 {
-    public function handle(Request $request, Closure $next, $maxAttempts = 5, $decayMinutes = 1): Response
+    public function handle(Request $request, Closure $next,  $maxAttempts = 10, $decaySeconds = 30): Response
     {
         try {
             return app(\Illuminate\Routing\Middleware\ThrottleRequests::class)
-                ->handle($request, $next, $maxAttempts, $decayMinutes);
+                ->handle($request, $next, $maxAttempts, $decaySeconds / 60);
         } catch (ThrottleRequestsException $exception) {
             return Redirect::route('website.429-error');
         }
