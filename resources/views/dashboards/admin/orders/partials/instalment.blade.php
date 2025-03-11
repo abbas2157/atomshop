@@ -14,7 +14,11 @@
     
     $total_percentage_amount = round(($total_tenure_percentage / 100) * $remaining_amount);
     $total_amount_with_percentage = $total_percentage_amount + $remaining_amount;
-    $per_installment_price   =  number_format(round($total_amount_with_percentage / (int) $order->instalment_tenure));
+    if ((int) $order->instalment_tenure == 0) {
+        $per_installment_price = 0;
+    } else {
+        $per_installment_price   =  number_format(round($total_amount_with_percentage / (int) $order->instalment_tenure));
+    }
     $months = ['1st','2nd','3rd','4th','5th','6th','7th','8th','9th','10th','11th','12th'];
 @endphp
 <div class="table-responsive">

@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 use App\Models\{InstallmentCalculator};
 use Illuminate\Support\Facades\{Auth, DB, Password, Hash, Mail};
-use App\Models\{User, Customer, Cart, Order, OrderChangeHsitory, OrderInstalment};
+use App\Models\{User, Customer, Cart, Order, OrderChangeHsitory, OrderInstalment, SellerOrder};
 
 class OrderController extends Controller
 {
@@ -237,5 +237,30 @@ class OrderController extends Controller
 
         $response = ['success' => true, 'message' => "Instalment Paid Successfully."];
         return response()->json($response);
+    }
+
+    public function updateSellerOrderStatus(Request $request, string $id)
+    {
+        $order = Order::where('uuid', $id)->first();
+        
+        if (is_null($order)) {
+            return response()->json(['success' => false, 'message' => "Order Not Found"]);
+        }
+    
+        $sellerOrder = SellerOrder::where('order_id', $order->id)
+            ->where('seller_id', Auth::user()->seller->id)
+            ->first();
+    
+        if (!$sellerOrder) {
+            $sellerOrder = new SellerOrder();
+            $sellerOrder->order_id = $order->id;
+            $sellerOrder->user_id = $order->user_id;
+            $sellerOrder->seller_id = Auth::user()->seller->id;
+        }
+    
+        $sellerOrder->status = $request->status;
+        $sellerOrder->save();
+    
+        return response()->json(['success' => true, 'message' => "Order status updated successfully."]);
     }
 }

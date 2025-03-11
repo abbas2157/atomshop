@@ -20,7 +20,7 @@
                 </div>
                 <div class="col-md-3">
                     <label>Change Status {{ ($user->customer->verified == '0') ? 'disabled' : '' }}</label> 
-                    <select class="form-control" id="change_status" style="cursor: pointer" >
+                    <select class="form-control change_status" id="change_status" data-order-id="{{ $order->uuid }}" style="cursor: pointer">
                         <option selected disabled>Change Status</option>
                         <option value="Pending" {{ ('Pending' == $order->status) ? 'selected' : '' }} {{ (in_array($order->status, ['Delivered','Instalments','Completed'])) ? 'disabled' : '' }}>Pending</option>
                         <option value="Varification" {{ ('Varification' == $order->status) ? 'selected' : '' }} {{ (in_array($order->status, ['Delivered','Instalments','Completed'])) ? 'disabled' : '' }}>Varification</option>
@@ -107,7 +107,7 @@
                             Rs. {{ number_format($order->advance_price, 0) }}
                         </td>
                         <td class="align-middle "> 
-                            {{ number_format($order->instalment_tenure, 0) }} Months
+                            {{ number_format(floatval($order->instalment_tenure), 0) }} Months
                         </td>
                         <td>{{ $order->created_at->format('M d, Y') ?? '' }}</td>
                     </tbody>
@@ -163,5 +163,46 @@
     var ORDER_ID = "{{ $order->uuid ?? '' }}";
     var CURRENT_STATUS = "{{ $order->status ?? '' }}";
 </script>
+
+<script>
+    $(document).ready(function () {
+    $('.change_status').on('change', function () {
+        let orderId = $(this).data('order-id');
+        let newStatus = $(this).val(); 
+        let statusBadge = $(this).closest('tr').find('.status-badge');
+
+        $.ajax({
+            url: "{{ route('seller.orders_seller.status.post', '') }}/" + orderId,
+            type: "POST",
+            data: {
+                status: newStatus,
+                _token: "{{ csrf_token() }}"
+            },
+            success: function (response) {
+                if (response.success) {
+                    alert(response.message);
+
+                    let badgeClass = {
+                        'Pending': 'badge badge-danger',
+                        'Varification': 'badge badge-warning',
+                        'Processing': 'badge badge-info',
+                        'Delivered': 'badge badge-primary',
+                        'Instalments': 'badge badge-dark',
+                        'Completed': 'badge badge-success'
+                    };
+
+                    statusBadge.text(newStatus).attr('class', 'status-badge ' + badgeClass[newStatus]); 
+                } else {
+                    alert(response.message);
+                }
+            },
+            error: function () {
+                alert("Something went wrong! Try again.");
+            }
+        });
+    });
+});
+</script>
+
 <script src="{!! asset('assets/js/seller/order/order.js') !!}"></script>
 @endsection
