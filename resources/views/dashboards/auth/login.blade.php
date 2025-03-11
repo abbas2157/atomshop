@@ -19,15 +19,15 @@
                 <div class="az-signin-header">
                     <h2>Welcome back!</h2>
                     <h4>Please sign in to continue</h4>
-                    <form action="{{ route('portal.login.perform') }}" method="POST">
+                    <form action="{{ route('portal.login.perform') }}" method="POST" autocomplete="off">
                         @csrf
                         <div class="form-group">
                             <label>Email</label>
-                            <input type="email" name="email" class="form-control" required placeholder="Enter your email">
+                            <input type="email" name="email" class="form-control" required placeholder="Enter your email" autocomplete="off">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mt-2">
                             <label>Password</label>
-                            <input type="password" name="password" class="form-control" required placeholder="Enter your password">
+                            <input type="password" name="password" class="form-control" required placeholder="Enter your password" autocomplete="new-password">
                         </div>
                         <button type="submit" class="btn btn-az-primary btn-block">Sign In</button>
                     </form>
@@ -40,7 +40,7 @@
                 </div>
                 <div class="az-signin-footer">
                     <p><a href="{{ route('password.forgot') }}">Forgot password?</a></p>
-                    <p>Don't have an account? <a href="">Create an Account</a></p>
+                    {{-- <p>Don't have an account? <a href="">Create an Account</a></p> --}}
                 </div>
             </div>
         </div>

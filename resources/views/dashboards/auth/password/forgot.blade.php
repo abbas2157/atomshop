@@ -23,7 +23,7 @@
                         @csrf
                         <div class="form-group">
                             <label>Email</label>
-                            <input type="email" name="email" class="form-control" required placeholder="Enter your email" value="admin@atomshop.com">
+                            <input type="email" name="email" class="form-control" required placeholder="Enter your email">
                             @if ($errors->has('email'))
                                 <span class="text-danger text-left">{{ $errors->first('email') }}</span>
                             @endif
@@ -38,8 +38,8 @@
                     @endif
                 </div>
                 <div class="az-signin-footer">
-                    <p>Already have an account? <a href="{{ route('login') }}">Sign In</a></p>
-                    <p>Don't have an account? <a href="">Create an Account</a></p>
+                    <p>Already have an account? <a href="{{ route('portal.login') }}">Sign In</a></p>
+                    {{-- <p>Don't have an account? <a href="">Create an Account</a></p> --}}
                 </div>
             </div>
         </div>

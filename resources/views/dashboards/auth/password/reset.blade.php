@@ -47,8 +47,8 @@
                     @endif
                 </div>
                 <div class="az-signin-footer">
-                    <p>Already have an account? <a href="{{ route('login') }}">Sign In</a></p>
-                    <p>Don't have an account? <a href="">Create an Account</a></p>
+                    <p>Already have an account? <a href="{{ route('portal.login') }}">Sign In</a></p>
+                    {{-- <p>Don't have an account? <a href="">Create an Account</a></p> --}}
                 </div>
             </div>
         </div>
