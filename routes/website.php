@@ -59,6 +59,7 @@ Route::group(['middleware' => ['auth']], function(){
 // Route::get('/', function(){ return view('welcome'); })->name('home');
 Route::get('/', [App\Http\Controllers\Web\HomeController::class, 'home'])->name('home');
 Route::get('home', [App\Http\Controllers\Web\HomeController::class, 'home'])->name('website');
+Route::get('404-Error', [App\Http\Controllers\Web\HomeController::class, 'throttle'])->name('404-error');
 Route::get('shop', [App\Http\Controllers\Web\ShopController::class, 'index'])->name('shop');
 Route::get('category/{slug}', [App\Http\Controllers\Web\ShopController::class, 'category'])->name('category');
 Route::get('brand/{slug}', [App\Http\Controllers\Web\ShopController::class, 'brand'])->name('brand');
@@ -67,7 +68,8 @@ Route::get('brand/{slug}', [App\Http\Controllers\Web\ShopController::class, 'bra
 Route::get('about-us', [App\Http\Controllers\Web\PageController::class, 'about'])->name('about-us');
 Route::get('privacy-policy', [App\Http\Controllers\Web\PageController::class, 'privacypolicy'])->name('privacy-policy');
 Route::get('return-refund-policy', [App\Http\Controllers\Web\PageController::class, 'returnrefundpolicy'])->name('return-refund-policy');
-Route::get('faqs', [App\Http\Controllers\Web\PageController::class, 'faqs'])->name('faqs');
+Route::get('faqs', [App\Http\Controllers\Web\PageController::class, 'faqs'])
+    ->middleware(App\Http\Middleware\CustomThrottle::class)->name('faqs');
 
 Route::get('contact-us', [App\Http\Controllers\Web\PageController::class, 'contact'])->name('contact-us');
 Route::post('contact-us', [App\Http\Controllers\Web\PageController::class, 'contact_perform'])->name('contact.send');
