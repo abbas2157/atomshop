@@ -123,6 +123,6 @@ class HomeController extends Controller
     }
     public function throttle()
     {
-        return view('website.errors.404');
+        return view('website.errors.429');
     }
 }

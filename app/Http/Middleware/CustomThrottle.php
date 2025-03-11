@@ -15,7 +15,7 @@ class CustomThrottle
             return app(\Illuminate\Routing\Middleware\ThrottleRequests::class)
                 ->handle($request, $next, $maxAttempts, $decayMinutes);
         } catch (ThrottleRequestsException $exception) {
-            return Redirect::route('404-error');
+            return Redirect::route('website.429-error');
         }
     }
 }

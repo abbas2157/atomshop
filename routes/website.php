@@ -59,7 +59,7 @@ Route::group(['middleware' => ['auth']], function(){
 // Route::get('/', function(){ return view('welcome'); })->name('home');
 Route::get('/', [App\Http\Controllers\Web\HomeController::class, 'home'])->name('home');
 Route::get('home', [App\Http\Controllers\Web\HomeController::class, 'home'])->name('website');
-Route::get('404-Error', [App\Http\Controllers\Web\HomeController::class, 'throttle'])->name('404-error');
+Route::get('429-error', [App\Http\Controllers\Web\HomeController::class, 'throttle'])->name('website.429-error');
 Route::get('shop', [App\Http\Controllers\Web\ShopController::class, 'index'])->name('shop');
 Route::get('category/{slug}', [App\Http\Controllers\Web\ShopController::class, 'category'])->name('category');
 Route::get('brand/{slug}', [App\Http\Controllers\Web\ShopController::class, 'brand'])->name('brand');
