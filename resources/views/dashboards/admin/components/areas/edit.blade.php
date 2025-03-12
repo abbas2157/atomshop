@@ -14,8 +14,8 @@
                     <span>Edit</span>
                 </div>
                 <h2 class="az-content-title">Area</h2>
-                <div class="az-content-label mg-b-5">Create new</div>
-                <p class="mg-b-20">Using this form you can add new City</p>
+                <div class="az-content-label mg-b-5">Edit Area</div>
+                <p class="mg-b-20">Using this form you can edit City</p>
                 <form method="POST" action="{{ route('admin.areas.update', $areas->id) }}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
@@ -55,7 +55,6 @@
                                 <span class="text-danger text-left">{{ $errors->first('lng') }}</span>
                             @endif
                         </div>
-                        
                         <div class="col-lg-6 mt-2">
                             <label>Select status <span class="text-danger">*</span></label>
                             <select class="form-control" name="status">
@@ -64,6 +63,23 @@
                             </select>
                         </div>
                     </div>
+                    <div class="az-content-label mg-b-5 mt-5">Edit Area</div>
+                    <p class="mg-b-20">Using this form you can edit City</p>
+                    <div class="col-lg-6 mt-2">
+                        <label>Select Sellers <span class="text-danger">*</span></label>
+                        <select class="form-control" name="seller_ids[]" multiple required>
+                            <option disabled>Select Sellers</option>
+                            @foreach($sellers as $seller)
+                                <option value="{{ $seller->id }}" 
+                                    {{ in_array($seller->id, old('seller_ids', $selectedSellers ?? [])) ? 'selected' : '' }}>
+                                    {{ $seller->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @if ($errors->has('seller_ids'))
+                            <span class="text-danger text-left">{{ $errors->first('seller_ids') }}</span>
+                        @endif
+                    </div>                   
                     <button type="submit" class="btn btn-success mt-3">Update Area</button>
                 </form>
             </div>
