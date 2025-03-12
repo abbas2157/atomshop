@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Dashboards\Admin\Components;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{Area, City};
+use App\Models\{Area, City, Seller, ActiveSeller};
+use Illuminate\Support\Facades\Auth;
+
 
 class AreaController extends Controller
 {
@@ -40,7 +42,8 @@ class AreaController extends Controller
     public function create()
     {
         $cities = City::orderBy('id','desc')->get();
-        return view('dashboards.admin.components.areas.create', compact('cities'));
+        $sellers = Seller::all(); // Get all sellers
+        return view('dashboards.admin.components.areas.create', compact('cities', 'sellers'));
 
     }
 
@@ -61,7 +64,18 @@ class AreaController extends Controller
         $areas->status = $request->status;
         $areas->save();
 
-        $validator['success'] = 'areas created successfully';
+        if (is_array($request->seller_ids)) {
+            foreach ($request->seller_ids as $seller_id) {
+                ActiveSeller::create([
+                    'user_id' => Auth::id(), 
+                    'area_id' => $areas->id,
+                    'seller_id' => $seller_id,
+                    'status' => 'Active',
+                ]);
+            }
+        }
+
+        $validator['success'] = 'Area created successfully';
         return back()->withErrors($validator);
     }
 
@@ -78,9 +92,12 @@ class AreaController extends Controller
      */
     public function edit(string $id)
     {
-        $cities = City::orderBy('id','desc')->get();
-        $areas = Area::findOrFail($id);
-        return view('dashboards.admin.components.areas.edit',compact('areas', 'cities'));
+        $cities = City::orderBy('id', 'desc')->get();
+        $areas = Area::with('activeSellers')->findOrFail($id);
+        $sellers = Seller::all();
+        $selectedSellers = $areas->activeSellers->pluck('seller_id')->toArray(); 
+
+        return view('dashboards.admin.components.areas.edit', compact('areas', 'cities', 'sellers', 'selectedSellers'));
     }
 
     /**
@@ -100,6 +117,19 @@ class AreaController extends Controller
         $areas->status = $request->status;
         $areas->save();
 
+        ActiveSeller::where('area_id', $id)->delete();
+
+        if (is_array($request->seller_ids)) {
+            foreach ($request->seller_ids as $seller_id) {
+                ActiveSeller::create([
+                    'user_id' => Auth::id(),
+                    'area_id' => $areas->id,
+                    'seller_id' => $seller_id,
+                    'status' => 'Active',
+                ]);
+            }
+        }
+
         $validator['success'] = 'Area Updated successfully';
         return back()->withErrors($validator);
     }
@@ -114,4 +144,5 @@ class AreaController extends Controller
         $validator['success'] = 'Area deleted successfully';
         return back()->withErrors($validator);
     }
+
 }

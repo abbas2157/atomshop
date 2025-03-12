@@ -10,4 +10,10 @@ class Area extends Model
     {
         return $this->belongsTo(City::class,'city_id','id')->select('id','title');
     }
+    
+    public function activeSellers()
+    {
+        return $this->hasMany(ActiveSeller::class, 'area_id');
+    }
+
 }
