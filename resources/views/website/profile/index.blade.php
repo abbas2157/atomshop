@@ -22,7 +22,7 @@
         </div>
         <div class="col-lg-9 col-md-8">
             <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Change Information</span></h5>
-            @if(is_null(Auth::user()->customer) || Auth::user()->customer->verified == '0') 
+            @if(is_null(Auth::user()->customer) || Auth::user()->customer->verified == '0')
                 <div class="alert alert-warning" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">×</span>
@@ -81,7 +81,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="email">Area</label>
-                                <select class="custom-select" name="area_id" id="area_id" required>
+                                <select class="custom-select select2" id="select2" name="area_id" id="area_id" required>
                                     @if($areas->isNotEmpty())
                                         @foreach($areas as $item)
                                             <option value="{{ $item->id ?? '' }}" {{ (!is_null(Auth::user()->customer) && Auth::user()->customer->area_id == $item->id) ? 'selected' : '' }}>{{ $item->title ?? '' }}</option>

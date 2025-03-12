@@ -9,6 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="author" content="AtomShop">
     @yield('title')
+    <link href="{!! asset('assets/lib/select2/css/select2.min.css') !!}" rel="stylesheet">
     <link href="{!! asset('assets/lib/fontawesome-free/css/all.min.css') !!}" rel="stylesheet">
     <link href="{!! asset('assets/lib/ionicons/css/ionicons.min.css') !!}" rel="stylesheet">
     <link href="{!! asset('assets/lib/typicons.font/typicons.css') !!}" rel="stylesheet">
@@ -40,6 +41,16 @@
     <script src="{!! asset('assets/lib/ionicons/ionicons.js') !!}"></script>
     <script src="{!! asset('assets/js/scripts.js') !!}"></script>
     @yield('js')
+    <script src="{!! asset('assets/lib/select2/js/select2.min.js') !!}"></script>
+    <script>
+        $(function() {
+            'use strict';
+            $('.select2').select2({
+                placeholder: 'Choose items',
+                searchInputPlaceholder: 'Search'
+            });
+        });
+    </script>
     @if ($errors->has('success'))
         <script>
             document.addEventListener("DOMContentLoaded", function() {

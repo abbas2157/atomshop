@@ -76,7 +76,7 @@
                         </div>
                         <div class="col-lg mt-2">
                             <label>Customer area <span class="text-danger">*</span></label>
-                            <select class="form-control" name="area_id" id="area_id" id="select-area">
+                            <select class="form-control select2" id="select2" name="area_id" id="area_id" id="select-area">
                                 @if ($areas->isNotEmpty())
                                     @foreach ($areas as $item)
                                         <option value="{{ $item->id ?? '' }}"
