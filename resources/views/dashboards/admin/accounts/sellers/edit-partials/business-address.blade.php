@@ -15,7 +15,7 @@
         </div>
         <div class="col-lg mt-2">
             <label>Seller area <span class="text-danger">*</span></label>
-            <select class="form-control" name="area_id" id="area_id">
+            <select class="form-control select2" name="area_id" id="area_id" style="display: block; width:100%">
                 @if(!empty($areas))
                 @foreach($areas as $item)
                     <option value="{{ $item->id }}" {{ ($item->id == old('area_id', $seller->area_id ?? '')) ? 'selected' : '' }}>
