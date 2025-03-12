@@ -66,8 +66,26 @@
                         </div>
                         <div class="col-lg"></div>
                     </div>
-                    <button type="submit" class="btn btn-success mt-3">Create Area</button>
-                </form>
+                    <div class="az-content-label mg-b-5 mt-5">Create new</div>
+                    <p class="mg-b-20">Using this form you can add new Seller</p>
+                    <div class="col-lg-6 mt-2">
+                        <label>Select Sellers<span class="text-danger">*</span></label>
+                        <select class="form-control" name="seller_ids[]" multiple required>
+                            <option selected disabled>Select Sellers</option>
+                            @if($sellers->isNotEmpty())
+                                @foreach($sellers as $seller)
+                                    <option value="{{ $seller->id }}" {{ (collect(old('seller_ids'))->contains($seller->id)) ? 'selected' : '' }}>
+                                        {{ $seller->name }}
+                                    </option>
+                                @endforeach
+                            @endif
+                        </select>
+                        @if ($errors->has('seller_ids'))
+                            <span class="text-danger text-left">{{ $errors->first('seller_ids') }}</span>
+                        @endif
+                    </div>
+                <button type="submit" class="btn btn-success mt-3">Create Area</button>
+            </form>                
             </div>
         </div>
     </div>

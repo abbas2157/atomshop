@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Dashboards\Admin\Components;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{Area, City};
+use App\Models\{Area, City, Seller, ActiveSeller};
 
 class AreaController extends Controller
 {
@@ -40,7 +40,8 @@ class AreaController extends Controller
     public function create()
     {
         $cities = City::orderBy('id','desc')->get();
-        return view('dashboards.admin.components.areas.create', compact('cities'));
+        $sellers = Seller::all(); // Get all sellers
+        return view('dashboards.admin.components.areas.create', compact('cities', 'sellers'));
 
     }
 
@@ -60,6 +61,17 @@ class AreaController extends Controller
         $areas->city_id = $request->city_id;
         $areas->status = $request->status;
         $areas->save();
+
+        if (is_array($request->seller_ids)) {
+            foreach ($request->seller_ids as $seller_id) {
+                ActiveSeller::create([
+                    'user_id' => auth()->id(),
+                    'area_id' => $areas->id,
+                    'seller_id' => $seller_id,
+                    'status' => 'Active',
+                ]);
+            }
+        }
 
         $validator['success'] = 'areas created successfully';
         return back()->withErrors($validator);
@@ -114,4 +126,5 @@ class AreaController extends Controller
         $validator['success'] = 'Area deleted successfully';
         return back()->withErrors($validator);
     }
+
 }
