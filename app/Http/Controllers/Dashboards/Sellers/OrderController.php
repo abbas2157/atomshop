@@ -142,6 +142,17 @@ class OrderController extends Controller
         $order->status = $status;
         $order->save();
 
+        $sellerOrder = SellerOrder::where('order_id', $order->id)->where('seller_id', Auth::user()->seller->id)->first();
+    
+        if (is_null($sellerOrder)) {
+            $sellerOrder = new SellerOrder();
+        }
+        $sellerOrder->order_id = $order->id;
+        $sellerOrder->user_id = $order->user_id;
+        $sellerOrder->seller_id = Auth::user()->seller->id;
+        $sellerOrder->status = $request->status;
+        $sellerOrder->save();
+
         $change_order = new OrderChangeHsitory;
         $change_order->order_id = $order->id;
         $change_order->user_id = $order->user_id;
@@ -238,29 +249,5 @@ class OrderController extends Controller
         $response = ['success' => true, 'message' => "Instalment Paid Successfully."];
         return response()->json($response);
     }
-
-    public function updateSellerOrderStatus(Request $request, string $id)
-    {
-        $order = Order::where('uuid', $id)->first();
-        
-        if (is_null($order)) {
-            return response()->json(['success' => false, 'message' => "Order Not Found"]);
-        }
     
-        $sellerOrder = SellerOrder::where('order_id', $order->id)
-            ->where('seller_id', Auth::user()->seller->id)
-            ->first();
-    
-        if (!$sellerOrder) {
-            $sellerOrder = new SellerOrder();
-            $sellerOrder->order_id = $order->id;
-            $sellerOrder->user_id = $order->user_id;
-            $sellerOrder->seller_id = Auth::user()->seller->id;
-        }
-    
-        $sellerOrder->status = $request->status;
-        $sellerOrder->save();
-    
-        return response()->json(['success' => true, 'message' => "Order status updated successfully."]);
-    }
 }
