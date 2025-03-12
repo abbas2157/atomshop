@@ -92,11 +92,12 @@ class AreaController extends Controller
      */
     public function edit(string $id)
     {
-        $cities = City::orderBy('id','desc')->get();
+        $cities = City::orderBy('id', 'desc')->get();
         $areas = Area::with('activeSellers')->findOrFail($id);
         $sellers = Seller::all();
         $selectedSellers = $areas->activeSellers->pluck('seller_id')->toArray(); 
-        return view('dashboards.admin.components.areas.edit',compact('areas', 'cities', 'sellers'));
+
+        return view('dashboards.admin.components.areas.edit', compact('areas', 'cities', 'sellers', 'selectedSellers'));
     }
 
     /**

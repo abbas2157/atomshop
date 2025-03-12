@@ -79,7 +79,7 @@
                         @if ($errors->has('seller_ids'))
                             <span class="text-danger text-left">{{ $errors->first('seller_ids') }}</span>
                         @endif
-                    </div>                   
+                    </div>                                       
                     <button type="submit" class="btn btn-success mt-3">Update Area</button>
                 </form>
             </div>
