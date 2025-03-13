@@ -70,15 +70,13 @@
                     <p class="mg-b-20">Using this form you can add new Seller</p>
                     <div class="col-lg-6 mt-2">
                         <label>Select Sellers<span class="text-danger">*</span></label>
-                        <select class="form-control" name="seller_ids[]" multiple required>
-                            <option selected disabled>Select Sellers</option>
-                            @if($sellers->isNotEmpty())
-                                @foreach($sellers as $seller)
-                                    <option value="{{ $seller->id }}" {{ (collect(old('seller_ids'))->contains($seller->id)) ? 'selected' : '' }}>
-                                        {{ $seller->name }}
-                                    </option>
-                                @endforeach
-                            @endif
+                        <select class="form-control select2" name="seller_ids[]" multiple required>
+                            <option disabled>Select Sellers</option>
+                            @foreach($sellers as $seller)
+                            <option value="{{ $seller->id }}" {{ collect(old('seller_ids'))->contains($seller->id) ? 'selected' : '' }}>
+                                {{ $seller->name }}
+                            </option>
+                            @endforeach
                         </select>
                         @if ($errors->has('seller_ids'))
                             <span class="text-danger text-left">{{ $errors->first('seller_ids') }}</span>
