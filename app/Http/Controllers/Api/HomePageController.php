@@ -129,7 +129,7 @@ class HomePageController extends BaseController
                 ->when($request->max_price, fn($q) => $q->where('price', '<=', $request->max_price))
                 ->when($request->brand_id, fn($q) => $q->where('brand_id', $request->brand_id))
                 ->orderBy($request->order_by ?? 'title', $request->order_type ?? 'desc')
-                ->select('id', 'title', 'picture', 'price', 'category_id', 'brand_id')
+                ->select('id', 'title', 'picture', 'price', 'min_advance_price', 'category_id', 'brand_id')
                 ->get();
             $products = [];
             foreach($product_items as $product) {
@@ -160,7 +160,7 @@ class HomePageController extends BaseController
                 ->when($request->max_price, fn($q) => $q->where('price', '<=', $request->max_price))
                 ->when($request->category_id, fn($q) => $q->where('category_id', $request->category_id))
                 ->orderBy($request->order_by ?? 'title', $request->order_type ?? 'desc')
-                ->select('id', 'title', 'picture', 'price', 'category_id', 'brand_id')
+                ->select('id', 'title', 'picture', 'price', 'min_advance_price', 'category_id', 'brand_id')
                 ->get();
             $products = [];
             foreach($product_items as $product) {
