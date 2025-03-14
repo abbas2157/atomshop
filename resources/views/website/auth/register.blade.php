@@ -34,6 +34,12 @@
                                 <span class="focus-bg"></span>
                                 <span class="text-danger error" id="error-password"></span>
                             </div>
+                            <div class="input-floating-label">
+                                <input class="input" type="tel" id="input-phone" name="phone" placeholder="Enter Phone Number" />
+                                <label for="input-phone">Phone Number</label>
+                                <span class="focus-bg"></span>
+                                <span class="text-danger error" id="error-phone"></span>
+                            </div>
                             <a href="" class="forgot__link">Forgot password?</a>
                             <button class="btn__submit register" type="button">Sign up</button>
                             <p class="other__link"> Already have an account? <a href="{{ route('login') }}">Log in</a> </p>

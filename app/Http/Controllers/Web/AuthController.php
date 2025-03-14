@@ -60,6 +60,7 @@ class AuthController extends BaseController
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
                 'email' => 'required|email|unique:users',
+                'phone' => 'required',
                 'password' => 'required'
             ]);
             if ($validator->fails()) {
@@ -71,6 +72,7 @@ class AuthController extends BaseController
             $user->uuid = Str::uuid();
             $user->name = $request->name;
             $user->email = $request->email;
+            $user->phone = $request->phone;
             $user->status = 'pending';
             $user->password = bcrypt($request->password);
             $user->role = 'customer';
