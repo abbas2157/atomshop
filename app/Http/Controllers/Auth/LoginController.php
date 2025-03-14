@@ -90,7 +90,7 @@ class LoginController extends Controller
             }
         }
         $validator['error'] = 'Your details are incorrect.';
-        return redirect("login")->withErrors($validator);
+        return redirect("portal/login")->withErrors($validator);
     }
 
     /**
