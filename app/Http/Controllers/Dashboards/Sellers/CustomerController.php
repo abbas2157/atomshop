@@ -144,6 +144,15 @@ class CustomerController extends Controller
                 return back()->withErrors($validator);
             }
 
+            $user->status = $request->status;
+            $user->save();
+            
+            if ($request->has('city_id')) {
+                $customer->city_id = $request->city_id;
+            }
+            if ($request->has('area_id')) {
+                $customer->area_id = $request->area_id;
+            }
             $customer->address = $request->address;
             $customer->save();
 

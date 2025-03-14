@@ -48,7 +48,7 @@
                         </div>
                         <div class="col-lg mt-2">
                             <label>Select status <span class="text-danger">*</span></label>
-                            <select class="form-control" name="status" disabled>
+                            <select class="form-control" name="status">
                                 <option value="active" {{ $user->status == 'active' ? 'selected' : '' }}>Active</option>
                                 <option value="block" {{ $user->status == 'block' ? 'selected' : '' }}>Block</option>
                                 <option value="pending" {{ $user->status == 'pending' ? 'selected' : '' }}>Pending</option>
@@ -61,7 +61,7 @@
                     <div class="row row-sm">
                         <div class="col-lg mt-2">
                             <label>Customer city <span class="text-danger">*</span></label>
-                            <select class="form-control" name="city_id" id="select-city" disabled>
+                            <select class="form-control" name="city_id" id="select-city" {{ (is_null($user->customer)) || (is_null($user->customer->city_id))  ? '' : 'disabled' }}>
                                 @if ($cities->isNotEmpty())
                                     @foreach ($cities as $item)
                                         <option value="{{ $item->id ?? '' }}"
@@ -70,13 +70,10 @@
                                     @endforeach
                                 @endif
                             </select>
-                            @if ($errors->has('city_id'))
-                                <span class="text-danger text-left">{{ $errors->first('city_id') }}</span>
-                            @endif
                         </div>
                         <div class="col-lg mt-2">
                             <label>Customer area <span class="text-danger">*</span></label>
-                            <select class="form-control select2" id="select2" name="area_id" id="area_id" id="select-area" disabled>
+                            <select class="form-control select2" name="area_id" {{ is_null($user->customer) || (is_null($user->customer->area_id))  ? '' : 'disabled' }}>
                                 @if ($areas->isNotEmpty())
                                     @foreach ($areas as $item)
                                         <option value="{{ $item->id ?? '' }}"
@@ -85,9 +82,6 @@
                                     @endforeach
                                 @endif
                             </select>
-                            @if ($errors->has('area_id'))
-                                <span class="text-danger text-left">{{ $errors->first('area_id') }}</span>
-                            @endif
                         </div>
                     </div>
                     <div class="row row-sm">
