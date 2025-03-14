@@ -20,6 +20,16 @@
     <form action="{{ route('checkout.perform') }}" method="POST">
         @csrf
         <div class="row px-xl-5">
+            <div class="col-lg-12">
+                @if(is_null(Auth::user()->customer) || Auth::user()->customer->verified == '0')
+                    <div class="alert alert-warning" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                        <strong>Note !</strong> Get verified yourself immediately. Our agent will visite you soon.
+                    </div>
+                @endif
+            </div>
             <div class="col-lg-8">
                 <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Customer Information</span></h5>
                 <div class="bg-light p-30 mb-5">
@@ -67,12 +77,6 @@
                             <input class="form-control" name="address" required type="text" placeholder="123 Street" value="{{ (!is_null(Auth::user()->customer)) ? Auth::user()->customer->address : '' }}">
                         </div>
                         @guest
-                        <div class="col-md-12 form-group">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="newaccount">
-                                <label class="custom-control-label" for="newaccount">Create an account</label>
-                            </div>
-                        </div>
                         @endguest
                     </div>
                 </div>
@@ -114,9 +118,18 @@
                             <h5>Rs. {{ number_format(($total),0) }}</h5>
                         </div>
                     </div>
-                    @if($cart->isNotEmpty())
-                        <button class="btn btn-block btn-primary font-weight-bold py-3" type="submit">Place Order</button>
+                    @if((is_null(Auth::user()->customer)) || Auth::user()->customer->address)
+                        <div class="alert alert-warning" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                            <strong>Note !</strong> Please update city, area & address in your profile before order place. <a href="{{ route('profile') }}"> My Profile</a>
+                        </div>
                     @endif
+                    @if($cart->isNotEmpty())
+                        <button class="btn btn-block btn-primary font-weight-bold py-3" {{ ((is_null(Auth::user()->customer)) || Auth::user()->customer->address) ? 'disabled' : '' }} type="submit">Place Order</button>
+                    @endif
+                    
                 </div>
             </div>
         </div>
