@@ -74,6 +74,7 @@ class SellersController extends Controller
                 $seller->address = $request->business_address;
                 $seller->investment_capacity = $request->investment_capacity;
                 $seller->previous_experience = $request->previous_experience;
+                $seller->verified = '1';
                 $seller->save();
 
                 DB::commit();
@@ -147,6 +148,7 @@ class SellersController extends Controller
             $seller->address = $request->business_address;
             $seller->investment_capacity = $request->investment_capacity;
             $seller->previous_experience = $request->previous_experience;
+            $seller->verified = '1';
             $seller->save();
 
             DB::commit();
