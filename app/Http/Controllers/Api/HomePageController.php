@@ -136,7 +136,7 @@ class HomePageController extends BaseController
                 $products[] =array(
                     'id' => $product->id,
                     'title' => $product->title,
-                    'price' => $product->formatted_advance_price,
+                    'price' => $product->min_advance_price,
                     'picture' => $product->product_picture,
                     'category' => $product->category->title,
                     'brand' => $product->brand->title
@@ -167,7 +167,7 @@ class HomePageController extends BaseController
                 $products[] =array(
                     'id' => $product->id,
                     'title' => $product->title,
-                    'price' => $product->formatted_advance_price,
+                    'price' => $product->min_advance_price,
                     'picture' => $product->product_picture,
                     'category' => $product->category->title,
                     'brand' => $product->brand->title
