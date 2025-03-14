@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('uuid')->nullable();
             $table->foreignId('user_id');
+            $table->foreignId('area_id');
+            $table->foreignId('city_id');
             $table->foreignId('cart_id');
             $table->integer('total_deal_price')->default(0);
             $table->integer('advance_price')->default(0);

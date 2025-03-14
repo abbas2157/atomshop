@@ -45,7 +45,7 @@ class OrderController extends Controller
         if(!$request->has('cart_id') && empty($request->cart_id)) {
             return redirect('cart');
         }
-       
+
         try {
             DB::beginTransaction();
 
@@ -60,6 +60,8 @@ class OrderController extends Controller
                 $order->uuid = Str::uuid();
                 $order->user_id = Auth::user()->id;
                 $order->cart_id = $cart->id;
+                $order->area_id = $request->area_id;
+                $order->city_id = $request->city_id;
                 $order->total_deal_price = $cart->product_price;
                 $order->advance_price = $cart->product_advance_price;
                 $order->instalment_tenure = $cart->tenure;

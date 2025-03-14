@@ -54,7 +54,48 @@
         </table>
     </div>
 </div>
-
+<div class="row px-xl-6">
+    <div class="col-lg-12 table-responsive mb-3">
+        <table class="table table-bordered text-center mb-0">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Select City (شہر منتخب کریں)</th>
+                    <th>Select Area</th>
+                </tr>
+            </thead>
+            <tbody class="align-middle">
+                <tr>
+                    <td>
+                        <select class="form-control" name="city_id" required>
+                            @if ($cities->isNotEmpty())
+                                @foreach ($cities as $item)
+                                    <option value="{{ $item->id ?? '' }}"
+                                        {{ !is_null(Auth::user()->customer) && Auth::user()->customer->city_id == $item->id ? 'selected' : '' }}>
+                                        {{ $item->title ?? '' }}</option>
+                                @endforeach
+                            @else
+                                <option value="0">No City Found</option>
+                            @endif
+                        </select>
+                    </td>
+                    <td>
+                        <select class="form-control" name="area_id" required>
+                            @if ($areas->isNotEmpty())
+                                @foreach ($areas as $item)
+                                    <option value="{{ $item->id ?? '' }}"
+                                        {{ !is_null(Auth::user()->customer) && Auth::user()->customer->area_id == $item->id ? 'selected' : '' }}>
+                                        {{ $item->title ?? '' }}</option>
+                                @endforeach
+                            @else
+                                <option value="0">No Area Found</option>
+                            @endif
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 <div class="d-none color-storage">
     <h5 class=" text-uppercase mx-xl-5 mb-2"><span class="bg-secodary pr-3">Choose product veriation</span></h5>
     <div class="row px-xl-6">
