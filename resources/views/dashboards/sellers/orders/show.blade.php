@@ -20,7 +20,7 @@
                 </div>
                 <div class="col-md-3">
                     <label>Change Status </label> 
-                    <select class="form-control change_status" {{ ($user->customer->verified == '0') ? 'disabled' : '' }} style="cursor: pointer">
+                    <select class="form-control change_status" id="change_status" {{ ($user->customer->verified == '0') ? 'disabled' : '' }} style="cursor: pointer">
                         <option selected disabled>Change Status</option>
                         <option value="Pending" {{ ('Pending' == $order->status) ? 'selected' : '' }} {{ (in_array($order->status, ['Delivered','Instalments','Completed'])) ? 'disabled' : '' }}>Pending</option>
                         <option value="Varification" {{ ('Varification' == $order->status) ? 'selected' : '' }} {{ (in_array($order->status, ['Delivered','Instalments','Completed'])) ? 'disabled' : '' }}>Varification</option>
