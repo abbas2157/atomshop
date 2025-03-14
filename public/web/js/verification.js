@@ -24,7 +24,7 @@
                         escapeMarkup: false,
                         backgroundColor: "linear-gradient(to right, #FFD333, #3D464D)",
                     }).showToast();
-                    window.location.href = APP_URL + '/home';
+                    window.location.href = response.data.back;
                 } 
                 else {
                     $(".verification").prop('disabled', false);

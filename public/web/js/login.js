@@ -51,6 +51,7 @@
                     processData: false,
                     headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                     success: function (response) {
+                        console.log(response);
                         if (response.success == true) {
                             Toastify({
                                 text: "<i class='fas fa-check-circle'></i> <b> Success </b>! Redirecting...",
@@ -60,7 +61,7 @@
                                 escapeMarkup: false,
                                 backgroundColor: "linear-gradient(to right, #FFD333, #3D464D)",
                             }).showToast();
-                            window.location.href = APP_URL + '/home';
+                            window.location.href = response.data.back;
                         } else {
                             $(".login").prop('disabled', false);
                             $(".login").html('Login');

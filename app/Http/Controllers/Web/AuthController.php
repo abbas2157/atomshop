@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\{Auth, Validator, DB, Password, Hash, Mail};
 use Illuminate\Support\Str;
 use App\Jobs\Web\SendVerificationCode;
 use App\Jobs\Web\WelcomeEmailJob;
+use Illuminate\Support\Facades\Session;
 
 use App\Mail\Web\VerificationCode;
 
@@ -17,6 +18,9 @@ class AuthController extends BaseController
 {
     public function login()
     {
+        if (!Session::has('url.intended')) {
+            Session::put('url.intended', url()->previous());
+        }
         return view('website.auth.login');
     }
     public function login_perform(Request $request)
@@ -43,6 +47,7 @@ class AuthController extends BaseController
                 }
             }
             $success['user'] = Auth::user();
+            $success['back'] = Session::pull('url.intended', '/');
 
             return $this->sendResponse($success, 'User Login successfully.');
         } catch (\Exception $e) {
@@ -52,6 +57,9 @@ class AuthController extends BaseController
     }
     public function register()
     {
+        if (!Session::has('url.intended')) {
+            Session::put('url.intended', url()->previous());
+        }
         return view('website.auth.register');
     }
     public function register_perform(Request $request)
@@ -146,8 +154,8 @@ class AuthController extends BaseController
                 $user->email_verified_at = now();
                 $user->save();
             }
-            
-            return $this->sendResponse('Code matched successfully.', $request->all(), 200);
+            $success['back'] = Session::pull('url.intended', '/');
+            return $this->sendResponse('Code matched successfully.', $success, 200);
         } catch (\Exception $e) {
             return $this->sendError('Something Went Wrong.', $e->getMessage(), 500);
         }
