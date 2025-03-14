@@ -40,7 +40,7 @@ class ProductController extends BaseController
                         $query->where('title', 'LIKE', "%$search%");
                     });
                 }
-                $product_items = $product_items->select('id', 'title', 'price', 'picture', 'category_id', 'brand_id')->get();
+                $product_items = $product_items->select('id', 'title', 'price', 'min_advance_price', 'picture', 'category_id', 'brand_id')->get();
                 $products = [];
                 foreach($product_items as $product) {
                     $products[] =array(

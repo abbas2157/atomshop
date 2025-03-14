@@ -134,22 +134,16 @@ class CustomerController extends Controller
 
             $user = User::where('uuid', $id)->first();
             if (is_null($user)) {
-                return abort(404);
+                $validator['error'] = 'User not Found';
+                return back()->withErrors($validator);
             }
-            $user->name  = $request->name;
-            $user->email = $request->email;
-            $user->phone = $request->phone;
-            $user->status = $request->status;
-            $user->save();
 
             $customer = Customer::where('user_id', $user->id)->first();
             if (is_null($customer)) {
-                $customer = new Customer;
-                $customer->user_id  = $user->id;
+                $validator['error'] = 'Customer not Found';
+                return back()->withErrors($validator);
             }
 
-            $customer->city_id = $request->city_id;
-            $customer->area_id = $request->area_id;
             $customer->address = $request->address;
             $customer->save();
 

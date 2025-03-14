@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('custom_orders', function (Blueprint $table) {
             $table->id();
             $table->string('uuid')->nullable();
             $table->foreignId('user_id');
-            $table->foreignId('cart_id');
+            $table->foreignId('product_id');
             $table->integer('total_deal_price')->default(0);
             $table->integer('advance_price')->default(0);
             $table->integer('tenure')->default(3);
@@ -24,6 +24,7 @@ return new class extends Migration
             $table->enum('portal',['Web', 'App'])->default('Web');
             $table->enum('status',['Pending', 'Varification', 'Processing', 'Delivered', 'Instalments', 'Completed'])->default('Pending');
             $table->foreignId('updated_by')->nullable();
+            $table->foreignId('created_by')->nullable();
             $table->timestamps();
         });
     }
@@ -33,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('custom_orders');
     }
 };
