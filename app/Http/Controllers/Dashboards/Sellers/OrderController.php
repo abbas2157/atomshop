@@ -118,7 +118,7 @@ class OrderController extends Controller
             $order_instalment->user_id = $order->user_id;
             $order_instalment->order_id = $order->id;
             $order_instalment->installment_price = $advance;
-            $order_instalment->receipet = $payload['img'];
+            // $order_instalment->receipet = $payload;
             $order_instalment->payment_method = $request->payment_method;
             $order_instalment->month = 'Advance';
             $order_instalment->type = 'Advance';
