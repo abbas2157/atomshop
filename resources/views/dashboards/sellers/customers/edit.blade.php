@@ -22,16 +22,16 @@
                     <div class="row row-sm">
                         <div class="col-lg mt-2">
                             <label>Customer name <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="name" value="{{ $user->name ?? '' }}"
-                                placeholder="Enter customer name" value="{{ old('name') }}" required>
+                            <input type="text" class="form-control" value="{{ $user->name ?? '' }}"
+                                placeholder="Enter customer name" value="{{ old('name') }}" disabled>
                             @if ($errors->has('name'))
                                 <span class="text-danger text-left">{{ $errors->first('name') }}</span>
                             @endif
                         </div>
                         <div class="col-lg mt-2">
                             <label>Customer email <span class="text-danger">*</span></label>
-                            <input type="email" class="form-control" name="email" value="{{ $user->email ?? '' }}"
-                                placeholder="Enter customer email" value="{{ old('email') }}" required>
+                            <input type="email" class="form-control" value="{{ $user->email ?? '' }}"
+                                placeholder="Enter customer email" value="{{ old('email') }}" disabled>
                             @if ($errors->has('email'))
                                 <span class="text-danger text-left">{{ $errors->first('email') }}</span>
                             @endif
@@ -41,14 +41,14 @@
                         <div class="col-lg mt-2">
                             <label>Customer phone <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="phone" value="{{ $user->phone ?? '' }}"
-                                placeholder="Enter customer phone" value="{{ old('phone') }}" required>
+                                placeholder="Enter customer phone" value="{{ old('phone') }}" disabled>
                             @if ($errors->has('phone'))
                                 <span class="text-danger text-left">{{ $errors->first('phone') }}</span>
                             @endif
                         </div>
                         <div class="col-lg mt-2">
                             <label>Select status <span class="text-danger">*</span></label>
-                            <select class="form-control" name="status">
+                            <select class="form-control" name="status" disabled>
                                 <option value="active" {{ $user->status == 'active' ? 'selected' : '' }}>Active</option>
                                 <option value="block" {{ $user->status == 'block' ? 'selected' : '' }}>Block</option>
                                 <option value="pending" {{ $user->status == 'pending' ? 'selected' : '' }}>Pending</option>
@@ -61,7 +61,7 @@
                     <div class="row row-sm">
                         <div class="col-lg mt-2">
                             <label>Customer city <span class="text-danger">*</span></label>
-                            <select class="form-control" name="city_id" id="select-city">
+                            <select class="form-control" name="city_id" id="select-city" disabled>
                                 @if ($cities->isNotEmpty())
                                     @foreach ($cities as $item)
                                         <option value="{{ $item->id ?? '' }}"
@@ -76,7 +76,7 @@
                         </div>
                         <div class="col-lg mt-2">
                             <label>Customer area <span class="text-danger">*</span></label>
-                            <select class="form-control select2" id="select2" name="area_id" id="area_id" id="select-area">
+                            <select class="form-control select2" id="select2" name="area_id" id="area_id" id="select-area" disabled>
                                 @if ($areas->isNotEmpty())
                                     @foreach ($areas as $item)
                                         <option value="{{ $item->id ?? '' }}"

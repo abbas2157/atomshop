@@ -39,6 +39,19 @@
                         </div>
                     </div>
                 </li>
+                <li class="nav-item {{ (request()->segment(1) == 'seller' && (in_array(request()->segment(2), ['users', 'sellers', 'orders']))) ? 'active show' : '' }}">
+                    <a href="" class="nav-link with-sub"><i class="typcn typcn-th-menu-outline"></i>Custom Orders</a>
+                    <div class="az-menu-sub">
+                        <div class="container">
+                            <div>
+                                <nav class="nav">
+                                    <a href="{{ route('seller.custom-orders.index') }}" class="nav-link {{ (request()->segment(1) == 'seller' && (in_array(request()->segment(2), ['custom-orders'])) && request()->segment(3) == '/') ? 'active' : '' }}">All Custom Orders</a>
+                                    <a href="{{ route('seller.custom-orders.create') }}" class="nav-link {{ (request()->segment(1) == 'seller' && (in_array(request()->segment(2), ['custom-orders'])) && request()->segment(3) == 'create') ? 'active' : '' }}">Create Custom Order</a>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </li>
             </ul>
         </div>
         <div class="az-header-right">

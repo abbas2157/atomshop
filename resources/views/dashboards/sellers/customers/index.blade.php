@@ -52,6 +52,7 @@
                             <th>Address</th>
                             <th width="60px">Status</th>
                             <th width="120px">Joined On</th>
+                            <th width="100px">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -76,10 +77,8 @@
                                     <td>{{ $item->created_at->format('M d, Y') ?? '' }}</td>
 
                                     <td>
-                                        <a href="{{ route('seller.customers.edit',$item->uuid) }}">View</a> 
-                                        
+                                        <a href="{{ route('seller.customers.edit',$item->uuid) }}">View</a> |
                                         <a href="{{ route('seller.customers.edit',$item->uuid) }}">Edit</a>
-                                        
                                     </td>
                                 </tr>
                             @endforeach
