@@ -128,6 +128,6 @@ class LoginController extends Controller
     public function destroy()
     {
         Auth::logout();
-        return redirect('login');
+        return redirect('portal/login');
     }
 }

@@ -150,4 +150,9 @@ class AuthController extends BaseController
             return $this->sendError('Something Went Wrong.', $e->getMessage(), 500);
         }
     }
+    public function destroy()
+    {
+        Auth::logout();
+        return redirect('login');
+    }
 }
