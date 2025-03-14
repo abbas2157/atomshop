@@ -65,8 +65,8 @@
             </thead>
             <tbody class="align-middle">
                 <tr>
-                    <td>
-                        <select class="form-control" name="city_id" required>
+                    <td class="w-50">
+                        <select class="form-control" name="city_id" id="city_id" required>
                             @if ($cities->isNotEmpty())
                                 @foreach ($cities as $item)
                                     <option value="{{ $item->id ?? '' }}"
@@ -79,11 +79,12 @@
                         </select>
                     </td>
                     <td>
-                        <select class="form-control" name="area_id" required>
+                        <select class="form-control select2" name="area_id" id="area_id" required>
                             @if ($areas->isNotEmpty())
                                 @foreach ($areas as $item)
                                     <option value="{{ $item->id ?? '' }}"
-                                        {{ !is_null(Auth::user()->customer) && Auth::user()->customer->area_id == $item->id ? 'selected' : '' }}>
+                                        {{ !is_null(Auth::user()->customer) && Auth::user()->customer->area_id == $item->id ? 'selected' : '' }}
+                                        data-city-id="{{ $item->city_id ?? '' }}">
                                         {{ $item->title ?? '' }}</option>
                                 @endforeach
                             @else

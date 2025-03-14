@@ -167,5 +167,23 @@
         }
         $('#installment-rows').html(rows);
     }
-    
+    $(document).ready(function() {
+        $('#area_id').select2();
+        var allAreaOptions = $('#area_id option').clone();
+        $('#city_id').on('change', function() {
+            var cityId = $(this).val();
+            $('#area_id').empty();
+            var filteredOptions = allAreaOptions.filter(function() {
+                return $(this).data('city-id') == cityId;
+            });
+            if (filteredOptions.length > 0) {
+                $('#area_id').append(filteredOptions);
+            } else {
+                $('#area_id').append('<option value="">No Area Found</option>');
+            }
+            $('#area_id').val($('#area_id option:first').val()).trigger('change');
+            $('#area_id').select2();
+        });
+        $('#city_id').trigger('change');
+    });
 })(jQuery);
