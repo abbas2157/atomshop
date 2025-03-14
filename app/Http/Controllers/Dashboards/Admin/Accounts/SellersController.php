@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Dashboards\Admin\Accounts;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{Auth, Hash, DB};
-use App\Models\{User, Seller, City, Area};
+use App\Models\{User, Seller, City, Area, ActiveSeller};
 use Illuminate\Support\Str;
 
 class SellersController extends Controller
@@ -70,12 +70,22 @@ class SellersController extends Controller
                 $seller->cnic_number = $request->cnic_number;
                 $seller->website = $request->website;
                 $seller->city_id = $request->city_id;
-                $seller->area_id = $request->area_id;
+                // $seller->area_id = $request->area_id;
                 $seller->address = $request->business_address;
                 $seller->investment_capacity = $request->investment_capacity;
                 $seller->previous_experience = $request->previous_experience;
                 $seller->save();
 
+                if ($request->has('area_id')) {
+                    foreach ($request->area_id as $area_id) {
+                        ActiveSeller::create([
+                            'user_id' => $user->id,
+                            'area_id' => $area_id,
+                            'seller_id' => $seller->id,
+                            'status' => 'Active',
+                        ]);
+                    }
+                }
                 DB::commit();
 
                 $response = [ 'success' => true, 'message' => 'Sellers Added Successfully'];
@@ -86,6 +96,16 @@ class SellersController extends Controller
                 $response = [ 'success' => true, 'message' => $e->getMessage()];
                 return response()->json($response);
             }
+        }
+
+        public function getAreasByCity(Request $request)
+        {
+            $areas = Area::where('city_id', $request->city_id)
+                        ->where('status', 'active')
+                        ->orderBy('id', 'desc')
+                        ->get();
+
+            return response()->json($areas);
         }
 
     /**
