@@ -38,8 +38,10 @@ class OrderController extends Controller
             $calculator = InstallmentCalculator::select('installment_tenure', 'per_month_percentage')->first();
             $customers = Customer::with('user')->where('verified', '1')->select('id','user_id')->get();
             $categories = Category::orderBy('title','asc')->select('id','title','slug','pr_count')->get();
+            $areas = Area::orderBy('id', 'desc')->get();
+            $cities = City::orderBy('id', 'desc')->get();
 
-            return view('dashboards.admin.orders.create', compact('customers','calculator','categories'));
+            return view('dashboards.admin.orders.create', compact('customers','calculator','categories', 'areas', 'cities'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Something went wrong! Please try again.');
         }
@@ -50,7 +52,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
+        dd($request->all());
         try {
             $product = Product::find($request->product_id);
             $price = $product->price;
@@ -75,6 +77,8 @@ class OrderController extends Controller
             $order = new Order;
             $order->uuid = Str::uuid();
             $order->user_id = $request->customer_id;
+            $order->area_id = $request->area_id;
+            $order->city_id = $request->city_id;
             $order->cart_id = $cart->id;
             $order->save();
 

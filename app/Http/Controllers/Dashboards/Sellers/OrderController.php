@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 use App\Models\{InstallmentCalculator};
 use Illuminate\Support\Facades\{Auth, DB, Password, Hash, Mail};
-use App\Models\{User, Customer, Cart, Order, OrderChangeHsitory, OrderInstalment, SellerOrder};
+use App\Models\{User, Customer, Cart, Order, OrderChangeHsitory, OrderInstalment, SellerOrder,Area,City};
 
 class OrderController extends Controller
 {
@@ -112,7 +112,7 @@ class OrderController extends Controller
             $order->total_deal_price = $total_amount_with_percentage;
             $order->advance_price = $advance;
             $order->instalment_tenure = $request->installment_tenure;
-            
+
             // First Isert Advance as installment
             $order_instalment = new OrderInstalment;
             $order_instalment->user_id = $order->user_id;
@@ -143,7 +143,7 @@ class OrderController extends Controller
         $order->save();
 
         $sellerOrder = SellerOrder::where('order_id', $order->id)->where('seller_id', Auth::user()->seller->id)->first();
-    
+
         if (is_null($sellerOrder)) {
             $sellerOrder = new SellerOrder();
         }
@@ -173,8 +173,9 @@ class OrderController extends Controller
             $area_id = Auth::user()->seller->area_id;
             $customers = Customer::where('area_id', $area_id)->where('verified', '1')->select('id','user_id')->get();
             $categories = Category::orderBy('title','asc')->select('id','title','slug','pr_count')->get();
-
-            return view('dashboards.sellers.orders.create', compact('customers','calculator','categories'));
+            $areas = Area::orderBy('id', 'desc')->get();
+            $cities = City::orderBy('id', 'desc')->get();
+            return view('dashboards.sellers.orders.create', compact('customers','calculator','categories','areas','cities'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Something went wrong! Please try again.');
         }
@@ -185,7 +186,6 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         try {
             $product = Product::find($request->product_id);
             $price = $product->price;
@@ -210,6 +210,8 @@ class OrderController extends Controller
             $order = new Order;
             $order->uuid = Str::uuid();
             $order->user_id = $request->customer_id;
+            $order->area_id = $request->area_id;
+            $order->city_id = $request->city_id;
             $order->cart_id = $cart->id;
             $order->save();
 
@@ -249,5 +251,5 @@ class OrderController extends Controller
         $response = ['success' => true, 'message' => "Instalment Paid Successfully."];
         return response()->json($response);
     }
-    
+
 }
