@@ -82,18 +82,7 @@ class OrderController extends Controller
             $payload['advance_price'] = $request->advance_price;
             $payload['installment_tenure'] = $request->installment_tenure;
             $payload['payment_method'] = $request->payment_method;
-            if($request->hasFile('instalment_pictrue')) {
-                $file = $request->file('instalment_pictrue');
-                $fileName  = pathinfo($file->getClientOriginalName(),PATHINFO_FILENAME);
-                $extension = pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
-                $filename  = rand(1000,9000) .'.'.$extension;
-                $picture_path = public_path('images/orders/instalments/' . $filename);
-                if (File::exists($picture_path)) {
-                    $filename = rand(1000,9000).'.'.$extension;
-                }
-                $file->move(public_path('images/orders/instalments'),$filename);
-                $payload['img'] = 'images/orders/instalments/'.$filename;
-            }
+            
             $calculator = InstallmentCalculator::first();
 
             $total = (int) $order->cart->product_price;
@@ -113,12 +102,24 @@ class OrderController extends Controller
             $order->advance_price = $advance;
             $order->instalment_tenure = $request->installment_tenure;
             
-            // First Isert Advance as installment
+            // First Insert Advance as installment
             $order_instalment = new OrderInstalment;
             $order_instalment->user_id = $order->user_id;
             $order_instalment->order_id = $order->id;
             $order_instalment->installment_price = $advance;
-            // $order_instalment->receipet = $payload;
+            if($request->hasFile('instalment_pictrue')) {
+                $file = $request->file('instalment_pictrue');
+                $fileName  = pathinfo($file->getClientOriginalName(),PATHINFO_FILENAME);
+                $extension = pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
+                $filename  = rand(1000,9000) .'.'.$extension;
+                $picture_path = public_path('images/orders/instalments/' . $filename);
+                if (File::exists($picture_path)) {
+                    $filename = rand(1000,9000).'.'.$extension;
+                }
+                $file->move(public_path('images/orders/instalments'),$filename);
+                $payload['img'] = 'images/orders/instalments/'.$filename;
+                $order_instalment->receipet = $payload['img'];
+            }
             $order_instalment->payment_method = $request->payment_method;
             $order_instalment->month = 'Advance';
             $order_instalment->type = 'Advance';
