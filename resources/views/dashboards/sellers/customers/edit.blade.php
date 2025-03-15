@@ -94,7 +94,13 @@
                                 <span class="text-danger text-left">{{ $errors->first('address') }}</span>
                             @endif
                         </div>
-                        <div class="col-lg mt-2"></div>
+                        <div class="col-lg mt-2">
+                            <label>Customer is verified ?  <span class="text-danger">*</span></label>
+                            <select class="form-control" name="verified">
+                                <option value="1" {{ old('verified', $user->customer->verified ?? '') == '1' ? 'selected' : '' }}>Yes</option>
+                                <option value="0" {{ old('verified', $user->customer->verified ?? '') == '0' ? 'selected' : '' }}>No</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="az-content-label mg-b-5 mg-t-30">Customer Verification</div>
                     <p class="mg-b-10">Using this form you can Verify customer details </p>

@@ -91,7 +91,7 @@ class LoginController extends Controller
                     $validator['error'] = 'Your Seller information is not completed. Please contact with our Support Team.';
                     return redirect("portal/login")->withErrors($validator);
                 }
-                if($user->seller->verified = '1') {
+                if($user->seller->verified = '0') {
                     Auth::logout();
                     $validator['error'] = 'You are not verified by our Support Team. Please contact with our Support Team.';
                     return redirect("portal/login")->withErrors($validator);
