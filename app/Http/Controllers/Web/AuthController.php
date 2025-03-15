@@ -176,7 +176,7 @@ class AuthController extends BaseController
                 $user->email_verified_at = now();
                 $user->save();
             }
-            $success['back'] = Session::pull('url.intended', '/');
+            $success['back'] = Session::pull('url.intended', 'login');
             return $this->sendResponse('Code matched successfully.', $success, 200);
         } catch (\Exception $e) {
             return $this->sendError('Something Went Wrong.', $e->getMessage(), 500);
