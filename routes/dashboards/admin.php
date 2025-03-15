@@ -37,6 +37,8 @@ Route::middleware([App\Http\Middleware\EnsureUserIsAdmin::class])->group(functio
         //Account Management
         Route::resource('users', App\Http\Controllers\Dashboards\Admin\Accounts\UserController::class,['as' => 'admin']);
         Route::resource('sellers', App\Http\Controllers\Dashboards\Admin\Accounts\SellersController::class,['as' => 'admin']);
+        Route::get('/admin/get-areas', [App\Http\Controllers\Dashboards\Admin\Accounts\SellersController::class, 'getAreasByCity'])->name('admin.getAreasByCity');
+
         Route::resource('customers', App\Http\Controllers\Dashboards\Admin\Accounts\CustomerController::class,['as' => 'admin']);
         //Website & App settings
         Route::group(['prefix' => 'website'], function(){

@@ -42,7 +42,7 @@ class AreaController extends Controller
     public function create()
     {
         $cities = City::orderBy('id','desc')->get();
-        $sellers = Seller::all(); // Get all sellers
+        $sellers = Seller::all();
         return view('dashboards.admin.components.areas.create', compact('cities', 'sellers'));
 
     }
@@ -54,6 +54,7 @@ class AreaController extends Controller
     {
         $request->validate([
             'title' => 'required|unique:areas',
+            'seller_ids' => 'required|array|min:1',
         ]);
         $areas = new Area;
         $areas->title = $request->title;
