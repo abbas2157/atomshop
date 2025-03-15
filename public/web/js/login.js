@@ -51,17 +51,33 @@
                     processData: false,
                     headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                     success: function (response) {
-                        console.log(response);
+                        
                         if (response.success == true) {
-                            Toastify({
-                                text: "<i class='fas fa-check-circle'></i> <b> Success </b>! Redirecting...",
-                                duration: 3000,
-                                gravity: "top",
-                                position: "right",
-                                escapeMarkup: false,
-                                backgroundColor: "linear-gradient(to right, #FFD333, #3D464D)",
-                            }).showToast();
-                            window.location.href = response.data.back;
+                            if("user_id" in response.data) {
+                                // console.log(response);/
+                                Toastify({
+                                    text: "<i class='fas fa-check-circle'></i> <b> Success </b>! Redirecting...",
+                                    duration: 3000,
+                                    gravity: "top",
+                                    position: "right",
+                                    escapeMarkup: false,
+                                    backgroundColor: "linear-gradient(to right, #FFD333, #3D464D)",
+                                }).showToast();
+                                console.log(APP_URL + '/register/verification?user=' + response.data.user_id)
+                                // window.location.href = APP_URL + '/register/verification?user=' + response.data.user_id;
+                            }
+                            else {
+                                Toastify({
+                                    text: "<i class='fas fa-check-circle'></i> <b> Success </b>! Redirecting...",
+                                    duration: 3000,
+                                    gravity: "top",
+                                    position: "right",
+                                    escapeMarkup: false,
+                                    backgroundColor: "linear-gradient(to right, #FFD333, #3D464D)",
+                                }).showToast();
+                                window.location.href = response.data.back;
+                            }
+                            
                         } else {
                             $(".login").prop('disabled', false);
                             $(".login").html('Login');

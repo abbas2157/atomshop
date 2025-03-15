@@ -86,6 +86,16 @@ class LoginController extends Controller
                 return redirect()->route('admin');
             }
             if($user->role == 'seller') {
+                if(is_null($user->seller)) {
+                    Auth::logout();
+                    $validator['error'] = 'Your Seller information is not completed. Please contact with our Support Team.';
+                    return redirect("portal/login")->withErrors($validator);
+                }
+                if($user->seller->verified = '1') {
+                    Auth::logout();
+                    $validator['error'] = 'You are not verified by our Support Team. Please contact with our Support Team.';
+                    return redirect("portal/login")->withErrors($validator);
+                }
                 return redirect()->route('seller');
             }
         }
