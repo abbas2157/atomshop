@@ -80,7 +80,6 @@ class ProfileController extends Controller
     public function verification()
     {
         $user = Auth::user();
-        
         return view('website.profile.verification', compact('user'));
     }
     public function favorite()

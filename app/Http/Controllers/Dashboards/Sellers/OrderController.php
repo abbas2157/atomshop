@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
-use App\Models\{InstallmentCalculator};
+use App\Models\{InstallmentCalculator, ActiveSeller};
 use Illuminate\Support\Facades\{Auth, DB, Password, Hash, Mail};
 use App\Models\{User, Customer, Cart, Order, OrderChangeHsitory, OrderInstalment, SellerOrder,Area,City};
 
@@ -19,8 +19,12 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $area_id = Auth::user()->seller->area_id;
-        $customers = Customer::where('area_id', $area_id)->pluck('user_id');
+        $active_areas_ids = [];
+        $active_areas = ActiveSeller::where('user_id', Auth::user()->id)->pluck('area_id');
+        if($active_areas->isNotEmpty()) {
+            $active_areas_ids = $active_areas->toArray();
+        }
+        $customers = Customer::whereIn('area_id', $active_areas_ids)->pluck('user_id');
         $customer_ids = [];
         if ($customers->isNotEmpty()) {
             $customer_ids =  $customers->toArray();

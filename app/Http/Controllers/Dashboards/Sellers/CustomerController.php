@@ -158,50 +158,53 @@ class CustomerController extends Controller
                 $customer->area_id = $request->area_id;
             }
             $customer->address = $request->address;
+            $customer->verified = $request->verified;
+            if($request->verified == 0) {
+                $customer->not_verified_reason = $request->not_verified_reason;
+            }
             $customer->save();
 
-            $customerVerification = CustomerVerification::where('user_id', $user->id)->first();
-            if (is_null($customerVerification)) {
-                $customerVerification = new CustomerVerification;
-                $customerVerification->user_id = $user->id;
-                $customerVerification->customer_id = $customer->id;
+            if($request->verified == '1') {
+                $customerVerification = CustomerVerification::where('user_id', $user->id)->first();
+                if (is_null($customerVerification)) {
+                    $customerVerification = new CustomerVerification;
+                    $customerVerification->user_id = $user->id;
+                    $customerVerification->customer_id = $customer->id;
+                }
+    
+                if ($request->hasFile('id_card_front_side')) {
+                    $idCardFrontSide = $request->file('id_card_front_side');
+                    $fileName  = pathinfo($idCardFrontSide->getClientOriginalName(), PATHINFO_FILENAME);
+                    $extension = pathinfo($idCardFrontSide->getClientOriginalName(), PATHINFO_EXTENSION);
+                    $filename  = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', strtolower($user->name . '_id_card_front_side'))) . '.' . $extension;
+                    $idCardFrontSide->move(public_path('images/customers'), $filename);
+                    $customerVerification->id_card_front_side = 'images/customers/' . $filename;
+                }
+    
+                if ($request->hasFile('id_card_back_side')) {
+                    $idCardBackSide = $request->file('id_card_back_side');
+                    $fileName  = pathinfo($idCardBackSide->getClientOriginalName(), PATHINFO_FILENAME);
+                    $extension = pathinfo($idCardBackSide->getClientOriginalName(), PATHINFO_EXTENSION);
+                    $filename  = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', strtolower($user->name . '_id_card_back_side'))) . '.' . $extension;
+                    $idCardBackSide->move(public_path('images/customers'), $filename);
+                    $customerVerification->id_card_back_side = 'images/customers/' . $filename;
+                }
+    
+                if ($request->hasFile('selfie_with_customer')) {
+                    $selfieWithCustomer = $request->file('selfie_with_customer');
+                    $fileName  = pathinfo($selfieWithCustomer->getClientOriginalName(), PATHINFO_FILENAME);
+                    $extension = pathinfo($selfieWithCustomer->getClientOriginalName(), PATHINFO_EXTENSION);
+                    $filename  = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', strtolower($user->name . '_selfie_with_customer'))) . '.' . $extension;
+                    $selfieWithCustomer->move(public_path('images/customers'), $filename);
+                    $customerVerification->selfie_with_customer = 'images/customers/' . $filename;
+                }
+    
+                $customerVerification->address_found = $request->address_found;
+                $customerVerification->house = $request->house;
+                $customerVerification->customer_physical_meet = $request->customer_physical_meet;
+                $customerVerification->work = $request->work;
+                $customerVerification->save();
             }
-
-            if ($request->hasFile('id_card_front_side')) {
-                $idCardFrontSide = $request->file('id_card_front_side');
-                $fileName  = pathinfo($idCardFrontSide->getClientOriginalName(), PATHINFO_FILENAME);
-                $extension = pathinfo($idCardFrontSide->getClientOriginalName(), PATHINFO_EXTENSION);
-                $filename  = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', strtolower($user->name . '_id_card_front_side'))) . '.' . $extension;
-                $idCardFrontSide->move(public_path('images/customers'), $filename);
-                $customerVerification->id_card_front_side = 'images/customers/' . $filename;
-            }
-
-            if ($request->hasFile('id_card_back_side')) {
-                $idCardBackSide = $request->file('id_card_back_side');
-                $fileName  = pathinfo($idCardBackSide->getClientOriginalName(), PATHINFO_FILENAME);
-                $extension = pathinfo($idCardBackSide->getClientOriginalName(), PATHINFO_EXTENSION);
-                $filename  = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', strtolower($user->name . '_id_card_back_side'))) . '.' . $extension;
-                $idCardBackSide->move(public_path('images/customers'), $filename);
-                $customerVerification->id_card_back_side = 'images/customers/' . $filename;
-            }
-
-            if ($request->hasFile('selfie_with_customer')) {
-                $selfieWithCustomer = $request->file('selfie_with_customer');
-                $fileName  = pathinfo($selfieWithCustomer->getClientOriginalName(), PATHINFO_FILENAME);
-                $extension = pathinfo($selfieWithCustomer->getClientOriginalName(), PATHINFO_EXTENSION);
-                $filename  = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', strtolower($user->name . '_selfie_with_customer'))) . '.' . $extension;
-                $selfieWithCustomer->move(public_path('images/customers'), $filename);
-                $customerVerification->selfie_with_customer = 'images/customers/' . $filename;
-            }
-
-            $customerVerification->address_found = $request->address_found;
-            $customerVerification->house = $request->house;
-            $customerVerification->customer_physical_meet = $request->customer_physical_meet;
-            $customerVerification->work = $request->work;
-            $customerVerification->save();
-
-            $customer->verified = '1';
-            $customer->save();
 
             DB::commit();
 

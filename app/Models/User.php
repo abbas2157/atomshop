@@ -54,7 +54,7 @@ class User extends Authenticatable
 
     public function customer()
     {
-        return $this->hasOne(Customer::class, 'user_id')->select('id', 'user_id', 'city_id', 'area_id', 'address','verified');
+        return $this->hasOne(Customer::class, 'user_id')->select('id', 'user_id', 'city_id', 'area_id', 'address','verified','not_verified_reason');
     }
 
     public function customerVerification(): HasOne

@@ -42,14 +42,9 @@
                     </button>
                     <strong>Note ! </strong> Get verified yourself immediately. Our agent will visite you soon.
                 </div>
+            @endif
+            @if(!is_null($user->customer) && $user->customer->verified == '1')
                 <div class="bg-light px-4 py-2 mb-30">
-                    <div class="text-center py-3">
-                        <img src="{{ asset('web/img/loader.gif') }}" class="w-10" alt="Loader">
-                    </div>
-                </div>
-            @else
-            <div class="bg-light px-4 py-2 mb-30">
-                @if(!empty($user->customerVerification->id_card_front_side) && !empty($user->customerVerification->id_card_back_side))
                     <div class="row">
                         <div class="col-md-12">
                             <div class="table-responsive mb-3">
@@ -107,14 +102,34 @@
                             </div>
                         </div>
                     </div>
-                @else
-                    <div class="text-center py-3">
-                        <img src="{{ asset('web/img/loader.gif') }}" class="w-10" alt="Loader">
+                </div>
+            @else
+                <div class="bg-light mb-30">
+                    <div class="table-responsive mb-3">
+                        <table class="table table-bordered mb-0">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Customer Rejection Reason</th>
+                                </tr>
+                            </thead>
+                            <tbody class="align-middle">
+                                <tr>
+                                    <td>
+                                        @if((!is_null($user->customer->not_verified_reason)))
+                                            {{ $user->customer->not_verified_reason ?? 'No Reason' }}
+                                        @else
+                                        {{ $user->customer->not_verified_reason ?? 'No Reason' }}
+                                            <div class="text-center py-3">
+                                                <img src="{{ asset('web/img/loader.gif') }}" class="w-10" alt="Loader">
+                                            </div>
+                                        @endif
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                @endif
-            </div>
+                </div>
             @endif
-
         </div>
     </div>
 </div>
