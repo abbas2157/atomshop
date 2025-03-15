@@ -28,6 +28,7 @@ Route::middleware([App\Http\Middleware\CustomThrottle::class])->group(function (
 
     //Auth Routes
     Route::group(['middleware' => ['auth']], function () {
+        Route::get('website/logout', [App\Http\Controllers\Web\AuthController::class, 'destroy'])->name('website.logout');
         Route::group(['prefix' => 'checkout'], function () {
             Route::get('/', [App\Http\Controllers\Web\Order\OrderController::class, 'index'])->name('checkout');
             Route::post('perform', [App\Http\Controllers\Web\Order\OrderController::class, 'checkout_perform'])->name('checkout.perform');

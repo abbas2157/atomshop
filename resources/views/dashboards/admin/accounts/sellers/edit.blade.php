@@ -27,10 +27,19 @@
                     <h3>Publish Sellers</h3>
                     <section>
                         <p>The next and previous buttons help you to navigate through your content.</p>
+                        <div class="row row-sm">
+                            <div class="col-lg">
+                                <label>Seller is verified ? <span class="text-danger">*</span></label>
+                                <select class="form-control" name="verified">
+                                    <option value="1" {{ old('verified', $seller->verified ?? '') == '1' ? 'selected' : '' }}>Yes</option>
+                                    <option value="0" {{ old('verified', $seller->verified ?? '') == '0' ? 'selected' : '' }}>No</option>
+                                </select>
+                            </div>
+                            <div class="col-lg mt-2"></div>
+                        </div>
                     </section>
                 </div>
             </form>
-            <p class="mg-t-20"><b>Note : </b> Password will be (Atom@shop!) for every Seller created by this form.</p>
         </div>
     </div>
 </div>

@@ -86,11 +86,21 @@ class LoginController extends Controller
                 return redirect()->route('admin');
             }
             if($user->role == 'seller') {
+                if(is_null($user->seller)) {
+                    Auth::logout();
+                    $validator['error'] = 'Your Seller information is not completed. Please contact with our Support Team.';
+                    return redirect("portal/login")->withErrors($validator);
+                }
+                if($user->seller->verified = '0') {
+                    Auth::logout();
+                    $validator['error'] = 'You are not verified by our Support Team. Please contact with our Support Team.';
+                    return redirect("portal/login")->withErrors($validator);
+                }
                 return redirect()->route('seller');
             }
         }
         $validator['error'] = 'Your details are incorrect.';
-        return redirect("login")->withErrors($validator);
+        return redirect("portal/login")->withErrors($validator);
     }
 
     /**
@@ -128,6 +138,6 @@ class LoginController extends Controller
     public function destroy()
     {
         Auth::logout();
-        return redirect('login');
+        return redirect('portal/login');
     }
 }

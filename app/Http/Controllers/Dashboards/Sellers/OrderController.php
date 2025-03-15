@@ -8,9 +8,9 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
-use App\Models\{InstallmentCalculator};
+use App\Models\{InstallmentCalculator, ActiveSeller};
 use Illuminate\Support\Facades\{Auth, DB, Password, Hash, Mail};
-use App\Models\{User, Customer, Cart, Order, OrderChangeHsitory, OrderInstalment, SellerOrder};
+use App\Models\{User, Customer, Cart, Order, OrderChangeHsitory, OrderInstalment, SellerOrder,Area,City};
 
 class OrderController extends Controller
 {
@@ -19,8 +19,12 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $area_id = Auth::user()->seller->area_id;
-        $customers = Customer::where('area_id', $area_id)->pluck('user_id');
+        $active_areas_ids = [];
+        $active_areas = ActiveSeller::where('user_id', Auth::user()->id)->pluck('area_id');
+        if($active_areas->isNotEmpty()) {
+            $active_areas_ids = $active_areas->toArray();
+        }
+        $customers = Customer::whereIn('area_id', $active_areas_ids)->pluck('user_id');
         $customer_ids = [];
         if ($customers->isNotEmpty()) {
             $customer_ids =  $customers->toArray();
@@ -82,18 +86,7 @@ class OrderController extends Controller
             $payload['advance_price'] = $request->advance_price;
             $payload['installment_tenure'] = $request->installment_tenure;
             $payload['payment_method'] = $request->payment_method;
-            if($request->hasFile('instalment_pictrue')) {
-                $file = $request->file('instalment_pictrue');
-                $fileName  = pathinfo($file->getClientOriginalName(),PATHINFO_FILENAME);
-                $extension = pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
-                $filename  = rand(1000,9000) .'.'.$extension;
-                $picture_path = public_path('images/orders/instalments/' . $filename);
-                if (File::exists($picture_path)) {
-                    $filename = rand(1000,9000).'.'.$extension;
-                }
-                $file->move(public_path('images/orders/instalments'),$filename);
-                $payload['img'] = 'images/orders/instalments/'.$filename;
-            }
+            
             $calculator = InstallmentCalculator::first();
 
             $total = (int) $order->cart->product_price;
@@ -112,13 +105,25 @@ class OrderController extends Controller
             $order->total_deal_price = $total_amount_with_percentage;
             $order->advance_price = $advance;
             $order->instalment_tenure = $request->installment_tenure;
-            
+
             // First Isert Advance as installment
             $order_instalment = new OrderInstalment;
             $order_instalment->user_id = $order->user_id;
             $order_instalment->order_id = $order->id;
             $order_instalment->installment_price = $advance;
-            $order_instalment->receipet = $payload['img'];
+            if($request->hasFile('instalment_pictrue')) {
+                $file = $request->file('instalment_pictrue');
+                $fileName  = pathinfo($file->getClientOriginalName(),PATHINFO_FILENAME);
+                $extension = pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
+                $filename  = rand(1000,9000) .'.'.$extension;
+                $picture_path = public_path('images/orders/instalments/' . $filename);
+                if (File::exists($picture_path)) {
+                    $filename = rand(1000,9000).'.'.$extension;
+                }
+                $file->move(public_path('images/orders/instalments'),$filename);
+                $payload['img'] = 'images/orders/instalments/'.$filename;
+                $order_instalment->receipet = $payload['img'];
+            }
             $order_instalment->payment_method = $request->payment_method;
             $order_instalment->month = 'Advance';
             $order_instalment->type = 'Advance';
@@ -143,7 +148,7 @@ class OrderController extends Controller
         $order->save();
 
         $sellerOrder = SellerOrder::where('order_id', $order->id)->where('seller_id', Auth::user()->seller->id)->first();
-    
+
         if (is_null($sellerOrder)) {
             $sellerOrder = new SellerOrder();
         }
@@ -173,8 +178,9 @@ class OrderController extends Controller
             $area_id = Auth::user()->seller->area_id;
             $customers = Customer::where('area_id', $area_id)->where('verified', '1')->select('id','user_id')->get();
             $categories = Category::orderBy('title','asc')->select('id','title','slug','pr_count')->get();
-
-            return view('dashboards.sellers.orders.create', compact('customers','calculator','categories'));
+            $areas = Area::orderBy('id', 'desc')->get();
+            $cities = City::orderBy('id', 'desc')->get();
+            return view('dashboards.sellers.orders.create', compact('customers','calculator','categories','areas','cities'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Something went wrong! Please try again.');
         }
@@ -185,7 +191,6 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         try {
             $product = Product::find($request->product_id);
             $price = $product->price;
@@ -210,6 +215,8 @@ class OrderController extends Controller
             $order = new Order;
             $order->uuid = Str::uuid();
             $order->user_id = $request->customer_id;
+            $order->area_id = $request->area_id;
+            $order->city_id = $request->city_id;
             $order->cart_id = $cart->id;
             $order->save();
 
@@ -249,5 +256,5 @@ class OrderController extends Controller
         $response = ['success' => true, 'message' => "Instalment Paid Successfully."];
         return response()->json($response);
     }
-    
+
 }

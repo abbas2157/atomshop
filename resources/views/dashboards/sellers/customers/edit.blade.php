@@ -48,7 +48,7 @@
                         </div>
                         <div class="col-lg mt-2">
                             <label>Select status <span class="text-danger">*</span></label>
-                            <select class="form-control" name="status" disabled>
+                            <select class="form-control" name="status">
                                 <option value="active" {{ $user->status == 'active' ? 'selected' : '' }}>Active</option>
                                 <option value="block" {{ $user->status == 'block' ? 'selected' : '' }}>Block</option>
                                 <option value="pending" {{ $user->status == 'pending' ? 'selected' : '' }}>Pending</option>
@@ -61,7 +61,7 @@
                     <div class="row row-sm">
                         <div class="col-lg mt-2">
                             <label>Customer city <span class="text-danger">*</span></label>
-                            <select class="form-control" name="city_id" id="select-city" disabled>
+                            <select class="form-control" name="city_id" id="select-city" {{ (is_null($user->customer)) || (is_null($user->customer->city_id))  ? '' : 'disabled' }}>
                                 @if ($cities->isNotEmpty())
                                     @foreach ($cities as $item)
                                         <option value="{{ $item->id ?? '' }}"
@@ -70,13 +70,10 @@
                                     @endforeach
                                 @endif
                             </select>
-                            @if ($errors->has('city_id'))
-                                <span class="text-danger text-left">{{ $errors->first('city_id') }}</span>
-                            @endif
                         </div>
                         <div class="col-lg mt-2">
                             <label>Customer area <span class="text-danger">*</span></label>
-                            <select class="form-control select2" id="select2" name="area_id" id="area_id" id="select-area" disabled>
+                            <select class="form-control select2" name="area_id" {{ is_null($user->customer) || (is_null($user->customer->area_id))  ? '' : 'disabled' }}>
                                 @if ($areas->isNotEmpty())
                                     @foreach ($areas as $item)
                                         <option value="{{ $item->id ?? '' }}"
@@ -85,9 +82,6 @@
                                     @endforeach
                                 @endif
                             </select>
-                            @if ($errors->has('area_id'))
-                                <span class="text-danger text-left">{{ $errors->first('area_id') }}</span>
-                            @endif
                         </div>
                     </div>
                     <div class="row row-sm">
@@ -100,105 +94,121 @@
                                 <span class="text-danger text-left">{{ $errors->first('address') }}</span>
                             @endif
                         </div>
-                        <div class="col-lg mt-2"></div>
-                    </div>
-                    <div class="az-content-label mg-b-5 mg-t-30">Customer Verification</div>
-                    <p class="mg-b-10">Using this form you can Verify customer details </p>
-                    <div class="row row-sm">
                         <div class="col-lg mt-2">
-                            <label>ID Card Front Side</label>
-                            <input type="file" class="form-control" name="id_card_front_side">
-                            @if (!empty($user->customerVerification->id_card_front_side))
-                                <img src="{{ asset($user->customerVerification->id_card_front_side) }}" width="100"
-                                    height="100">
-                            @endif
-                            @if ($errors->has('id_card_front_side'))
-                                <span class="text-danger text-left">{{ $errors->first('id_card_front_side') }}</span>
-                            @endif
-                        </div>
-                        <div class="col-lg mt-2">
-                            <label>ID Card Back Side</label>
-                            <input type="file" class="form-control" name="id_card_back_side">
-                            @if (!empty($user->customerVerification->id_card_back_side))
-                                <img src="{{ asset($user->customerVerification->id_card_back_side) }}" width="100"
-                                    height="100">
-                            @endif
-                            @if ($errors->has('id_card_back_side'))
-                                <span class="text-danger text-left">{{ $errors->first('id_card_back_side') }}</span>
-                            @endif
+                            <label>Customer is verified ?  <span class="text-danger">*</span></label>
+                            <select class="form-control" name="verified" id="verified">
+                                <option value="1" {{ old('verified', $user->customer->verified ?? '') == '1' ? 'selected' : '' }}>Yes</option>
+                                <option value="0" {{ old('verified', $user->customer->verified ?? '') == '0' ? 'selected' : '' }}>No</option>
+                            </select>
                         </div>
                     </div>
-                    <div class="row row-sm">
-                        <div class="col-lg mt-2">
-                            <label>Selfie with Customer</label>
-                            <input type="file" class="form-control" name="selfie_with_customer">
-                            @if (!empty($user->customerVerification->selfie_with_customer))
-                                <img src="{{ asset($user->customerVerification->selfie_with_customer) }}" width="100"
-                                    height="100">
-                            @endif
-                            @if ($errors->has('selfie_with_customer'))
-                                <span class="text-danger text-left">{{ $errors->first('selfie_with_customer') }}</span>
-                            @endif
+                    <div class="yes-verified {{ (is_null($user->customer) || ($user->customer->verified == '0')) ? 'd-none' : '' }}">
+                        <div class="az-content-label mg-b-5 mg-t-30">Customer Verification</div>
+                        <p class="mg-b-10">Using this form you can Verify customer details </p>
+                        <div class="row row-sm">
+                            <div class="col-lg mt-2">
+                                <label>ID Card Front Side</label>
+                                <input type="file" class="form-control" name="id_card_front_side">
+                                @if (!empty($user->customerVerification->id_card_front_side))
+                                    <img src="{{ asset($user->customerVerification->id_card_front_side) }}" width="100"
+                                        height="100">
+                                @endif
+                                @if ($errors->has('id_card_front_side'))
+                                    <span class="text-danger text-left">{{ $errors->first('id_card_front_side') }}</span>
+                                @endif
+                            </div>
+                            <div class="col-lg mt-2">
+                                <label>ID Card Back Side</label>
+                                <input type="file" class="form-control" name="id_card_back_side">
+                                @if (!empty($user->customerVerification->id_card_back_side))
+                                    <img src="{{ asset($user->customerVerification->id_card_back_side) }}" width="100"
+                                        height="100">
+                                @endif
+                                @if ($errors->has('id_card_back_side'))
+                                    <span class="text-danger text-left">{{ $errors->first('id_card_back_side') }}</span>
+                                @endif
+                            </div>
                         </div>
-                        <div class="col-lg mt-2">
-                            <label>Address Found</label>
-                            <select class="form-control" name="address_found">
-                                <option value="0"
-                                    {{ !empty($user->customerVerification->address_found) && $user->customerVerification->address_found == '0' ? 'selected' : '' }}>
-                                    No</option>
-                                <option value="1"
-                                    {{ !empty($user->customerVerification->address_found) && $user->customerVerification->address_found == '1' ? 'selected' : '' }}>
-                                    Yes</option>
-                            </select>
-                            @if ($errors->has('address_found'))
-                                <span class="text-danger text-left">{{ $errors->first('address_found') }}</span>
-                            @endif
+                        <div class="row row-sm">
+                            <div class="col-lg mt-2">
+                                <label>Selfie with Customer</label>
+                                <input type="file" class="form-control" name="selfie_with_customer">
+                                @if (!empty($user->customerVerification->selfie_with_customer))
+                                    <img src="{{ asset($user->customerVerification->selfie_with_customer) }}" width="100"
+                                        height="100">
+                                @endif
+                                @if ($errors->has('selfie_with_customer'))
+                                    <span class="text-danger text-left">{{ $errors->first('selfie_with_customer') }}</span>
+                                @endif
+                            </div>
+                            <div class="col-lg mt-2">
+                                <label>Address Found</label>
+                                <select class="form-control" name="address_found">
+                                    <option value="0"
+                                        {{ !empty($user->customerVerification->address_found) && $user->customerVerification->address_found == '0' ? 'selected' : '' }}>
+                                        No</option>
+                                    <option value="1"
+                                        {{ !empty($user->customerVerification->address_found) && $user->customerVerification->address_found == '1' ? 'selected' : '' }}>
+                                        Yes</option>
+                                </select>
+                                @if ($errors->has('address_found'))
+                                    <span class="text-danger text-left">{{ $errors->first('address_found') }}</span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="row row-sm">
+                            <div class="col-lg mt-2">
+                                <label>House</label>
+                                <select class="form-control" name="house">
+                                    <option value="rent"
+                                        {{ !empty($user->customerVerification->house) && $user->customerVerification->house == 'rent' ? 'selected' : '' }}>
+                                        Rent</option>
+                                    <option value="self"
+                                        {{ !empty($user->customerVerification->house) && $user->customerVerification->house == 'self' ? 'selected' : '' }}>
+                                        Self</option>
+                                </select>
+                                @if ($errors->has('house'))
+                                    <span class="text-danger text-left">{{ $errors->first('house') }}</span>
+                                @endif
+                            </div>
+                            <div class="col-lg mt-2">
+                                <label>Customer Physical Meet</label>
+                                <select class="form-control" name="customer_physical_meet">
+                                    <option value="0"
+                                        {{ !empty($user->customerVerification->customer_physical_meet) && $user->customerVerification->customer_physical_meet == '0' ? 'selected' : '' }}>
+                                        No</option>
+                                    <option value="1"
+                                        {{ !empty($user->customerVerification->customer_physical_meet) && $user->customerVerification->customer_physical_meet == '1' ? 'selected' : '' }}>
+                                        Yes</option>
+                                </select>
+                                @if ($errors->has('customer_physical_meet'))
+                                    <span class="text-danger text-left">{{ $errors->first('customer_physical_meet') }}</span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="row row-sm">
+                            <div class="col-lg mt-2">
+                                <label>Work</label>
+                                <select class="form-control" name="work">
+                                    <option value="job"
+                                        {{ !empty($user->customerVerification->work) && $user->customerVerification->work == 'job' ? 'selected' : '' }}>
+                                        Job</option>
+                                    <option value="bussiness"
+                                        {{ !empty($user->customerVerification->work) && $user->customerVerification->work == 'bussiness' ? 'selected' : '' }}>
+                                        Bussiness</option>
+                                </select>
+                                @if ($errors->has('work'))
+                                    <span class="text-danger text-left">{{ $errors->first('work') }}</span>
+                                @endif
+                            </div>
                         </div>
                     </div>
-                    <div class="row row-sm">
-                        <div class="col-lg mt-2">
-                            <label>House</label>
-                            <select class="form-control" name="house">
-                                <option value="rent"
-                                    {{ !empty($user->customerVerification->house) && $user->customerVerification->house == 'rent' ? 'selected' : '' }}>
-                                    Rent</option>
-                                <option value="self"
-                                    {{ !empty($user->customerVerification->house) && $user->customerVerification->house == 'self' ? 'selected' : '' }}>
-                                    Self</option>
-                            </select>
-                            @if ($errors->has('house'))
-                                <span class="text-danger text-left">{{ $errors->first('house') }}</span>
-                            @endif
-                        </div>
-                        <div class="col-lg mt-2">
-                            <label>Customer Physical Meet</label>
-                            <select class="form-control" name="customer_physical_meet">
-                                <option value="0"
-                                    {{ !empty($user->customerVerification->customer_physical_meet) && $user->customerVerification->customer_physical_meet == '0' ? 'selected' : '' }}>
-                                    No</option>
-                                <option value="1"
-                                    {{ !empty($user->customerVerification->customer_physical_meet) && $user->customerVerification->customer_physical_meet == '1' ? 'selected' : '' }}>
-                                    Yes</option>
-                            </select>
-                            @if ($errors->has('customer_physical_meet'))
-                                <span class="text-danger text-left">{{ $errors->first('customer_physical_meet') }}</span>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="row row-sm">
-                        <div class="col-lg mt-2">
-                            <label>Work</label>
-                            <select class="form-control" name="work">
-                                <option value="job"
-                                    {{ !empty($user->customerVerification->work) && $user->customerVerification->work == 'job' ? 'selected' : '' }}>
-                                    Job</option>
-                                <option value="bussiness"
-                                    {{ !empty($user->customerVerification->work) && $user->customerVerification->work == 'bussiness' ? 'selected' : '' }}>
-                                    Bussiness</option>
-                            </select>
-                            @if ($errors->has('work'))
-                                <span class="text-danger text-left">{{ $errors->first('work') }}</span>
-                            @endif
+                    <div class="no-verified {{ (!is_null($user->customer) && ($user->customer->verified == '1')) ? 'd-none' : '' }}">
+                        <div class="row row-sm">
+                            <div class="col-lg mt-2">
+                                <label>Reason (Why not user verified.)</label>
+                                <textarea name="not_verified_reason" id="" cols="30" rows="10" class="form-control">{{ (!is_null($user->customer)) ? $user->customer->not_verified_reason : '' }}</textarea>
+                            </div>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-success mt-3">Update customer</button>
@@ -206,4 +216,19 @@
             </div>
         </div>
     </div>
+@endsection
+@section('js')
+<script>
+    $(document).on('change', "#verified", function(event) {
+        console.log($(this).val());
+        if($(this).val() == '1') {
+            $('.no-verified').addClass('d-none');
+            $('.yes-verified').removeClass('d-none');
+        }
+        else {
+            $('.yes-verified').addClass('d-none');
+            $('.no-verified').removeClass('d-none');
+        }
+    });
+</script>
 @endsection

@@ -2,7 +2,10 @@
 @section('title')
     <title>My Profile | {{ config('website.name') ?? '' }} - {{ config('website.tagline') ?? '' }}</title>
     <meta name="description" content="About | Atomshop - Pay in steps">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+@endsection
+@section('css')
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 @endsection
 @section('content')
 <div class="container-fluid">
@@ -81,10 +84,10 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="email">Area</label>
-                                <select class="custom-select select2" id="select2" name="area_id" id="area_id" required>
+                                <select class="custom-select select2" name="area_id" id="area_id" required>
                                     @if($areas->isNotEmpty())
                                         @foreach($areas as $item)
-                                            <option value="{{ $item->id ?? '' }}" {{ (!is_null(Auth::user()->customer) && Auth::user()->customer->area_id == $item->id) ? 'selected' : '' }}>{{ $item->title ?? '' }}</option>
+                                            <option value="{{ $item->id ?? '' }}" data-city-id="{{ $item->city_id }}" {{ (!is_null(Auth::user()->customer) && Auth::user()->customer->area_id == $item->id) ? 'selected' : '' }}>{{ $item->title ?? '' }}</option>
                                         @endforeach
                                     @else
                                         <option value="0">No Area Found</option>
@@ -118,8 +121,10 @@
 @endsection
 @section('js')
 <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
     $(document).ready(function () {
+        $('#area_id').select2();
         @if ($errors->has('success'))
             Toastify({
                 text: "<i class='fas fa-check-circle'></i> <b> Success </b> ! {{ $errors->first('success') }}",

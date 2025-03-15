@@ -1,6 +1,8 @@
 $(function () {
     "use strict";
+    console.log(CURRENT_STATUS);
     $("#change_status").on("change", function () {
+        console.log('hello');
         var status = $(this).val();
         var message = 'You cannot change status '+CURRENT_STATUS+' to '+status
         if((CURRENT_STATUS == 'Pending') && ($.inArray(status, ['Processing','Delivered', 'Instalments', 'Completed'])  !== -1)) {

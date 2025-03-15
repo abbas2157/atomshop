@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\{Auth, Validator, DB, Password, Hash, Mail};
 use Illuminate\Support\Str;
 use App\Jobs\Web\SendVerificationCode;
 use App\Jobs\Web\WelcomeEmailJob;
+use Illuminate\Support\Facades\Session;
 
 use App\Mail\Web\VerificationCode;
 
@@ -17,6 +18,9 @@ class AuthController extends BaseController
 {
     public function login()
     {
+        if (!Session::has('url.intended')) {
+            Session::put('url.intended', url()->previous());
+        }
         return view('website.auth.login');
     }
     public function login_perform(Request $request)
@@ -33,6 +37,28 @@ class AuthController extends BaseController
             if (!Auth::attempt($credentials)) {
                 return $this->sendError('Invalid login credentials', $credentials, 200);
             }
+            $user = $success['user'] = Auth::user();
+            if(is_null($success['user']->email_verified_at)) {
+                Auth::logout();
+                $verificationCode = rand(1000, 9999);
+                VerifyCode::create([
+                    'user_id' => $user->id,
+                    'verify_code' => $verificationCode
+                ]);
+                $verify_code = $verificationCode;
+                SendVerificationCode::dispatch($user,$verify_code);
+                return $this->sendResponse(['user_id' => $user->uuid], 'User registered successfully!');
+            }
+            
+            if($success['user']->status == 'block') {
+                Auth::logout();
+                return $this->sendError('You are blocked on this website.', $credentials, 200);
+            }
+            if($success['user']->status == 'support') {
+                Auth::logout();
+                return $this->sendError('Your account is blocked by Support Team.', $credentials, 200);
+            }
+
             $guest_id = $request->guest_id;
             $cart = Cart::where('guest_id', $guest_id)->where('status', 'Pending')->get();
             
@@ -42,7 +68,8 @@ class AuthController extends BaseController
                     $item->save();
                 }
             }
-            $success['user'] = Auth::user();
+            
+            $success['back'] = Session::pull('url.intended', '/');
 
             return $this->sendResponse($success, 'User Login successfully.');
         } catch (\Exception $e) {
@@ -52,6 +79,9 @@ class AuthController extends BaseController
     }
     public function register()
     {
+        if (!Session::has('url.intended')) {
+            Session::put('url.intended', url()->previous());
+        }
         return view('website.auth.register');
     }
     public function register_perform(Request $request)
@@ -89,7 +119,7 @@ class AuthController extends BaseController
             SendVerificationCode::dispatch($user,$verify_code);
             
             DB::commit();
-            return $this->sendResponse(['user_id' => $user->uuid, 'code' => $verificationCode], 'User registered successfully!');
+            return $this->sendResponse(['user_id' => $user->uuid], 'User registered successfully!');
 
         } catch (\Exception $e) {
             DB::rollBack();
@@ -102,7 +132,7 @@ class AuthController extends BaseController
             return redirect()->route('website');
         }
         $user_uuid = request()->user;
-        $user = User::where('uuid', $user_uuid)->where('status', 'pending')->first();
+        $user = User::where('uuid', $user_uuid)->first();
         if(is_null($user)) {
             return redirect()->route('website');
         }
@@ -146,10 +176,15 @@ class AuthController extends BaseController
                 $user->email_verified_at = now();
                 $user->save();
             }
-            
-            return $this->sendResponse('Code matched successfully.', $request->all(), 200);
+            $success['back'] = Session::pull('url.intended', 'login');
+            return $this->sendResponse('Code matched successfully.', $success, 200);
         } catch (\Exception $e) {
             return $this->sendError('Something Went Wrong.', $e->getMessage(), 500);
         }
+    }
+    public function destroy()
+    {
+        Auth::logout();
+        return redirect('login');
     }
 }
