@@ -52,7 +52,6 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
         try {
             $product = Product::find($request->product_id);
             $price = $product->price;

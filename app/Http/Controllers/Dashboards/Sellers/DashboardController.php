@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Dashboards\Sellers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{User, Customer, Seller, Order, ActiveSeller};
+use App\Models\{User, Customer, Seller, Order, ActiveSeller, OrderInstalment};
 use Illuminate\Support\Facades\{Auth, DB, Password, Hash, Mail};
 
 
@@ -25,7 +25,13 @@ class DashboardController extends Controller
             if($active_areas->isNotEmpty()) {
                 $active_areas_ids = $active_areas->toArray();
             }
-
+            $lastInstalments = OrderInstalment::withOrderDetails()
+            ->select('id', 'month', 'installment_price', 'status', 'type', 'order_id', 'user_id')
+            ->where('user_id', Auth::user()->id)
+            ->where('status', 'Unpaid')
+            ->orderBy('id', 'asc')
+            ->take(5)
+            ->get();
             $customers = Customer::whereIn('area_id', $active_areas_ids)->pluck('user_id');
             $filteredCustomers = User::whereIn('id', $customers)->get();
 
@@ -66,6 +72,7 @@ class DashboardController extends Controller
              'Completed' => $orders->where('status','Completed')->count()
         ];
         $data['lastcustomer'] = $lastcustomer;
+        $data['lastInstalments'] = $lastInstalments;
         $data['lastOrders'] = $lastOrders;
 
         return view('dashboards.sellers.index', $data);
