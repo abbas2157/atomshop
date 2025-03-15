@@ -65,6 +65,7 @@
                 </div>
             </div>
         </div>
+        @include('website.home.partials.featured-start')
     </div>
 @endsection
 @section('js')

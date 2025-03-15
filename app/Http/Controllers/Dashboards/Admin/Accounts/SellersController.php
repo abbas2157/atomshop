@@ -129,7 +129,12 @@ class SellersController extends Controller
         if ($seller && $seller->city_id) {
             $areas = Area::orderBy('id', 'desc')->where('status', 'active')->where('city_id', $seller->city_id)->get();
         }
-        return view('dashboards.admin.accounts.sellers.edit', compact('seller', 'cities', 'areas', 'user'));
+        $active_areas_ids = [];
+        $active_areas = ActiveSeller::where('seller_id',$seller->id)->pluck('area_id');
+        if($active_areas->isNotEmpty()) {
+            $active_areas_ids = $active_areas->toArray();
+        }
+        return view('dashboards.admin.accounts.sellers.edit', compact('seller', 'cities', 'areas', 'active_areas_ids', 'user'));
     }
 
     /**
@@ -150,7 +155,6 @@ class SellersController extends Controller
             $user->name  = $request->name;
             $user->email = $request->email;
             $user->phone = $request->phone;
-            $user->password = 'Atom@shop!';
             $user->role = 'seller';
             $user->status = $request->status;
             $user->save();
@@ -164,12 +168,21 @@ class SellersController extends Controller
             $seller->cnic_number = $request->cnic_number;
             $seller->website = $request->website;
             $seller->city_id = $request->city_id;
-            $seller->area_id = $request->area_id;
             $seller->address = $request->business_address;
             $seller->investment_capacity = $request->investment_capacity;
             $seller->previous_experience = $request->previous_experience;
-            $seller->verified = '1';
+            $seller->verified = $request->verified;
             $seller->save();
+
+            $area_ids = $request->area_id;
+            ActiveSeller::where('seller_id',$seller->id)->delete();
+            foreach($area_ids as $item) {
+                $active_seller = new ActiveSeller;
+                $active_seller->user_id = $user->id;
+                $active_seller->seller_id = $seller->id;
+                $active_seller->area_id = $item;
+                $active_seller->save();
+            }
 
             DB::commit();
 

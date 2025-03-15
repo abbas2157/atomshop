@@ -61,14 +61,9 @@
     <script src="{!! asset('web/lib/owlcarousel/owl.carousel.min.js') !!}"></script>
     <script src="{!! asset('web/js/main.js') !!}"></script>
     @yield('js')
-    <script src="{!! asset('assets/lib/select2/js/select2.min.js') !!}"></script>
     <script>
         $(function() {
             'use strict';
-            $('.select2').select2({
-                placeholder: 'Choose items',
-                searchInputPlaceholder: 'Search'
-            });
         });
     </script>
 </body>

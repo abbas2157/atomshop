@@ -3,6 +3,9 @@
     <title>Checkout | {{ config('website.name') ?? '' }} - {{ config('website.tagline') ?? '' }}</title>
     <meta name="description" content="Add To Cart | Atomshop - Pay in steps">
 @endsection
+@section('css')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+@endsection
 @section('content')
     <div class="container-fluid">
         <div class="row px-xl-5">
@@ -21,8 +24,15 @@
             @csrf
             <div class="row px-xl-5">
                 <div class="col-lg-8">
-                    <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Customer
-                            Information</span></h5>
+                    <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Customer Information</span></h5>
+                    @if (is_null(Auth::user()->customer) || Auth::user()->customer->verified == '0')
+                        <div class="alert alert-warning" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                            <strong>Note !</strong> Get verified yourself immediately. Our agent will visite you soon.
+                        </div>
+                    @endif
                     <div class="bg-light p-30 mb-5">
                         <div class="row">
                             <div class="col-md-6 form-group">
@@ -58,7 +68,7 @@
                             </div>
                             <div class="col-md-6 form-group">
                                 <label>Select Area</label>
-                                <select class="custom-select select2" name="area_id" required>
+                                <select class="custom-select select2" name="area_id" id="area_id" required>
                                     @if ($areas->isNotEmpty())
                                         @foreach ($areas as $item)
                                             <option value="{{ $item->id ?? '' }}" data-city-id="{{ $item->city_id }}"
@@ -113,56 +123,46 @@
                         <div class="pt-2 mb-5">
                             <div class="d-flex justify-content-between mt-2">
                                 <h5>Total</h5>
-                                <h5>Rs. {{ number_format($total, 0) }}</h5>
+                                <h5>Rs. {{ number_format(($total),0) }}</h5>
                             </div>
                         </div>
-                        @if ($cart->isNotEmpty())
-                            <button class="btn btn-block btn-primary font-weight-bold py-3" type="submit">Place
-                                Order</button>
+                        <div class="pt-2">
+                            <div class="d-flex justify-content-between">
+                                <h6 class="font-weight-medium">My Profile</h6>
+                                <h6 class="font-weight-medium"><a href="{{ route('profile') }}">Edit</a></h6>
+                            </div>
+                        </div>
+                        <div class="pt-3 pb-2 mb-2">
+                            <div class="d-flex justify-content-between">
+                                <h6 class="font-weight-medium">Remove Products</h6>
+                                <h6 class="font-weight-medium"><a href="{{ route('cart') }}">Edit</a></h6>
+                            </div>
+                        </div>
+                        @if((is_null(Auth::user()->customer)) || is_null(Auth::user()->customer->address))
+                            <div class="alert alert-warning" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                                <strong>Note !</strong> Please update city, area & address in your profile before order place. <a href="{{ route('profile') }}"> My Profile</a>
+                            </div>
+                        @endif
+                        @if($cart->isNotEmpty())
+                            <button class="btn btn-block btn-primary font-weight-bold py-3" {{ ((is_null(Auth::user()->customer)) || is_null(Auth::user()->customer->address)) ? 'disabled' : '' }} type="submit">Place Order</button>
                         @endif
                     </div>
-                    <div class="border-bottom pt-3 pb-2">
-                        <div class="d-flex justify-content-between">
-                            <h6 class="font-weight-medium">Shipping</h6>
-                            <h6 class="font-weight-medium">Rs. 0</h6>
-                        </div>
-                    </div>
-                    <div class="pt-2 mb-5">
-                        <div class="d-flex justify-content-between mt-2">
-                            <h5>Total</h5>
-                            <h5>Rs. {{ number_format(($total),0) }}</h5>
-                        </div>
-                    </div>
-                    @if((is_null(Auth::user()->customer)) || Auth::user()->customer->address)
-                        <div class="alert alert-warning" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                            <strong>Note !</strong> Please update city, area & address in your profile before order place. <a href="{{ route('profile') }}"> My Profile</a>
-                        </div>
-                    @endif
-                    @if($cart->isNotEmpty())
-                        <button class="btn btn-block btn-primary font-weight-bold py-3" {{ ((is_null(Auth::user()->customer)) || Auth::user()->customer->address) ? 'disabled' : '' }} type="submit">Place Order</button>
-                    @endif
                     
                 </div>
             </div>
         </form>
+        @include('website.home.partials.featured-start')
     </div>
     <!-- Checkout End -->
 @endsection
 @section('js')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         $(document).ready(function() {
-            var areaSelect = $('select[name="area_id"]');
-            var allAreaOptions = areaSelect.find('option').clone();
-            areaSelect.select2();
-            $('select[name="city_id"]').on('change', function() {
-                var cityId = $(this).val();
-                areaSelect.empty().append(allAreaOptions.filter('[data-city-id="' + cityId + '"]'));
-                areaSelect.val(areaSelect.find('option:first').val()).trigger('change').select2();
-            });
-            $('select[name="city_id"]').trigger('change');
+            $('#area_id').select2();
         });
     </script>
 @endsection
