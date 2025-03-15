@@ -70,22 +70,21 @@ class SellersController extends Controller
                 $seller->cnic_number = $request->cnic_number;
                 $seller->website = $request->website;
                 $seller->city_id = $request->city_id;
-                // $seller->area_id = $request->area_id;
                 $seller->address = $request->business_address;
                 $seller->investment_capacity = $request->investment_capacity;
                 $seller->previous_experience = $request->previous_experience;
                 $seller->verified = '1';
                 $seller->save();
 
-                if ($request->has('area_id')) {
-                    foreach ($request->area_id as $area_id) {
-                        ActiveSeller::create([
-                            'user_id' => $user->id,
-                            'area_id' => $area_id,
-                            'seller_id' => $seller->id,
-                            'status' => 'Active',
-                        ]);
-                    }
+                ActiveSeller::where('seller_id', $seller->id)->delete();
+
+                $area_ids = $request->area_id;
+                foreach ($area_ids as $item) {
+                    $active_seller = new ActiveSeller;
+                    $active_seller->user_id = $user->id;
+                    $active_seller->seller_id = $seller->id;
+                    $active_seller->area_id = $item;
+                    $active_seller->save();
                 }
                 DB::commit();
 

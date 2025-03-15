@@ -163,7 +163,8 @@
                         success: function (data) {
                             $('#area_id').empty();
                             $.each(data, function (key, value) {
-                                $('#area_id').append('<option value="' + value.id + '">' + value.title + '</option>');
+                                var selected = {{ json_encode($active_areas_ids) }}.includes(value.id) ? 'selected' : '';
+                                $('#area_id').append('<option value="' + value.id + '" '+selected+'>' + value.title + '</option>');
                             });
                         },
                         error: function () {
@@ -172,6 +173,7 @@
                     });
                 }
             });
+            $('#city_id').trigger('change');
         });
     </script>
 @endsection
