@@ -50,6 +50,7 @@
                             <th>Email</th>
                             <th>Phone</th>
                             <th>Address</th>
+                            <th width="60px">Verified</th>
                             <th width="60px">Status</th>
                             <th width="120px">Joined On</th>
                             <th width="100px">Action</th>
@@ -64,6 +65,13 @@
                                     <td>{{ $item->phone ?? '' }}</td>
                                     <td>{{ $item->customer->address ?? '' }}, {{ $item->customer->area->title ?? '' }}, {{ $item->customer->city->title ?? '' }}</td>
                                     <td>
+                                        @if($item->customer->verified == '1')
+                                            <label class="badge badge-success">Verified</label>
+                                        @else
+                                            <label class="badge badge-danger">Not Verified</label>
+                                        @endif
+                                    </td>
+                                    <td>
                                         @if($item->status == 'support')
                                             <label class="badge badge-info">{{ $item->status ?? '' }}</label>
                                         @elseif($item->status == 'block')
@@ -75,7 +83,6 @@
                                         @endif
                                     </td>
                                     <td>{{ $item->created_at->format('M d, Y') ?? '' }}</td>
-
                                     <td>
                                         <a href="{{ route('seller.customers.edit',$item->uuid) }}">View</a> |
                                         <a href="{{ route('seller.customers.edit',$item->uuid) }}">Edit</a>
