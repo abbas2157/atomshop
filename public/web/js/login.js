@@ -63,8 +63,7 @@
                                     escapeMarkup: false,
                                     backgroundColor: "linear-gradient(to right, #FFD333, #3D464D)",
                                 }).showToast();
-                                console.log(APP_URL + '/register/verification?user=' + response.data.user_id)
-                                // window.location.href = APP_URL + '/register/verification?user=' + response.data.user_id;
+                                window.location.href = APP_URL + '/register/verification?user=' + response.data.user_id;
                             }
                             else {
                                 Toastify({

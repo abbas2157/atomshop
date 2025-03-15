@@ -50,9 +50,15 @@ class AuthController extends BaseController
                 return $this->sendResponse(['user_id' => $user->uuid], 'User registered successfully!');
             }
             
-            if($success['user']->status == 'pending') {
-
+            if($success['user']->status == 'block') {
+                Auth::logout();
+                return $this->sendError('You are blocked on this website.', $credentials, 200);
             }
+            if($success['user']->status == 'support') {
+                Auth::logout();
+                return $this->sendError('Your account is blocked by Support Team.', $credentials, 200);
+            }
+
             $guest_id = $request->guest_id;
             $cart = Cart::where('guest_id', $guest_id)->where('status', 'Pending')->get();
             
