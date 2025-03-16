@@ -11,7 +11,7 @@ use App\Http\Controllers\Api\BaseController as BaseController;
 
 class OrderController extends BaseController
 {
-    public function index()
+    public function index(Request $request)
     {
         try {
             if(!request()->has('uuid')) {
