@@ -73,7 +73,7 @@ class OrderController extends Controller
 
                 OrderConfirmationJob::dispatch($user, $order);
             }
-            $user = Auth::user();
+            
             DB::commit();
             return redirect('order/success?order='.$order->uuid);
         } catch (\Exception $e) {

@@ -70,23 +70,28 @@ class OrderController extends BaseController
         
         try {
             $cart_ids =  explode(',',$request->cart_id);
-            $cart = Cart::whereIn('id', $cart_ids)->where('status', 'Pending')->get();
-            if(!$cart->isNotEmpty()) {
+            $carts = Cart::whereIn('id', $cart_ids)->where('status', 'Pending')->get();
+            if(!$carts->isNotEmpty()) {
                 return $this->sendError(request()->all(), 'Cart is Empty.', 200);
             }
-            for($i = 0; $i < count($cart_ids); $i++) {
+            $user = Auth::user();
+            foreach($carts as $cart) {
                 $order = new Order;
                 $order->uuid = Str::uuid();
                 $order->user_id = Auth::user()->id;
-                $order->cart_id = $cart_ids[$i];
+                $order->cart_id = $cart->id;
+                $order->area_id = $request->area_id;
+                $order->city_id = $request->city_id;
+                $order->total_deal_price = $cart->product_price;
+                $order->advance_price = $cart->product_advance_price;
+                $order->instalment_tenure = $cart->tenure;
                 $order->portal  = 'Web';
                 $order->save();
 
-                $cart = Cart::where('id', $cart_ids[$i])->first();
                 $cart->status = 'Purchased';
                 $cart->save();
 
-                OrderConfirmationJob::dispatch($user);
+                OrderConfirmationJob::dispatch($user, $order);
             }
             return $this->sendResponse($data, 'Order created successfully', 200);
         } catch (\Exception $e) {
