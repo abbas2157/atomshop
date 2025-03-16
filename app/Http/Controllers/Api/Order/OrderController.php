@@ -67,18 +67,25 @@ class OrderController extends BaseController
         if(!$request->has('cart_id') && empty($request->cart_id)) {
             return $this->sendError(request()->all(), 'Send Cart IDs in request.', 200);
         }
-        
-        // try {
+        if(!request()->has('uuid')) {
+            return $this->sendError(request()->all(), 'Send user uuid in request.', 200);
+        }
+        $user_uuid = request()->uuid;
+
+        $user = User::where('uuid', $user_uuid)->where('status', 'active')->first();
+        if (is_null($user)) {
+            return $this->sendError($request->all(), 'User not found.', 200);
+        }
+        try {
             $cart_ids =  explode(',',$request->cart_id);
             $carts = Cart::whereIn('id', $cart_ids)->where('status', 'Pending')->get();
             if(!$carts->isNotEmpty()) {
                 return $this->sendError(request()->all(), 'Cart is Empty.', 200);
             }
-            $user = Auth::user();
             foreach($carts as $cart) {
                 $order = new Order;
                 $order->uuid = Str::uuid();
-                $order->user_id = Auth::user()->id;
+                $order->user_id = $user->id;
                 $order->cart_id = $cart->id;
                 $order->area_id = $request->area_id;
                 $order->city_id = $request->city_id;
@@ -94,9 +101,9 @@ class OrderController extends BaseController
                 OrderConfirmationJob::dispatch($user, $order);
             }
             return $this->sendResponse($data, 'Order created successfully', 200);
-        // } catch (\Exception $e) {
-        //     return $this->sendError('Something went wrong.', $e->getMessage(), 500);
-        // }
+        } catch (\Exception $e) {
+            return $this->sendError('Something went wrong.', $e->getMessage(), 500);
+        }
     }
     public function success()
     {
