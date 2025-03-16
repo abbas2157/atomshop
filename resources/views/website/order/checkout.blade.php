@@ -150,7 +150,7 @@
                             <button class="btn btn-block btn-primary font-weight-bold py-3" {{ ((is_null(Auth::user()->customer)) || is_null(Auth::user()->customer->address)) ? 'disabled' : '' }} type="submit">Place Order</button>
                         @endif
                     </div>
-                    
+
                 </div>
             </div>
         </form>
@@ -162,7 +162,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         $(document).ready(function() {
-            $('#area_id').select2();
-        });
+             var areaSelect = $('select[name="area_id"]');
+             var allAreaOptions = areaSelect.find('option').clone();
+             areaSelect.select2();
+             $('select[name="city_id"]').on('change', function() {
+                 var cityId = $(this).val();
+                 areaSelect.empty().append(allAreaOptions.filter('[data-city-id="' + cityId + '"]'));
+                 areaSelect.val(areaSelect.find('option:first').val()).trigger('change').select2();
+             });
+             $('select[name="city_id"]').trigger('change');
+         });
     </script>
 @endsection

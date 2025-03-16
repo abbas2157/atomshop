@@ -6,7 +6,7 @@
             <input type="text" class="form-control" name="business_address" id="business_address"
                 placeholder="Enter Street Address" value="{{ old('business_address', $seller->address ?? '') }}"
                 required>
-            
+
         </div>
         <div class="col-lg mt-2">
             <label>Seller city <span class="text-danger">*</span></label>
@@ -20,7 +20,7 @@
                     @endforeach
                 @endif
             </select>
-            
+
         </div>
     </div>
     <div class="row row-sm">
@@ -31,7 +31,7 @@
                 @if (!empty($areas))
                     @foreach ($areas as $item)
                         <option value="{{ $item->id }}"
-                            {{ in_array($seller->area_id, $active_areas_ids) ? 'selected' : '' }}>
+                            {{ in_array($item->id, $active_areas_ids) ? 'selected' : '' }}>
                             {{ $item->title }}
                         </option>
                     @endforeach

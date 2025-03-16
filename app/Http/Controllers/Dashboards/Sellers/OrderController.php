@@ -24,12 +24,7 @@ class OrderController extends Controller
         if($active_areas->isNotEmpty()) {
             $active_areas_ids = $active_areas->toArray();
         }
-        $customers = Customer::whereIn('area_id', $active_areas_ids)->pluck('user_id');
-        $customer_ids = [];
-        if ($customers->isNotEmpty()) {
-            $customer_ids =  $customers->toArray();
-        }
-        $orders = Order::whereIn('user_id', $customer_ids)->select('id','uuid', 'cart_id', 'user_id', 'portal', 'status', 'created_at');
+        $orders = Order::whereIn('area_id', $active_areas_ids)->select('id', 'uuid', 'cart_id', 'user_id', 'portal', 'status', 'created_at');
         if(request()->has('status') && !empty(request()->status)) {
             $orders->where('status', request()->status);
         }
@@ -86,7 +81,7 @@ class OrderController extends Controller
             $payload['advance_price'] = $request->advance_price;
             $payload['installment_tenure'] = $request->installment_tenure;
             $payload['payment_method'] = $request->payment_method;
-            
+
             $calculator = InstallmentCalculator::first();
 
             $total = (int) $order->cart->product_price;
