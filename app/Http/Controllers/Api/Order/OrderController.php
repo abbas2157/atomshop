@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Jobs\Web\OrderConfirmationJob;
 use App\Models\{User, Product, Cart, Order, OrderInstalment};
 use Illuminate\Support\Facades\{Auth, DB, Session};
+use Illuminate\Support\Str;
 use App\Http\Controllers\Api\BaseController as BaseController;
 
 class OrderController extends BaseController
