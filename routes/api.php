@@ -29,7 +29,7 @@ Route::group(['prefix' => 'checkout'], function(){
     Route::post('/', [App\Http\Controllers\Api\Order\OrderController::class, 'index']);
     Route::post('perform', [App\Http\Controllers\Api\Order\OrderController::class, 'checkout_perform']);
     Route::get('success', [App\Http\Controllers\Api\Order\OrderController::class, 'success']);
-    Route::get('failed', [App\Http\Controllers\Api\Order\OrderController::class, 'faileds']);
+    Route::get('failed', [App\Http\Controllers\Api\Order\OrderController::class, 'failed']);
 });
 
 Route::get('categories', [App\Http\Controllers\Api\HomePageController::class, 'categories']);
