@@ -100,7 +100,7 @@ class OrderController extends BaseController
 
                 OrderConfirmationJob::dispatch($user, $order);
             }
-            return $this->sendResponse($data, 'Order created successfully', 200);
+            return $this->sendResponse($user, 'Order created successfully', 200);
         } catch (\Exception $e) {
             return $this->sendError('Something went wrong.', $e->getMessage(), 500);
         }
