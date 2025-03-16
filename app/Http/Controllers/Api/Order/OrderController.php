@@ -68,7 +68,7 @@ class OrderController extends BaseController
             return $this->sendError(request()->all(), 'Send Cart IDs in request.', 200);
         }
         
-        try {
+        // try {
             $cart_ids =  explode(',',$request->cart_id);
             $carts = Cart::whereIn('id', $cart_ids)->where('status', 'Pending')->get();
             if(!$carts->isNotEmpty()) {
@@ -94,9 +94,9 @@ class OrderController extends BaseController
                 OrderConfirmationJob::dispatch($user, $order);
             }
             return $this->sendResponse($data, 'Order created successfully', 200);
-        } catch (\Exception $e) {
-            return $this->sendError('Something went wrong.', $e->getMessage(), 500);
-        }
+        // } catch (\Exception $e) {
+        //     return $this->sendError('Something went wrong.', $e->getMessage(), 500);
+        // }
     }
     public function success()
     {
