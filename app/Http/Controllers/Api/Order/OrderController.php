@@ -68,7 +68,7 @@ class OrderController extends BaseController
         }
         
         try {
-            $cart_ids = $request->cart_id;
+            $cart_ids =  explode(',',$request->cart_id);
             $cart = Cart::whereIn('id', $cart_ids)->where('status', 'Pending')->get();
             if(!$cart->isNotEmpty()) {
                 return $this->sendError(request()->all(), 'Cart is Empty.', 200);
