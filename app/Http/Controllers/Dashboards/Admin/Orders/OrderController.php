@@ -98,6 +98,9 @@ class OrderController extends Controller
         }
         $order_instalments = OrderInstalment::where('order_id',$order->id)->get();
         $user = User::with('customer')->where('id', $order->user_id)->first();
+        if(is_null($user->customer)) {
+            return abort(404);
+        }
         $order_change_status = OrderChangeHsitory::where('order_id', $order->id)->get();
         return view('dashboards.admin.orders.show', compact('order', 'order_change_status', 'order_instalments', 'user'));
     }
