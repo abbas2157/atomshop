@@ -151,4 +151,29 @@
             })
         });
     </script>
+    <script>
+        $(document).ready(function () {
+            $('#city_id').change(function () {
+                var city_id = $(this).val();
+                if (city_id) {
+                    $.ajax({
+                        url: "{{ route('admin.getAreasByCity') }}",
+                        type: "GET",
+                        data: { city_id: city_id },
+                        success: function (data) {
+                            $('#area_id').empty();
+                            $.each(data, function (key, value) {
+                                var selected = {{ json_encode($active_areas_ids) }}.includes(value.id) ? 'selected' : '';
+                                $('#area_id').append('<option value="' + value.id + '" '+selected+'>' + value.title + '</option>');
+                            });
+                        },
+                        error: function () {
+                            alert('Error fetching areas. Please try again.');
+                        }
+                    });
+                }
+            });
+            $('#city_id').trigger('change');
+        });
+    </script>
 @endsection
