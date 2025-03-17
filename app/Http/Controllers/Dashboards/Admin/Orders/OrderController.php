@@ -18,7 +18,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::select('id','uuid', 'cart_id', 'user_id', 'portal', 'status', 'created_at');
+        $orders = Order::orderBy('id','desc')->select('id','uuid', 'cart_id', 'user_id', 'portal', 'status', 'created_at');
         if(request()->has('status') && !empty(request()->status)) {
             $orders->where('status', request()->status);
         }
