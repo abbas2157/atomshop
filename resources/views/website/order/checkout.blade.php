@@ -101,11 +101,11 @@
                                 @foreach ($cart as $item)
                                     <div class="d-flex justify-content-between">
                                         <p>{{ $item->product->title ?? '' }}</p>
-                                        <p>Rs. {{ number_format($item->product->price * $item->quantity, 0) }}</p>
+                                        <p>Rs. {{ number_format($item->price * $item->quantity, 0) }}</p>
                                     </div>
                                     <input type="hidden" name="cart_id[]" value="{{ $item->id ?? '' }}">
                                     @php
-                                        $total += $item->product->price * $item->quantity;
+                                        $total += $item->price * $item->quantity;
                                     @endphp
                                 @endforeach
                             @else
