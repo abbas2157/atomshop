@@ -21,9 +21,9 @@
                             </thead>
                             <tbody class="align-middle favorites-table">
                                 <tr>
-                                    <td colspan="5">
+                                    <td colspan="5" class="align-middle text-center">
                                         <div class="text-center py-3">
-                                            <img  src="{{ asset('web/img/loader.gif') }}" class="w-10" alt="Loader">
+                                            No product found. Please add some products.
                                         </div>
                                     </td>
                                 </tr>
@@ -33,6 +33,7 @@
                 </div>
             </div>
         </div>
+        @include('website.home.partials.featured-start')
     </div>
 @endsection
 @section('js')

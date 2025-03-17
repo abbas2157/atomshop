@@ -81,13 +81,7 @@
                                 @endforeach
                             @else
                                 <tr>
-                                    <td colspan="6">
-                                        <div class="bg-light px-4 py-2 mb-30">
-                                            <div class="text-center py-3">
-                                                <img src="{{ asset('web/img/loader.gif') }}" class="w-10" alt="Loader">
-                                            </div>
-                                        </div>
-                                    </td>
+                                    <td colspan="6" class="text-center align-middle"> No instalment found.</td>
                                 </tr>
                             @endif
                         </tbody>

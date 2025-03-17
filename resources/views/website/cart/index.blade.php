@@ -23,11 +23,11 @@
                                 </tr>
                             </thead>
                             <tbody class="align-middle cart-table">
-                            <tr>
-                                    <td colspan="5">
+                                <tr>
+                                    <td colspan="5" class="align-middle text-center">
                                         <img  src="{{ asset('web/img/loader.gif') }}" class="w-10" alt="Loader">
                                     </td>
-                            </tr>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

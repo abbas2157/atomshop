@@ -80,11 +80,7 @@
                                 @endforeach
                             @else
                                 <tr>
-                                    <td colspan="8" class="align-middle text-center">
-                                        <div class="text-center py-3">
-                                            <img src="{{ asset('web/img/loader.gif') }}" class="w-10" alt="Loader">
-                                        </div>
-                                    </td>
+                                    <td colspan="8" class="text-center align-middle">No order found. Please create some order.</td>
                                 </tr>
                             @endif
                         </tbody>

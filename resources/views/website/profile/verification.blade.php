@@ -59,12 +59,20 @@
                                         <tr>
                                             <td>
                                                 <div class="text-center">
-                                                    <img src="{{ asset($user->customerVerification->id_card_front_side) }}" class="verification-img">
+                                                    @if(is_null($user->customerVerification->id_card_front_side))
+                                                        Not found.
+                                                    @else
+                                                        <img src="{{ asset($user->customerVerification->id_card_front_side) }}" class="verification-img">
+                                                    @endif
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="text-center">
-                                                    <img src="{{ asset($user->customerVerification->id_card_back_side) }}" class="verification-img">
+                                                    @if(is_null($user->customerVerification->id_card_back_side))
+                                                        Not found.
+                                                    @else
+                                                        <img src="{{ asset($user->customerVerification->id_card_back_side) }}" class="verification-img">
+                                                    @endif
                                                 </div>
                                             </td>
                                         </tr>
@@ -87,7 +95,11 @@
                                         <tr>
                                             <td>
                                                 <div class="text-center">
-                                                    <img src="{{ asset($user->customerVerification->selfie_with_customer) }}" class="verification-img">
+                                                    @if(is_null($user->customerVerification->selfie_with_customer))
+                                                        Not found.
+                                                    @else
+                                                        <img src="{{ asset($user->customerVerification->selfie_with_customer) }}" class="verification-img">
+                                                    @endif
                                                 </div>
                                             </td>
                                             <td>

@@ -259,7 +259,7 @@
     }
     function getFavorites() {
         $(".favorites-table").html(
-            '<tr><td colspan="5"><img src="' +
+            '<tr><td colspan="5" class="align-middle text-center"><img src="' +
                 ASSET_URL +
                 '/web/img/loader.gif" class="w-10" alt="Loader"></td></tr>'
         );
@@ -296,9 +296,7 @@
                     });
                 } else {
                     var row =
-                        '<tr><td class="align-middle" colspan="5"><div class="text-center py-3">\
-                        <img src="'+ASSET_URL+'/web/img/loader.gif" class="w-10" alt="Loader">\
-                    </div></td></tr>';
+                        '<tr><td class="align-middle text-center" colspan="5"><div class="text-center py-3">No product found. Please add some products.</div></td></tr>';
                     $(".favorites-table").append(row);
                 }
             },
