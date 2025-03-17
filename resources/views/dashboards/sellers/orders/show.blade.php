@@ -28,6 +28,7 @@
                         <option value="Delivered" {{ ('Delivered' == $order->status) ? 'selected' : '' }} {{ (in_array($order->status, ['Instalments','Completed'])) ? 'disabled' : '' }}>Delivered</option>
                         <option value="Instalments" {{ ('Instalments' == $order->status) ? 'selected' : '' }} {{ (in_array($order->status, ['Completed'])) ? 'disabled' : '' }}>Instalments</option>
                         <option value="Completed" {{ ('Completed' == $order->status) ? 'selected' : '' }} >Completed</option>
+                        <option value="Cancelled" {{ ('Cancelled' == $order->status) ? 'selected' : '' }} >Cancelled</option>
                     </select>
                 </div>
             </div>
@@ -157,6 +158,7 @@
 @include('dashboards/sellers/orders/partials/modal/delivered')
 @include('dashboards/sellers/orders/partials/modal/instalment')
 @include('dashboards/sellers/orders/partials/modal/pay-instalment')
+@include('dashboards/sellers/orders/partials/modal/cancelled-status')
 @endsection
 @section('js')
 <script>

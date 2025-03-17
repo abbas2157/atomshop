@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 use App\Models\InstallmentCalculator;
 use Illuminate\Support\Facades\{Auth, DB, Password, Hash, Mail};
-use App\Models\{User, Customer, Cart, Order, City, Area, Product, OrderInstalment, OrderChangeHsitory};
+use App\Models\{User, Customer, Cart, Order, City, Area, Product, OrderInstalment, OrderChangeHistory};
 
 class OrderController extends Controller
 {
@@ -104,7 +104,7 @@ class OrderController extends Controller
         if(is_null($user->customer)) {
             return abort(404);
         }
-        $order_change_status = OrderChangeHsitory::where('order_id', $order->id)->get();
+        $order_change_status = OrderChangeHistory::where('order_id', $order->id)->get();
         return view('dashboards.admin.orders.show', compact('order', 'order_change_status', 'order_instalments', 'user'));
     }
 
@@ -219,7 +219,7 @@ class OrderController extends Controller
         $order->status = $status;
         $order->save();
 
-        $change_order = new OrderChangeHsitory;
+        $change_order = new OrderChangeHistory;
         $change_order->order_id = $order->id;
         $change_order->user_id = $order->user_id;
         $change_order->role = 'admin';

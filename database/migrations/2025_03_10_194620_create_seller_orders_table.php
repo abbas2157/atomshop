@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable()->index();
             $table->foreignId('order_id')->nullable()->index();
             $table->foreignId('seller_id')->nullable()->index();
-            $table->enum('status',['Pending', 'Varification', 'Processing', 'Delivered', 'Instalments', 'Completed'])->default('Pending');
+            $table->enum('status',['Pending', 'Varification', 'Processing', 'Delivered', 'Instalments', 'Completed' , 'Cancelled'])->default('Pending');
             $table->timestamps();
         });
     }

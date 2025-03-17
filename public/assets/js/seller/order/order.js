@@ -38,6 +38,13 @@ $(function () {
             });
             $(".status").val(status);
         }
+        if ($.inArray(status, ['Cancelled']) !== -1) {
+            $('#cancelled-status').modal({
+                backdrop: 'static', 
+                keyboard: false 
+            });
+            $(".status").val(status);
+        }
     });
     function change_only_status() {
         var status = $("#change_status").val();
@@ -144,6 +151,33 @@ $(function () {
                 } 
                 else {
                     $('#instalment-modal').fadeOut();
+                    showErrorModal(response.message);
+                }
+            },
+            error: function (xhr, status, error) {
+                $(this).prop('disabled',false);
+            }
+        });
+    });
+    $(".cancelled-btn").on("click", function () {
+        $(this).prop('disabled',true);
+        var formData = new FormData(document.getElementById('cancelled-form'));
+        $.ajax({
+            url: APP_URL + "/seller/orders/status/"+ORDER_ID,
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (response) {
+                if(response.success == true) {
+                    $('#cancelled-status').fadeOut();
+                    showSuccessModal(response.message);
+                } 
+                else {
+                    $('#cancelled-status').fadeOut();
                     showErrorModal(response.message);
                 }
             },

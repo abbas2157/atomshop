@@ -10,7 +10,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 use App\Models\{InstallmentCalculator, ActiveSeller};
 use Illuminate\Support\Facades\{Auth, DB, Password, Hash, Mail};
-use App\Models\{User, Customer, Cart, Order, OrderChangeHsitory, OrderInstalment, SellerOrder,Area,City};
+use App\Models\{User, Customer, Cart, Order, OrderChangeHistory, OrderInstalment, SellerOrder,Area,City};
+use App\Jobs\Order\OrderCanclledJob;
 
 class OrderController extends Controller
 {
@@ -46,7 +47,7 @@ class OrderController extends Controller
         }
         $order_instalments = OrderInstalment::where('order_id',$order->id)->get();
         $user = User::with('customer')->where('id', $order->user_id)->first();
-        $order_change_status = OrderChangeHsitory::where('order_id', $order->id)->get();
+        $order_change_status = OrderChangeHistory::where('order_id', $order->id)->get();
         return view('dashboards.sellers.orders.show', compact('order', 'order_change_status', 'order_instalments', 'user'));
     }
 
@@ -58,6 +59,11 @@ class OrderController extends Controller
         $order = Order::where('uuid', $id)->first();
         if(is_null($order)) {
             $response = ['success' => false, 'message' => "Order Not Found"];
+            return response()->json($response);
+        }
+        $user = User::where('id', $order->user_id)->first();
+        if(is_null($user)) {
+            $response = ['success' => false, 'message' => "User Not Found"];
             return response()->json($response);
         }
         $status = $request->status;
@@ -139,6 +145,13 @@ class OrderController extends Controller
             }
         }
 
+        if($status == 'Cancelled') {
+            $payload['address_found'] = $request->address_found;
+            $payload['customer_physical_meet'] = $request->customer_physical_meet;
+            $payload['device_not_found'] = $request->device_not_found;
+            $payload['reason'] = $request->reason;
+        }
+
         $order->status = $status;
         $order->save();
 
@@ -153,7 +166,7 @@ class OrderController extends Controller
         $sellerOrder->status = $request->status;
         $sellerOrder->save();
 
-        $change_order = new OrderChangeHsitory;
+        $change_order = new OrderChangeHistory;
         $change_order->order_id = $order->id;
         $change_order->user_id = $order->user_id;
         $change_order->role = 'seller';
@@ -161,6 +174,10 @@ class OrderController extends Controller
         $change_order->payload = json_encode($payload);
         $change_order->changed_by = Auth::user()->id;
         $change_order->save();
+
+        if($status == 'Cancelled') {
+            OrderCanclledJob::dispatch($user, $order);
+        }
 
         $response = ['success' => true, 'message' => "Order status changed to ".$status];
         return response()->json($response);

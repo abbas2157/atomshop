@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('order_change_hsitories', function (Blueprint $table) {
+        Schema::create('order_change_histories', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable()->index();
             $table->foreignId('order_id')->nullable()->index();
 
             $table->text('payload')->nullable();
 
-            $table->enum('status',['Pending', 'Varification', 'Processing', 'Delivered', 'Instalments', 'Completed'])->default('Pending');
+            $table->enum('status',['Pending', 'Varification', 'Processing', 'Delivered', 'Instalments', 'Completed', 'Cancelled'])->default('Pending');
             $table->enum('role',['seller', 'admin'])->default('seller');
             $table->foreignId('changed_by')->nullable();
             $table->timestamps();

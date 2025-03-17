@@ -24,7 +24,7 @@ return new class extends Migration
             $table->foreignId('area_id')->nullable()->index();
             $table->foreignId('city_id')->nullable()->index();
             $table->enum('portal',['Web', 'App'])->default('Web');
-            $table->enum('status',['Pending', 'Varification', 'Processing', 'Delivered', 'Instalments', 'Completed'])->default('Pending');
+            $table->enum('status',['Pending', 'Varification', 'Processing', 'Delivered', 'Instalments', 'Completed', 'Cancelled'])->default('Pending');
             $table->foreignId('updated_by')->nullable();
             $table->timestamps();
         });

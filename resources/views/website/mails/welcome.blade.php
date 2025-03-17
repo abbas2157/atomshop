@@ -80,7 +80,8 @@
                 <li style="direction: rtl; text-align: right;">✅ اگر ممکن ہو تو، ان *Documents* کی *Clear Photocopies* بھی فراہم کریں۔  </li>
                 <li style="direction: rtl; text-align: right;">✅ ہماری *Verification Team* آپ سے دیے گئے پتے پر رابطہ کرے گی، براہ کرم اپنا *فون آن* رکھیں۔ </li>
             </ul>
-            <div style="direction: rtl; text-align: right;">اگر آپ کو کوئی سوال ہو یا مزید وضاحت درکار ہو، تو ہم سے *support@atomshop.pk* یا *WhatsApp: [Your WhatsApp Number]* پر رابطہ کریں۔</div>
+            <br>
+            <div style="direction: rtl; text-align: right;">اگر آپ کو کوئی سوال ہو یا مزید وضاحت درکار ہو، تو ہم سے *support@atomshop.pk* یا *WhatsApp: [+923008622866]* پر رابطہ کریں۔</div>
             <div style="direction: rtl; text-align: right;">ہماری ٹیم آپ کی *Verification* کو جلد مکمل کرنے کے لیے پُرعزم ہے تاکہ آپ کا *Order* بغیر کسی تاخیر کے *Process* ہو سکے!</div>
             <br>
             <p style="direction: rtl; text-align: right;">🚀 اپنے Account میں لاگ ان کرنے کے لیے <a href="{{ route('login') }}">یہاں کلک کریں</a></p>
