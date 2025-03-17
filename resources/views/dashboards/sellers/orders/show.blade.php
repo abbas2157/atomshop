@@ -20,7 +20,7 @@
                 </div>
                 <div class="col-md-3">
                     <label>Change Status </label> 
-                    <select class="form-control change_status" id="change_status" {{ ($user->customer->verified == '0') ? 'disabled' : '' }} style="cursor: pointer">
+                    <select class="form-control change_status" id="change_status" {{ ($user->customer->verified == '0') ? 'disabled' : '' }} {{ ($order->status == 'Cancelled') ? 'disabled' : '' }} style="cursor: pointer">
                         <option selected disabled>Change Status</option>
                         <option value="Pending" {{ ('Pending' == $order->status) ? 'selected' : '' }} {{ (in_array($order->status, ['Delivered','Instalments','Completed'])) ? 'disabled' : '' }}>Pending</option>
                         <option value="Varification" {{ ('Varification' == $order->status) ? 'selected' : '' }} {{ (in_array($order->status, ['Delivered','Instalments','Completed'])) ? 'disabled' : '' }}>Varification</option>
@@ -38,6 +38,14 @@
                         <span aria-hidden="true">×</span>
                     </button>
                     <strong>Note !</strong> Until Customer is not verified. You can't change order status.
+                </div>
+            @endif
+            @if($order->status == 'Cancelled') 
+                <div class="alert alert-danger" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <strong>Note !</strong> This Order is cancelled. Please see order change history below for reason.
                 </div>
             @endif
             <div class="table-responsive">
@@ -85,6 +93,8 @@
                                 <label class="badge badge-dark">Instalments</label>
                             @elseif($order->status == 'Completed')
                                 <label class="badge badge-success">Completed</label>
+                            @elseif($order->status == 'Cancelled')
+                                <label class="badge badge-danger">Cancelled</label>
                             @endif
                         </td>
                     </tbody>
