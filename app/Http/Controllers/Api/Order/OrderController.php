@@ -236,7 +236,7 @@ class OrderController extends BaseController
             if (is_null($user)) {
                 return $this->sendError(request()->all(), 'User not found.', 200);
             }
-            $instalments = OrderInstalment::where('user_id', Auth::user()->id)->get();
+            $instalments = OrderInstalment::where('user_id', Auth::user()->id)->where('status', 'Paid')->get();
             if ($instalments->isEmpty()) {
                 return $this->sendError(request()->all(), 'No history Found.', 200);
             }
