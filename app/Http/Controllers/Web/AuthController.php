@@ -136,6 +136,10 @@ class AuthController extends BaseController
         if(is_null($user)) {
             return redirect()->route('website');
         }
+        $code = VerifyCode::where('user_id', $user->id)->where('used', '0')->first();
+        if(is_null($code)) {
+            return redirect()->route('website');
+        }
         return view('website.auth.verification', compact('user'));
     }
     public function verification_perform(Request $request)
@@ -176,8 +180,8 @@ class AuthController extends BaseController
                 $user->email_verified_at = now();
                 $user->save();
             }
-            $success['back'] = Session::pull('url.intended', 'login');
-            return $this->sendResponse('Code matched successfully.', $success, 200);
+            $success['back'] = Session::pull('url.intended', url('login'));
+            return $this->sendResponse($success, 'Code matched successfully.', 200);
         } catch (\Exception $e) {
             return $this->sendError('Something Went Wrong.', $e->getMessage(), 500);
         }

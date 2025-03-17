@@ -66,6 +66,23 @@
                 <li style="direction: rtl; text-align: right;">✔ اپنے Orders کو Track کریں اور اپنی خریداری کو آسانی سے Manage کریں۔</li>
                 <li style="direction: rtl; text-align: right;">✔ خصوصی Deals اور آفرز سے فائدہ اٹھائیں جو صرف آپ کے لیے ہیں۔</li>
             </ul>
+            <div style="direction: rtl; text-align: right;"> ہماری *Verification Team* جلد آپ سے ملاقات کے لیے آ رہی ہے۔ براہ کرم، اپنی تفصیلات کی تصدیق اور فائل مکمل کرنے کے لیے درج ذیل *Documents* تیار رکھیں: </div>
+            <div>مطلوبہ Documents:</div>
+            <ul>
+                <li>📄 CNIC (Front & Back)</li>
+                <li>📑 *Salary Slip / Business Proof (تازہ ترین)</li>
+                <li>🏠 Utility Bill (Electricity, Gas, or Water) (پچھلے 3 ماہ کا)</li>
+                <li>👥 *Reference Details (دو رابطے – نام اور فون نمبر کے ساتھ)</li>
+            </ul>
+            <div style="direction: rtl; text-align: right;">اہم ہدایات:</div>
+            <ul style="direction: rtl; text-align: right;">
+                <li style="direction: rtl; text-align: right;">✅ براہ کرم تمام *Original Documents* دستیاب رکھیں۔ </li>
+                <li style="direction: rtl; text-align: right;">✅ اگر ممکن ہو تو، ان *Documents* کی *Clear Photocopies* بھی فراہم کریں۔  </li>
+                <li style="direction: rtl; text-align: right;">✅ ہماری *Verification Team* آپ سے دیے گئے پتے پر رابطہ کرے گی، براہ کرم اپنا *فون آن* رکھیں۔ </li>
+            </ul>
+            <div style="direction: rtl; text-align: right;">اگر آپ کو کوئی سوال ہو یا مزید وضاحت درکار ہو، تو ہم سے *support@atomshop.pk* یا *WhatsApp: [Your WhatsApp Number]* پر رابطہ کریں۔</div>
+            <div style="direction: rtl; text-align: right;">ہماری ٹیم آپ کی *Verification* کو جلد مکمل کرنے کے لیے پُرعزم ہے تاکہ آپ کا *Order* بغیر کسی تاخیر کے *Process* ہو سکے!</div>
+            <br>
             <p style="direction: rtl; text-align: right;">🚀 اپنے Account میں لاگ ان کرنے کے لیے <a href="{{ route('login') }}">یہاں کلک کریں</a></p>
             <p style="direction: rtl; text-align: right;">📧 support@atomshop.pk | 📞 0300-8622866</p>
             <p style="direction: rtl; text-align: right;">🛍️ Happy Shopping!</p>
