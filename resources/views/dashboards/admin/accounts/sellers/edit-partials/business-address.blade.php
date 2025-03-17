@@ -31,7 +31,7 @@
                 @if (!empty($areas))
                     @foreach ($areas as $item)
                         <option value="{{ $item->id }}"
-                            {{ in_array($item->id, $active_areas_ids) ? 'selected' : '' }} selected>
+                            {{ in_array($item->id, $active_areas_ids) ? 'selected' : '' }}>
                             {{ $item->title }}
                         </option>
                     @endforeach
