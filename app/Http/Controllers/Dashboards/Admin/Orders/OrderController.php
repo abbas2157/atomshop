@@ -98,6 +98,9 @@ class OrderController extends Controller
         }
         $order_instalments = OrderInstalment::where('order_id',$order->id)->get();
         $user = User::with('customer')->where('id', $order->user_id)->first();
+        if(is_null($user)) {
+            return abort(404);
+        }
         if(is_null($user->customer)) {
             return abort(404);
         }
