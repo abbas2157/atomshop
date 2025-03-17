@@ -42,7 +42,7 @@ class CartController extends BaseController
                 $product = array(
                     'id' => $item->product->id,
                     'title' => $item->product->title ,
-                    'price' => $item->product->formatted_price,
+                    'price' => $item->product_price,
                     'picture' => $item->product->product_picture,
                     'total' => number_format(($item->product->price * $item->quantity),0),
                 );
