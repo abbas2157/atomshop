@@ -47,7 +47,7 @@ class OrderController extends BaseController
                 $product = array(
                     'id' => $item->product->id, 
                     'title' => $item->product->title ,
-                    'price' => $item->product->formatted_price, 
+                    'price' => number_format($item->product_price,0), 
                     'picture' => $item->product->product_picture, 
                     'total' => number_format(($item->product->price * $item->quantity),0),
                 );
