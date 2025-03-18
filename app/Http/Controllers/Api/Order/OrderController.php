@@ -106,7 +106,7 @@ class OrderController extends BaseController
             return $this->sendError('Something went wrong.', $e->getMessage(), 500);
         }
     }
-    public function success()
+    public function success(Request $request)
     {
         if(!request()->has('order')) {
             return $this->sendError(request()->all(), 'Send order UUID in request.', 200);
@@ -119,12 +119,12 @@ class OrderController extends BaseController
         $data = ['text' => 'Order has been submitted successfully.', 'icon' => asset('order/success.png')];
         return $this->sendResponse($data, 'Order created successfully', 200);
     }
-    public function failed()
+    public function failed(Request $request)
     {
         $data = ['text' => 'Order has not been submitted. Something Went wrong.', 'icon' => asset('order/failed.png')];
         return $this->sendResponse($data, 'Order Failed', 200);
     }
-    public function my_orders()
+    public function my_orders(Request $request)
     {
         try {
             if(!request()->has('uuid')) {
@@ -176,7 +176,7 @@ class OrderController extends BaseController
             return $this->sendError('Something went wrong.', $e->getMessage(), 500);
         }
     }
-    public function my_installments()
+    public function my_installments(Request $request)
     {
         try {
             if(!request()->has('uuid')) {
@@ -224,7 +224,7 @@ class OrderController extends BaseController
             return $this->sendError('Something went wrong.', $e->getMessage(), 500);
         }
     }
-    public function payment_history()
+    public function payment_history(Request $request)
     {
         try {
             if(!request()->has('uuid')) {
