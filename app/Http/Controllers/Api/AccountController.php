@@ -224,9 +224,7 @@ class AccountController extends BaseController
                 return $this->sendError('User not found.', [], 200);
             }
 
-            $customer = Customer::where('user_id', $user->id)
-                ->with('city', 'area')
-                ->first();
+            $customer = Customer::where('user_id', $user->id)->with('city', 'area')->first();
             if (is_null($customer)) {
                 $customer = [];
             }
@@ -240,9 +238,12 @@ class AccountController extends BaseController
             $data['user']['joined_through'] = $user->joined_through;
             $data['user']['joined_date'] = $user->created_at->format('M d, Y');
 
-            $data['customer']['area_id'] = $customer->area_id;
-            $data['customer']['city_id'] = $customer->city_id;
-            $data['customer']['address'] = $customer->address;
+            if(!empty($customer)) {
+                $data['customer']['area_id'] = $customer->area_id;
+                $data['customer']['city_id'] = $customer->city_id;
+                $data['customer']['address'] = $customer->address;
+            }
+            
             return $this->sendResponse('Profile retrieved successfully.', $data, 200);
         } catch (\Exception $e) {
             return $this->sendError('Profile not retrieved Error...', [$e->getMessage()], 500);
@@ -302,9 +303,11 @@ class AccountController extends BaseController
             $data['user']['joined_through'] = $user->joined_through;
             $data['user']['joined_date'] = $user->created_at->format('M d, Y');
             
-            $data['customer']['area_id'] = $customer->area_id;
-            $data['customer']['city_id'] = $customer->city_id;
-            $data['customer']['address'] = $customer->address;
+            if(!empty($customer)) {
+                $data['customer']['area_id'] = $customer->area_id;
+                $data['customer']['city_id'] = $customer->city_id;
+                $data['customer']['address'] = $customer->address;
+            }
             return $this->sendResponse('Profile updated successfully.', $data, 200);
         } catch (\Exception $e) {
             return $this->sendError('Profile not updated Error...', [$e->getMessage()], 500);
