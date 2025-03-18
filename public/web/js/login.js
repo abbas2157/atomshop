@@ -35,6 +35,9 @@
             unhighlight: function (element) {
                 $(element).removeClass("is-invalid");
             },
+            onkeyup: function (element) {
+                $(element).valid();
+            },
             submitHandler: function (form) {
                 $(".login").prop('disabled', true);
                 $(".login").html('<img src="' + ASSET_URL + '/web/img/loader.gif" class="w-10" alt="Loader">');
