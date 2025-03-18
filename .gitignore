@@ -24,3 +24,5 @@ yarn-error.log
 /.vscode
 /.zed
 .DS_Store
+.htaccess
+public/.htaccess

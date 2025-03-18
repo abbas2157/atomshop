@@ -1,7 +1,7 @@
 @extends('website.layout.app')
 @section('title')
     <title>Atomshop - Pay in steps</title>
-    <meta content="Atomshop - Pay in steps" name="description">
+    <meta name="description" content="Atomshop is online shop with easy installment facility in Pakistan. - Pay in steps">
 @endsection
 @section('content')
     @include('website.home.partials.sliders')
