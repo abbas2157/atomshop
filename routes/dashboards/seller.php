@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware([App\Http\Middleware\EnsureUserIsSeller::class])->group(function () {
     Route::group(['prefix' => 'seller'], function(){
         Route::get('/', [App\Http\Controllers\Dashboards\Sellers\DashboardController::class, 'index'])->name('seller');
+        Route::get('coming-soon', [App\Http\Controllers\Dashboards\Sellers\DashboardController::class, 'coming_soon'])->name('coming');
         Route::group(['prefix' => 'profile'], function(){
             Route::get('/', [App\Http\Controllers\Dashboards\Sellers\ProfileController::class, 'create'])->name('seller.profile');
             Route::post('perform', [App\Http\Controllers\Dashboards\Sellers\ProfileController::class, 'update'])->name('seller.profile.perform');

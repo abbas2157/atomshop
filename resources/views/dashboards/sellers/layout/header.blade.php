@@ -1,5 +1,5 @@
 <div class="az-header">
-    <div class="container">
+    <div class="container-fluid">
         <div class="az-header-left">
             <a href="{{ route('seller') }}" class="az-logo"><span></span> atomshop</a>
             <a href="" id="azMenuShow" class="az-header-menu-icon d-lg-none"><span></span></a>
@@ -10,11 +10,31 @@
                 <a href="" class="close">&times;</a>
             </div>
             <ul class="nav">
+                
                 <li class="nav-item {{ (request()->segment(1) == 'seller' && (request()->segment(2) == '')) ? 'active show' : '' }}">
                     <a href="{{ route('seller') }}" class="nav-link"><i class="typcn typcn-chart-area-outline"></i> Dashboard</a>
                 </li>
+                <li class="nav-item ">
+                    <a href="{{ route('coming') }}" class="nav-link"><i class="typcn typcn-shopping-cart"></i> Sales & Revenue</a>
+                </li>
+                <li class="nav-item ">
+                    <a href="{{ route('coming') }}" class="nav-link"><i class="typcn typcn-news"></i> Installment Payments</a>
+                </li>
+                <li class="nav-item {{ (request()->segment(1) == 'seller' && (in_array(request()->segment(2), ['users', 'sellers', 'orders']))) ? 'active show' : '' }}">
+                    <a href="" class="nav-link with-sub"><i class="typcn typcn-th-list-outline"></i>Orders</a>
+                    <div class="az-menu-sub">
+                        <div class="container">
+                            <div>
+                                <nav class="nav">
+                                    <a href="{{ route('seller.orders.index') }}" class="nav-link {{ (request()->segment(1) == 'seller' && (in_array(request()->segment(2), ['orders'])) && request()->segment(3) == '/') ? 'active' : '' }}">All Orders</a>
+                                    <a href="{{ route('seller.orders.create') }}" class="nav-link {{ (request()->segment(1) == 'seller' && (in_array(request()->segment(2), ['orders'])) && request()->segment(3) == 'create') ? 'active' : '' }}">Create Order</a>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </li>
                 <li class="nav-item {{ (request()->segment(1) == 'seller' && (in_array(request()->segment(2), ['customers']))) ? 'active show' : '' }}">
-                    <a href="" class="nav-link with-sub"><i class="typcn typcn-group-outline"></i>Customers</a>
+                    <a href="" class="nav-link with-sub"><i class="typcn typcn-business-card"></i>Customers</a>
                     <div class="az-menu-sub">
                         <div class="container">
                             <div>
@@ -26,14 +46,14 @@
                         </div>
                     </div>
                 </li>
-                <li class="nav-item {{ (request()->segment(1) == 'seller' && (in_array(request()->segment(2), ['users', 'sellers', 'orders']))) ? 'active show' : '' }}">
-                    <a href="" class="nav-link with-sub"><i class="typcn typcn-th-list-outline"></i>Orders</a>
+                <li class="nav-item">
+                    <a href="" class="nav-link with-sub"><i class="typcn typcn-group-outline"></i>Sales & Recovery Teams</a>
                     <div class="az-menu-sub">
                         <div class="container">
                             <div>
                                 <nav class="nav">
-                                    <a href="{{ route('seller.orders.index') }}" class="nav-link {{ (request()->segment(1) == 'seller' && (in_array(request()->segment(2), ['orders'])) && request()->segment(3) == '/') ? 'active' : '' }}">All Orders</a>
-                                    <a href="{{ route('seller.orders.create') }}" class="nav-link {{ (request()->segment(1) == 'seller' && (in_array(request()->segment(2), ['orders'])) && request()->segment(3) == 'create') ? 'active' : '' }}">Create Order</a>
+                                    <a href="{{ route('coming') }}" class="nav-link ">Sales-Team Performance</a>
+                                    <a href="{{ route('coming') }}" class="nav-link">Recovery-Team Performance</a>
                                 </nav>
                             </div>
                         </div>
