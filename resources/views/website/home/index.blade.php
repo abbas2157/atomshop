@@ -25,11 +25,11 @@
     @include('website.home.partials.recent-products')
     @include('website.home.partials.brands')
     <div class="container-fluid pt-2 pb-2">
-        <div class="row px-xl-5 mb-5">
+        <div class="row px-xl-5 mb-1">
             <div class="col-12">
                 <div class="bg-light p-30">
                     <div class="mb-3">
-                        <h1>Atomshop.pk</h1>
+                        <h1>Atomshop.pk - Pay in steps</h1>
                     </div>
                     <div>
                         <p>
