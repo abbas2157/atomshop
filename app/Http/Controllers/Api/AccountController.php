@@ -240,7 +240,9 @@ class AccountController extends BaseController
             $data['user']['joined_through'] = $user->joined_through;
             $data['user']['joined_date'] = $user->created_at->format('M d, Y');
 
-            $data['customer'] = $customer;
+            $data['customer']['area_id'] = $customer->area_id;
+            $data['customer']['city_id'] = $customer->city_id;
+            $data['customer']['address'] = $customer->address;
             return $this->sendResponse('Profile retrieved successfully.', $data, 200);
         } catch (\Exception $e) {
             return $this->sendError('Profile not retrieved Error...', [$e->getMessage()], 500);
