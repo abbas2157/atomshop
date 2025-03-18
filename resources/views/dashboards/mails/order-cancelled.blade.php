@@ -56,10 +56,10 @@
 <body>
     <div class="container">
         <div class="header">
-            <h2>اہم اطلاع: آپ کا Order Verification کامیاب نہیں ہو سکا</h2>
+            <h2 style="direction: rtl; text-align: right;">اہم اطلاع: آپ کا Order Verification کامیاب نہیں ہو سکا</h2>
         </div>
         <div class="content">
-            <h2>محترم {{ $user->name ?? '' }},</h2>      
+            <h2 style="direction: rtl; text-align: right;">محترم {{ $user->name ?? '' }},</h2>      
             <div style="direction: rtl; text-align: right;">ہم Atomshop.pk پر آپ کی دلچسپی کو قدر کی نگاہ سے دیکھتے ہیں۔ تاہم، ہماری Verification Process مکمل ہونے کے بعد، ہمیں افسوس ہے کہ اس وقت آپ کاآرڈر   Approved نہیں ہو سکا</div>
             <br>
             <div style="direction: rtl; text-align: right;">یہ درج ذیل وجوہات میں سے کسی ایک کی بنا پر ہو سکتا ہے:</div>

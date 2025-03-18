@@ -288,6 +288,7 @@ class AccountController extends BaseController
                 $file->move(public_path('images/profile'), $filename);
                 $customer->picture = 'images/profile/' . $filename;
             }
+            $customer->user_id = $user->id;
             $customer->save();
 
             $data['user']['id'] = $user->id;

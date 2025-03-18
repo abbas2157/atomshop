@@ -56,7 +56,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h2>آپ کا Order کامیابی سے Verified اور Approved ہو چکا ہے! 🎉  </h2>
+            <h2 style="direction: rtl; text-align: right;">آپ کا Order کامیابی سے Verified اور Approved ہو چکا ہے! 🎉  </h2>
         </div>
         <div class="content">
             <h2 style="direction: rtl; text-align: right;">محترم {{ $user->name ?? '' }},</h2>
@@ -71,7 +71,7 @@
                 <li style="direction: rtl; text-align: right;">💳 Previous Payment History – پچھلے ریکارڈ میں Delayed یا Missed Payments پائی گئی ہیں۔</li>
             </ul>
             <br>
-            <div style="direction: rtl; text-align: right;">اگر آپ کو کسی قسم کی مدد درکار ہو، تو ہم سے رابطہ کریں: +923008622866</div>
+            <div style="direction: rtl; text-align: right;">اگر آپ کو کسی قسم کی مدد درکار ہو، تو ہم سے رابطہ کریں: 923008622866</div>
             <br>
             <div style="direction: rtl; text-align: right;">Atomshop.pk کو منتخب کرنے کا شکریہ! 😊 ہم آپ کی خدمت کے لیے پُرجوش ہیں۔</div>
             <br>
