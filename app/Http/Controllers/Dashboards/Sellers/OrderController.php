@@ -178,6 +178,9 @@ class OrderController extends Controller
         if($status == 'Cancelled') {
             OrderCanclledJob::dispatch($user, $order);
         }
+        if($status == 'Processing') {
+            OrderCanclledJob::dispatch($user, $order);
+        }
 
         $response = ['success' => true, 'message' => "Order status changed to ".$status];
         return response()->json($response);

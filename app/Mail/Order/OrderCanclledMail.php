@@ -31,7 +31,7 @@ class OrderCanclledMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Order Cancelled - AtomShop',
+            subject: $this->order == 'Cancelled' ? 'Order Cancelled - AtomShop' : 'Order Approved - AtomShop',
         );
     }
 
@@ -41,7 +41,7 @@ class OrderCanclledMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'dashboards.mails.order-cancelled',
+            view: $this->order == 'Cancelled' ? 'dashboards.mails.order-cancelled' : 'dashboards.mails.order-approved',
             with: [
                 'user' => $this->user
             ]
