@@ -10427,3 +10427,6 @@ h6 {
 .btn-custom:hover {
     background-color: #000;
 }
+.fs-3 {
+    font-size: 3rem !important;
+  }
