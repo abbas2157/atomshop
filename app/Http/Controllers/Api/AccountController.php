@@ -239,8 +239,8 @@ class AccountController extends BaseController
             $data['user']['joined_date'] = $user->created_at->format('M d, Y');
 
             if(!empty($customer)) {
-                $data['customer']['area_id'] = $customer->area_id;
-                $data['customer']['city_id'] = $customer->city_id;
+                $data['customer']['area_id'] = $customer->area;
+                $data['customer']['city_id'] = $customer->city;
                 $data['customer']['address'] = $customer->address;
             }
             
@@ -304,8 +304,8 @@ class AccountController extends BaseController
             $data['user']['joined_date'] = $user->created_at->format('M d, Y');
             
             if(!empty($customer)) {
-                $data['customer']['area_id'] = $customer->area_id;
-                $data['customer']['city_id'] = $customer->city_id;
+                $data['customer']['area_id'] = $customer->area;
+                $data['customer']['city_id'] = $customer->city;
                 $data['customer']['address'] = $customer->address;
             }
             return $this->sendResponse('Profile updated successfully.', $data, 200);
