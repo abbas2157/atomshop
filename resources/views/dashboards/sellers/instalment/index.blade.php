@@ -48,6 +48,16 @@
                         </div>
                     </div>
                 </form>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="totalPaid" class="form-label"><strong>Total Paid:</strong></label>
+                        <input type="text" class="form-control" id="totalPaid" value="Rs. {{ number_format($totalPaid, 0) }}" readonly>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="totalUnpaid" class="form-label"><strong>Total Unpaid:</strong></label>
+                        <input type="text" class="form-control" id="totalUnpaid" value="Rs. {{ number_format($totalUnpaid, 0) }}" readonly>
+                    </div>
+                </div>
                 <div class="table-responsive">
                     <table class="table az-table-reference mg-b-0">
                         <thead>
