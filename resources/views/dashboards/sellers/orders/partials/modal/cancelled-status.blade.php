@@ -12,7 +12,7 @@
               <div class="col-lg mt-2">
                 <label>Customer Verification Failed</label>
                 <select class="form-control" name="customer_verification_failed">
-                    <option>All Things are OK.</option>
+                    <option>N/A</option>
                     <option>Invalid Contact Details (Wrong/Unreachable phone number)</option>
                     <option>Incorrect Customer Information (Mismatch in name, CNIC, or address)</option>
                     <option>Unresponsive Customer (No answer to calls/messages)</option>
@@ -24,7 +24,7 @@
               <div class="col-lg mt-2">
                 <label>Installment Plan Rejected</label>
                 <select class="form-control" name="installment_plan_rejected">
-                    <option>All Things are OK.</option>
+                    <option>N/A</option>
                     <option>Credit Criteria Not Met (Low score or insufficient income)</option>
                     <option>Required Documents Missing/Invalid (ID, salary slip, bank statement, etc.)</option>
                     <option>Poor Payment History (Previous defaults on installments)</option>
@@ -36,7 +36,7 @@
                 <div class="col-lg mt-2">
                   <label>Product Unavailable </label>
                   <select class="form-control" name="product_unavailable">
-                      <option value="" >All Things are OK.</option>
+                      <option value="" >N/A</option>
                       <option>Out of Stock (Product no longer available)</option>
                       <option>Discontinued by Seller (No longer being sold)</option>
                       <option>Listing Error (Wrong price, details, or duplicate listing)</option>
