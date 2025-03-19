@@ -21,6 +21,10 @@
     <link href="{!! asset('web/lib/owlcarousel/assets/owl.carousel.min.css') !!}" rel="stylesheet">
     <link href="{!! asset('web/css/style.css') !!}" rel="stylesheet">
     @yield('css')
+
+    <!-- Others (Third Parties) -->
+    @include('others/google-analytics.')
+    <!-- Others (Third Parties) -->
 </head>
 
 <body>

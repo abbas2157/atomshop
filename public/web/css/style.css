@@ -10430,3 +10430,6 @@ h6 {
 .fs-3 {
     font-size: 3rem !important;
   }
+  .invalid-feedback {
+    color : #ffd333 !important;
+  }
