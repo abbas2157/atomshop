@@ -34,10 +34,13 @@ Route::middleware([App\Http\Middleware\EnsureUserIsSeller::class])->group(functi
             Route::post('status/{id}', [App\Http\Controllers\Dashboards\Sellers\OrderController::class, 'status'])->name('seller.orders.status.post');
         });
         Route::group(['prefix' => 'instalment'], function(){
+            Route::get('/', [App\Http\Controllers\Dashboards\Sellers\InstalmentController::class, 'index'])->name('seller.instalment.index');
+        });
+        Route::group(['prefix' => 'instalment'], function(){
             Route::post('pay', [App\Http\Controllers\Dashboards\Sellers\OrderController::class, 'pay_instalment'])->name('seller.instalment.pay');
         });
 
         Route::resource('customers', App\Http\Controllers\Dashboards\Sellers\CustomerController::class,['as' => 'seller']);
-        Route::resource('custom-orders', App\Http\Controllers\Dashboards\Sellers\CustomOrdersController::class,['as' => 'seller']);    
+        Route::resource('custom-orders', App\Http\Controllers\Dashboards\Sellers\CustomOrdersController::class,['as' => 'seller']);
     });
 });

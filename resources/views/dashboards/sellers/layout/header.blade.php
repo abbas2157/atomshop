@@ -1,3 +1,4 @@
+
 <div class="az-header">
     <div class="container-fluid">
         <div class="az-header-left">
@@ -10,7 +11,7 @@
                 <a href="" class="close">&times;</a>
             </div>
             <ul class="nav">
-                
+
                 <li class="nav-item {{ (request()->segment(1) == 'seller' && (request()->segment(2) == '')) ? 'active show' : '' }}">
                     <a href="{{ route('seller') }}" class="nav-link"><i class="typcn typcn-chart-area-outline"></i> Dashboard</a>
                 </li>
@@ -18,7 +19,7 @@
                     <a href="{{ route('coming') }}" class="nav-link"><i class="typcn typcn-shopping-cart"></i> Sales & Revenue</a>
                 </li>
                 <li class="nav-item ">
-                    <a href="{{ route('coming') }}" class="nav-link"><i class="typcn typcn-news"></i> Installment Payments</a>
+                    <a href="{{ route('seller.instalment.index') }}" class="nav-link"><i class="typcn typcn-news"></i> Installment Payments</a>
                 </li>
                 <li class="nav-item {{ (request()->segment(1) == 'seller' && (in_array(request()->segment(2), ['users', 'sellers', 'orders']))) ? 'active show' : '' }}">
                     <a href="" class="nav-link with-sub"><i class="typcn typcn-th-list-outline"></i>Orders</a>

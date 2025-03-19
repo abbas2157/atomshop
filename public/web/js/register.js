@@ -16,6 +16,12 @@
                 password: {
                     required: true,
                     minlength: 6
+                },
+                phone: {
+                    required: true,
+                    digits: true,
+                    minlength: 11,
+                    maxlength: 15
                 }
             },
             messages: {
@@ -30,6 +36,12 @@
                 password: {
                     required: "Please enter your password",
                     minlength: "Password must be at least 6 characters long"
+                },
+                phone: {
+                    required: "Please enter your phone number",
+                    digits: "Please enter a valid phone number",
+                    minlength: "Phone number must be 11 digits long",
+                    maxlength: "Phone number must be 15 digits long"
                 }
             },
             errorElement: "div",
@@ -43,6 +55,11 @@
             unhighlight: function (element) {
                 $(element).removeClass("is-invalid");
             },
+
+            onkeyup: function (element) {
+                $(element).valid();
+            },
+
             submitHandler: function (form) {
                 $(".register").prop('disabled', true);
                 $(".register").html('<img src="' + ASSET_URL + '/web/img/loader.gif" class="w-10" alt="Loader">');
