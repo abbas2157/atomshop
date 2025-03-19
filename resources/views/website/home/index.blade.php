@@ -1,7 +1,12 @@
 @extends('website.layout.app')
 @section('title')
     <title>Atomshop - Pay in steps</title>
-    <meta name="description" content="Atomshop is online shop with easy installment facility in Pakistan. - Pay in steps">
+    <meta name="description" content="Atomshop is online shop with easy instalment facility in Pakistan. We provide easy payment options for appliances, electronics, and more.">
+    <meta property="og:title" content="Atomshop - Pay in steps">
+    <meta property="og:description" content="Atomshop is online shop with easy instalment facility in Pakistan. We provide easy payment options for appliances, electronics, and more.">
+    <meta property="og:image" content="{{ asset('web/img/logo.png') }}">
+    <meta property="og:url" content="{{ request()->url() }}">
+    <meta property="og:type" content="website">
 @endsection
 @section('content')
     @include('website.home.partials.sliders')
@@ -33,7 +38,7 @@
                     </div>
                     <div>
                         <p>
-                            At <b>AtomShop.pk</b>, we make essential products <b>affordable and accessible </b> through <b>flexible installment plans</b>. 
+                            At <b>AtomShop.pk</b>, we make essential products <b>affordable and accessible </b> through <b>flexible instalment plans</b>. 
                             No one should have to delay their needs due to financial barriers—that’s why we provide easy payment 
                             options for <b> appliances, electronics, and more</b>.
                         </p>
