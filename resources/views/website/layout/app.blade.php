@@ -23,7 +23,7 @@
     @yield('css')
 
     <!-- Others (Third Parties) -->
-    @include('others/google-analytics.')
+    @include('others/google-analytics')
     <!-- Others (Third Parties) -->
 </head>
 
