@@ -60,18 +60,19 @@
         </div>
         <div class="content">
             <h2 style="direction: rtl; text-align: right;">محترم {{ $user->name ?? '' }},</h2>      
-            <div style="direction: rtl; text-align: right;">ہم Atomshop.pk پر آپ کی دلچسپی کو قدر کی نگاہ سے دیکھتے ہیں۔ تاہم، ہماری Verification Process مکمل ہونے کے بعد، ہمیں افسوس ہے کہ اس وقت آپ کاآرڈر   Approved نہیں ہو سکا</div>
+            <div style="direction: rtl; text-align: right;">ہم Atomshop.pk پر آپ کی دلچسپی کو قدر کی نگاہ سے دیکھتے ہیں۔ تاہم، ہماری Verification Process مکمل ہونے کے بعد، ہمیں افسوس ہے کہ اس وقت آپ کاآرڈر   Approved نہیں ہو سکا۔</div>
             <br>
             <div style="direction: rtl; text-align: right;">یہ درج ذیل وجوہات میں سے کسی ایک کی بنا پر ہو سکتا ہے:</div>
             <ul style="direction: rtl; text-align: right;">
                 <li style="direction: rtl; text-align: right;">📞 Missed Verification Call – ہماری ٹیم نے آپ سے رابطہ کرنے کی کوشش کی، لیکن بروقت جواب نہیں ملا۔</li>
                 <li style="direction: rtl; text-align: right;">📄 Document Requirements – فراہم کردہ کچھ   Documents    سیلر کے معیار پر پورا نہیں اترے۔</li>
                 <li style="direction: rtl; text-align: right;">👥 Reference Feedback – دی گئی References مالی استحکام کی تصدیق نہیں کر سکیں۔  </li>
+                <li style="direction: rtl; text-align: right;">💳 Previous Payment History – پچھلے ریکارڈ میں Delayed یا Missed Payments پائی گئی ہیں۔  </li>
             </ul>
             <br>
             <div style="direction: rtl; text-align: right;">ہم سمجھ سکتے ہیں کہ یہ مایوس کن ہو سکتا ہے، لیکن پریشان نہ ہوں! 😊 آپ نئی اور Updated Information کے ساتھ دوبارہ Reapply کر سکتے ہیں یا اگر کوئی وضاحت درکار ہو تو ہماری ٹیم سے رابطہ کریں۔ </div>
             <br>
-            <div style="direction: rtl; text-align: right;">کسی بھی سوال یا مدد کے لیے، ہم سے support@atomshop.pk پر رابطہ کریں۔ ہم آپ کو دیگر متبادل حل تلاش کرنے میں مدد دینے کے لیے تیار ہیں۔ </div>
+            <div style="direction: rtl; text-align: right;">کسی بھی سوال یا مدد کے لیے، ہم سے 923008622866 پر رابطہ کریں۔ ہم آپ کو دیگر متبادل حل تلاش کرنے میں مدد دینے کے لیے تیار ہیں۔ </div>
             <br>
             <div style="direction: rtl; text-align: right;">Atomshop.pk کو منتخب کرنے کا شکریہ! ہم امید کرتے ہیں کہ جلد آپ کی خدمت کر سکیں۔</div>
             <p style="direction: rtl; text-align: right;" >نیک تمنائیں،</p>
