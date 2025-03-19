@@ -67,7 +67,6 @@
                 <li style="direction: rtl; text-align: right;">📞 Missed Verification Call – ہماری ٹیم نے آپ سے رابطہ کرنے کی کوشش کی، لیکن بروقت جواب نہیں ملا۔</li>
                 <li style="direction: rtl; text-align: right;">📄 Document Requirements – فراہم کردہ کچھ   Documents    سیلر کے معیار پر پورا نہیں اترے۔</li>
                 <li style="direction: rtl; text-align: right;">👥 Reference Feedback – دی گئی References مالی استحکام کی تصدیق نہیں کر سکیں۔  </li>
-                <li style="direction: rtl; text-align: right;">💳 Previous Payment History – پچھلے ریکارڈ میں Delayed یا Missed Payments پائی گئی ہیں۔</li>
             </ul>
             <br>
             <div style="direction: rtl; text-align: right;">ہم سمجھ سکتے ہیں کہ یہ مایوس کن ہو سکتا ہے، لیکن پریشان نہ ہوں! 😊 آپ نئی اور Updated Information کے ساتھ دوبارہ Reapply کر سکتے ہیں یا اگر کوئی وضاحت درکار ہو تو ہماری ٹیم سے رابطہ کریں۔ </div>

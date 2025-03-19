@@ -146,9 +146,9 @@ class OrderController extends Controller
         }
 
         if($status == 'Cancelled') {
-            $payload['address_found'] = $request->address_found;
-            $payload['customer_physical_meet'] = $request->customer_physical_meet;
-            $payload['device_not_found'] = $request->device_not_found;
+            $payload['customer_verification_failed'] = $request->customer_verification_failed;
+            $payload['installment_plan_rejected'] = $request->installment_plan_rejected;
+            $payload['product_unavailable'] = $request->product_unavailable;
             $payload['reason'] = $request->reason;
         }
 

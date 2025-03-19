@@ -10,35 +10,44 @@
             <div class="row">
               <input type="hidden" name="status" class="status">
               <div class="col-lg mt-2">
-                <label>Address Not Found</label>
-                <select class="form-control" name="address_found">
-                    <option value="No">No</option>
-                    <option value="Yes">Yes</option>
+                <label>Customer Verification Failed</label>
+                <select class="form-control" name="customer_verification_failed">
+                    <option>All Things are OK.</option>
+                    <option>Invalid Contact Details (Wrong/Unreachable phone number)</option>
+                    <option>Incorrect Customer Information (Mismatch in name, CNIC, or address)</option>
+                    <option>Unresponsive Customer (No answer to calls/messages)</option>
+                    <option>Suspicious/Fraudulent Activity (Fake documents or identity concerns)</option>
                 </select>
               </div>
             </div>
             <div class="row">
               <div class="col-lg mt-2">
-                <label>Customer Physical Meet</label>
-                <select class="form-control" name="customer_physical_meet">
-                    <option value="No">No</option>
-                      <option value="Yes">Yes</option>
+                <label>Installment Plan Rejected</label>
+                <select class="form-control" name="installment_plan_rejected">
+                    <option>All Things are OK.</option>
+                    <option>Credit Criteria Not Met (Low score or insufficient income)</option>
+                    <option>Required Documents Missing/Invalid (ID, salary slip, bank statement, etc.)</option>
+                    <option>Poor Payment History (Previous defaults on installments)</option>
+                    <option>High Financial Risk Detected (Red flags from verification team)</option>
                 </select>
               </div>
             </div>
             <div class="row">
                 <div class="col-lg mt-2">
-                  <label>Device Not Found</label>
-                  <select class="form-control" name="device_not_found">
-                      <option value="No">No</option>
-                      <option value="Yes">Yes</option>
+                  <label>Product Unavailable </label>
+                  <select class="form-control" name="product_unavailable">
+                      <option value="" >All Things are OK.</option>
+                      <option>Out of Stock (Product no longer available)</option>
+                      <option>Discontinued by Seller (No longer being sold)</option>
+                      <option>Listing Error (Wrong price, details, or duplicate listing)</option>
+                      <option>Delivery Issue (Seller unable to deliver in requested location)</option>
                   </select>
                 </div>
               </div>
             <div class="row">
               <div class="col-lg mt-2">
-                <label>Address Reason</label>
-                <textarea name="reason" class="form-control" cols="30" rows="10"></textarea>
+                <label>Other (Please Specify) </label>
+                <textarea name="reason" class="form-control" cols="30" rows="10" placeholder=" Custom Reason"></textarea>
               </div>
             </div>
           </form>
