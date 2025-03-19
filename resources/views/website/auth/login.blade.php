@@ -28,8 +28,9 @@
                     </div>
                     <a href="" class="forgot__link">Forgot password?</a>
                     <button class="btn__submit login" type="button">Login</button>
-                    <p class="other__link"> Don't have an account? <a href="{{ route('website.register') }}">Sign up</a>
-                    </p>
+                    <h5 class="sub-text">New to Atomshop.pk? </h5>
+                    <p class="other__link"> If you don’t have an account yet, <a href="{{ route('website.register') }}" class="underline-a text-primary"> Sign Up </a> now and start shopping on easy installments!</p>
+                    <p class="other__link">For any assistance, contact our support team at support@atomshop.pk or call us at 0300-8622866.</p>
                 </form>
             </div>
         </div>
@@ -39,13 +40,19 @@
                 <h5>Sign In to Your Atomshop.pk Account</h5>
                 <p>Welcome back to Atomshop.pk! Sign in to access your account, manage your installment plans, track your orders, and explore exclusive deals.</p>
                 <h5>Why Sign In?</h5>
-                <ul class="mb-5 pb-2">
+                <ul class="">
                     <li>View and manage your installment purchases.</li>
                     <li>Track your order history and delivery status.</li>
                     <li>Update your profile and payment details.</li>
                     <li>Access exclusive discounts and offers.</li>
                     <li>Get personalized recommendations based on your shopping preferences.</li>
                 </ul>
+                <h5>How to Sign In?</h5>
+                <ol class="">
+                    <li>Enter your registered email or phone number.</li>
+                    <li>Provide your secure password.</li>
+                    <li>Click on the Sign In button to access your dashboard.</li>
+                </ol>
             </div>
         </div>
     </div>
