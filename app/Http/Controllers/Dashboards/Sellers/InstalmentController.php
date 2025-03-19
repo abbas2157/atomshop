@@ -36,8 +36,10 @@ class InstalmentController extends Controller
         }
         $instalments = $query->orderBy('id', 'desc')->paginate(10);
         $allOrderIds = OrderInstalment::whereIn('order_id', $orderIds)->pluck('order_id')->unique();
+        $totalPaid = (clone $query)->where('status', 'Paid')->sum('installment_price');
+        $totalUnpaid = (clone $query)->where('status', 'Unpaid')->sum('installment_price');
 
-        return view('dashboards.sellers.instalment.index', compact('instalments', 'allOrderIds'));
+        return view('dashboards.sellers.instalment.index', compact('instalments', 'allOrderIds', 'totalPaid', 'totalUnpaid'));
     }
 
 
