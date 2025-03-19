@@ -3,7 +3,7 @@
     <div class="row row-sm">
         <div class="col-lg-6 mt-2">
             <label class="form-control-label">Product Price (Default) <span class="tx-danger">*</span></label>
-            <input type="number" id="price" class="form-control" name="price" placeholder="Enter product price" value="{{ old('price') ?? 0 }}" required>
+            <input type="number" id="price" class="form-control" name="price" placeholder="Enter product price" value="0" required>
             @if ($errors->has('price'))
                 <span class="text-danger text-left">{{ $errors->first('price') }}</span>
             @endif

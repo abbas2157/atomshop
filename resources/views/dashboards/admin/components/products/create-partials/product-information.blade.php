@@ -3,14 +3,14 @@
     <div class="row row-sm">
         <div class="col-lg-4 mt-2">
             <label class="form-control-label">Product Title (Listing Page) <span class="tx-danger">*</span></label>
-            <input type="text" id="title" class="form-control" name="title" placeholder="Enter product title" value="{{ old('title') ?? 'iPhone 13 Pro Max LLA Model' }}" required>
+            <input type="text" id="title" class="form-control" name="title" placeholder="Enter product title" required>
             @if ($errors->has('title'))
                 <span class="text-danger text-left">{{ $errors->first('title') }}</span>
             @endif
         </div>
         <div class="col-lg-8 mt-2">
             <label class="form-control-label">Product Title (Detail Page) </label>
-            <input type="text" id="detail_page_title" class="form-control" name="detail_page_title" placeholder="Enter product title" value="{{ old('detail_page_title') ?? '' }}" required>
+            <input type="text" id="detail_page_title" class="form-control" name="detail_page_title" placeholder="Enter product title for detail page" required>
             @if ($errors->has('detail_page_title'))
                 <span class="text-danger text-left">{{ $errors->first('detail_page_title') }}</span>
             @endif
