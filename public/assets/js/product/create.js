@@ -151,7 +151,7 @@ $(function() {
         }
         $('#brand_id').html('');
         $.ajax({
-            url: API_URL + "/brands",
+            url: API_URL + "/brands/"+category_id,
             type: "GET",
             data: {category_id : category_id},
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },

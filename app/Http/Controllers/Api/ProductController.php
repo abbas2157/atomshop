@@ -142,4 +142,16 @@ class ProductController extends BaseController
             return $this->sendError($e->getMessage(), 'Somehting Went Wrong.', 200);
         }
     }
+    /**
+     * Get Brands For Home Page App
+     */
+    public function category_brands(Request $request, $id)
+    {
+        try {
+            $brands = Brand::orderBy('id','desc')->where('category_id', $id)->get();
+            return $this->sendResponse($brands, 'Here is the list of brands.', 200);
+        } catch (Exception $e) {
+            return $this->sendError('Something went wrong.', $e->getMessage(), 500);
+        }
+    }
 }
