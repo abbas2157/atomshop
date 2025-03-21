@@ -82,7 +82,7 @@
                         <td class="align-middle text-center"> {{ $order->portal ?? '' }} </td>
                         <td class="align-middle text-center"> 
                             @if($order->status == 'Pending')
-                                <label class="badge badge-danger">Pending</label>
+                                <label class="badge badge-purple">Pending</label>
                             @elseif($order->status == 'Varification')
                                 <label class="badge badge-warning">Varification</label>
                             @elseif($order->status == 'Processing')

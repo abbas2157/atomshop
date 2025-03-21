@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\{User, Customer, Seller, Order, ActiveSeller, OrderInstalment};
 use Illuminate\Support\Facades\{Auth, DB, Password, Hash, Mail};
-
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
@@ -16,65 +16,32 @@ class DashboardController extends Controller
    
      public function index()
      {
-        $authUser = Auth::user();
+        $days = 30;
         $data = [];
+        $data['today_date'] = Carbon::today()->format('M d, Y');
+        $data['previous_30_date'] = Carbon::today()->subDays($days)->format('M d, Y');
+        $user = Auth::user();
 
-        if ($authUser->seller) {
-            $active_areas_ids = [];
-            $active_areas = ActiveSeller::where('user_id', Auth::user()->id)->pluck('area_id');
-            if($active_areas->isNotEmpty()) {
-                $active_areas_ids = $active_areas->toArray();
-            }
-            $lastInstalments = OrderInstalment::withOrderDetails()
-            ->select('id', 'month', 'installment_price', 'status', 'type', 'order_id', 'user_id')
-            ->where('user_id', Auth::user()->id)
-            ->where('status', 'Unpaid')
-            ->orderBy('id', 'asc')
-            ->take(5)
-            ->get();
-            $customers = Customer::whereIn('area_id', $active_areas_ids)->pluck('user_id');
-            $filteredCustomers = User::whereIn('id', $customers)->get();
+        $active_areas_ids = [];
+        $active_areas = ActiveSeller::where('user_id', Auth::user()->id)->pluck('area_id');
+        if($active_areas->isNotEmpty()) {
+            $active_areas_ids = $active_areas->toArray();
+        }
+        $customers = Customer::whereIn('area_id', $active_areas_ids)->pluck('user_id');
 
-            $lastcustomer = User::whereIn('id', $customers)->where('role', 'customer')->orderBy('id', 'desc')
-                ->take(5)->get();
+        //Listings
+        $data['customers'] = User::whereIn('id', $customers)->where('role', 'customer')->orderBy('id', 'desc')->take(5)->get();
 
-            $lastOrders = Order::whereIn('user_id', $customers)
-                ->select('id', 'uuid', 'cart_id', 'user_id', 'portal', 'status', 'created_at')
-                ->orderBy('id', 'desc')->take(5)->get();
+        //Counts 
+        $data['orders'] = Order::whereIn('user_id', $customers)->whereBetween('created_at', [Carbon::now()->subDays($days), Carbon::now()])->orderBy('id', 'desc')->select('id', 'uuid', 'total_deal_price', 'cart_id', 'user_id', 'portal', 'status', 'created_at')->get();
+        
+        $order_ids = $data['orders']->pluck('id')->toArray();
+        $data['total_sales'] = $data['orders']->sum('total_deal_price');
 
-            $orders = Order::whereIn('user_id', $customers)->get();
-         } 
-         else {
-            $filteredCustomers = collect();
-            $lastcustomer = collect();
-            $lastOrders = collect();
-            $orders = collect();
-         }
- 
-        $sellers = Seller::all();
-        $data['customers'] = [
-            'total' => $filteredCustomers->count(),
-            'verified' => $filteredCustomers->where('verified', 1)->count(),
-        ];
-
-        $data['sellers'] = [
-            'total' => $sellers->count(),
-            'verified' => $sellers->where('verified', 1)->count(),
-        ];
-
-        $data['orders'] = [
-             'total' => $orders->count(),
-             'pending' => $orders->where('status', 'Pending')->count(),
-             'verification' => $orders->where('status', 'Verification')->count(),
-             'processing' => $orders->where('status', 'Processing')->count(),
-             'delivered' => $orders->where('status', 'Delivered')->count(),
-             'instalments' => $orders->where('status', 'Instalments')->count(),
-             'Completed' => $orders->where('status','Completed')->count()
-        ];
-        $data['lastcustomer'] = $lastcustomer;
-        $data['lastInstalments'] = $lastInstalments;
-        $data['lastOrders'] = $lastOrders;
-
+        $data['total_recovery'] = OrderInstalment::whereIn('order_id', $order_ids)->whereBetween('created_at', [Carbon::now()->subDays($days), Carbon::now()])->sum('installment_price');
+        $data['total_customers'] = count($customers);
+        
+        // dd($data['total_sales']);
         return view('dashboards.sellers.index', $data);
      }
 
