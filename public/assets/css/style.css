@@ -25158,6 +25158,7 @@ ul.list-ckeck-soft li::after {
   margin-left: 20px;
   padding-left: 20px;
   border-left: 1px solid #cdd4e0;
+  min-width: max-content;
 }
 .az-content-header-right .btn:first-of-type, .az-content-header-right .sp-container button:first-of-type, .sp-container .az-content-header-right button:first-of-type {
   margin-left: 30px;
