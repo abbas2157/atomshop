@@ -29,6 +29,7 @@
                                 <nav class="nav">
                                     <a href="{{ route('seller.orders.index') }}" class="nav-link {{ (request()->segment(1) == 'seller' && (in_array(request()->segment(2), ['orders'])) && request()->segment(3) == '/') ? 'active' : '' }}">All Orders</a>
                                     <a href="{{ route('seller.orders.create') }}" class="nav-link {{ (request()->segment(1) == 'seller' && (in_array(request()->segment(2), ['orders'])) && request()->segment(3) == 'create') ? 'active' : '' }}">Create Order</a>
+                                    <a href="{{ route('seller.custom-orders.index') }}" class="nav-link {{ (request()->segment(1) == 'seller' && request()->segment(2) == 'custom-orders' && request()->segment(3) == '') ? 'active show' : '' }}">Custom Orders</a>
                                 </nav>
                             </div>
                         </div>
