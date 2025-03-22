@@ -193,7 +193,7 @@ class WebsiteController extends Controller
                 );
             }
         }
-        dd($feature_products);
+        $feature_products = array_values(array_unique($feature_products, SORT_REGULAR));
         $website->feature_products = json_encode($feature_products);
         $website->updated_by = Auth::user()->id;
         $website->save();
