@@ -31,6 +31,40 @@
                     <strong>Note !</strong> Get verified yourself immediately. Our agent will visite you soon.
                 </div>
             @endif
+            <form action="{{ route('profile.installments') }}" method="GET">
+                <div class="row row-sm mb-2">
+                    <div class="col-lg mt-2">
+                        <select class="form-control" name="order_id">
+                            <option selected disabled>Select Order</option>
+                            @foreach ($allOrderIds as $order_id)
+                                <option value="{{ $order_id }}"
+                                    {{ request('order_id') == $order_id ? 'selected' : '' }}>OR- {{ $order_id }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-lg mt-2">
+                        <select class="form-control" name="portal">
+                            <option selected disabled>Select Portal</option>
+                            <option value="App" {{ 'App' == request()->portal ? 'selected' : '' }}>App</option>
+                            <option value="Web" {{ 'Web' == request()->portal ? 'selected' : '' }}>Web</option>
+                        </select>
+                    </div>
+                    <div class="col-lg mt-2">
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="submit"
+                                    style="padding: 8px 20px; color:white;"><i class="fa fa-search"></i></button>
+                            </span>
+                            <span class="input-group-btn" title="Clear Search">
+                                <a href="{{ route('seller.instalment.index') }}" class="btn btn-warning" type="submit"
+                                    style="padding: 8px 20px; color:white;"><i
+                                        class="far fa-arrow-alt-circle-left"></i></a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </form>
             <div class="bg-light mb-30">
                 <div class="table-responsive mb-3">
                     <table class="table table-bordered mb-0">
