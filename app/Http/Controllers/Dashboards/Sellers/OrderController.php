@@ -190,8 +190,12 @@ class OrderController extends Controller
     {
         try {
             $calculator = InstallmentCalculator::select('installment_tenure', 'per_month_percentage')->first();
-            $area_id = Auth::user()->seller->area_id;
-            $customers = Customer::where('area_id', $area_id)->where('verified', '1')->select('id','user_id')->get();
+            $active_areas_ids = [];
+            $active_areas = ActiveSeller::where('user_id', Auth::user()->id)->pluck('area_id');
+            if($active_areas->isNotEmpty()) {
+                $active_areas_ids = $active_areas->toArray();
+            }
+            $customers = Customer::whereIn('area_id', $active_areas_ids)->where('verified', '1')->select('id','user_id')->get();
             $categories = Category::orderBy('title','asc')->select('id','title','slug','pr_count')->get();
             $areas = Area::orderBy('id', 'desc')->get();
             $cities = City::orderBy('id', 'desc')->get();

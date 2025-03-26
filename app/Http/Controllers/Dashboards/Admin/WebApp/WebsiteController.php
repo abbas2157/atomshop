@@ -97,6 +97,7 @@ class WebsiteController extends Controller
                 );
             }
         }
+        $products = array_values(array_unique($products, SORT_REGULAR));
         $website->products = json_encode($products);
         $website->updated_by = Auth::user()->id;
         $website->save();
@@ -293,6 +294,7 @@ class WebsiteController extends Controller
                 );
             }
         }
+        $categories = array_values(array_unique($categories, SORT_REGULAR));
         $website->categories = json_encode($categories);
         $website->updated_by = Auth::user()->id;
         $category->pr_count = $product_count;
@@ -376,6 +378,7 @@ class WebsiteController extends Controller
                 $brands[$index] = array('id' => $brand->id, 'title' => $brand->title, 'slug' => $brand->slug, 'picture' => $brand->brand_picture,'pr_count' => $product_count);
             }
         }
+        $brands = array_values(array_unique($brands, SORT_REGULAR));
         $website->brands     = json_encode($brands);
         $website->updated_by = Auth::user()->id;
         $website->save();

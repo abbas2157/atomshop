@@ -8,7 +8,9 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\{Auth, DB};
-use App\Models\{Category, Brand, CustomOrderProduct, CustomOrder, Area, Cart, City, Product, Customer, InstallmentCalculator, Order};
+use App\Models\{Category, Brand, CustomOrderProduct};
+use App\Models\{CustomOrder, Area, Cart, City, ActiveSeller};
+use App\Models\{Product, Customer, InstallmentCalculator, Order};
 
 class CustomOrdersController extends Controller
 {
@@ -36,8 +38,12 @@ class CustomOrdersController extends Controller
     {
         try {
             $calculator = InstallmentCalculator::select('installment_tenure', 'per_month_percentage')->first();
-            $area_id = Auth::user()->seller->area_id;
-            $customers = Customer::where('area_id', $area_id)->where('verified', '1')->select('id','user_id')->get();
+            $active_areas_ids = [];
+            $active_areas = ActiveSeller::where('user_id', Auth::user()->id)->pluck('area_id');
+            if($active_areas->isNotEmpty()) {
+                $active_areas_ids = $active_areas->toArray();
+            }
+            $customers = Customer::whereIn('area_id', $active_areas_ids)->where('verified', '1')->select('id','user_id')->get();
             $categories = Category::orderBy('title','asc')->select('id','title','slug','pr_count')->get();
             $areas = Area::orderBy('id', 'desc')->get();
             $cities = City::orderBy('id', 'desc')->get();
@@ -53,6 +59,14 @@ class CustomOrdersController extends Controller
     public function store(Request $request)
     {
         try {
+            DB::beginTransaction();
+
+            $customer_id = $request->customer_id;
+            $customer = Customer::where('user_id', $customer_id)->first();
+            if(is_null($customer)) {
+                $validator['error'] = 'Customer not found.';
+                return back()->withErrors($validator);
+            }
             $category_id = $request->category_id;
             $brand_id = $request->brand_id;
 
@@ -89,9 +103,9 @@ class CustomOrdersController extends Controller
 
             $product->category_id = $category_id;
             $product->brand_id = $brand_id;
-            $product->status = $request->status;
             $product->created_by = auth()->id();
             $product->save();
+
             $product->pr_number = 'PR-' . $product->id;
             $product->save();
 
@@ -99,18 +113,21 @@ class CustomOrdersController extends Controller
             $order->uuid = Str::uuid();
             $order->user_id = auth()->id();
             $order->product_id = $product->id;
-            $order->total_deal_price = $product->price;
+            $order->total_deal_price = $request->total_deal_price;
             $order->advance_price = $product->advance_price;
             $order->tenure = 3;
-            $order->area_id = $request->area_id;
-            $order->city_id = $request->city_id;
-            $order->status = $product->status;
+            $order->area_id = $customer->area_id;
+            $order->city_id = $customer->city_id;
             $order->created_by = $product->created_by;
             $order->save();
 
-            return redirect()->route('seller.custom-orders.index')->with('success', 'Order created successfully!');
+            DB::commit();
+            $validator['success'] = 'Custom Order created successfully!';
+            return back()->withErrors($validator);
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Something went wrong! Please try again.');
+            DB::rollBack();
+            $validator['error'] = $e->getMessage();
+            return back()->withErrors($validator);
         }
     }
 

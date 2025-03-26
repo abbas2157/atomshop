@@ -10,6 +10,13 @@
     <div class="container">
         @include('dashboards/sellers/custom-orders/partials/sidebar')
         <div class="az-content-body pd-lg-l-40 d-flex flex-column">
+            <div class="az-content-breadcrumb">
+                <span>Orders Management</span>
+                <span>Custom</span>
+            </div>
+            <h2 class="az-content-title">Custom Orders</h2>
+            <div class="az-content-label mg-b-5">Create new one</div>
+            <p class="mg-b-20">All Custom Orders will start from here.</p>
             <form method="POST" action="{{ route('seller.custom-orders.store') }}" enctype="multipart/form-data">
                 @csrf
                 @include('dashboards/sellers/custom-orders/partials/create-partial')
@@ -22,11 +29,7 @@
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="{!! asset('assets/lib/select2/js/select2.min.js') !!}"></script>
     <script>
-        @if(is_null($calculator))
-            var tenure_percentage = 4;
-        @else
-            var tenure_percentage = parseInt('{{ $calculator->per_month_percentage?? 0 }}');
-        @endif
+        var tenure_percentage = 5;
     </script>
     <script src="{!! asset('assets/js/seller/order/custom-order.js') !!}"></script>
 @endsection
