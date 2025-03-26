@@ -1,6 +1,6 @@
 @extends('dashboards.sellers.layout.app')
 @section('title')
-    <title>Orders - {{ env('APP_NAME') ?? '' }}</title> 
+    <title>Orders - {{ env('APP_NAME') ?? '' }}</title>
 @endsection
 @section('content')
 <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
@@ -40,7 +40,7 @@
                                 <button class="btn btn-primary" type="submit" style="padding: 8px 20px; color:white;"><i class="fa fa-search"></i></button>
                             </span>
                             <span class="input-group-btn" title="Clear Search">
-                                <a href="{{ route('admin.orders.index') }}" class="btn btn-warning" type="submit" style="padding: 8px 20px; color:white;"><i class="far fa-arrow-alt-circle-left"></i></a>
+                                <a href="{{ route('seller.orders.index') }}" class="btn btn-warning" type="submit" style="padding: 8px 20px; color:white;"><i class="far fa-arrow-alt-circle-left"></i></a>
                             </span>
                             {{-- <span class="input-group-btn" title="Create New">
                                 <a href="{{ route('admin.orders.create') }}" class="btn btn-info" type="submit" style="padding: 8px 20px; color:white;"><i class="typcn typcn-document-add"></i></a>
@@ -63,7 +63,7 @@
                         @if($orders->isNotEmpty())
                             @foreach ($orders as $item)
                                 <tr>
-                                    <td class="align-middle"> 
+                                    <td class="align-middle">
                                         <div class="row">
                                             <div class="col-md-3 pt-1">
                                                 <img src="{{ asset($item->cart->product->picture) }}" alt="" style="width: 50px;">
@@ -111,7 +111,7 @@
                 </table>
             </div>
             <div class="mt-2">
-                {!! $orders->withQueryString()->links('pagination::bootstrap-5') !!} 
+                {!! $orders->withQueryString()->links('pagination::bootstrap-5') !!}
             </div>
         </div>
     </div>

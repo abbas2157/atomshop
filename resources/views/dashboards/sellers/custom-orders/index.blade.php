@@ -40,11 +40,8 @@
                                     <button class="btn btn-primary" type="submit" style="padding: 8px 20px; color:white;"><i class="fa fa-search"></i></button>
                                 </span>
                                 <span class="input-group-btn" title="Clear Search">
-                                    <a href="{{ route('admin.orders.index') }}" class="btn btn-warning" type="submit" style="padding: 8px 20px; color:white;"><i class="far fa-arrow-alt-circle-left"></i></a>
+                                    <a href="{{ route('seller.custom-orders.index') }}" class="btn btn-warning" type="submit" style="padding: 8px 20px; color:white;"><i class="far fa-arrow-alt-circle-left"></i></a>
                                 </span>
-                                {{-- <span class="input-group-btn" title="Create New">
-                                    <a href="{{ route('admin.orders.create') }}" class="btn btn-info" type="submit" style="padding: 8px 20px; color:white;"><i class="typcn typcn-document-add"></i></a>
-                                </span> --}}
                             </div>
                         </div>
                     </div>
@@ -63,31 +60,25 @@
                             @if($orders->isNotEmpty())
                                 @foreach ($orders as $item)
                                     <tr>
-                                        <td class="align-middle"> 
+                                        <td class="align-middle">
                                             <div class="row">
                                                 <div class="col-md-3 pt-1">
-                                                    <img src="{{ asset($item->cart->product->picture) }}" alt="" style="width: 50px;">
+                                                    <img src="{{ asset($item->CustomOrderProduct->picture) }}" alt="" style="width: 50px;">
                                                 </div>
                                                 <div class="col-md-9">
-                                                    {{ $item->cart->product->title ?? '' }} <br>
-                                                    @if(!is_null($item->cart->memory))
-                                                        <b>Storage : </b>{{ $item->cart->memory->title ?? '' }} <br>
-                                                    @endif
-                                                    @if(!is_null($item->cart->color))
-                                                        <b>Color : </b>{{ $item->cart->color->title ?? '' }} <br>
-                                                    @endif
-                                                    @if(!is_null($item->cart->size))
-                                                        <b>Size : </b>{{ $item->cart->size->title ?? '' }} <br>
-                                                    @endif
+                                                    {{ $item->CustomOrderProduct->title ?? '' }} <br>
+                                                    <b>PR-N : </b>{{ $item->CustomOrderProduct->pr_number ?? '' }} <br>
+                                                    <b>Category : </b>{{ $item->CustomOrderProduct->category->title ?? '' }} <br>
+                                                    <b>Brand : </b>{{ $item->CustomOrderProduct->brand->title ?? '' }} <br>
                                                 </div>
                                             </div>
                                         </td>
                                         <td class="align-middle">
-                                            <b>Advance Amount : </b>Rs. {{ number_format($item->cart->product_advance_price, 0) }} <br>
-                                            <b>Total Deal Amount : </b>Rs. {{ number_format($item->cart->product_price,0) }} <br>
-                                            <b>Installment Tenure : </b> {{ number_format($item->cart->tenure,0) }} Months<br>
+                                            <b>Advance Amount : </b>Rs. {{ number_format($item->advance_price, 0) }} <br>
+                                            <b>Total Deal Amount : </b>Rs. {{ number_format($item->total_deal_price,0) }} <br>
+                                            <b>Installment Tenure : </b> {{ number_format($item->tenure,0) }} Months<br>
                                         </td>
-    
+
                                         <td class="align-middle">
                                             <b>Name : </b> {{ $item->user->name ?? '' }} <br>
                                             <b>Phone : </b> {{ $item->user->phone ?? '' }} <br>
@@ -96,7 +87,6 @@
                                         <td class="align-middle">
                                             <b>Status : </b> {{ $item->status ?? '' }} <br>
                                             <b>Date : </b> {{ $item->created_at->format('M d, Y') ?? '' }} <br>
-                                            <b>Detail : </b> <a href="{{ route('seller.orders.show', ['id' => $item->uuid]) }}">View Order</a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -111,7 +101,7 @@
                     </table>
                 </div>
                 <div class="mt-2">
-                    {!! $orders->withQueryString()->links('pagination::bootstrap-5') !!} 
+                    {!! $orders->withQueryString()->links('pagination::bootstrap-5') !!}
                 </div>
             </div>
         </div>
