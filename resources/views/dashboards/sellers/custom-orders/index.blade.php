@@ -67,7 +67,6 @@
                                                 </div>
                                                 <div class="col-md-9">
                                                     {{ $item->CustomOrderProduct->title ?? '' }} <br>
-                                                    <b>PR-N : </b>{{ $item->CustomOrderProduct->pr_number ?? '' }} <br>
                                                     <b>Category : </b>{{ $item->CustomOrderProduct->category->title ?? '' }} <br>
                                                     <b>Brand : </b>{{ $item->CustomOrderProduct->brand->title ?? '' }} <br>
                                                 </div>

@@ -22,7 +22,7 @@ Route::middleware([App\Http\Middleware\CustomThrottle::class])->group(function (
     //installment-calculator
     Route::group(['prefix' => 'custom-offer'], function () {
         Route::get('/', [App\Http\Controllers\Web\CustomOfferController::class, 'index'])->name('offer');
-        Route::get('store', [App\Http\Controllers\Web\CustomOfferController::class, 'store'])->name('website.custom-orders.store');
+        Route::post('store', [App\Http\Controllers\Web\CustomOfferController::class, 'store'])->name('website.custom-orders.store');
     });
 
     //Cart Management
@@ -40,10 +40,7 @@ Route::middleware([App\Http\Middleware\CustomThrottle::class])->group(function (
             Route::get('/', [App\Http\Controllers\Web\Order\OrderController::class, 'index'])->name('checkout');
             Route::post('perform', [App\Http\Controllers\Web\Order\OrderController::class, 'checkout_perform'])->name('checkout.perform');
         });
-        Route::group(['prefix' => 'order'], function () {
-            Route::get('success', [App\Http\Controllers\Web\Order\OrderController::class, 'success'])->name('order.success');
-            Route::get('failed', [App\Http\Controllers\Web\Order\OrderController::class, 'failed'])->name('order.failed');
-        });
+        
         Route::group(['prefix' => 'profile'], function () {
             Route::get('/', [App\Http\Controllers\Web\Profile\ProfileController::class, 'index'])->name('profile');
             Route::post('/', [App\Http\Controllers\Web\Profile\ProfileController::class, 'profile_update'])->name('profile.update');
@@ -62,7 +59,10 @@ Route::middleware([App\Http\Middleware\CustomThrottle::class])->group(function (
             });
         });
     });
-
+    Route::group(['prefix' => 'order'], function () {
+        Route::get('success', [App\Http\Controllers\Web\Order\OrderController::class, 'success'])->name('order.success');
+        Route::get('failed', [App\Http\Controllers\Web\Order\OrderController::class, 'failed'])->name('order.failed');
+    });
 
     //Home
     // Route::get('/', function(){ return view('welcome'); })->name('home');

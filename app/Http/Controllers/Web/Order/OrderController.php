@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Web\Order;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{User, Cart, Order, City, Area};
+use App\Models\{User, Cart, Order, City, Area, CustomOrder};
 use Illuminate\Support\Facades\{Auth, DB, Session, Log};
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cookie;
@@ -87,7 +87,12 @@ class OrderController extends Controller
             return redirect()->route('website');
         }
         $order_uuid = request()->order;
-        $order = Order::where('uuid', request()->order)->with('cart')->first();
+        if(!request()->has('type')) {
+            $order = Order::where('uuid', request()->order)->with('cart')->first();
+        }
+        else {
+            $order = CustomOrder::where('uuid', request()->order)->first();
+        }
         if(is_null($order)) {
             return redirect()->route('website');
         }

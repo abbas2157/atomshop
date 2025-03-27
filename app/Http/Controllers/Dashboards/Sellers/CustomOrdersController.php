@@ -19,8 +19,12 @@ class CustomOrdersController extends Controller
      */
     public function index()
     {
-        $user_id = Auth::user()->id;
-        $orders = CustomOrder::where('user_id', $user_id)->with('CustomOrderProduct')->select('id', 'uuid', 'product_id', 'user_id', 'portal', 'status', 'created_at', 'total_deal_price', 'advance_price', 'tenure');
+        $active_areas_ids = [];
+        $active_areas = ActiveSeller::where('user_id', Auth::user()->id)->pluck('area_id');
+        if($active_areas->isNotEmpty()) {
+            $active_areas_ids = $active_areas->toArray();
+        }
+        $orders = CustomOrder::whereIn('area_id', $active_areas_ids)->with('CustomOrderProduct')->select('id', 'uuid', 'product_id', 'user_id', 'portal', 'status', 'created_at', 'total_deal_price', 'advance_price', 'tenure');
         if(request()->has('status') && !empty(request()->status)) {
             $orders->where('status', request()->status);
         }
@@ -115,7 +119,7 @@ class CustomOrdersController extends Controller
             $order->product_id = $product->id;
             $order->total_deal_price = $request->total_deal_price;
             $order->advance_price = $product->advance_price;
-            $order->tenure = 3;
+            $order->tenure = $request->tenure_months;
             $order->area_id = $customer->area_id;
             $order->city_id = $customer->city_id;
             $order->created_by = $product->created_by;
