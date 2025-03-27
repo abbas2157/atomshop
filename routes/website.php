@@ -18,6 +18,13 @@ Route::middleware([App\Http\Middleware\CustomThrottle::class])->group(function (
         Route::get('brands/products', [App\Http\Controllers\Web\InstallmentCalculatorController::class, 'products'])->name('calculator.brands.products');
         Route::get('products/detail', [App\Http\Controllers\Web\InstallmentCalculatorController::class, 'product_detail'])->name('calculator.products.detail');
     });
+
+    //installment-calculator
+    Route::group(['prefix' => 'custom-offer'], function () {
+        Route::get('/', [App\Http\Controllers\Web\CustomOfferController::class, 'index'])->name('offer');
+        Route::get('store', [App\Http\Controllers\Web\CustomOfferController::class, 'store'])->name('website.custom-orders.store');
+    });
+
     //Cart Management
     Route::group(['prefix' => 'cart'], function () {
         Route::get('/', [App\Http\Controllers\Web\Order\CartController::class, 'index'])->name('cart');

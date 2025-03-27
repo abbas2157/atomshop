@@ -1,6 +1,3 @@
-@php
-    $calculator = App\Models\InstallmentCalculator::first();
-@endphp
 <div class="container">
     <h5 class=" text-uppercase mx-xl-5 mb-2"><span class="bg-secondary pr-3">Choose your product</span></h5>
     <div class="row px-xl-5">
