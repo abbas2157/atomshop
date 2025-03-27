@@ -50,6 +50,7 @@ class CustomOfferController extends Controller
                     $user->phone = $request->phone;
                     $user->password = bcrypt($request->password);
                     $user->role = 'customer';
+                    $user->status = 'pending';
                     $user->save();
                 }
                 $customer = Customer::where('user_id', $user->id)->first();
@@ -64,6 +65,15 @@ class CustomOfferController extends Controller
             }
             else {
                 $user = Auth::user();
+                $customer = Customer::where('user_id', $user->id)->first();
+                if(is_null($customer)) {
+                    $customer = new Customer;
+                    $customer->city_id = $request->city_id;
+                    $customer->area_id = $request->area_id;
+                    $customer->address = $request->address;
+                    $customer->user_id = $user->id;
+                    $customer->save();
+                }
             }
             $category_id = $request->category_id;
             $brand_id = $request->brand_id;

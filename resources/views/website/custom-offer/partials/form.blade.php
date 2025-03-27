@@ -159,22 +159,24 @@
                             <th>Full Name</th>
                             <th>Email</th>
                             <th>Phone</th>
-                            <th>Address</th>
+                            <th>Password</th>
                         </tr>
                     </thead>
                     <tbody class="align-middle">
                         <tr>
                             <td>
-                                <input type="text" id="name" class="form-control" name="name" placeholder="Full Name">
+                                <input type="text" id="name" class="form-control" name="name" placeholder="Full Name" @auth disabled value="{{ Auth::user()->name ?? '' }}" @endauth>
                             </td>
                             <td>
-                                <input type="email" id="email" class="form-control" name="email" placeholder="Email">
+                                <input type="email" id="email" class="form-control" name="email" placeholder="Email" @auth disabled value="{{ Auth::user()->email ?? '' }}" @endauth>
                             </td>
                             <td>
-                                <input type="text" id="phone" class="form-control" name="phone" placeholder="Mobile Number">
+                                <input type="text" id="phone" class="form-control" name="phone" placeholder="Mobile Number" @auth disabled value="{{ Auth::user()->phone ?? '' }}" @endauth>
                             </td>
                             <td>
-                                <input type="password" id="password" class="form-control" name="password" placeholder="Enter password">
+                                @guest
+                                    <input type="password" id="password" class="form-control" name="password" placeholder="Enter password">
+                                @endguest
                             </td>
                         </tr>
                     </tbody>
@@ -189,7 +191,7 @@
                     <tbody class="align-middle">
                         <tr>
                             <td>
-                                <select class="custom-select" name="city_id" required>
+                                <select class="custom-select" name="city_id" @auth disabled @endauth>
                                     @if ($cities->isNotEmpty())
                                         @foreach ($cities as $item)
                                             @auth
@@ -209,7 +211,7 @@
                                 </select>
                             </td>
                             <td>
-                                <select class="custom-select select2" name="area_id" id="area_id" required>
+                                <select class="custom-select select2" name="area_id" id="area_id" @auth disabled @endauth>
                                     @if ($areas->isNotEmpty())
                                         @foreach ($areas as $item)
                                             @auth
@@ -230,7 +232,7 @@
                                 </select>
                             </td>
                             <td>
-                                <input type="text" id="address" class="form-control" name="address" placeholder="Home Address">
+                                <input type="text" id="address" class="form-control" name="address" placeholder="Home Address" @auth disabled value="{{ (!is_null(Auth::user()->customer) && !is_null(Auth::user()->customer->address)) ? Auth::user()->customer->address : '' }}"  @endauth>
                             </td>
                             <td>
                                 <button type="submit" class="btn btn-primary btn-block"> <i class="fa fa-shopping-cart mr-1"> </i> Place Order</button>

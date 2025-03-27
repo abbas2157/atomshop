@@ -30,7 +30,7 @@
                     <button class="btn__submit login" type="button">Login</button>
                     <h5 class="sub-text">New to Atomshop.pk? </h5>
                     <p class="other__link"> If you don’t have an account yet, <a href="{{ route('website.register') }}" class="underline-a text-primary"> Sign Up </a> now and start shopping on easy installments!</p>
-                    <p class="other__link">For any assistance, contact our support team at support@atomshop.pk or call us at 0300-8622866.</p>
+                    <p class="other__link">For any assistance, contact our support team at <a href="mail:support@atomshop.pk" class="underline-a text-primary"> support@atomshop.pk </a> or call us at <a href="tel:+923008622866" class="underline-a text-primary">+923008622866</a>.</p>
                 </form>
             </div>
         </div>
