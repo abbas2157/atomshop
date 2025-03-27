@@ -36,7 +36,7 @@
             <div class="col-lg-4">
                 <form class="mb-30">
                     <div class="input-group">
-                        <input type="text" class="form-control border-0 p-4" placeholder="Coupon Code">
+                        <input type="text" class="form-control border-0 p-4" placeholder="Coupon Code (Coming Soon)" readonly>
                         <div class="input-group-append">
                             <button class="btn btn-primary">Apply Coupon</button>
                         </div>
