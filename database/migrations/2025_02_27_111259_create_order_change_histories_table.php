@@ -20,6 +20,7 @@ return new class extends Migration
 
             $table->enum('status',['Pending', 'Varification', 'Processing', 'Delivered', 'Instalments', 'Completed', 'Cancelled'])->default('Pending');
             $table->enum('role',['seller', 'admin'])->default('seller');
+            $table->enum('order_type',['Normal', 'Custom'])->default('Normal');
             $table->foreignId('changed_by')->nullable();
             $table->timestamps();
         });

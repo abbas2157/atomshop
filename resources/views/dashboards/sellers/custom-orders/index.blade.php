@@ -86,6 +86,7 @@
                                         <td class="align-middle">
                                             <b>Status : </b> {{ $item->status ?? '' }} <br>
                                             <b>Date : </b> {{ $item->created_at->format('M d, Y') ?? '' }} <br>
+                                            <b>Detail : </b> <a href="{{ route('seller.custom-orders.show', ['id' => $item->uuid]) }}">View Order</a>
                                         </td>
                                     </tr>
                                 @endforeach

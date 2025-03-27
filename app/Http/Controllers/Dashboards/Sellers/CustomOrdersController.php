@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\{Auth, DB};
 use App\Models\{Category, Brand, CustomOrderProduct};
 use App\Models\{CustomOrder, Area, Cart, City, ActiveSeller};
 use App\Models\{Product, Customer, InstallmentCalculator, Order};
+use App\Models\{User, OrderChangeHistory, OrderInstalment, SellerOrder};
 
 class CustomOrdersController extends Controller
 {
@@ -140,7 +141,15 @@ class CustomOrdersController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $order = CustomOrder::where('uuid', $id)->select('id','uuid', 'product_id', 'total_deal_price', 'advance_price', 'tenure', 'user_id', 'portal', 'status', 'created_at')->first();
+        if(is_null($order)) {
+            return abort(404);
+        }
+        // dd($order);
+        $order_instalments = OrderInstalment::where('order_id',$order->id)->where('order_type', 'Custom')->get();
+        $user = User::with('customer')->where('id', $order->user_id)->first();
+        $order_change_status = OrderChangeHistory::where('order_id', $order->id)->where('order_type', 'Custom')->get();
+        return view('dashboards.sellers.custom-orders.show', compact('order', 'order_change_status', 'order_instalments', 'user'));
     }
 
     /**

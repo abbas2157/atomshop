@@ -19,4 +19,9 @@ class CustomOrder extends Model
         return $this->belongsTo(CustomOrderProduct::class, 'product_id', 'id')
             ->select('id', 'title', 'pr_number', 'category_id', 'brand_id','picture');
     }
+    public function product()
+    {
+        return $this->belongsTo(CustomOrderProduct::class, 'product_id', 'id')
+            ->select('id', 'title', 'pr_number', 'category_id', 'brand_id','picture');
+    }
 }

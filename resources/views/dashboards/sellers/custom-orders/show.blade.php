@@ -1,22 +1,22 @@
 @extends('dashboards.sellers.layout.app')
 @section('title')
-    <title>Orders - {{ env('APP_NAME') ?? '' }}</title> 
+    <title>Show - Custom Orders - {{ env('APP_NAME') ?? '' }}</title> 
 @endsection
 @section('content')
 <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
     <div class="container">
-        @include('dashboards/sellers/orders/partials/sidebar')
+        @include('dashboards/sellers/custom-orders/partials/sidebar')
         <div class="az-content-body pd-lg-l-40 d-flex flex-column">
             <div class="az-content-breadcrumb">
                 <span>Orders Management</span>
-                <span>Orders</span>
+                <span>Custom Orders</span>
                 <span>{{ $order->uuid ?? '' }}</span>
             </div>
             <h2 class="az-content-title">Orders</h2>
             <div class="row">
                 <div class="col-md-9">
-                    <div class="az-content-label mg-b-5 pt-3">All Order Details</div>
-                    <p class="mg-b-20">All Orders list here to view, edit & delete</p>
+                    <div class="az-content-label mg-b-5 pt-3">All Custom Order Details</div>
+                    <p class="mg-b-20">Custom Orders Change and check history</p>
                 </div>
                 <div class="col-md-3">
                     <label>Change Status </label> 
@@ -63,19 +63,10 @@
                         <td class="align-middle"> 
                             <div class="row">
                                 <div class="col-md-2 pt-1">
-                                    <img src="{{ asset($order->cart->product->picture) }}" alt="" style="width: 50px;">
+                                    <img src="{{ asset($order->product->picture) }}" alt="" style="width: 50px;">
                                 </div>
                                 <div class="col-md-10">
-                                    {{ $order->cart->product->title ?? '' }} <br>
-                                    @if(!is_null($order->cart->memory))
-                                        <b>Storage : </b>{{ $order->cart->memory->title ?? '' }} <br>
-                                    @endif
-                                    @if(!is_null($order->cart->color))
-                                        <b>Color : </b>{{ $order->cart->color->title ?? '' }} <br>
-                                    @endif
-                                    @if(!is_null($order->cart->size))
-                                        <b>Size : </b>{{ $order->cart->size->title ?? '' }} <br>
-                                    @endif
+                                    {{ $order->product->title ?? '' }} <br>
                                 </div>
                             </div>
                         </td>
@@ -118,7 +109,7 @@
                             Rs. {{ number_format($order->advance_price, 0) }}
                         </td>
                         <td class="align-middle "> 
-                            {{ number_format(floatval($order->instalment_tenure), 0) }} Months
+                            {{ number_format(floatval($order->tenure), 0) }} Months
                         </td>
                         <td>{{ $order->created_at->format('M d, Y') ?? '' }}</td>
                     </tbody>
@@ -160,15 +151,15 @@
                     </tbody>
                 </table>
             </div>
-            @include('dashboards/sellers/orders/partials/instalment')
-            @include('dashboards/sellers/orders/partials/change-history')
+            @include('dashboards/sellers/custom-orders/partials/instalment')
+            @include('dashboards/sellers/custom-orders/partials/change-history')
         </div>
     </div>
 </div>
-@include('dashboards/sellers/orders/partials/modal/delivered')
-@include('dashboards/sellers/orders/partials/modal/instalment')
-@include('dashboards/sellers/orders/partials/modal/pay-instalment')
-@include('dashboards/sellers/orders/partials/modal/cancelled-status')
+@include('dashboards/sellers/custom-orders/partials/modal/delivered')
+@include('dashboards/sellers/custom-orders/partials/modal/instalment')
+@include('dashboards/sellers/custom-orders/partials/modal/pay-instalment')
+@include('dashboards/sellers/custom-orders/partials/modal/cancelled-status')
 @endsection
 @section('js')
 <script>

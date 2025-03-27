@@ -27,8 +27,8 @@ Route::middleware([App\Http\Middleware\EnsureUserIsSeller::class])->group(functi
         });
         Route::group(['prefix' => 'orders'], function(){
             Route::get('/', [App\Http\Controllers\Dashboards\Sellers\OrderController::class, 'index'])->name('seller.orders.index');
-            Route::get('/create', [App\Http\Controllers\Dashboards\Sellers\OrderController::class, 'create'])->name('seller.orders.create');
-            Route::post('/store', [App\Http\Controllers\Dashboards\Sellers\OrderController::class, 'store'])->name('seller.orders.store');
+            Route::get('create', [App\Http\Controllers\Dashboards\Sellers\OrderController::class, 'create'])->name('seller.orders.create');
+            Route::post('store', [App\Http\Controllers\Dashboards\Sellers\OrderController::class, 'store'])->name('seller.orders.store');
             Route::get('show/{id}', [App\Http\Controllers\Dashboards\Sellers\OrderController::class, 'show'])->name('seller.orders.show');
             Route::get('status/{id}', [App\Http\Controllers\Dashboards\Sellers\OrderController::class, 'status'])->name('seller.orders.status');
             Route::post('status/{id}', [App\Http\Controllers\Dashboards\Sellers\OrderController::class, 'status'])->name('seller.orders.status.post');
@@ -42,5 +42,9 @@ Route::middleware([App\Http\Middleware\EnsureUserIsSeller::class])->group(functi
 
         Route::resource('customers', App\Http\Controllers\Dashboards\Sellers\CustomerController::class,['as' => 'seller']);
         Route::resource('custom-orders', App\Http\Controllers\Dashboards\Sellers\CustomOrdersController::class,['as' => 'seller']);
+        Route::group(['prefix' => 'custom-orders'], function(){
+            Route::get('show/{id}', [App\Http\Controllers\Dashboards\Sellers\CustomOrdersController::class, 'show'])->name('seller.custom-orders.show');
+            Route::post('status/{id}', [App\Http\Controllers\Dashboards\Sellers\CustomOrdersController::class, 'status'])->name('seller.custom-orders.status.post');
+        });
     });
 });

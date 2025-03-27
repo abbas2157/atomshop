@@ -3,9 +3,7 @@
     <title>Cart | {{ config('website.name') ?? '' }} - {{ config('website.tagline') ?? '' }}</title>
     <meta name="description" content="Add To Cart | Atomshop - Pay in steps">
 @endsection
-
 @section('content')
-    <!-- Cart Start -->
     <div class="container-fluid">
         <div class="row px-xl-5">
             <div class="col-lg-8 mb-5">
