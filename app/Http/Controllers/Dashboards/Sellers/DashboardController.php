@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Dashboards\Sellers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{User, Customer, Seller, Order, ActiveSeller, OrderInstalment};
+use App\Models\{User, Customer, Seller, Order, CustomOrder, ActiveSeller, OrderInstalment};
 use Illuminate\Support\Facades\{Auth, DB, Password, Hash, Mail};
 use Carbon\Carbon;
 
@@ -31,14 +31,24 @@ class DashboardController extends Controller
 
         //Listings
         $data['customers'] = User::whereIn('id', $customers)->where('role', 'customer')->orderBy('id', 'desc')->take(5)->get();
+        $data['orders'] = Order::whereIn('area_id', $active_areas_ids)->whereBetween('created_at', [Carbon::now()->subDays($days), Carbon::now()])->orderBy('id', 'desc')->select('id', 'uuid', 'total_deal_price', 'cart_id', 'user_id', 'portal', 'status', 'created_at')->get();
+        $data['custom_orders'] = CustomOrder::whereIn('area_id', $active_areas_ids)->whereBetween('created_at', [Carbon::now()->subDays($days), Carbon::now()])->orderBy('id', 'desc')->select('id', 'uuid', 'total_deal_price', 'product_id', 'user_id', 'portal', 'status', 'created_at')->get();
 
         //Counts 
-        $data['orders'] = Order::whereIn('user_id', $customers)->whereBetween('created_at', [Carbon::now()->subDays($days), Carbon::now()])->orderBy('id', 'desc')->select('id', 'uuid', 'total_deal_price', 'cart_id', 'user_id', 'portal', 'status', 'created_at')->get();
-        
         $order_ids = $data['orders']->pluck('id')->toArray();
-        $data['total_sales'] = $data['orders']->sum('total_deal_price');
+        $data['total_sales'] = $data['orders']->whereIn('status',['Delivered', 'Instalments', 'Completed'])->sum('total_deal_price');
+        $data['total_custom_sales'] = $data['custom_orders']->whereIn('status',['Delivered', 'Instalments', 'Completed'])->sum('total_deal_price');
 
-        $data['total_recovery'] = OrderInstalment::whereIn('order_id', $order_ids)->whereBetween('created_at', [Carbon::now()->subDays($days), Carbon::now()])->sum('installment_price');
+        $data['total_recovery'] = OrderInstalment::whereIn('order_id', $order_ids)->where('order_type', 'Normal')->where('status', 'Paid')->whereBetween('created_at', [Carbon::now()->subDays($days), Carbon::now()])->sum('installment_price');
+        $data['total_custom_recovery'] = OrderInstalment::whereIn('order_id', $order_ids)->where('order_type', 'Custom')->where('status', 'Paid')->whereBetween('created_at', [Carbon::now()->subDays($days), Carbon::now()])->sum('installment_price');
+        $data['total_recovery_percentage'] = 0;
+        if($data['total_recovery'] > 0 && $data['total_sales'] > 0) {
+            $data['total_recovery_percentage'] = round(($data['total_recovery']/$data['total_sales']) * 100, 2);
+        }
+        $data['total_custom_recovery_percentage'] = 0;
+        if($data['total_custom_recovery'] > 0 && $data['total_custom_sales'] > 0) {
+            $data['total_custom_recovery_percentage'] = round(($data['total_custom_recovery']/$data['total_custom_sales']) * 100, 2);
+        }
         $data['total_customers'] = count($customers);
         
         // dd($data['total_sales']);

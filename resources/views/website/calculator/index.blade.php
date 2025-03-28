@@ -1,7 +1,7 @@
 @extends('website.layout.app')
 @section('title')
-    <title>Installment Calculator | {{ config('website.name') ?? '' }} - {{ config('website.tagline') ?? '' }}</title>
-    <meta name="description" content="Installment Calculator | Atomshop - Pay in steps" >
+    <title>Quick Installment Calculator | {{ config('website.name') ?? '' }} - {{ config('website.tagline') ?? '' }}</title>
+    <meta name="description" content="Quick Installment Calculator | Atomshop - Pay in steps" >
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 @endsection
 @section('content')

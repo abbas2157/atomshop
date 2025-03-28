@@ -161,7 +161,7 @@
                         </tr>
                     </thead>
                     <tbody class="align-middle" id="installment-rows">
-                        <tr><td colspan="5"><img src="{{ asset('web/img/loader.gif') }}" class="w-5" alt="Loader"></td></tr>
+                        <tr><td colspan="5">No Instalment created yet.</td></tr>
                     </tbody>
                 </table>
             </div>

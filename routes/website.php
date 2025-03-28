@@ -20,8 +20,8 @@ Route::middleware([App\Http\Middleware\CustomThrottle::class])->group(function (
     });
 
     //installment-calculator
-    Route::group(['prefix' => 'custom-offer'], function () {
-        Route::get('/', [App\Http\Controllers\Web\CustomOfferController::class, 'index'])->name('offer');
+    Route::group(['prefix' => 'custom-order-calculator'], function () {
+        Route::get('/', [App\Http\Controllers\Web\CustomOfferController::class, 'index'])->name('website.custom-order-calculator');
         Route::post('store', [App\Http\Controllers\Web\CustomOfferController::class, 'store'])->name('website.custom-orders.store');
     });
 

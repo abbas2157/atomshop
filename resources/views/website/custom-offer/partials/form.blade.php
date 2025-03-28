@@ -26,7 +26,7 @@
                                                 {{ $item->title ?? '' }}</option>
                                         @endforeach
                                     @endif
-                                    <option value="other">Other</option>
+                                    <option value="other">Custom Order</option>
                                 </select>
                             </td>
                             <td>
@@ -141,7 +141,7 @@
                     <tbody class="align-middle" id="installment-rows">
                         <tr>
                             <td colspan="5">
-                                <img src="{{ asset('web/img/loader.gif') }}" alt="Loader" class="w-5">
+                                No Instalment created yet.
                             </td>
                         </tr>
                     </tbody>

@@ -28,11 +28,11 @@
             brands.forEach(function (item) {
                 $("#brand_id").append('<option value="' + item.id + '">' + item.title + "</option>");
             });
-            $("#brand_id").append('<option value="other">Other</option>');
+            $("#brand_id").append('<option value="other">Custom Order</option>');
         } 
         else {
             $("#brand_title").prop('disabled',false);
-            $("#brand_id").append('<option value="other">Other</option>');
+            $("#brand_id").append('<option value="other">Custom Order</option>');
         }
     }
     $("#brand_id").on("change", function () {

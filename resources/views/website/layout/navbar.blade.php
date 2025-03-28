@@ -38,11 +38,11 @@
                         <a href="{{ route('shop') }}"
                             class="nav-item nav-link {{ request()->segment(1) == 'shop' ? 'active' : '' }}">Shop</a>
                         <a href="{{ route('calculator') }}"
-                            class="nav-item nav-link {{ request()->segment(1) == 'installment-calculator' ? 'active' : '' }}">Installment
+                            class="nav-item nav-link {{ request()->segment(1) == 'installment-calculator' ? 'active' : '' }}">Quick Installment
                             Calculator</a>
-                        <a href="{{ route('offer') }}"
-                            class="nav-item nav-link {{ request()->segment(1) == 'custom-offer' ? 'active' : '' }}">
-                            Custom Offer</a>
+                        <a href="{{ route('website.custom-order-calculator') }}"
+                            class="nav-item nav-link {{ request()->segment(1) == 'custom-order-calculator' ? 'active' : '' }}">
+                            Custom Order Calculator</a>
                     </div>
                     <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
                         <a href="{{route('favorite')}}" class="btn px-0">

@@ -26,17 +26,47 @@
                         </div>
                     </div>
                 </div>
+                <div class="row mb-2">
+                    <div class="col-sm-3">
+                        <div class="card card-dashboard-finance">
+                            <h6 class="card-title">Total Sales</h6>
+                            <h2><span>Rs.</span> {{ number_format(($total_sales ?? 0) + ($total_custom_sales ?? 0)) }}</h2>
+                            <span class="tx-12">Last 30 days</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 mg-t-20 mg-sm-t-0">
+                        <div class="card card-dashboard-finance">
+                            <h6 class="card-title">Total Recovery</h6>
+                            <h2><span>Rs.</span> {{ number_format(($total_recovery ?? 0) + ($total_custom_recovery ?? 0)) }}</h2>
+                            <span class="tx-12"> Last 30 days</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 mg-t-20 mg-sm-t-0">
+                        <div class="card card-dashboard-finance">
+                            <h6 class="card-title">Total Recovery (%)</h6>
+                            <h2><span>%</span> {{ number_format(($total_recovery_percentage ?? 0) + ($total_custom_recovery_percentage ?? 0)) }}</h2>
+                            <span class="tx-12"> Last 30 days</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 mg-t-20 mg-sm-t-0">
+                        <div class="card card-dashboard-finance">
+                            <h6 class="card-title">Total Customers</h6>
+                            <h2> {{ number_format(($total_customers ?? 0)) }}</h2>
+                            <span class="tx-12">Customers till today</span>
+                        </div>
+                    </div>
+                </div>
                 <div class="row row-sm mg-b-20 mg-lg-b-0">
-                    <div class="col-lg-5 col-xl-4">
+                    <div class="col-lg-6 col-xl-6">
                         <div class="row row-sm">
                             <div class="col-md-6 col-lg-12 mg-b-20 mg-md-b-0 mg-lg-b-20">
                                 <div class="card card-dashboard-five">
                                     <div class="card-header">
-                                        <h6 class="card-title">Monthly Sale & Recovery</h6>
-                                        <span class="card-text">Tells you where your Sale & Recovery (Last 30 Days)</span>
+                                        <h6 class="card-title">Monthly Sale & Orders</h6>
+                                        <span class="card-text">Tells you where your Sale & orders (Last 30 Days)</span>
                                     </div>
                                     <div class="card-body row row-sm">
-                                        <div class="col-6 d-sm-flex align-items-center">
+                                        <div class="col-4 d-sm-flex align-items-center">
                                             <div class="card-chart bg-primary">
                                                 <i class="typcn typcn-shopping-cart fs-2 text-white"></i>
                                             </div>
@@ -45,7 +75,7 @@
                                                 <h4>{{ number_format($total_sales ?? 0) }}</h4>
                                             </div>
                                         </div>
-                                        <div class="col-6 d-sm-flex align-items-center">
+                                        <div class="col-4 d-sm-flex align-items-center">
                                             <div class="card-chart bg-purple">
                                                 <i class="typcn typcn-arrow-minimise-outline fs-2 text-white"></i>
                                             </div>
@@ -54,36 +84,54 @@
                                                 <h4>{{ number_format($total_recovery ?? 0) }}</h4>
                                             </div>
                                         </div>
+                                        <div class="col-4 d-sm-flex align-items-center">
+                                            <div class="card-chart bg-success">
+                                                <i class="typcn typcn-th-list-outline fs-2 text-white"></i>
+                                            </div>
+                                            <div>
+                                                <label>Monthly Orders</label>
+                                                <h4>{{ number_format($orders->count() ?? 0) }}</h4>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-5 col-xl-4">
+                    <div class="col-lg-6 col-xl-6">
                         <div class="row row-sm">
                             <div class="col-md-6 col-lg-12 mg-b-20 mg-md-b-0 mg-lg-b-20">
                                 <div class="card card-dashboard-five">
                                     <div class="card-header">
-                                        <h6 class="card-title">Total Orders & Customers</h6>
-                                        <span class="card-text">Tells you where your Order & Customers (Last 30 Days)</span>
+                                        <h6 class="card-title">Monthly Sale & Custom Orders </h6>
+                                        <span class="card-text">Tells you where your Sale & custom orders (Last 30 Days)</span>
                                     </div>
                                     <div class="card-body row row-sm">
-                                        <div class="col-6 d-sm-flex align-items-center">
-                                            <div class="card-chart bg-info">
-                                                <i class="typcn typcn-th-list-outline fs-2 text-white"></i>
+                                        <div class="col-4 d-sm-flex align-items-center">
+                                            <div class="card-chart bg-primary">
+                                                <i class="typcn typcn-shopping-cart fs-2 text-white"></i>
                                             </div>
                                             <div>
-                                                <label>Monthly Orders</label>
-                                                <h4>{{ number_format($orders->count()) }}</h4>
+                                                <label>Monthly Sale</label>
+                                                <h4>{{ number_format($total_custom_sales ?? 0) }}</h4>
                                             </div>
                                         </div>
-                                        <div class="col-6 d-sm-flex align-items-center">
+                                        <div class="col-4 d-sm-flex align-items-center">
                                             <div class="card-chart bg-purple">
-                                                <i class="typcn typcn-business-card fs-2 text-white"></i>
+                                                <i class="typcn typcn-arrow-minimise-outline fs-2 text-white"></i>
                                             </div>
                                             <div>
-                                                <label>Customers</label>
-                                                <h4>{{ number_format($total_customers ?? 0) }}</h4>
+                                                <label>Recovery</label>
+                                                <h4>{{ number_format($total_custom_recovery ?? 0) }}</h4>
+                                            </div>
+                                        </div>
+                                        <div class="col-4 d-sm-flex align-items-center">
+                                            <div class="card-chart bg-success">
+                                                <i class="typcn typcn-th-list fs-2 text-white"></i>
+                                            </div>
+                                            <div>
+                                                <label>Custom Orders</label>
+                                                <h4>{{ number_format($custom_orders->count()) }}</h4>
                                             </div>
                                         </div>
                                     </div>
@@ -289,6 +337,203 @@
                         </div>
                     </div>
                 </div>
+                <div class="row row-sm mg-b-20">
+                    <div class="col-lg-4">
+                        <div class="card card-dashboard-pageviews">
+                            <div class="card-header">
+                                <h6 class="card-title">Custom Order by Statuses</h6>
+                                <p class="card-text">These counts are Custom orders statuses.</p>
+                            </div>
+                            <div class="card-body">
+                                @php
+                                    $total_order =  $custom_orders->count();
+                                @endphp
+                                <div class="az-list-item">
+                                    <div>
+                                        <h6>Pending Orders</h6>
+                                        <a href="{{ route('seller.custom-orders.index', ['status' => 'Pending']) }}">View pending orders</a>
+                                    </div>
+                                    <div>
+                                        <h6 class="tx-primary">{{ number_format($custom_orders->where('status', 'Pending')->count()) }}</h6>
+                                        @php
+                                            $pending = $custom_orders->where('status', 'Pending')->count();
+                                            $total_order =  $custom_orders->count();
+                                            $Pending_custom_percetage = round(($pending/$total_order) * 100, 2);
+                                        @endphp
+                                        <span>{{ $Pending_custom_percetage ?? 00.00 }}% (-100.00%)</span>
+                                    </div>
+                                </div>
+                                <div class="az-list-item">
+                                    <div>
+                                        <h6>Varification Orders</h6>
+                                        <a href="{{ route('seller.custom-orders.index', ['status' => 'Varification']) }}">View varification orders</a>
+                                    </div>
+                                    <div>
+                                        <h6 class="tx-primary">{{ number_format($custom_orders->where('status', 'Varification')->count()) }}</h6>
+                                        @php
+                                            $Varification = $custom_orders->where('status', 'Varification')->count();
+                                            $total_order =  $custom_orders->count();
+                                            $Varification_custom_percetage = round(($Varification/$total_order) * 100, 2);
+                                        @endphp
+                                        <span>{{ $Varification_custom_percetage ?? 00.00 }}% (-100.00%)</span>
+                                    </div>
+                                </div>
+                                <div class="az-list-item">
+                                    <div>
+                                        <h6>Processing Orders</h6>
+                                        <a href="{{ route('seller.custom-orders.index', ['status' => 'Processing']) }}">View Processing orders</a>
+                                    </div>
+                                    <div>
+                                        <h6 class="tx-primary">{{ number_format($custom_orders->where('status', 'Processing')->count()) }}</h6>
+                                        @php
+                                            $Processing = $custom_orders->where('status', 'Processing')->count();
+                                            $total_order =  $custom_orders->count();
+                                            $Processing_custom_percetage = round(($Processing/$total_order) * 100, 2);
+                                        @endphp
+                                        <span>{{ $Processing_custom_percetage ?? 00.00 }}% (-100.00%)</span>
+                                    </div>
+                                </div>
+                                <div class="az-list-item">
+                                    <div>
+                                        <h6>Delivered Orders</h6>
+                                        <a href="{{ route('seller.custom-orders.index', ['status' => 'Delivered']) }}">View Delivered orders</a>
+                                    </div>
+                                    <div>
+                                        <h6 class="tx-primary">{{ number_format($custom_orders->where('status', 'Delivered')->count()) }}</h6>
+                                        @php
+                                            $Delivered = $custom_orders->where('status', 'Delivered')->count();
+                                            $total_order =  $custom_orders->count();
+                                            $Delivered_custom_percetage = round(($Delivered/$total_order) * 100, 2);
+                                        @endphp
+                                        <span>{{ $Delivered_custom_percetage ?? 00.00 }}% (-100.00%)</span>
+                                    </div>
+                                </div>
+                                <div class="az-list-item">
+                                    <div>
+                                        <h6>Instalments Orders</h6>
+                                        <a href="{{ route('seller.custom-orders.index', ['status' => 'Instalments']) }}">View Instalments orders</a>
+                                    </div>
+                                    <div>
+                                        <h6 class="tx-primary">{{ number_format($custom_orders->where('status', 'Instalments')->count()) }}</h6>
+                                        @php
+                                            $Instalments = $custom_orders->where('status', 'Instalments')->count();
+                                            $total_order =  $custom_orders->count();
+                                            $Instalments_custom_percetage = round(($Instalments/$total_order) * 100, 2);
+                                        @endphp
+                                        <span>{{ $Instalments_custom_percetage ?? 00.00 }}% (-100.00%)</span>
+                                    </div>
+                                </div>
+                                <div class="az-list-item">
+                                    <div>
+                                        <h6>Completed Orders</h6>
+                                        <a href="{{ route('seller.custom-orders.index', ['status' => 'Completed']) }}">View Completed orders</a>
+                                    </div>
+                                    <div>
+                                        <h6 class="tx-primary">{{ number_format($custom_orders->where('status', 'Completed')->count()) }}</h6>
+                                        @php
+                                            $Completed = $custom_orders->where('status', 'Completed')->count();
+                                            $total_order =  $custom_orders->count();
+                                            $Completed_custom_percetage = round(($Completed/$total_order) * 100, 2);
+                                        @endphp
+                                        <span>{{ $Completed_custom_percetage ?? 00.00 }}% (-100.00%)</span>
+                                    </div>
+                                </div>
+                                <div class="az-list-item">
+                                    <div>
+                                        <h6>Cancelled Orders</h6>
+                                        <a href="{{ route('seller.custom-orders.index', ['status' => 'Cancelled']) }}">View Cancelled orders</a>
+                                    </div>
+                                    <div>
+                                        <h6 class="tx-primary">{{ number_format($custom_orders->where('status', 'Cancelled')->count()) }}</h6>
+                                        @php
+                                            $Cancelled = $custom_orders->where('status', 'Cancelled')->count();
+                                            $total_order =  $custom_orders->count();
+                                            $Cancelled_custom_percetage = round(($Cancelled/$total_order) * 100, 2);
+                                        @endphp
+                                        <span>{{ $Cancelled_custom_percetage ?? 00.00 }}% (-100.00%)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8 mg-t-20 mg-lg-t-0">
+                        <div class="card card-dashboard-four">
+                            <div class="card-header">
+                            <h6 class="card-title">Custom Orders by Statuses</h6>
+                            </div>
+                            <div class="card-body row">
+                                <div class="col-md-6 d-flex align-items-center">
+                                    <div class="chart"><canvas id="CustomchartDonut"></canvas></div>
+                                </div>
+                                <div class="col-md-6 col-lg-5 mg-lg-l-auto mg-t-20 mg-md-t-0">
+                                    <div class="az-traffic-detail-item">
+                                        <div>
+                                            <span>Pending Orders</span>
+                                            <span>{{ number_format($custom_orders->where('status', 'Pending')->count()) }} <span>({{ $Pending_custom_percetage ?? '00.00' }}%)</span></span>
+                                        </div>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-purple wd-{{ $Pending_custom_percetage ?? '0' }}p" role="progressbar" aria-valuenow="{{ $Pending_custom_percetage ?? '0' }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                    <div class="az-traffic-detail-item">
+                                        <div>
+                                            <span>Varification Orders</span>
+                                            <span>{{ number_format($custom_orders->where('status', 'Varification')->count()) }} <span>({{ $Varification_custom_percetage ?? '0' }}%)</span></span>
+                                        </div>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-warning wd-{{ $Varification_custom_percetage ?? '0' }}p" role="progressbar" aria-valuenow="{{ $Varification_custom_percetage ?? '0' }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                    <div class="az-traffic-detail-item">
+                                        <div>
+                                            <span>Processing Orders</span>
+                                            <span>{{ number_format($custom_orders->where('status', 'Processing')->count()) }} <span>({{ $Processing_custom_percetage ?? '0' }}%)</span></span>
+                                        </div>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-info wd-{{ $Processing_custom_percetage ?? '0' }}p" role="progressbar" aria-valuenow="{{ $Processing_custom_percetage ?? '0' }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                    <div class="az-traffic-detail-item">
+                                        <div>
+                                            <span>Delivered Orders</span>
+                                            <span>{{ number_format($custom_orders->where('status', 'Delivered')->count()) }} <span>({{ $Delivered_custom_percetage ?? '0' }}%)</span></span>
+                                        </div>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-primary wd-{{ $Delivered_custom_percetage ?? '0' }}p" role="progressbar" aria-valuenow="{{ $Delivered_custom_percetage ?? '0' }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                    <div class="az-traffic-detail-item">
+                                        <div>
+                                            <span>Instalments Orders</span>
+                                            <span>{{ number_format($custom_orders->where('status', 'Instalments')->count()) }} <span>({{ $Instalments_custom_percetage ?? '0' }}%)</span></span>
+                                        </div>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-dark wd-{{ $Instalments_custom_percetage ?? '0' }}p" role="progressbar" aria-valuenow="{{ $Instalments_custom_percetage ?? '0' }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                    <div class="az-traffic-detail-item">
+                                        <div>
+                                            <span>Completed Orders</span>
+                                            <span>{{ number_format($custom_orders->where('status', 'Completed')->count()) }} <span>({{ $Completed_custom_percetage ?? '0' }}%)</span></span>
+                                        </div>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-success wd-{{ $Completed_custom_percetage ?? '0' }}p" role="progressbar" aria-valuenow="{{ $Completed_custom_percetage ?? '0' }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                    <div class="az-traffic-detail-item">
+                                        <div>
+                                            <span>Cancelled Orders</span>
+                                            <span>{{ number_format($custom_orders->where('status', 'Cancelled')->count()) }} <span>({{ $Cancelled_custom_percetage ?? '0' }}%)</span></span>
+                                        </div>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-danger wd-{{ $Cancelled_custom_percetage ?? '0' }}p" role="progressbar" aria-valuenow="{{ $Cancelled_custom_percetage ?? '0' }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="az-content-body-left">
                     <div class="row row-sm mg-b-20 pt-4">
                         <div class="col-12 col-lg-12 col-xxl-12 d-flex">
@@ -352,7 +597,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($orders as $item)
+                                        @foreach ($orders->take(5) as $item)
                                             <tr>
                                                 <td>
                                                     {{ $item->cart->product->title ?? '' }} <br>
@@ -431,11 +676,34 @@
                 }
             };
 
-            // For a doughnut chart
+            // For a Orders doughnut chart
             var ctxpie= document.getElementById('chartDonut');
             var myPieChart6 = new Chart(ctxpie, {
                 type: 'doughnut',
                 data: datapie,
+                options: optionpie
+            });
+
+            var customdatapie = {
+                labels: ['Pending', 'Varification', 'Processing', 'Delivered', 'Instalments', 'Completed', 'Cancelled'],
+                datasets: [{
+                    data: [ parseInt({{ $Pending_custom_percetage ?? 0 }}),
+                            parseInt({{ $Varification_custom_percetage ?? 0 }}),
+                            parseInt({{ $Processing_custom_percetage ?? 0 }}),
+                            parseInt({{ $Delivered_custom_percetage ?? 0 }}),
+                            parseInt({{ $Instalments_custom_percetage ?? 0 }}),
+                            parseInt({{ $Completed_custom_percetage ?? 0 }}),
+                            parseInt({{ $Cancelled_custom_percetage ?? 0 }})
+                        ],
+                    backgroundColor: ['#6f42c1', '#ffc107','#0dcaf0','#3366ff','#1c273c','#3bb001','#dc3545']
+                }]
+            };
+
+            // For a Csutom Orders doughnut chart
+            var ctxpie= document.getElementById('CustomchartDonut');
+            var myPieChart6 = new Chart(ctxpie, {
+                type: 'doughnut',
+                data: customdatapie,
                 options: optionpie
             });
         });

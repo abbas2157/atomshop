@@ -26219,12 +26219,12 @@ ul.list-ckeck-soft li::after {
 }
 @media (min-width: 992px) {
   .card-dashboard-finance {
-    min-height: 172px;
+    /* min-height: 172px; */
   }
 }
 @media (min-width: 1200px) {
   .card-dashboard-finance {
-    min-height: 165px;
+    /* min-height: 165px; */
   }
 }
 .card-dashboard-finance .card-title {
